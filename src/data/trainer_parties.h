@@ -2798,27 +2798,28 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GamerStan[] = {
 static const struct TrainerMonNoItemCustomMoves sParty_SuperNerdAidan[] = {
     {
         .iv = 5,
-        .lvl = 20,
-        .species = SPECIES_VOLTORB,
-        .moves = {MOVE_SONIC_BOOM, MOVE_SCREECH, MOVE_TACKLE, MOVE_CHARGE},
+        .lvl = 25,
+        .species = SPECIES_GRAVELER,
+        .moves = {MOVE_MAGNITUDE, MOVE_DEFENSE_CURL, MOVE_NONE, MOVE_NONE},
     },
     {
         .iv = 5,
-        .lvl = 20,
-        .species = SPECIES_KOFFING,
-        .moves = {MOVE_SLUDGE, MOVE_SMOG, MOVE_TACKLE, MOVE_POISON_GAS},
+        .lvl = 25,
+        .species = SPECIES_GOLBAT,
+        .moves = {MOVE_WING_ATTACK, MOVE_BITE, MOVE_TAUNT, MOVE_SUPERSONIC},
     },
     {
         .iv = 5,
-        .lvl = 20,
-        .species = SPECIES_VOLTORB,
-        .moves = {MOVE_SONIC_BOOM, MOVE_SCREECH, MOVE_TACKLE, MOVE_CHARGE},
+        .lvl = 25,
+        .species = SPECIES_MAGNETON,
+        .moves = {MOVE_SPARK, MOVE_CHARGE, MOVE_SONIC_BOOM, MOVE_SUPERSONIC},
     },
+
     {
         .iv = 5,
-        .lvl = 20,
-        .species = SPECIES_MAGNEMITE,
-        .moves = {MOVE_SONIC_BOOM, MOVE_SUPERSONIC, MOVE_THUNDER_SHOCK, MOVE_TACKLE},
+        .lvl = 25,
+        .species = SPECIES_METANG,
+        .moves = {MOVE_CONFUSION, MOVE_METAL_CLAW, MOVE_TAKE_DOWN, MOVE_ROCK_SMASH},
     },
 };
 
@@ -2859,12 +2860,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_FishermanLuc[] = {
 
 static const struct TrainerMonNoItemDefaultMoves sParty_FishermanLuc2[] = {
     {
-        .iv = 5,
+        .iv = 15,
         .lvl = 33,
         .species = SPECIES_GYARADOS,
     },
     {
-        .iv = 5,
+        .iv = 15,
         .lvl = 33,
         .species = SPECIES_SEAKING,
     },

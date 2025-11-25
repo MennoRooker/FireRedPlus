@@ -1708,7 +1708,7 @@ const struct Trainer gTrainers[] = {
         .trainerPic = TRAINER_PIC_SUPER_NERD,
         .trainerName = _("AIDAN"),
         .items = {},
-        .doubleBattle = FALSE,
+        .doubleBattle = TRUE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
         .party = NO_ITEM_CUSTOM_MOVES(sParty_SuperNerdAidan),
     },
