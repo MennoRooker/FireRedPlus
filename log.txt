@@ -409,7 +409,10 @@ certain things from all the different surf zones once
 you get the HM. That way you're not stumbling upon it
 later in the game, when you're already overleveled.
 
-
+Can I maybe just make all punching and kicking moves
+physical and all breath moves like dragonbreath spe-
+cial or should I just implement phys/spec split at
+that point?
 
 
 
@@ -454,6 +457,8 @@ x Gen 6 types (no fairy)
 - Add medicine pocket
 - Generate docs with Python scripts
 - Add gen 4 evos
+- Add Fairy type
+- Physical/special split
 
 
 

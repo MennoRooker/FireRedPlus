@@ -26,7 +26,7 @@ RockTunnel_1F_EventScript_Lucas::
 	end
 
 RockTunnel_1F_EventScript_Abe::
-	trainerbattle_single TRAINER_POKEMANIAC_ASHTON, RockTunnel_1F_Text_AbeIntro, RockTunnel_1F_Text_AbeDefeat
+	trainerbattle_single TRAINER_POKEMANIAC_ABE, RockTunnel_1F_Text_AbeIntro, RockTunnel_1F_Text_AbeDefeat
 	msgbox RockTunnel_1F_Text_AbePostBattle, MSGBOX_AUTOCLOSE
 	end
 

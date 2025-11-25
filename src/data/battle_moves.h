@@ -2928,10 +2928,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_DRAGON_BREATH] =
     {
         .effect = EFFECT_PARALYZE_HIT,
-        .power = 60,
+        .power = 80,
         .type = TYPE_DRAGON,
         .accuracy = 100,
-        .pp = 20,
+        .pp = 15,
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,

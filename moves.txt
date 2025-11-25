@@ -138,6 +138,10 @@ Now has a 20% chance to flinch
 - Mega Horn
 85% -> 90%
 
+- Dragon Breath
+60 -> 80
+20PP -> 15PP
+
 - Iron Tail
 75% -> 85%
 

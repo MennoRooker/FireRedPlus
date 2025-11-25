@@ -331,7 +331,7 @@ spdef:	60 -> 80
 hp:	60 -> 70
 
 - AGGRON
-hp:	70 -> 92
+hp:	70 -> 90
 
 - CRADILY
 spatk:	81 -> 91
