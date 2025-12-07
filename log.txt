@@ -414,7 +414,18 @@ physical and all breath moves like dragonbreath spe-
 cial or should I just implement phys/spec split at
 that point?
 
+I'm using Team Rocket to block Celadon, Erika to block
+the 4th gym and I want to make it so that the tea can 
+only be given after beating Erika. The old lady could
+say "I get my tea leaves from Erika, but she's so 
+caught up with Team Rocket that I haven't gotten any
+from her in a while." I'll add a flag to Giovanni's
+first fight that sends Erika into her gym, adds the
+old pervert back to Celadon City and changes the old
+lady's dialogue.
 
+Bulldoze shows poison animation and doesn't lower
+speed. 
 
 
 
@@ -495,6 +506,9 @@ x Quiver Dance
 - Thunder Fang
 - Fire Fang
 - Iron Head
+- Poison Jab
+- Rock Polish
+- Bulldoze
 
 Items to add:
 - Eviolite

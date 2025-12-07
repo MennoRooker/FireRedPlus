@@ -215,6 +215,7 @@ const u16 gEggMoves[] = {
               MOVE_SYNTHESIS,
               MOVE_LEECH_LIFE,
               MOVE_INGRAIN,
+              MOVE_POISON_FANG,
               MOVE_MAGICAL_LEAF),
 
     egg_moves(TENTACOOL,

@@ -203,3 +203,8 @@ NORMAL -> ELECTRIC
 
 - Water Pulse
 60 -> 80
+
+**NEW**
+
+- Quiver Dance
+- Bulldoze

@@ -1045,6 +1045,14 @@ BattleScript_EffectDefenseDownHit::
 	goto BattleScript_EffectHit
 
 BattleScript_EffectSpeedDownHit::
+	jumpifnotmove MOVE_BULLDOZE, BattleScript_SpeedDownHitNormal
+	attackcanceler
+	attackstring
+	ppreduce
+	selectfirstvalidtarget
+	setmoveeffect MOVE_EFFECT_SPD_MINUS_1
+	goto BattleScript_HitsAllWithUndergroundBonusLoop
+BattleScript_SpeedDownHitNormal::
 	setmoveeffect MOVE_EFFECT_SPD_MINUS_1
 	goto BattleScript_EffectHit
 
