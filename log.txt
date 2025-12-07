@@ -456,10 +456,11 @@ x Gen 6 types (no fairy)
 - Sitrus berry 25% HP
 - Add medicine pocket
 - Generate docs with Python scripts
-- Add gen 4 evos
+- Add gen 4 evos after dex upgrade
 - Add Fairy type
 - Physical/special split
 - Gym leader have and give held items
+- Simultaneous wild pkmn and own pkmn anim
 
 
 
@@ -493,6 +494,7 @@ x Quiver Dance
 - Ice Fang
 - Thunder Fang
 - Fire Fang
+- Iron Head
 
 Items to add:
 - Eviolite

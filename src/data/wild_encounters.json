@@ -17267,12 +17267,12 @@
               {
                 "min_level": 18,
                 "max_level": 18,
-                "species": "SPECIES_PIDGEY"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 18,
                 "max_level": 18,
-                "species": "SPECIES_MEOWTH"
+                "species": "SPECIES_SPINARAK"
               },
               {
                 "min_level": 16,
@@ -17282,7 +17282,7 @@
               {
                 "min_level": 20,
                 "max_level": 20,
-                "species": "SPECIES_PIDGEY"
+                "species": "SPECIES_GLOOM"
               },
               {
                 "min_level": 20,
@@ -17292,7 +17292,7 @@
               {
                 "min_level": 17,
                 "max_level": 17,
-                "species": "SPECIES_EKANS"
+                "species": "SPECIES_SLAKOTH"
               },
               {
                 "min_level": 17,
@@ -17300,28 +17300,28 @@
                 "species": "SPECIES_GROWLITHE"
               },
               {
-                "min_level": 19,
-                "max_level": 19,
-                "species": "SPECIES_EKANS"
-              },
-              {
-                "min_level": 17,
-                "max_level": 17,
-                "species": "SPECIES_EKANS"
-              },
-              {
-                "min_level": 15,
-                "max_level": 15,
-                "species": "SPECIES_GROWLITHE"
-              },
-              {
-                "min_level": 17,
-                "max_level": 17,
-                "species": "SPECIES_EKANS"
+                "min_level": 16,
+                "max_level": 16,
+                "species": "SPECIES_SLAKOTH"
               },
               {
                 "min_level": 18,
                 "max_level": 18,
+                "species": "SPECIES_VIGOROTH"
+              },
+              {
+                "min_level": 16,
+                "max_level": 16,
+                "species": "SPECIES_GROWLITHE"
+              },
+              {
+                "min_level": 20,
+                "max_level": 20,
+                "species": "SPECIES_VIGOROTH"
+              },
+              {
+                "min_level": 23,
+                "max_level": 23,
                 "species": "SPECIES_GROWLITHE"
               }
             ]
@@ -17336,12 +17336,12 @@
               {
                 "min_level": 18,
                 "max_level": 18,
-                "species": "SPECIES_PIDGEY"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 18,
                 "max_level": 18,
-                "species": "SPECIES_MEOWTH"
+                "species": "SPECIES_SPINARAK"
               },
               {
                 "min_level": 16,
@@ -17351,7 +17351,7 @@
               {
                 "min_level": 20,
                 "max_level": 20,
-                "species": "SPECIES_PIDGEY"
+                "species": "SPECIES_WEEPINBELL"
               },
               {
                 "min_level": 20,
@@ -17361,7 +17361,7 @@
               {
                 "min_level": 17,
                 "max_level": 17,
-                "species": "SPECIES_SANDSHREW"
+                "species": "SPECIES_SLAKOTH"
               },
               {
                 "min_level": 17,
@@ -17369,28 +17369,28 @@
                 "species": "SPECIES_VULPIX"
               },
               {
-                "min_level": 19,
-                "max_level": 19,
-                "species": "SPECIES_SANDSHREW"
-              },
-              {
-                "min_level": 17,
-                "max_level": 17,
-                "species": "SPECIES_SANDSHREW"
-              },
-              {
-                "min_level": 15,
-                "max_level": 15,
-                "species": "SPECIES_VULPIX"
-              },
-              {
-                "min_level": 17,
-                "max_level": 17,
-                "species": "SPECIES_SANDSHREW"
+                "min_level": 16,
+                "max_level": 16,
+                "species": "SPECIES_SLAKOTH"
               },
               {
                 "min_level": 18,
                 "max_level": 18,
+                "species": "SPECIES_VIGOROTH"
+              },
+              {
+                "min_level": 16,
+                "max_level": 16,
+                "species": "SPECIES_VULPIX"
+              },
+              {
+                "min_level": 20,
+                "max_level": 20,
+                "species": "SPECIES_VIGOROTH"
+              },
+              {
+                "min_level": 23,
+                "max_level": 23,
                 "species": "SPECIES_VULPIX"
               }
             ]

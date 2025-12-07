@@ -294,8 +294,17 @@ spatk:	40 -> 90
 - SHARPEDO
 spd:	95 -> 115
 
+- VIBRAVA
+hp:	50 -> 55
+atk:	70 -> 80
+def:	50 -> 55
+spatk:	50 -> 55
+spdef:	50 -> 55
+spd:	70 -> 80
+
 - FLYGON
-atk:	100-> 110
+atk:	100-> 115
+spd:	100-> 115
 
 - CAMERUPT
 hp:	70 -> 100

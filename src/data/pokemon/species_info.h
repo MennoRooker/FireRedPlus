@@ -8965,12 +8965,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
     },
     [SPECIES_VIBRAVA] =
     {
-        .baseHP = 50,
-        .baseAttack = 70,
-        .baseDefense = 50,
-        .baseSpeed = 70,
-        .baseSpAttack = 50,
-        .baseSpDefense = 50,
+        .baseHP = 55,
+        .baseAttack = 80,
+        .baseDefense = 55,
+        .baseSpeed = 80,
+        .baseSpAttack = 55,
+        .baseSpDefense = 55,
         .types = {TYPE_GROUND, TYPE_DRAGON},
         .catchRate = 120,
         .expYield = 126,
@@ -8995,9 +8995,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_FLYGON] =
     {
         .baseHP = 80,
-        .baseAttack = 110,
+        .baseAttack = 115,
         .baseDefense = 80,
-        .baseSpeed = 100,
+        .baseSpeed = 115,
         .baseSpAttack = 80,
         .baseSpDefense = 80,
         .types = {TYPE_GROUND, TYPE_DRAGON},

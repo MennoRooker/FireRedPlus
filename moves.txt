@@ -118,6 +118,7 @@ Now has a 20% chance to flinch
 
 - Flash
 70% -> 100%
+NORMAL -> ELECTRIC
 
 - Fury Swipes
 80% -> 95%

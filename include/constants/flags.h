@@ -193,10 +193,10 @@
 #define FLAG_HIDE_BUGSY_VIRIDIAN_FOREST                    0x0B1
 #define FLAG_HIDE_BUGSY_ROUTE2                             0x0B2
 #define FLAG_BUGSY_ITEM_EXCHANGED                          0x0B3
+#define FLAG_HIDE_TEAM_ROCKET_ROUTE7                       0x0B4
 
 
 // Unused
-#define FLAG_0x0B4               0x0B4
 #define FLAG_0x0B5               0x0B5
 #define FLAG_0x0B6               0x0B6
 #define FLAG_0x0B7               0x0B7
