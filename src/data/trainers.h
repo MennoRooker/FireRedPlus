@@ -1320,7 +1320,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_LassKay),
+        .party = NO_ITEM_CUSTOM_MOVES(sParty_LassKay),
     },
     [TRAINER_LASS_LISA] = {
         .trainerClass = TRAINER_CLASS_LASS,
@@ -3480,7 +3480,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_BossGiovanni),
+        .party = ITEM_CUSTOM_MOVES(sParty_BossGiovanni),
     },
     [TRAINER_BOSS_GIOVANNI_2] = {
         .trainerClass = TRAINER_CLASS_BOSS,

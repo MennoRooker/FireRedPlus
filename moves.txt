@@ -3,8 +3,11 @@ MOVE CHANGES
 Dark and Dragon type moves are now all physical
 Ghost type moves are all special
 
-- Mega Pucnh
+- Mega Punch
 85% -> 95%
+
+- Pay Day
+40 -> 65
 
 - Cut
 NORMAL -> STEEL

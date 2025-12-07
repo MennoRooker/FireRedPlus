@@ -81,7 +81,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_PAY_DAY] =
     {
         .effect = EFFECT_PAY_DAY,
-        .power = 40,
+        .power = 65,
         .type = TYPE_NORMAL,
         .accuracy = 100,
         .pp = 20,
