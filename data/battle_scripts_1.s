@@ -1046,12 +1046,33 @@ BattleScript_EffectDefenseDownHit::
 
 BattleScript_EffectSpeedDownHit::
 	jumpifnotmove MOVE_BULLDOZE, BattleScript_SpeedDownHitNormal
+	@ Bulldoze: Temporarily set power to 70 for Magnitude animation
+	copyword sBIDE_DMG, gBattleMovePower
+	setword gBattleMovePower, 70
+	setmoveeffect MOVE_EFFECT_SPD_MINUS_1
 	attackcanceler
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 	attackstring
 	ppreduce
-	selectfirstvalidtarget
-	setmoveeffect MOVE_EFFECT_SPD_MINUS_1
-	goto BattleScript_HitsAllWithUndergroundBonusLoop
+	critcalc
+	damagecalc
+	typecalc
+	adjustnormaldamage
+	attackanimation
+	waitanimation
+	copyword gBattleMovePower, sBIDE_DMG
+	effectivenesssound
+	hitanimation BS_TARGET
+	waitstate
+	healthbarupdate BS_TARGET
+	datahpupdate BS_TARGET
+	critmessage
+	waitmessage B_WAIT_TIME_LONG
+	resultmessage
+	waitmessage B_WAIT_TIME_LONG
+	seteffectwithchance
+	tryfaintmon BS_TARGET
+	goto BattleScript_MoveEnd
 BattleScript_SpeedDownHitNormal::
 	setmoveeffect MOVE_EFFECT_SPD_MINUS_1
 	goto BattleScript_EffectHit

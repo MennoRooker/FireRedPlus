@@ -142,6 +142,9 @@ NORMAL -> ELECTRIC
 - Mega Horn
 85% -> 90%
 
+- Fury Cutter
+10 -> 20
+
 - Dragon Breath
 60 -> 80
 20PP -> 15PP
