@@ -427,6 +427,19 @@ lady's dialogue.
 Bulldoze shows poison animation and doesn't lower
 speed. Fixed to show magnitude 7 animation.
 
+I want the player to reach Fuchsia City before you 
+fight team Rocket in Silph Co. This way it makes
+sense that Giovanni has gotten stronger and it adds
+even more linearity. Giovanni cannot be fought until 
+Koga is defeated. Mr Fuji's flag has been replaced 
+by Koga's flag for the Silph Co. door guard.
+
+TO DO (quick):
+
+- Cerulean gym blocked
+- Team Rocket Scene 
+- Dojo and Silph Co.
+- Snorlax routes
 
 
 
@@ -436,10 +449,7 @@ speed. Fixed to show magnitude 7 animation.
 
 
 
-
-
-
-TO DO:
+TO DO (long):
 x Add NPC to block route 22
 x Add Bugsy
 x Force SET mode
@@ -452,6 +462,7 @@ x Nature highlighting
 - Remove X items
 x Instant Running Shoes
 x Instant National Dex
+- National dex checks by aides
 x Get Old Rod from Old Man
 x Weather defense boosts
 x Gen 6 types (no fairy)
