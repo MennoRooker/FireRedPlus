@@ -27,6 +27,8 @@ RocketHideout_B4F_EventScript_Giovanni::
 	msgbox RocketHideout_B4F_Text_GiovanniPostBattle
 	fadescreen FADE_TO_BLACK
 	closemessage
+	setflag FLAG_HIDE_ERIKA_CELADON_CITY
+	clearflag FLAG_HIDE_OLD_PERVERT_CELADON_CITY
 	removeobject LOCALID_HIDEOUT_GIOVANNI
 	addobject LOCALID_SILPH_SCOPE
 	clearflag FLAG_HIDE_SILPH_SCOPE

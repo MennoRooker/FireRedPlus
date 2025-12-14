@@ -2,10 +2,6 @@ PokemonTower_3F_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, PokemonTower_3F_OnLoad
 	.byte 0
 
-PokemonTower_3F_OnLoad::
-	setflag FLAG_HIDE_TEAM_ROCKET_ROUTE7
-	end
-
 PokemonTower_3F_EventScript_Patricia::
 	trainerbattle_single TRAINER_CHANNELER_PATRICIA, PokemonTower_3F_Text_PatriciaIntro, PokemonTower_3F_Text_PatriciaDefeat
 	msgbox PokemonTower_3F_Text_PatriciaPostBattle, MSGBOX_AUTOCLOSE

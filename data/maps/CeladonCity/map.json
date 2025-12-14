@@ -152,7 +152,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "CeladonCity_EventScript_OldMan1",
-      "flag": "0"
+      "flag": "FLAG_HIDE_OLD_PERVERT_CELADON_CITY"
     },
     {
       "local_id": "LOCALID_CELADON_BORDER_TREE",
@@ -244,8 +244,8 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "0"
+      "script": "CeladonCity_EventScript_Erika",
+      "flag": "FLAG_HIDE_ERIKA_CELADON_CITY"
     }
   ],
   "warp_events": [

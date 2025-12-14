@@ -530,10 +530,11 @@
 #define FLAG_HIDE_SEVEN_ISLAND_SEVAULT_CANYON_HOUSE_LUCKY_PUNCH 0x1FD
 #define FLAG_HIDE_SILPH_CO_4F_TM41                              0x1FE
 #define FLAG_HIDE_ROUTE22_BUGSYS_NET                            0x1FF
+#define FLAG_HIDE_ERIKA_CELADON_CITY                            0x200
+#define FLAG_HIDE_OLD_PERVERT_CELADON_CITY                      0x201
+
 
 // Unused?
-#define FLAG_0x200               0x200
-#define FLAG_0x201               0x201
 #define FLAG_0x202               0x202
 #define FLAG_0x203               0x203
 #define FLAG_0x204               0x204

@@ -101,3 +101,7 @@ CeladonCity_EventScript_PrizeExchangeSign::
 CeladonCity_EventScript_GameCornerSign::
 	msgbox CeladonCity_Text_GameCornerSign, MSGBOX_SIGN
 	end
+
+CeladonCity_EventScript_Erika::
+	msgbox CeladonCity_Text_Erika, MSGBOX_NPC
+	end
