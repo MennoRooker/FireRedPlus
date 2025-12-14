@@ -532,10 +532,10 @@
 #define FLAG_HIDE_ROUTE22_BUGSYS_NET                            0x1FF
 #define FLAG_HIDE_ERIKA_CELADON_CITY                            0x200
 #define FLAG_HIDE_OLD_PERVERT_CELADON_CITY                      0x201
+#define FLAG_TEA_WOMAN_GIVES_TEA_IF_GIOVANNI_IS_BEATEN          0x202
 
 
 // Unused?
-#define FLAG_0x202               0x202
 #define FLAG_0x203               0x203
 #define FLAG_0x204               0x204
 #define FLAG_0x205               0x205

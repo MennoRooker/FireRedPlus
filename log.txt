@@ -425,7 +425,7 @@ old pervert back to Celadon City and changes the old
 lady's dialogue.
 
 Bulldoze shows poison animation and doesn't lower
-speed. 
+speed. Fixed to show magnitude 7 animation.
 
 
 

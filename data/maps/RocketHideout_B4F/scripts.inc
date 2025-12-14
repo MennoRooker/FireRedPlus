@@ -28,6 +28,7 @@ RocketHideout_B4F_EventScript_Giovanni::
 	fadescreen FADE_TO_BLACK
 	closemessage
 	setflag FLAG_HIDE_ERIKA_CELADON_CITY
+	setflag FLAG_TEA_WOMAN_GIVES_TEA_IF_GIOVANNI_IS_BEATEN
 	clearflag FLAG_HIDE_OLD_PERVERT_CELADON_CITY
 	removeobject LOCALID_HIDEOUT_GIOVANNI
 	addobject LOCALID_SILPH_SCOPE

@@ -1,5 +1,4 @@
 PokemonTower_3F_MapScripts::
-	map_script MAP_SCRIPT_ON_LOAD, PokemonTower_3F_OnLoad
 	.byte 0
 
 PokemonTower_3F_EventScript_Patricia::

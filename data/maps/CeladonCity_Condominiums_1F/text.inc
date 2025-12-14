@@ -2,9 +2,12 @@ CeladonCity_Condominiums_1F_Text_Meowth::
     .string "MEOWTH: Meow!$"
 
 CeladonCity_Condominiums_1F_Text_TryThisDrinkInstead::
-    .string "You shouldn't spend all your money\n"
-    .string "on drinks.\p"
-    .string "Try this instead.$"
+    .string "Oh, it's just wonderful.\p"
+    .string "Somebody finally managed to get rid\n"
+    .string "of TEAM ROCKET\p"
+    .string "I'm now able to get TEA LEAVES from\n"
+    .string "Erika again. I just got some.\p"
+    .string "Here you go.$"
 
 CeladonCity_Condominiums_1F_Text_NothingBeatsThirstLikeTea::
     .string "Nothing beats thirst like some hot\n"
@@ -35,3 +38,17 @@ CeladonCity_Condominiums_1F_Text_ManagersSuite::
     .string "CELADON MANSION\n"
     .string "Manager's Suite$"
 
+CeladonCity_Condominiums_1F_Text_TeaWomanCannotGiveTeaYet::
+    .string "I'm deeply sorry, dear.\p"
+    .string "Normally I would have a nice cup\n"
+    .string "of TEA for you, but I'm fresh out.\p"
+    .string "The problem is that I usually get my\n"
+    .string "TEA LEAVES from Erika.\p"
+    .string "She's not just a talented GYM LEADER\n"
+    .string "you know.\p"
+    .string "She does so much more for the people\n"
+    .string "of this town.\p"
+    .string "Sadly I can't get any more TEA\n"
+    .string "LEAVES from her.\p"
+    .string "At least not until that TEAM ROCKET\n"
+    .string "is dealt with.$"
