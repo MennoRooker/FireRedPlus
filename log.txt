@@ -434,6 +434,11 @@ even more linearity. Giovanni cannot be fought until
 Koga is defeated. Mr Fuji's flag has been replaced 
 by Koga's flag for the Silph Co. door guard.
 
+I added Gliscor to a trainer party as a comment on 
+route 14. Rematches after becoming Champion and 
+fights with trainers on islands 4-7 should feature
+gen IV evos eventually.
+
 TO DO (quick):
 
 - Cerulean gym blocked
