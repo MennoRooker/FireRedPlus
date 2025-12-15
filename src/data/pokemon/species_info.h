@@ -1111,10 +1111,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_NINETALES] =
     {
         .baseHP = 73,
-        .baseAttack = 76,
+        .baseAttack = 66,
         .baseDefense = 75,
         .baseSpeed = 100,
-        .baseSpAttack = 81,
+        .baseSpAttack = 91,
         .baseSpDefense = 100,
         .types = {TYPE_FIRE, TYPE_FIRE},
         .catchRate = 75,

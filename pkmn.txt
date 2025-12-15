@@ -65,6 +65,8 @@ POISON -> POISON/DARK
 Flash Fire -> Flash Fire/Drought
 
 - NINETALES
+atk:	76 -> 66
+spatk:	81 -> 91
 Flash Fire -> Flash Fire/Drought
 
 - MEOWTH
