@@ -26,6 +26,12 @@ CeladonCity_Gym_EventScript_GiveTM19::
 	giveitem_msg CeladonCity_Gym_Text_ReceivedTM19FromErika, ITEM_TM19
 	setflag FLAG_GOT_TM19_FROM_ERIKA
 	msgbox CeladonCity_Gym_Text_ExplainTM19
+	goto CeladonCity_Gym_EventScript_ErikaGivesTeaLeaves
+	end
+
+CeladonCity_Gym_EventScript_ErikaGivesTeaLeaves::
+	msgbox CeladonCity_Gym_Text_ErikaGivesTeaLeaves
+	clearflag FLAG_PLAYER_DOES_NOT_HAVE_TEA_LEAVES_YET
 	release
 	end
 

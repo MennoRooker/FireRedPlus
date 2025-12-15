@@ -162,7 +162,7 @@ WATER -> WATER/NORMAL
 WATER -> WATER/NORMAL
 
 - POLITOED
-Damp -> Drizzle
+Water Absorb/Damp -> Drizzle
 
 - HOPPIP
 spatk:	35 -> 45

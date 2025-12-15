@@ -532,11 +532,11 @@
 #define FLAG_HIDE_ROUTE22_BUGSYS_NET                            0x1FF
 #define FLAG_HIDE_ERIKA_CELADON_CITY                            0x200
 #define FLAG_HIDE_OLD_PERVERT_CELADON_CITY                      0x201
-#define FLAG_TEA_WOMAN_GIVES_TEA_IF_GIOVANNI_IS_BEATEN          0x202
+#define FLAG_TEA_WOMAN_DIALOGUE_AFTER_BEATING_GIOVANNI          0x202
+#define FLAG_PLAYER_DOES_NOT_HAVE_TEA_LEAVES_YET                0x203
 
 
 // Unused?
-#define FLAG_0x203               0x203
 #define FLAG_0x204               0x204
 #define FLAG_0x205               0x205
 #define FLAG_0x206               0x206

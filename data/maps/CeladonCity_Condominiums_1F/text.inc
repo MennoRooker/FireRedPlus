@@ -1,13 +1,28 @@
 CeladonCity_Condominiums_1F_Text_Meowth::
     .string "MEOWTH: Meow!$"
 
-CeladonCity_Condominiums_1F_Text_TryThisDrinkInstead::
+CeladonCity_Condominiums_1F_Text_SendPlayerToGetTeaLeaves::
     .string "Oh, it's just wonderful.\p"
     .string "Somebody finally managed to get rid\n"
     .string "of TEAM ROCKET\p"
-    .string "I'm now able to get TEA LEAVES from\n"
-    .string "Erika again. I just got some.\p"
-    .string "Here you go.$"
+    .string "I will now able to get TEA LEAVES\n"
+    .string "from Erika again.\p"
+    .string "Would you be a dear and pick up my\n"
+    .string "order of TEA LEAVES from her?\p"
+    .string "She should be at her GYM right now,\n"
+    .string "ready to face new challengers.$"
+
+CeladonCity_Condominiums_1F_Text_PlayerDoesNotHaveTeaLeaves::
+    .string "Did you manage to get the TEA LEAVES\n"
+    .string "from Erika, sweetheart?\p"
+    .string "She should be at her GYM right now,\n"
+    .string "ready to face new challengers.$"
+
+CeladonCity_Condominiums_1F_Text_TryThisDrinkInstead::
+    .string "Did you manage to get the TEA LEAVES\n"
+    .string "from Erika, sweetheart?\p"
+    .string "Oh, you have them!\p"
+    .string "I'll make you a cup right away.$"
 
 CeladonCity_Condominiums_1F_Text_NothingBeatsThirstLikeTea::
     .string "Nothing beats thirst like some hot\n"
@@ -38,7 +53,7 @@ CeladonCity_Condominiums_1F_Text_ManagersSuite::
     .string "CELADON MANSION\n"
     .string "Manager's Suite$"
 
-CeladonCity_Condominiums_1F_Text_TeaWomanCannotGiveTeaYet::
+CeladonCity_Condominiums_1F_Text_TeaWomanBeforeGiovanniIsBeaten::
     .string "I'm deeply sorry, dear.\p"
     .string "Normally I would have a nice cup\n"
     .string "of TEA for you, but I'm fresh out.\p"

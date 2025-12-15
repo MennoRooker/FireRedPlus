@@ -421,8 +421,8 @@ say "I get my tea leaves from Erika, but she's so
 caught up with Team Rocket that I haven't gotten any
 from her in a while." I'll add a flag to Giovanni's
 first fight that sends Erika into her gym, adds the
-old pervert back to Celadon City and changes the old
-lady's dialogue.
+old pervert back to Celadon City and I'll change the
+tea lady's dialogue.
 
 Bulldoze shows poison animation and doesn't lower
 speed. Fixed to show magnitude 7 animation.
@@ -523,7 +523,7 @@ x Quiver Dance
 - Fire Fang
 - Iron Head
 - Poison Jab
-- Rock Polish
+- Rock Polish (Erika's sudowoodo)
 - Bulldoze
 
 Items to add:

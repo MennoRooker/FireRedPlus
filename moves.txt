@@ -7,7 +7,7 @@ Ghost type moves are all special
 85% -> 95%
 
 - Pay Day
-40 -> 65
+40 -> 60
 
 - Cut
 NORMAL -> STEEL

@@ -24,6 +24,11 @@ CeladonCity_Gym_Text_ErikaDefeat::
     .string "I must confer on you the\n"
     .string "RAINBOWBADGE.$"
 
+CeladonCity_Gym_Text_ErikaGivesTeaLeaves::
+    .string "What's that? Ah yes, that lovely\n"
+    .string "lady's TEA LEAVES.\p"
+    .string "Here you go.$"
+
 CeladonCity_Gym_Text_ErikaPostBattle::
     .string "You are cataloging POKéMON?\n"
     .string "I must say I'm impressed.\p"
