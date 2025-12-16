@@ -439,12 +439,13 @@ route 14. Rematches after becoming Champion and
 fights with trainers on islands 4-7 should feature
 gen IV evos eventually.
 
-TO DO (quick):
-
+NEW GAME:
+- Old Man functions properly
+- Bugsy scenes function properly
 - Cerulean gym blocked
 - Team Rocket Scene 
-- Dojo and Silph Co.
-- Snorlax routes
+- Old pervert not at Celadon Gym
+- Silph Co. blocked before Koga
 
 
 
@@ -454,7 +455,7 @@ TO DO (quick):
 
 
 
-TO DO (long):
+TO DO:
 x Add NPC to block route 22
 x Add Bugsy
 x Force SET mode

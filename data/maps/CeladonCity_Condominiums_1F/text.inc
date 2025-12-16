@@ -13,8 +13,8 @@ CeladonCity_Condominiums_1F_Text_SendPlayerToGetTeaLeaves::
     .string "ready to face new challengers.$"
 
 CeladonCity_Condominiums_1F_Text_PlayerDoesNotHaveTeaLeaves::
-    .string "Did you manage to get the TEA LEAVES\n"
-    .string "from Erika, sweetheart?\p"
+    .string "Did you manage to get the TEA\n"
+    .string "LEAVES from Erika, sweetheart?\p"
     .string "She should be at her GYM right now,\n"
     .string "ready to face new challengers.$"
 

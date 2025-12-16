@@ -3,7 +3,7 @@ CeladonCity_Gym_Text_ErikaIntro::
     .string "Lovely weather, isn't it?\l"
     .string "It's so pleasant…\p"
     .string "Now that TEAM ROCKET is gone I\n"
-    .string "feel a huge weight lifted off of\p"
+    .string "feel a huge weight lifted off of\l"
     .string "my shoulders.\p"
     .string "I guess I should introduce myself\n"
     .string "now that the dust has settled.\p"
@@ -26,8 +26,18 @@ CeladonCity_Gym_Text_ErikaDefeat::
 
 CeladonCity_Gym_Text_ErikaGivesTeaLeaves::
     .string "What's that? Ah yes, that lovely\n"
-    .string "lady's TEA LEAVES.\p"
+    .string "lady is waiting for her order of\l"
+    .string "TEA LEAVES.\p"
     .string "Here you go.$"
+
+CeladonCity_Gym_Text_ReceivedTeaLeaves::
+    .string "{PLAYER} received the TEA LEAVES!$"
+
+CeladonCity_Gym_Text_ErikaSaysGoodLuck::
+    .string "I'm glad you are helping out the\n"
+    .string "people that live here.\p"
+    .string "I wish all challengers were as\n"
+    .string "heroic as you.$"
 
 CeladonCity_Gym_Text_ErikaPostBattle::
     .string "You are cataloging POKéMON?\n"

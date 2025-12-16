@@ -31,6 +31,11 @@ CeladonCity_Gym_EventScript_GiveTM19::
 
 CeladonCity_Gym_EventScript_ErikaGivesTeaLeaves::
 	msgbox CeladonCity_Gym_Text_ErikaGivesTeaLeaves
+	playfanfare MUS_OBTAIN_KEY_ITEM
+	message CeladonCity_Gym_Text_ReceivedTeaLeaves
+	waitmessage
+	waitfanfare
+	msgbox CeladonCity_Gym_Text_ErikaSaysGoodLuck
 	clearflag FLAG_PLAYER_DOES_NOT_HAVE_TEA_LEAVES_YET
 	release
 	end
