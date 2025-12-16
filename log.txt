@@ -512,6 +512,8 @@ x Snow Warning
 - Truant(change)
 - Wind Rider (Jumpluff & Shiftry)
 - Physical contact moves (Flareon & Hitmonchan)
+- Super Luck
+- Transform (Ditto)
 
 Moves to add:
 x Quiver Dance

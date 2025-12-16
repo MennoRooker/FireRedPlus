@@ -149,6 +149,13 @@ NORMAL -> ELECTRIC
 60 -> 80
 20PP -> 15PP
 
+- Baton Pass
+40PP -> 10PP
+
+- Rapid Spin
+20 -> 50
+40PP -> 15PP
+
 - Iron Tail
 75% -> 85%
 
