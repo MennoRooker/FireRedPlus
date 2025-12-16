@@ -527,7 +527,9 @@ x Quiver Dance
 - Iron Head
 - Poison Jab
 - Rock Polish (Erika's sudowoodo)
-- Bulldoze
+x Bulldoze
+- Freeze Dry
+
 
 Items to add:
 - Eviolite

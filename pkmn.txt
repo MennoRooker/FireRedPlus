@@ -78,6 +78,12 @@ WATER -> WATER/PSYCHIC
 - GOLDUCK
 WATER -> WATER/PSYCHIC
 
+- MACHOKE
+spd:	45 -> 52
+
+- MACHAMP
+spd:	55 -> 62
+
 - PONYTA
 hp:	50 -> 55
 Run Away -> Flame Body
