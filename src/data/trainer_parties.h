@@ -4080,22 +4080,22 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerGwen[] = {
     {
         .iv = 10,
         .lvl = 33,
-        .species = SPECIES_PIDGEY,
+        .species = SPECIES_SANDSLASH,
     },
     {
         .iv = 10,
         .lvl = 33,
-        .species = SPECIES_MEOWTH,
+        .species = SPECIES_MR_MIME,
     },
     {
         .iv = 10,
         .lvl = 33,
-        .species = SPECIES_PIDGEY,
+        .species = SPECIES_MIGHTYENA,
     },
     {
         .iv = 10,
         .lvl = 33,
-        .species = SPECIES_PIDGEOTTO,
+        .species = SPECIES_DELCATTY,
     },
 };
 
