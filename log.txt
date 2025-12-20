@@ -439,6 +439,13 @@ route 14. Rematches after becoming Champion and
 fights with trainers on islands 4-7 should feature
 gen IV evos eventually.
 
+Based on the current version of the Koga battle he 
+should probably give the player a TM for Poison Fang
+or Sludge Bomb instead of Toxic. I'll have to see 
+how I make that work. I also want Stick Web/Spider
+Web to be the same move and have 2 effects: blocking
+and lowering speed.
+
 NEW GAME:
 - Old Man functions properly
 - Bugsy scenes function properly
@@ -536,7 +543,8 @@ Items to add:
 - Expert Belt
 - Wise Glasses
 - Muscle Band
-- Focus sash
+- Focus Sash
+- Wide Lens
 
 
 LR BUTTONS:

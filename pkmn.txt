@@ -156,6 +156,7 @@ Torrent -> Torrent/Strong Jaw
 atk:	35 -> 85
 
 - ARIADOS
+spatk:	60 -> 75
 spd:	40 -> 105
 
 - AZURILL
