@@ -3277,14 +3277,6 @@ static const struct TrainerMonNoItemDefaultMoves sParty_ChannelerAngelica[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_ChannelerEmilia[] = {
-    {
-        .iv = 5,
-        .lvl = 28,
-        .species = SPECIES_XATU,
-    },
-};
-
 static const struct TrainerMonNoItemDefaultMoves sParty_ChannelerJennifer[] = {
     {
         .iv = 5,
@@ -3295,6 +3287,68 @@ static const struct TrainerMonNoItemDefaultMoves sParty_ChannelerJennifer[] = {
         .iv = 5,
         .lvl = 27,
         .species = SPECIES_ESPEON,
+    },
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_ChannelerEmilia[] = {
+    {
+        .iv = 5,
+        .lvl = 28,
+        .species = SPECIES_XATU,
+    },
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt19[] = {
+    {
+        .iv = 10,
+        .lvl = 33,
+        .species = SPECIES_GOLBAT,
+    },
+    {
+        .iv = 10,
+        .lvl = 33,
+        .species = SPECIES_HOUNDOOM,
+    },
+    {
+        .iv = 10,
+        .lvl = 33,
+        .species = SPECIES_WHISCASH,
+    },
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt20[] = {
+    {
+        .iv = 10,
+        .lvl = 34,
+        .species = SPECIES_ARIADOS,
+    },
+    {
+        .iv = 10,
+        .lvl = 34,
+        .species = SPECIES_AMPHAROS,
+    },
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt21[] = {
+    {
+        .iv = 10,
+        .lvl = 32,
+        .species = SPECIES_GLALIE,
+    },
+    {
+        .iv = 10,
+        .lvl = 32,
+        .species = SPECIES_SHELGON
+    },
+    {
+        .iv = 10,
+        .lvl = 32,
+        .species = SPECIES_RATICATE,
+    },
+    {
+        .iv = 10,
+        .lvl = 32,
+        .species = SPECIES_MIGHTYENA,
     },
 };
 
@@ -7155,59 +7209,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BossGiovanni2[] = {
 
 
 
-static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt19[] = {
-    {
-        .iv = 10,
-        .lvl = 25,
-        .species = SPECIES_ZUBAT,
-    },
-    {
-        .iv = 10,
-        .lvl = 25,
-        .species = SPECIES_ZUBAT,
-    },
-    {
-        .iv = 10,
-        .lvl = 25,
-        .species = SPECIES_GOLBAT,
-    },
-};
 
-static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt20[] = {
-    {
-        .iv = 10,
-        .lvl = 26,
-        .species = SPECIES_KOFFING,
-    },
-    {
-        .iv = 10,
-        .lvl = 26,
-        .species = SPECIES_DROWZEE,
-    },
-};
-
-static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt21[] = {
-    {
-        .iv = 10,
-        .lvl = 23,
-        .species = SPECIES_ZUBAT,
-    },
-    {
-        .iv = 10,
-        .lvl = 23,
-        .species = SPECIES_RATTATA,
-    },
-    {
-        .iv = 10,
-        .lvl = 23,
-        .species = SPECIES_RATICATE,
-    },
-    {
-        .iv = 10,
-        .lvl = 23,
-        .species = SPECIES_ZUBAT,
-    },
-};
 
 static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt22[] = {
     {

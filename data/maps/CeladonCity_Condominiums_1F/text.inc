@@ -19,8 +19,8 @@ CeladonCity_Condominiums_1F_Text_PlayerDoesNotHaveTeaLeaves::
     .string "ready to face new challengers.$"
 
 CeladonCity_Condominiums_1F_Text_TryThisDrinkInstead::
-    .string "Did you manage to get the TEA LEAVES\n"
-    .string "from Erika, sweetheart?\p"
+    .string "Did you manage to get the TEA\n"
+    .string "LEAVES from Erika, sweetheart?\p"
     .string "Oh, you have them!\p"
     .string "I'll make you a cup right away.$"
 

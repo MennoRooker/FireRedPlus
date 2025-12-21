@@ -446,12 +446,26 @@ how I make that work. I also want Stick Web/Spider
 Web to be the same move and have 2 effects: blocking
 and lowering speed.
 
+Any gifted Pokémon should be given despite a lack
+of space in the party. the Hitmons can be sent to 
+the PC even if the party is full. I will apply this 
+to the Eevee and other mons as well.
+
+I might introduce exp candies and have them scat-
+tered around in item balls and adding it to the 
+Pickup table. Perhaps replacing all scattered X 
+items with these candies.
+
+I might want to add all TMs to the department store
+instead of making them all reusable.
+
 NEW GAME:
 - Old Man functions properly
 - Bugsy scenes function properly
 - Cerulean gym blocked
 - Team Rocket Scene 
 - Old pervert not at Celadon Gym
+- Tea lady functions properly
 - Silph Co. blocked before Koga
 
 

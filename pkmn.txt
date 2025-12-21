@@ -121,6 +121,9 @@ spdef:	50 -> 55
 - CHANSEY
 Lucky Egg 5% -> 50%
 
+- SEADRA
+WATER -> WATER/DRAGON
+
 - STARYU
 Water -> Water/Psychic
 
