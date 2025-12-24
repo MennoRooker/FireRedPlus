@@ -1,0 +1,24 @@
+CeladonCity_GameCorner_PrizeRoom_EventScript_ChoosePrizeTM::
+	message CeladonCity_GameCorner_PrizeRoom_Text_WhichPrize
+	waitmessage
+	multichoicegrid 11, 0, MULTICHOICE_GAME_CORNER_TMPRIZES, FALSE, 2
+	switch VAR_RESULT
+	case 0, CeladonCity_GameCorner_PrizeRoom_EventScript_TM02
+	case 1, CeladonCity_GameCorner_PrizeRoom_EventScript_TM03
+	case 2, CeladonCity_GameCorner_PrizeRoom_EventScript_TM13
+	case 3, CeladonCity_GameCorner_PrizeRoom_EventScript_TM14
+	case 4, CeladonCity_GameCorner_PrizeRoom_EventScript_TM17
+	case 5, CeladonCity_GameCorner_PrizeRoom_EventScript_TM22
+	case 6, CeladonCity_GameCorner_PrizeRoom_EventScript_TM23
+	case 7, CeladonCity_GameCorner_PrizeRoom_EventScript_TM24
+	case 8, CeladonCity_GameCorner_PrizeRoom_EventScript_TM25
+	case 9, CeladonCity_GameCorner_PrizeRoom_EventScript_TM26
+	case 10, CeladonCity_GameCorner_PrizeRoom_EventScript_TM29
+	case 11, CeladonCity_GameCorner_PrizeRoom_EventScript_TM30
+	case 12, CeladonCity_GameCorner_PrizeRoom_EventScript_TM35
+	case 13, CeladonCity_GameCorner_PrizeRoom_EventScript_TM36
+	case 14, CeladonCity_GameCorner_PrizeRoom_EventScript_TM38
+	case 15, CeladonCity_GameCorner_PrizeRoom_EventScript_TM50
+	case 16, CeladonCity_GameCorner_PrizeRoom_EventScript_EndPrizeExchange
+	case 127, CeladonCity_GameCorner_PrizeRoom_EventScript_EndPrizeExchange
+	end

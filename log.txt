@@ -486,7 +486,7 @@ x Force SET mode
 x Nature highlighting
 - IV/EV screen
 - Linearize Cerulean
-- TM redistribution
+x TM redistribution
 - Ethers -> Elixirs
 - Remove X items
 x Instant Running Shoes
