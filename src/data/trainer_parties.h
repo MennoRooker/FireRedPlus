@@ -4697,18 +4697,18 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BeautyOlivia[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerKindra[] = {
     {
         .iv = 10,
-        .lvl = 28,
+        .lvl = 35,
         .species = SPECIES_GLOOM,
     },
     {
         .iv = 10,
-        .lvl = 28,
-        .species = SPECIES_ODDISH,
+        .lvl = 35,
+        .species = SPECIES_VILEPLUME,
     },
     {
         .iv = 10,
-        .lvl = 28,
-        .species = SPECIES_ODDISH,
+        .lvl = 35,
+        .species = SPECIES_BELLOSSOM,
     },
 };
 
@@ -5216,12 +5216,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_JugglerKayden[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_JugglerNate[] = {
     {
         .iv = 10,
-        .lvl = 37,
+        .lvl = 39,
         .species = SPECIES_NIDOQUEEN,
     },
     {
         .iv = 10,
-        .lvl = 37,
+        .lvl = 39,
         .species = SPECIES_NIDOKING,
     },
 };
@@ -5270,12 +5270,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TamerEdgar[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_TamerPhil[] = {
     {
         .iv = 10,
-        .lvl = 34,
+        .lvl = 40,
         .species = SPECIES_QWILFISH,
     },
     {
         .iv = 10,
-        .lvl = 34,
+        .lvl = 40,
         .species = SPECIES_ARBOK,
     },
 };
@@ -5296,35 +5296,35 @@ static const struct TrainerMonNoItemDefaultMoves sParty_JugglerShawn[] = {
 static const struct TrainerMonItemCustomMoves sParty_LeaderKoga[] = {
     {
         .iv = 15,
-        .lvl = 41,
+        .lvl = 43,
         .species = SPECIES_ARIADOS,
         .heldItem = ITEM_POISON_BARB,
         .moves = {MOVE_POISON_FANG, MOVE_LEECH_LIFE, MOVE_PSYBEAM, MOVE_SPIDER_WEB},
     },
     {
         .iv = 15,
-        .lvl = 41,
+        .lvl = 44,
         .species = SPECIES_MUK,
         .heldItem = ITEM_LEFTOVERS,
         .moves = {MOVE_MINIMIZE, MOVE_SLUDGE_BOMB, MOVE_FLAMETHROWER, MOVE_TOXIC},
     },
     {
         .iv = 15,
-        .lvl = 41,
+        .lvl = 44,
         .species = SPECIES_CROBAT,
         .heldItem = ITEM_SHARP_BEAK,
         .moves = {MOVE_POISON_FANG, MOVE_AERIAL_ACE, MOVE_LEECH_LIFE, MOVE_CONFUSE_RAY},
     },
     {
         .iv = 15,
-        .lvl = 43,
+        .lvl = 45,
         .species = SPECIES_WEEZING,
         .heldItem = ITEM_SITRUS_BERRY,
         .moves = {MOVE_FIRE_BLAST, MOVE_SLUDGE_BOMB, MOVE_THUNDER, MOVE_WILL_O_WISP},
     },
     {
         .iv = 15,
-        .lvl = 45,
+        .lvl = 48,
         .species = SPECIES_ARBOK,
         .heldItem = ITEM_BLACK_GLASSES,
         .moves = {MOVE_CRUNCH, MOVE_POISON_FANG, MOVE_GLARE, MOVE_EARTHQUAKE},

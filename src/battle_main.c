@@ -3182,6 +3182,15 @@ static void HandleTurnActionSelectionState(void)
                         *(gBattleStruct->stateIdAfterSelScript + gActiveBattler) = STATE_BEFORE_ACTION_CHOSEN;
                         return;
                     }
+                    else if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT)
+                    {
+                        // Block opponent/NPC item usage in all battles.
+                        gSelectionBattleScripts[gActiveBattler] = BattleScript_ActionSelectionItemsCantBeUsed;
+                        gBattleCommunication[gActiveBattler] = STATE_SELECTION_SCRIPT;
+                        *(gBattleStruct->selectionScriptFinished + gActiveBattler) = FALSE;
+                        *(gBattleStruct->stateIdAfterSelScript + gActiveBattler) = STATE_BEFORE_ACTION_CHOSEN;
+                        return;
+                    }
                     else
                     {
                         BtlController_EmitChooseItem(0, gBattleStruct->battlerPartyOrders[gActiveBattler]);
