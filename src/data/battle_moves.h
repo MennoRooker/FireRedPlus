@@ -2199,7 +2199,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SPIDER_WEB] =
     {
-        .effect = EFFECT_MEAN_LOOK,
+        .effect = EFFECT_SPIDER_WEB,
         .power = 0,
         .type = TYPE_BUG,
         .accuracy = 100,

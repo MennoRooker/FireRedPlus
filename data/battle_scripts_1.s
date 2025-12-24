@@ -237,6 +237,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectCamouflage             @ EFFECT_CAMOUFLAGE
 	.4byte BattleScript_EffectAttackSpAtkUp          @ EFFECT_ATTACK_SPATK_UP
 	.4byte BattleScript_EffectQuiverDance			 @ EFFECT_QUIVER_DANCE
+	.4byte BattleScript_EffectSpiderWeb				 @ EFFECT_SPIDER_WEB
 
 BattleScript_EffectHit::
 	jumpifnotmove MOVE_SURF, BattleScript_HitFromAtkCanceler
@@ -2844,6 +2845,36 @@ BattleScript_QuiverEnd::
 BattleScript_QuiverCheckSpeed::
 	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_SPEED, MAX_STAT_STAGE, BattleScript_CantRaiseMultipleStats
 	goto BattleScript_QuiverDoMoveAnim
+
+BattleScript_EffectSpiderWeb::
+	attackcanceler
+	jumpifstatus2 BS_TARGET, STATUS2_SUBSTITUTE, BattleScript_ButItFailedAtkStringPpReduce
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	@ Apply trap (Mean Look effect) if not already trapped
+	jumpifstatus2 BS_TARGET, STATUS2_ESCAPE_PREVENTION, BattleScript_SpiderWebSpeedDown
+	setmoveeffect MOVE_EFFECT_PREVENT_ESCAPE
+	seteffectprimary
+	printstring STRINGID_TARGETCANTESCAPENOW
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_SpiderWebSpeedDown:
+	setstatchanger STAT_SPEED, 1, TRUE
+	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_SpiderWebEnd
+	jumpifbyte CMP_LESS_THAN, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_SpiderWebDoStatAnim
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_FELL_EMPTY, BattleScript_SpiderWebEnd
+	pause B_WAIT_TIME_SHORT
+	goto BattleScript_SpiderWebPrintStatString
+BattleScript_SpiderWebDoStatAnim:
+	setgraphicalstatchangevalues
+	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+BattleScript_SpiderWebPrintStatString:
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_SpiderWebEnd:
+	goto BattleScript_MoveEnd
 
 BattleScript_CantRaiseMultipleStats::
 	pause B_WAIT_TIME_SHORT
