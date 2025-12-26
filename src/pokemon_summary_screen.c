@@ -180,6 +180,7 @@ struct PokemonSummaryScreenData
         u8 ALIGNED(4) genderSymbolStrBuf[3];
         u8 ALIGNED(4) levelStrBuf[7];
         u8 ALIGNED(4) curHpStrBuf[9];
+        u8 ALIGNED(4) hpIvEvStrBuf[9];
         u8 ALIGNED(4) statValueStrBufs[5][5];
 
         u8 ALIGNED(4) moveCurPpStrBufs[5][11];
@@ -258,6 +259,7 @@ struct Struct203B144
 {
     u16 unk00;
     u16 curHpStr;
+    u16 hpIvEvStr;
     u16 atkStr;
     u16 defStr;
     u16 spAStr;
@@ -2198,6 +2200,28 @@ static void BufferMonSkills(void)
 
     sMonSkillsPrinterXpos->curHpStr = GetNumberRightAlign63(sMonSummaryScreen->summary.curHpStrBuf);
 
+    // Build HP IV/EV fraction string for IV/EV modes
+    sMonSummaryScreen->summary.hpIvEvStrBuf[0] = EOS;
+    sMonSkillsPrinterXpos->hpIvEvStr = 0;
+    if (sMonSummaryScreen->statDisplayMode == STAT_DISPLAY_IVS)
+    {
+        u16 hpIv = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP_IV);
+        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.hpIvEvStrBuf, hpIv, STR_CONV_MODE_LEFT_ALIGN, 2);
+        StringAppend(sMonSummaryScreen->summary.hpIvEvStrBuf, gText_Slash);
+        ConvertIntToDecimalStringN(tempStr, MAX_PER_STAT_IVS, STR_CONV_MODE_LEFT_ALIGN, 2);
+        StringAppend(sMonSummaryScreen->summary.hpIvEvStrBuf, tempStr);
+        sMonSkillsPrinterXpos->hpIvEvStr = GetNumberRightAlign27(sMonSummaryScreen->summary.hpIvEvStrBuf);
+    }
+    else if (sMonSummaryScreen->statDisplayMode == STAT_DISPLAY_EVS)
+    {
+        u16 hpEv = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP_EV);
+        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.hpIvEvStrBuf, hpEv, STR_CONV_MODE_LEFT_ALIGN, 3);
+        StringAppend(sMonSummaryScreen->summary.hpIvEvStrBuf, gText_Slash);
+        ConvertIntToDecimalStringN(tempStr, MAX_PER_STAT_EVS, STR_CONV_MODE_LEFT_ALIGN, 3);
+        StringAppend(sMonSummaryScreen->summary.hpIvEvStrBuf, tempStr);
+        sMonSkillsPrinterXpos->hpIvEvStr = GetNumberRightAlign27(sMonSummaryScreen->summary.hpIvEvStrBuf);
+    }
+
     // Fill the 5 displayed stats based on the selected display mode
     if (sMonSummaryScreen->statDisplayMode == STAT_DISPLAY_STATS)
     {
@@ -2604,8 +2628,16 @@ static void PrintSkillsPage(void)
         colorSpe = sLevelNickTextColors[0];
     }
 
-    // HP is unaffected by nature
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 14 + sMonSkillsPrinterXpos->curHpStr, 4, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.curHpStrBuf);
+    // HP row: In Stats mode, show current/max HP on the left.
+    if (sMonSummaryScreen->statDisplayMode == STAT_DISPLAY_STATS)
+    {
+        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 14 + sMonSkillsPrinterXpos->curHpStr, 4, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.curHpStrBuf);
+    }
+    else if (sMonSummaryScreen->summary.hpIvEvStrBuf[0] != EOS)
+    {
+        // In IV/EV modes, print HP IV/EV fraction in the stat numbers column.
+        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->hpIvEvStr, 4, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.hpIvEvStrBuf);
+    }
     
     // Print stats with appropriate colors
     AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->atkStr, 22, colorAtk, TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
