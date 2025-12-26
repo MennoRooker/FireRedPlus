@@ -916,8 +916,8 @@ static const u8 sLevelNickTextColors[][3] =
     {0, 11, 10},
 };
 
-static const u8 sStatBoostedTextColor[3] = {0, 14, 9}; // Green for boosted stats
-static const u8 sStatLoweredTextColor[3] = {0, 9, 10}; // Orange for lowered stats
+static const u8 sStatBoostedTextColor[3] = {0, 14, 9}; // Bold for boosted stat
+static const u8 sStatLoweredTextColor[3] = {0, 9, 10}; // Pale for lowered stat
 
 static const u8 ALIGNED(4) sMultiBattlePartyOrder[] =
 {

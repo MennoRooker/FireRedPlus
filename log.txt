@@ -497,6 +497,7 @@ x Weather defense boosts
 x Gen 6 types (no fairy)
 x No items in battle
 - Increase Safari catch rates
+- Fishing rods redistribution
 ---------------------------------------
 - Bugsy gives perma repel
 - Implement abilites
@@ -535,7 +536,6 @@ x Snow Warning
 - Poison Heal
 - Truant(change)
 - Wind Rider (Jumpluff & Shiftry)
-- Physical contact moves (Flareon & Hitmonchan)
 - Super Luck
 - Transform (Ditto)
 
@@ -554,7 +554,6 @@ x Quiver Dance
 x Bulldoze
 - Freeze Dry
 
-
 Items to add:
 - Eviolite
 - Expert Belt
@@ -563,6 +562,7 @@ Items to add:
 - Focus Sash
 - Wide Lens
 - Exp candies
+- IV raising item
 
 
 LR BUTTONS:
