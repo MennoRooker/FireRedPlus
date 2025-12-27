@@ -461,14 +461,24 @@ instead of making them all reusable.
 
 I can increase the catch-rate of Safari Balls.
 
+If I want to give lightning-rod to Goldeen and Seaking
+I should make the ability grant an immunity to electric,
+which I don't think is the case currently in gen 3.
+
+I can't switch gears on the bike, even in the vanilla
+version of firered. I might want to implement this,
+I though it was already in the game normally.
+
 NEW GAME:
 - Old Man functions properly
 - Bugsy scenes function properly
+- Kelvin
 - Cerulean gym blocked
 - Team Rocket Scene 
 - Old pervert not at Celadon Gym
 - Tea lady functions properly
 - Silph Co. blocked before Koga
+- Pokémon Mansion blocked before Sabrina
 
 
 
@@ -482,15 +492,16 @@ TO DO:
 x Add NPC to block route 22
 x Add Bugsy
 x Force SET mode
-- Make EV berries usable
+x Make EV berries usable
 x Nature highlighting
-- IV/EV screen
+x IV/EV screen
 - Linearize Cerulean
 x TM redistribution
 - Ethers -> Elixirs
 - Remove X items
 x Instant Running Shoes
 x Instant National Dex
+- Sitrus berry 25% HP
 - National dex checks by aides
 x Get Old Rod from Old Man
 x Weather defense boosts
@@ -502,18 +513,16 @@ x No items in battle
 - Bugsy gives perma repel
 - Implement abilites
 - Determine natures, abilities and EVs of opponents
-- Linearization of the gyms and routes
-- Reusable TMs
+- Linearization
 - Neutralize natures in daycare
 - Custom move animations
-- Sitrus berry 25% HP
-- Add medicine pocket
 - Generate docs with Python scripts
 - Add gen 4 evos after dex upgrade
 - Add Fairy type
 - Physical/special split
 - Gym leader have and give held items
 - Simultaneous wild pkmn and own pkmn anim
+- LR buttons
 
 
 
@@ -522,10 +531,10 @@ x Snow Warning
 / Solar Power
 / Strong Jaw
 - Technician (Breloom & Hitmontop)
-- Harvest (Bulbasaur and Ivysaur)
+- Harvest (Bulbasaur & Exeggutor)
 - Regenerator
-- Sheer force
-- Magic Bounce
+- Sheer force (Nidoking)
+- Magic Bounce (Espeon)
 - Overcoat
 - Prankster(maybe)
 - Simple
@@ -538,6 +547,7 @@ x Snow Warning
 - Wind Rider (Jumpluff & Shiftry)
 - Super Luck
 - Transform (Ditto)
+- Sniper
 
 Moves to add:
 x Quiver Dance
@@ -563,7 +573,12 @@ Items to add:
 - Wide Lens
 - Exp candies
 - IV raising item
-
+- Air Balloon
+- Damp Rock
+- Heat Rock
+- Smooth Rock
+- Icy Rock
+- Light Clay
 
 LR BUTTONS:
 - LR Fly/Repel in overworld

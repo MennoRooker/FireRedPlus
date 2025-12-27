@@ -320,12 +320,6 @@ spd:	100-> 115
 - CAMERUPT
 hp:	70 -> 100
 
-- SEALEO
-atk:	60 -> 70
-
-- WALREIN
-atk:	80 -> 110
-
 - LUNATONE
 def:	65 -> 85
 
@@ -358,6 +352,15 @@ spatk:	81 -> 91
 
 - ARMALDO
 spd:	45 -> 55
+
+- SEALEO
+atk:	60 -> 70
+
+- WALREIN
+atk:	80 -> 110
+
+- SHELGON
+spdef:	50 -> 70
 
 - GROUDON
 GROUND -> GROUND/FIRE

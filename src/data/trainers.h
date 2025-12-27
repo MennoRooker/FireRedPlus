@@ -3488,9 +3488,9 @@ const struct Trainer gTrainers[] = {
         .trainerPic = TRAINER_PIC_LEADER_GIOVANNI,
         .trainerName = _("GIOVANNI"),
         .items = {},
-        .doubleBattle = FALSE,
+        .doubleBattle = TRUE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_BossGiovanni2),
+        .party = ITEM_CUSTOM_MOVES(sParty_BossGiovanni2),
     },
     [TRAINER_LEADER_GIOVANNI] = {
         .trainerClass = TRAINER_CLASS_LEADER,
@@ -3498,9 +3498,9 @@ const struct Trainer gTrainers[] = {
         .trainerPic = TRAINER_PIC_LEADER_GIOVANNI,
         .trainerName = _("GIOVANNI"),
         .items = {ITEM_HYPER_POTION, ITEM_HYPER_POTION, ITEM_FULL_HEAL},
-        .doubleBattle = FALSE,
+        .doubleBattle = TRUE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
-        .party = NO_ITEM_CUSTOM_MOVES(sParty_LeaderGiovanni),
+        .party = ITEM_CUSTOM_MOVES(sParty_LeaderGiovanni),
     },
     [TRAINER_TEAM_ROCKET_GRUNT] = {
         .trainerClass = TRAINER_CLASS_TEAM_ROCKET,
@@ -4320,7 +4320,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_RivalSilphSquirtle),
+        .party = ITEM_CUSTOM_MOVES(sParty_RivalSilphSquirtle),
     },
     [TRAINER_RIVAL_SILPH_BULBASAUR] = {
         .trainerClass = TRAINER_CLASS_RIVAL_LATE,
@@ -4330,7 +4330,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_RivalSilphBulbasaur),
+        .party = ITEM_CUSTOM_MOVES(sParty_RivalSilphBulbasaur),
     },
     [TRAINER_RIVAL_SILPH_CHARMANDER] = {
         .trainerClass = TRAINER_CLASS_RIVAL_LATE,
@@ -4340,7 +4340,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_RivalSilphCharmander),
+        .party = ITEM_CUSTOM_MOVES(sParty_RivalSilphCharmander),
     },
     [TRAINER_RIVAL_ROUTE22_LATE_SQUIRTLE] = {
         .trainerClass = TRAINER_CLASS_RIVAL_LATE,
