@@ -5754,13 +5754,15 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt34[] = {
     },
 };
 
-static const struct TrainerMonItemCustomMoves sParty_RivalSilphSquirtle[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_RivalSilphSquirtle[] = {
     {
         .iv = 25,
         .lvl = 45,
         .species = SPECIES_PIDGEOT,
         .heldItem = ITEM_SILK_SCARF,
         .moves = {MOVE_FRUSTRATION, MOVE_WING_ATTACK, MOVE_QUICK_ATTACK, MOVE_STEEL_WING},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 0,
     },
     {
         .iv = 25,
@@ -5768,6 +5770,8 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphSquirtle[] = {
         .species = SPECIES_ARCANINE,
         .heldItem = ITEM_LEFTOVERS,
         .moves = {MOVE_FLAMETHROWER, MOVE_CRUNCH, MOVE_AGILITY, MOVE_IRON_TAIL},
+        .nature = NATURE_BASHFUL,
+        .abilitySlot = 0,
     },
     {
         .iv = 25,
@@ -5775,6 +5779,8 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphSquirtle[] = {
         .species = SPECIES_EXEGGUTOR,
         .heldItem = ITEM_SITRUS_BERRY,
         .moves = {MOVE_SUNNY_DAY, MOVE_SOLAR_BEAM, MOVE_PSYCHIC, MOVE_SLUDGE_BOMB},
+        .nature = NATURE_MILD,
+        .abilitySlot = 1,
     },
     {
         .iv = 25,
@@ -5782,6 +5788,8 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphSquirtle[] = {
         .species = SPECIES_ALAKAZAM,
         .heldItem = ITEM_TWISTED_SPOON,
         .moves = {MOVE_PSYCHIC, MOVE_CALM_MIND, MOVE_SHOCK_WAVE, MOVE_SHADOW_BALL},
+        .nature = NATURE_BOLD,
+        .abilitySlot = 1,
     },
     {
         .iv = 25,
@@ -5789,16 +5797,20 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphSquirtle[] = {
         .species = SPECIES_BLASTOISE,
         .heldItem = ITEM_MYSTIC_WATER,
         .moves = {MOVE_SURF, MOVE_ICE_BEAM, MOVE_RAPID_SPIN, MOVE_BRICK_BREAK},
+        .nature = NATURE_CALM,
+        .abilitySlot = 1,
     },
 };
 
-static const struct TrainerMonItemCustomMoves sParty_RivalSilphBulbasaur[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_RivalSilphBulbasaur[] = {
     {
         .iv = 25,
         .lvl = 45,
         .species = SPECIES_PIDGEOT,
         .heldItem = ITEM_SILK_SCARF,
         .moves = {MOVE_FRUSTRATION, MOVE_WING_ATTACK, MOVE_QUICK_ATTACK, MOVE_STEEL_WING},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 0,
     },
     {
         .iv = 25,
@@ -5806,6 +5818,8 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphBulbasaur[] = {
         .species = SPECIES_GYARADOS,
         .heldItem = ITEM_LUM_BERRY,
         .moves = {MOVE_WATERFALL, MOVE_EARTHQUAKE, MOVE_THRASH, MOVE_THUNDER_WAVE},
+        .nature = NATURE_IMPISH,
+        .abilitySlot = 0,
     },
     {
         .iv = 25,
@@ -5813,6 +5827,8 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphBulbasaur[] = {
         .species = SPECIES_ARCANINE,
         .heldItem = ITEM_LEFTOVERS,
         .moves = {MOVE_FLAMETHROWER, MOVE_CRUNCH, MOVE_AGILITY, MOVE_IRON_TAIL},
+        .nature = NATURE_BASHFUL,
+        .abilitySlot = 0,
     },
     {
         .iv = 25,
@@ -5820,6 +5836,8 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphBulbasaur[] = {
         .species = SPECIES_ALAKAZAM,
         .heldItem = ITEM_TWISTED_SPOON,
         .moves = {MOVE_PSYCHIC, MOVE_CALM_MIND, MOVE_SHOCK_WAVE, MOVE_SHADOW_BALL},
+        .nature = NATURE_BOLD,
+        .abilitySlot = 0,
     },
     {
         .iv = 25,
@@ -5827,16 +5845,20 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphBulbasaur[] = {
         .species = SPECIES_VENUSAUR,
         .heldItem = ITEM_MIRACLE_SEED,
         .moves = {MOVE_GIGA_DRAIN, MOVE_SLUDGE_BOMB, MOVE_GROWTH, MOVE_BODY_SLAM},
+        .nature = NATURE_SERIOUS,
+        .abilitySlot = 1,
     },
 };
 
-static const struct TrainerMonItemCustomMoves sParty_RivalSilphCharmander[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_RivalSilphCharmander[] = {
     {
         .iv = 25,
         .lvl = 45,
         .species = SPECIES_PIDGEOT,
         .heldItem = ITEM_SILK_SCARF,
         .moves = {MOVE_FRUSTRATION, MOVE_WING_ATTACK, MOVE_QUICK_ATTACK, MOVE_STEEL_WING},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 0,
     },
     {
         .iv = 25,
@@ -5844,6 +5866,8 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphCharmander[] = {
         .species = SPECIES_EXEGGUTOR,
         .heldItem = ITEM_SITRUS_BERRY,
         .moves = {MOVE_SUNNY_DAY, MOVE_SOLAR_BEAM, MOVE_PSYCHIC, MOVE_SLUDGE_BOMB},
+        .nature = NATURE_MILD,
+        .abilitySlot = 1,
     },
     {
         .iv = 25,
@@ -5851,6 +5875,8 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphCharmander[] = {
         .species = SPECIES_GYARADOS,
         .heldItem = ITEM_LUM_BERRY,
         .moves = {MOVE_WATERFALL, MOVE_EARTHQUAKE, MOVE_THRASH, MOVE_THUNDER_WAVE},
+        .nature = NATURE_IMPISH,
+        .abilitySlot = 0,
     },
     {
         .iv = 25,
@@ -5858,6 +5884,8 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphCharmander[] = {
         .species = SPECIES_ALAKAZAM,
         .heldItem = ITEM_TWISTED_SPOON,
         .moves = {MOVE_PSYCHIC, MOVE_CALM_MIND, MOVE_SHOCK_WAVE, MOVE_SHADOW_BALL},
+        .nature = NATURE_BOLD,
+        .abilitySlot = 0,
     },
     {
         .iv = 25,
@@ -5865,6 +5893,8 @@ static const struct TrainerMonItemCustomMoves sParty_RivalSilphCharmander[] = {
         .species = SPECIES_CHARIZARD,
         .heldItem = ITEM_CHARCOAL,
         .moves = {MOVE_FIRE_BLAST, MOVE_WING_ATTACK, MOVE_STEEL_WING, MOVE_DRAGON_CLAW},
+        .nature = NATURE_LONELY,
+        .abilitySlot = 1,
     },
 };
 

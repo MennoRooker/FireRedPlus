@@ -502,6 +502,7 @@ x TM redistribution
 - Remove X items
 x Instant Running Shoes
 x Instant National Dex
+x Determine opponent natures & abilities
 - Sitrus berry 25% HP
 - National dex checks by aides
 x Get Old Rod from Old Man
@@ -513,7 +514,7 @@ x No items in battle
 ---------------------------------------
 - Bugsy gives perma repel
 - Implement abilites
-- Determine natures, abilities and EVs of opponents
+- Determine opponent EVs
 - Linearization
 - Neutralize natures in daycare
 - Custom move animations

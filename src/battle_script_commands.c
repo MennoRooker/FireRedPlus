@@ -5378,11 +5378,25 @@ static void Cmd_getmoneyreward(void)
                     lastMonLevel = party1[gTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
                 }
                 break;
+            case F_TRAINER_PARTY_NATURE_ABILITY:
+                {
+                    const struct TrainerMonNoItemDefaultMovesNatureAbility *partyNA = gTrainers[gTrainerBattleOpponent_A].party.NoItemDefaultMovesNatureAbility;
+                    
+                    lastMonLevel = partyNA[gTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
+                }
+                break;
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
                 {
                     const struct TrainerMonNoItemCustomMoves *party2 = gTrainers[gTrainerBattleOpponent_A].party.NoItemCustomMoves;
                     
                     lastMonLevel = party2[gTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
+                }
+                break;
+            case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_NATURE_ABILITY:
+                {
+                    const struct TrainerMonNoItemCustomMovesNatureAbility *party2NA = gTrainers[gTrainerBattleOpponent_A].party.NoItemCustomMovesNatureAbility;
+                    
+                    lastMonLevel = party2NA[gTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
                 }
                 break;
             case F_TRAINER_PARTY_HELD_ITEM:
@@ -5392,11 +5406,25 @@ static void Cmd_getmoneyreward(void)
                     lastMonLevel = party3[gTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
                 }
                 break;
+            case (F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_NATURE_ABILITY):
+                {
+                    const struct TrainerMonItemDefaultMovesNatureAbility *party3NA = gTrainers[gTrainerBattleOpponent_A].party.ItemDefaultMovesNatureAbility;
+                    
+                    lastMonLevel = party3NA[gTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
+                }
+                break;
             case (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM):
                 {
                     party4 = gTrainers[gTrainerBattleOpponent_A].party.ItemCustomMoves;
                     
                     lastMonLevel = party4[gTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
+                }
+                break;
+            case (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_NATURE_ABILITY):
+                {
+                    const struct TrainerMonItemCustomMovesNatureAbility *party4NA = gTrainers[gTrainerBattleOpponent_A].party.ItemCustomMovesNatureAbility;
+                    
+                    lastMonLevel = party4NA[gTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
                 }
                 break;
             }

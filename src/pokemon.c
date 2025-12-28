@@ -1884,6 +1884,31 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
     CreateMon(mon, species, level, fixedIV, TRUE, personality, OT_ID_PLAYER_ID, 0);
 }
 
+u32 ComposePersonalityForNatureAbility(u16 species, u8 nature, u8 abilitySlot)
+{
+    u32 personality;
+
+    if (!gSpeciesInfo[species].abilities[1])
+    {
+        // Only one ability; match requested nature only
+        do
+        {
+            personality = Random32();
+        }
+        while (nature != GetNatureFromPersonality(personality));
+        return personality;
+    }
+
+    do
+    {
+        personality = Random32();
+    }
+    while (nature != GetNatureFromPersonality(personality)
+        || ((personality & 1) != abilitySlot));
+
+    return personality;
+}
+
 void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 gender, u8 nature, u8 unownLetter)
 {
     u32 personality;

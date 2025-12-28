@@ -446,5 +446,7 @@
 // Pokémon.
 #define F_TRAINER_PARTY_CUSTOM_MOVESET (1 << 0)
 #define F_TRAINER_PARTY_HELD_ITEM      (1 << 1)
+// New: Party entries can explicitly set nature and ability slot per mon
+#define F_TRAINER_PARTY_NATURE_ABILITY (1 << 2)
 
 #endif  // GUARD_CONSTANTS_TRAINERS_H
