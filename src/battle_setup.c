@@ -578,11 +578,29 @@ static u8 GetSumOfEnemyPartyLevel(u16 opponentId, u8 numMons)
                 sum += party[i].lvl;
         }
         break;
+    case F_TRAINER_PARTY_NATURE_ABILITY:
+        {
+            const struct TrainerMonNoItemDefaultMovesNatureAbility *party;
+
+            party = gTrainers[opponentId].party.NoItemDefaultMovesNatureAbility;
+            for (i = 0; i < count; ++i)
+                sum += party[i].lvl;
+        }
+        break;
     case F_TRAINER_PARTY_CUSTOM_MOVESET:
         {
             const struct TrainerMonNoItemCustomMoves *party;
 
             party = gTrainers[opponentId].party.NoItemCustomMoves;
+            for (i = 0; i < count; ++i)
+                sum += party[i].lvl;
+        }
+        break;
+    case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_NATURE_ABILITY:
+        {
+            const struct TrainerMonNoItemCustomMovesNatureAbility *party;
+
+            party = gTrainers[opponentId].party.NoItemCustomMovesNatureAbility;
             for (i = 0; i < count; ++i)
                 sum += party[i].lvl;
         }
@@ -596,11 +614,29 @@ static u8 GetSumOfEnemyPartyLevel(u16 opponentId, u8 numMons)
                 sum += party[i].lvl;
         }
         break;
+    case F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_NATURE_ABILITY:
+        {
+            const struct TrainerMonItemDefaultMovesNatureAbility *party;
+
+            party = gTrainers[opponentId].party.ItemDefaultMovesNatureAbility;
+            for (i = 0; i < count; ++i)
+                sum += party[i].lvl;
+        }
+        break;
     case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
         {
             const struct TrainerMonItemCustomMoves *party;
 
             party = gTrainers[opponentId].party.ItemCustomMoves;
+            for (i = 0; i < count; ++i)
+                sum += party[i].lvl;
+        }
+        break;
+    case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_NATURE_ABILITY:
+        {
+            const struct TrainerMonItemCustomMovesNatureAbility *party;
+
+            party = gTrainers[opponentId].party.ItemCustomMovesNatureAbility;
             for (i = 0; i < count; ++i)
                 sum += party[i].lvl;
         }

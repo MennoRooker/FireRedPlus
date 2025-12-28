@@ -55,6 +55,7 @@ Keen Eye -> Keen Eye/Own Tempo
 
 -PIDGEOT
 atk:	80 -> 96
+spd:	91 -> 101
 Keen Eye -> Keen Eye/Own Tempo
 
 - ARBOK

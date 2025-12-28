@@ -100,10 +100,57 @@ struct TrainerMonItemCustomMoves
     u16 moves[MAX_MON_MOVES];
 };
 
+// New variants: allow explicit nature and ability slot overrides per mon
+struct TrainerMonNoItemDefaultMovesNatureAbility
+{
+    u16 iv;
+    u8 lvl;
+    u16 species;
+    u8 nature;       // 0..24 as per Nature enum
+    u8 abilitySlot;  // 0 or 1; ignored if species has only one ability
+};
+
+struct TrainerMonItemDefaultMovesNatureAbility
+{
+    u16 iv;
+    u8 lvl;
+    u16 species;
+    u16 heldItem;
+    u8 nature;
+    u8 abilitySlot;
+};
+
+struct TrainerMonNoItemCustomMovesNatureAbility
+{
+    u16 iv;
+    u8 lvl;
+    u16 species;
+    u16 moves[MAX_MON_MOVES];
+    u8 nature;
+    u8 abilitySlot;
+};
+
+struct TrainerMonItemCustomMovesNatureAbility
+{
+    u16 iv;
+    u8 lvl;
+    u16 species;
+    u16 heldItem;
+    u16 moves[MAX_MON_MOVES];
+    u8 nature;
+    u8 abilitySlot;
+};
+
 #define NO_ITEM_DEFAULT_MOVES(party) { .NoItemDefaultMoves = party }, .partySize = ARRAY_COUNT(party), .partyFlags = 0
 #define NO_ITEM_CUSTOM_MOVES(party) { .NoItemCustomMoves = party }, .partySize = ARRAY_COUNT(party), .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET
 #define ITEM_DEFAULT_MOVES(party) { .ItemDefaultMoves = party }, .partySize = ARRAY_COUNT(party), .partyFlags = F_TRAINER_PARTY_HELD_ITEM
 #define ITEM_CUSTOM_MOVES(party) { .ItemCustomMoves = party }, .partySize = ARRAY_COUNT(party), .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM
+
+// New macros for nature/ability overrides
+#define NO_ITEM_DEFAULT_MOVES_NATURE_ABILITY(party) { .NoItemDefaultMovesNatureAbility = party }, .partySize = ARRAY_COUNT(party), .partyFlags = F_TRAINER_PARTY_NATURE_ABILITY
+#define NO_ITEM_CUSTOM_MOVES_NATURE_ABILITY(party) { .NoItemCustomMovesNatureAbility = party }, .partySize = ARRAY_COUNT(party), .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_NATURE_ABILITY
+#define ITEM_DEFAULT_MOVES_NATURE_ABILITY(party) { .ItemDefaultMovesNatureAbility = party }, .partySize = ARRAY_COUNT(party), .partyFlags = F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_NATURE_ABILITY
+#define ITEM_CUSTOM_MOVES_NATURE_ABILITY(party) { .ItemCustomMovesNatureAbility = party }, .partySize = ARRAY_COUNT(party), .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_NATURE_ABILITY
 
 union TrainerMonPtr
 {
@@ -111,6 +158,10 @@ union TrainerMonPtr
     const struct TrainerMonNoItemCustomMoves *NoItemCustomMoves;
     const struct TrainerMonItemDefaultMoves *ItemDefaultMoves;
     const struct TrainerMonItemCustomMoves *ItemCustomMoves;
+    const struct TrainerMonNoItemDefaultMovesNatureAbility *NoItemDefaultMovesNatureAbility;
+    const struct TrainerMonNoItemCustomMovesNatureAbility *NoItemCustomMovesNatureAbility;
+    const struct TrainerMonItemDefaultMovesNatureAbility *ItemDefaultMovesNatureAbility;
+    const struct TrainerMonItemCustomMovesNatureAbility *ItemCustomMovesNatureAbility;
 };
 
 struct Trainer

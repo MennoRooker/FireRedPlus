@@ -1623,6 +1623,56 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 }
                 break;
             }
+            case F_TRAINER_PARTY_NATURE_ABILITY:
+            {
+                const struct TrainerMonNoItemDefaultMovesNatureAbility *partyData = gTrainers[trainerNum].party.NoItemDefaultMovesNatureAbility;
+
+                fixedIV = partyData[i].iv;
+                personalityValue = ComposePersonalityForNatureAbility(partyData[i].species, partyData[i].nature, partyData[i].abilitySlot);
+                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                break;
+            }
+            case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_NATURE_ABILITY:
+            {
+                const struct TrainerMonNoItemCustomMovesNatureAbility *partyData = gTrainers[trainerNum].party.NoItemCustomMovesNatureAbility;
+
+                fixedIV = partyData[i].iv;
+                personalityValue = ComposePersonalityForNatureAbility(partyData[i].species, partyData[i].nature, partyData[i].abilitySlot);
+                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+
+                for (j = 0; j < MAX_MON_MOVES; j++)
+                {
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                }
+                break;
+            }
+            case F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_NATURE_ABILITY:
+            {
+                const struct TrainerMonItemDefaultMovesNatureAbility *partyData = gTrainers[trainerNum].party.ItemDefaultMovesNatureAbility;
+
+                fixedIV = partyData[i].iv;
+                personalityValue = ComposePersonalityForNatureAbility(partyData[i].species, partyData[i].nature, partyData[i].abilitySlot);
+                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+                break;
+            }
+            case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_NATURE_ABILITY:
+            {
+                const struct TrainerMonItemCustomMovesNatureAbility *partyData = gTrainers[trainerNum].party.ItemCustomMovesNatureAbility;
+
+                fixedIV = partyData[i].iv;
+                personalityValue = ComposePersonalityForNatureAbility(partyData[i].species, partyData[i].nature, partyData[i].abilitySlot);
+                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+
+                for (j = 0; j < MAX_MON_MOVES; j++)
+                {
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                }
+                break;
+            }
             }
         }
 
