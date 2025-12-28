@@ -17646,14 +17646,14 @@
                 "species": "SPECIES_SQUIRTLE"
               },
               {
-                "min_level": 5,
+                "min_level": 12,
                 "max_level": 15,
-                "species": "SPECIES_HORSEA"
+                "species": "SPECIES_KRABBY"
               },
               {
                 "min_level": 15,
                 "max_level": 15,
-                "species": "SPECIES_MAGIKARP"
+                "species": "SPECIES_LUVDISC"
               },
               {
                 "min_level": 16,
@@ -17661,29 +17661,29 @@
                 "species": "SPECIES_WARTORTLE"
               },
               {
-                "min_level": 15,
-                "max_level": 25,
-                "species": "SPECIES_HORSEA"
+                "min_level": 25,
+                "max_level": 30,
+                "species": "SPECIES_CORPHISH"
               },
               {
-                "min_level": 15,
-                "max_level": 25,
-                "species": "SPECIES_HORSEA"
+                "min_level": 25,
+                "max_level": 30,
+                "species": "SPECIES_CARVANHA"
               },
               {
-                "min_level": 15,
-                "max_level": 25,
+                "min_level": 25,
+                "max_level": 30,
                 "species": "SPECIES_GYARADOS"
               },
               {
-                "min_level": 25,
-                "max_level": 35,
-                "species": "SPECIES_HORSEA"
+                "min_level": 35,
+                "max_level": 40,
+                "species": "SPECIES_SEADRA"
               },
               {
-                "min_level": 25,
-                "max_level": 35,
-                "species": "SPECIES_PSYDUCK"
+                "min_level": 36,
+                "max_level": 40,
+                "species": "SPECIES_BLASTOISE"
               }
             ]
           }
@@ -22071,29 +22071,29 @@
             "encounter_rate": 1,
             "mons": [
               {
-                "min_level": 20,
-                "max_level": 25,
-                "species": "SPECIES_PSYDUCK"
-              },
-              {
-                "min_level": 20,
-                "max_level": 25,
-                "species": "SPECIES_PSYDUCK"
-              },
-              {
                 "min_level": 25,
                 "max_level": 30,
                 "species": "SPECIES_PSYDUCK"
               },
               {
-                "min_level": 30,
-                "max_level": 35,
-                "species": "SPECIES_PSYDUCK"
+                "min_level": 25,
+                "max_level": 30,
+                "species": "SPECIES_GOLDEEN"
+              },
+              {
+                "min_level": 25,
+                "max_level": 30,
+                "species": "SPECIES_MARILL"
               },
               {
                 "min_level": 35,
                 "max_level": 40,
-                "species": "SPECIES_PSYDUCK"
+                "species": "SPECIES_AZUMARILL"
+              },
+              {
+                "min_level": 35,
+                "max_level": 40,
+                "species": "SPECIES_POLITOED"
               }
             ]
           },
@@ -22102,53 +22102,53 @@
             "mons": [
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 8,
                 "species": "SPECIES_MAGIKARP"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_MAGIKARP"
+                "max_level": 8,
+                "species": "SPECIES_GULPIN"
               },
               {
-                "min_level": 5,
-                "max_level": 15,
+                "min_level": 15,
+                "max_level": 20,
                 "species": "SPECIES_GOLDEEN"
               },
               {
-                "min_level": 5,
-                "max_level": 15,
+                "min_level": 15,
+                "max_level": 20,
                 "species": "SPECIES_MAGIKARP"
               },
               {
-                "min_level": 5,
-                "max_level": 15,
+                "min_level": 15,
+                "max_level": 20,
                 "species": "SPECIES_POLIWAG"
               },
               {
-                "min_level": 15,
+                "min_level": 20,
                 "max_level": 25,
-                "species": "SPECIES_GOLDEEN"
+                "species": "SPECIES_SHELLDER"
               },
               {
-                "min_level": 20,
-                "max_level": 30,
+                "min_level": 33,
+                "max_level": 35,
                 "species": "SPECIES_SEAKING"
               },
               {
-                "min_level": 15,
-                "max_level": 25,
+                "min_level": 25,
+                "max_level": 30,
                 "species": "SPECIES_GYARADOS"
               },
               {
-                "min_level": 15,
-                "max_level": 25,
-                "species": "SPECIES_PSYDUCK"
+                "min_level": 33,
+                "max_level": 34,
+                "species": "SPECIES_GOLDUCK"
               },
               {
-                "min_level": 25,
-                "max_level": 35,
-                "species": "SPECIES_PSYDUCK"
+                "min_level": 35,
+                "max_level": 40,
+                "species": "SPECIES_GOLDUCK"
               }
             ]
           }
@@ -22160,29 +22160,29 @@
             "encounter_rate": 1,
             "mons": [
               {
-                "min_level": 20,
-                "max_level": 25,
-                "species": "SPECIES_SLOWPOKE"
-              },
-              {
-                "min_level": 20,
-                "max_level": 25,
-                "species": "SPECIES_SLOWPOKE"
+                "min_level": 25,
+                "max_level": 30,
+                "species": "SPECIES_PSYDUCK"
               },
               {
                 "min_level": 25,
                 "max_level": 30,
-                "species": "SPECIES_SLOWPOKE"
+                "species": "SPECIES_GOLDEEN"
               },
               {
-                "min_level": 30,
-                "max_level": 35,
-                "species": "SPECIES_SLOWPOKE"
+                "min_level": 25,
+                "max_level": 30,
+                "species": "SPECIES_MARILL"
               },
               {
                 "min_level": 35,
                 "max_level": 40,
-                "species": "SPECIES_SLOWPOKE"
+                "species": "SPECIES_AZUMARILL"
+              },
+              {
+                "min_level": 35,
+                "max_level": 40,
+                "species": "SPECIES_POLITOED"
               }
             ]
           },
@@ -22191,53 +22191,53 @@
             "mons": [
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 8,
                 "species": "SPECIES_MAGIKARP"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_MAGIKARP"
+                "max_level": 8,
+                "species": "SPECIES_GULPIN"
               },
               {
-                "min_level": 5,
-                "max_level": 15,
+                "min_level": 15,
+                "max_level": 20,
                 "species": "SPECIES_GOLDEEN"
               },
               {
-                "min_level": 5,
-                "max_level": 15,
+                "min_level": 15,
+                "max_level": 20,
                 "species": "SPECIES_MAGIKARP"
               },
               {
-                "min_level": 5,
-                "max_level": 15,
+                "min_level": 15,
+                "max_level": 20,
                 "species": "SPECIES_POLIWAG"
               },
               {
-                "min_level": 15,
+                "min_level": 20,
                 "max_level": 25,
-                "species": "SPECIES_GOLDEEN"
+                "species": "SPECIES_SHELLDER"
               },
               {
-                "min_level": 20,
-                "max_level": 30,
+                "min_level": 33,
+                "max_level": 35,
                 "species": "SPECIES_SEAKING"
               },
               {
-                "min_level": 15,
-                "max_level": 25,
+                "min_level": 25,
+                "max_level": 30,
                 "species": "SPECIES_GYARADOS"
               },
               {
-                "min_level": 15,
-                "max_level": 25,
-                "species": "SPECIES_SLOWPOKE"
+                "min_level": 33,
+                "max_level": 34,
+                "species": "SPECIES_GOLDUCK"
               },
               {
-                "min_level": 25,
-                "max_level": 35,
-                "species": "SPECIES_SLOWPOKE"
+                "min_level": 35,
+                "max_level": 40,
+                "species": "SPECIES_GOLDUCK"
               }
             ]
           }

@@ -495,9 +495,10 @@ x Force SET mode
 x Make EV berries usable
 x Nature highlighting
 x IV/EV screen
-- Linearize Cerulean
+- Linearizations
 x TM redistribution
 - Ethers -> Elixirs
+- Balancing
 - Remove X items
 x Instant Running Shoes
 x Instant National Dex
