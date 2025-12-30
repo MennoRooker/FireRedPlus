@@ -7,6 +7,7 @@
 extern u32 gFieldEffectArguments[8];
 extern void (*gPostMenuFieldCallback)(void);
 extern bool8 (*gFieldCallback2)(void);
+extern bool8 gFlyInvokedFromOverworld;
 
 u32 FieldEffectStart(u8);
 bool8 FieldEffectActiveListContains(u8 id);

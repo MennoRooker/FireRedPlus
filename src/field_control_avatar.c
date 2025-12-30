@@ -9,14 +9,17 @@
 #include "fieldmap.h"
 #include "field_control_avatar.h"
 #include "field_fadetransition.h"
+#include "field_effect.h"
 #include "field_player_avatar.h"
 #include "field_poison.h"
 #include "field_specials.h"
+#include "menu_helpers.h"
 #include "item_menu.h"
 #include "link.h"
 #include "wonder_news.h"
 #include "metatile_behavior.h"
 #include "overworld.h"
+#include "region_map.h"
 #include "renewable_hidden_items.h"
 #include "quest_log.h"
 #include "safari_zone.h"
@@ -30,6 +33,7 @@
 #include "constants/event_objects.h"
 #include "constants/maps.h"
 #include "constants/metatile_behaviors.h"
+#include "constants/flags.h"
 
 #define SIGNPOST_POKECENTER 0
 #define SIGNPOST_POKEMART 1
@@ -293,6 +297,20 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     {
         gFieldInputRecord.pressedSelectButton = TRUE;
         return TRUE;
+    }
+
+    // L-button Fly: only in LR mode, with HM02, and if map allows Fly
+    {
+        u8 lr = GetLRKeysPressed();
+        if (lr == MENU_L_PRESSED)
+        {
+            if (FlagGet(FLAG_GOT_HM02) == TRUE && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
+            {
+                gFlyInvokedFromOverworld = TRUE;
+                SetMainCallback2(CB2_OpenFlyMap);
+                return TRUE;
+            }
+        }
     }
 
     return FALSE;

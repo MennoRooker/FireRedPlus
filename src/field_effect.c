@@ -23,6 +23,7 @@
 #include "task.h"
 #include "trainer_pokemon_sprites.h"
 #include "trig.h"
+#include "constants/species.h"
 #include "util.h"
 #include "constants/event_object_movement.h"
 #include "constants/metatile_behaviors.h"
@@ -37,6 +38,7 @@ extern const struct CompressedSpriteSheet gTrainerFrontPicTable[];
 #define FIELD_EFFECT_COUNT 32
 
 EWRAM_DATA u32 gFieldEffectArguments[8] = {0};
+EWRAM_DATA bool8 gFlyInvokedFromOverworld;
 
 static u8 sFieldEffectActiveList[FIELD_EFFECT_COUNT];
 
@@ -3244,8 +3246,19 @@ static void FlyOutFieldEffect_ShowMon(struct Task *task)
     if (ObjectEventClearHeldMovementIfFinished(objectEvent))
     {
         task->tState++;
-        gFieldEffectArguments[0] = task->tMonPartyId;
-        FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON_INIT);
+        if (gFlyInvokedFromOverworld)
+        {
+            gFieldEffectArguments[0] = SPECIES_PIDGEOT | 0x80000000; // Play cry
+            gFieldEffectArguments[1] = 0;
+            gFieldEffectArguments[2] = 0;
+            FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON);
+            gFlyInvokedFromOverworld = FALSE;
+        }
+        else
+        {
+            gFieldEffectArguments[0] = task->tMonPartyId;
+            FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON_INIT);
+        }
     }
 }
 
