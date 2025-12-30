@@ -33,6 +33,7 @@ struct WildEncounterData
 
 static EWRAM_DATA struct WildEncounterData sWildEncounterData = {};
 static EWRAM_DATA bool8 sWildEncountersDisabled = FALSE;
+EWRAM_DATA bool8 gInfiniteRepelOn;
 
 static bool8 UnlockedTanobyOrAreNotInTanoby(void);
 static u32 GenerateUnownPersonalityByLetter(u8 letter);
@@ -577,6 +578,10 @@ bool8 UpdateRepelCounter(void)
 {
     u16 steps;
 
+    // Infinite repel: do not decrement or trigger worn-off messages automatically
+    if (gInfiniteRepelOn == TRUE)
+        return FALSE;
+
     if (InUnionRoom() == TRUE)
         return FALSE;
 
@@ -602,7 +607,8 @@ static bool8 IsWildLevelAllowedByRepel(u8 wildLevel)
 {
     u8 i;
 
-    if (!VarGet(VAR_REPEL_STEP_COUNT))
+    // If neither step-based repel nor infinite repel is active, allow encounter
+    if (!gInfiniteRepelOn && !VarGet(VAR_REPEL_STEP_COUNT))
         return TRUE;
 
     for (i = 0; i < PARTY_SIZE; i++)

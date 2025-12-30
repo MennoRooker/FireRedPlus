@@ -311,6 +311,29 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
                 return TRUE;
             }
         }
+        else if (lr == MENU_R_PRESSED)
+        {
+            // Repel toggle: requires LR mode and FLAG_BUGSY_ITEM_EXCHANGED
+            if (FlagGet(FLAG_BUGSY_ITEM_EXCHANGED) == TRUE)
+            {
+                extern bool8 gInfiniteRepelOn;
+                gInfiniteRepelOn = (gInfiniteRepelOn == FALSE);
+                if (gInfiniteRepelOn)
+                {
+                    VarSet(VAR_REPEL_STEP_COUNT, 1); // Treat as active; UpdateRepelCounter ignores when infinite
+                    PlaySE(SE_USE_ITEM);
+                    // Do not lock controls on toggle ON
+                    return FALSE;
+                }
+                else
+                {
+                    VarSet(VAR_REPEL_STEP_COUNT, 0);
+                    // Show the existing "Repel wore off" message via script
+                    ScriptContext_SetupScript(EventScript_RepelWoreOff);
+                    return TRUE; // Allow engine to lock during message
+                }
+            }
+        }
     }
 
     return FALSE;
