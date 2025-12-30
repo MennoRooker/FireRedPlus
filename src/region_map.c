@@ -4014,9 +4014,22 @@ static void FreeFlyMap(u8 taskId)
     DestroyTask(taskId);
     FreeAllWindowBuffers();
     if (sFlyMap->selectedDestination == TRUE)
+    {
         SetMainCallback2(CB2_ReturnToField);
+    }
     else
-        SetMainCallback2(CB2_ReturnToPartyMenuFromFlyMap);
+    {
+        extern bool8 gFlyInvokedFromOverworld;
+        if (gFlyInvokedFromOverworld)
+        {
+            gFlyInvokedFromOverworld = FALSE;
+            SetMainCallback2(CB2_ReturnToField);
+        }
+        else
+        {
+            SetMainCallback2(CB2_ReturnToPartyMenuFromFlyMap);
+        }
+    }
     FREE_IF_NOT_NULL(sFlyMap);
 }
 

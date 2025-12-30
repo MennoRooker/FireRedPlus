@@ -469,6 +469,10 @@ I can't switch gears on the bike, even in the vanilla
 version of firered. I might want to implement this,
 I though it was already in the game normally.
 
+I gotta keep in mind that if I introduce new functio-
+nality that I need the corresponding NPCs to explain it.
+For example, L = Map/Fly and R = repel.
+
 NEW GAME:
 - Old Man functions properly
 - Bugsy scenes function properly
@@ -511,6 +515,7 @@ x Gen 6 types (no fairy)
 x No items in battle
 - Increase Safari catch rates
 - Fishing rods redistribution
+/ LR buttons
 ---------------------------------------
 - Bugsy gives perma repel
 - Implement abilites
@@ -524,7 +529,7 @@ x No items in battle
 - Physical/special split
 - Gym leader have and give held items
 - Simultaneous wild pkmn and own pkmn anim
-- LR buttons
+
 
 
 
