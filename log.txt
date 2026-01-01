@@ -555,6 +555,7 @@ x Snow Warning
 - Super Luck
 - Transform (Ditto)
 - Sniper
+- Tinted Lens
 
 Moves to add:
 x Quiver Dance
@@ -570,6 +571,9 @@ x Quiver Dance
 - Rock Polish (Erika's sudowoodo)
 x Bulldoze
 - Freeze Dry
+- Dark Pulse
+- Focus Blast
+- Aura Sphere
 
 Items to add:
 - Eviolite
