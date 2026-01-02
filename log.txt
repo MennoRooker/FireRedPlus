@@ -96,7 +96,7 @@ VEN: Harvest to Thick Fat
 BLA: Shell Armor
 CHA: *Solar Power
 MEG: Chlorophyll
-FRA: *Strong Jaw
+FER: *Strong Jaw
 TYP: Flash Fire
 SCE: Lightning Rod
 SWA: Swift Swim
@@ -473,6 +473,28 @@ I gotta keep in mind that if I introduce new functio-
 nality that I need the corresponding NPCs to explain it.
 For example, L = Map/Fly and R = repel.
 
+What I want to do for the legendary birds is as follows:
+I want BLUE to be the one to catch at least 1 legendary 
+bird and 1 legendary beast based on the starter the player
+picked, to compliment his Champion team.
+If BLUE has:
+Charizard -> Articuno + Raikou
+Blastoise -> Zapdos + Entei
+Venusaur  -> Moltres + Suicune
+That means that the player cannot catch the legendary birds.
+I think I want to do something unique for the spots in which
+you can normally catch the birds.
+Examples:
+Power Plant 	-> High electric environment (Magnezone)
+Mt. Ember	-> ...
+Seafoam Islands	-> Icy Rock (Glaceon)
+
+Maybe I also want the Champion rematch to not be a thing.
+You beat BLUE, so he should not be Champion anymore. You
+should, as the player, be Champion, but that won't work so
+maybe just add Steven as the Champion rematch and give him
+legendaries.
+
 NEW GAME:
 - Old Man functions properly
 - Bugsy scenes function properly
@@ -483,6 +505,7 @@ NEW GAME:
 - Tea lady functions properly
 - Silph Co. blocked before Koga
 - Pokémon Mansion blocked before Sabrina
+- Calio's quest = mandatory before Giovanni
 
 
 
@@ -499,10 +522,10 @@ x Force SET mode
 x Make EV berries usable
 x Nature highlighting
 x IV/EV screen
-- Linearizations
+/ Linearizations
 x TM redistribution
 - Ethers -> Elixirs
-- Balancing
+/ Balancing
 - Remove X items
 x Instant Running Shoes
 x Instant National Dex
@@ -515,20 +538,20 @@ x Gen 6 types (no fairy)
 x No items in battle
 - Increase Safari catch rates
 - Fishing rods redistribution
-/ LR buttons
----------------------------------------
+x LR buttons
 - Bugsy gives perma repel
+---------------------------------------
 - Implement abilites
 - Determine opponent EVs
-- Linearization
 - Neutralize natures in daycare
 - Custom move animations
 - Generate docs with Python scripts
 - Add gen 4 evos after dex upgrade
 - Add Fairy type
 - Physical/special split
-- Gym leader have and give held items
+- Gym leaders rematches
 - Simultaneous wild pkmn and own pkmn anim
+- Improved AI
 
 
 
@@ -556,6 +579,7 @@ x Snow Warning
 - Transform (Ditto)
 - Sniper
 - Tinted Lens
+- Multiscale
 
 Moves to add:
 x Quiver Dance
@@ -574,6 +598,9 @@ x Bulldoze
 - Dark Pulse
 - Focus Blast
 - Aura Sphere
+- Draco Meteor
+- Dragon Pulse (lower Dragonbreath BP)
+- High Horsepower
 
 Items to add:
 - Eviolite
@@ -590,11 +617,12 @@ Items to add:
 - Smooth Rock
 - Icy Rock
 - Light Clay
+- Soul Orb (Gen VII Soul Dew)
 
 LR BUTTONS:
-- LR Fly/Repel in overworld
-- LR+arrow keys switch pockets in bag
-- LR keys switch between Stats/IVs/EVs
+x LR Fly/Repel in overworld
+x LR+arrow keys switch pockets in bag
+x Press A to switch between stats/IVs/EVs
 - LR Left switches mon with lead and vice versa
 
 Online resources/tutorials:

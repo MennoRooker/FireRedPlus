@@ -115,6 +115,9 @@ WATER -> WATER/ICE
 - DEWGONG
 Thick Fat -> Snow Warning
 
+- GENGAR
+Levitate -> Shadow Tag
+
 - ONIX
 atk:	45 -> 75
 
@@ -131,7 +134,7 @@ Lucky Egg 5% -> 50%
 WATER -> WATER/DRAGON
 
 - STARYU
-Water -> Water/Psychic
+WATER -> WATER/PSYCHIC
 
 - CHIKORITA
 Overgrow -> Overgrow/Chlorophyll
@@ -338,6 +341,14 @@ spatk:	72 -> 92
 
 - EXPLOUD
 atk:	91 -> 108
+
+- CASTFORM
+hp:	70 -> 80
+atk:	70 -> 80
+def:	70 -> 80
+spatk:	70 -> 80
+spdef:	70 -> 80
+spd:	70 -> 80
 
 - ABSOL
 spd:	75 -> 98
