@@ -1,5 +1,5 @@
 Route2_EventScript_ItemEther::
-	finditem ITEM_ETHER
+	finditem ITEM_ELIXIR
 	end
 
 Route2_EventScript_ItemParalyzeHeal::
@@ -71,7 +71,7 @@ SSAnne_2F_Room2_EventScript_ItemStardust::
 	end
 
 SSAnne_2F_Room4_EventScript_ItemXAttack::
-	finditem ITEM_X_ATTACK
+	finditem ITEM_DEEP_SEA_TOOTH
 	end
 
 SSAnne_B1F_Room2_EventScript_ItemTM44::
@@ -79,7 +79,7 @@ SSAnne_B1F_Room2_EventScript_ItemTM44::
 	end
 
 SSAnne_B1F_Room3_EventScript_ItemEther::
-	finditem ITEM_ETHER
+	finditem ITEM_ELIXIR
 	end
 
 SSAnne_B1F_Room5_EventScript_ItemSuperPotion::
@@ -103,7 +103,7 @@ RocketHideout_B1F_EventScript_ItemHyperPotion::
 	end
 
 RocketHideout_B2F_EventScript_ItemXSpeed::
-	finditem ITEM_X_SPEED
+	finditem ITEM_SPELL_TAG
 	end
 
 RocketHideout_B2F_EventScript_ItemMoonStone::
@@ -131,7 +131,7 @@ RocketHideout_B4F_EventScript_ItemTM49::
 	end
 
 RocketHideout_B4F_EventScript_ItemMaxEther::
-	finditem ITEM_MAX_ETHER
+	finditem ITEM_MAX_ELIXIR
 	end
 
 RocketHideout_B4F_EventScript_ItemCalcium::
@@ -163,7 +163,7 @@ PokemonTower_6F_EventScript_ItemRareCandy::
 	end
 
 PokemonTower_6F_EventScript_ItemXAccuracy::
-	finditem ITEM_X_ACCURACY
+	finditem ITEM_SCOPE_LENS
 	end
 
 Route12_EventScript_ItemTM48::
@@ -255,7 +255,7 @@ SilphCo_6F_EventScript_ItemHPUp::
 	end
 
 SilphCo_6F_EventScript_ItemXSpecial::
-	finditem ITEM_X_SPECIAL
+	finditem ITEM_SHARP_BEAK
 	end
 
 SilphCo_7F_EventScript_ItemCalcium::
@@ -343,7 +343,7 @@ VictoryRoad_1F_EventScript_ItemTM02::
 	end
 
 VictoryRoad_2F_EventScript_ItemGuardSpec::
-	finditem ITEM_GUARD_SPEC
+	finditem ITEM_FULL_RESTORE
 	end
 
 VictoryRoad_2F_EventScript_ItemTM07::
@@ -423,7 +423,7 @@ MtMoon_B2F_EventScript_ItemAntidote::
 	end
 
 Route11_EventScript_ItemXDefend::
-	finditem ITEM_X_DEFEND
+	finditem ITEM_DEEP_SEA_SCALE
 	end
 
 Route9_EventScript_ItemBurnHeal::
@@ -431,7 +431,7 @@ Route9_EventScript_ItemBurnHeal::
 	end
 
 RockTunnel_1F_EventScript_ItemRepel::
-	finditem ITEM_REPEL
+	finditem ITEM_HARD_STONE
 	end
 
 RockTunnel_1F_EventScript_ItemPearl::
@@ -447,7 +447,7 @@ RockTunnel_B1F_EventScript_ItemRevive::
 	end
 
 RockTunnel_B1F_EventScript_ItemMaxEther::
-	finditem ITEM_MAX_ETHER
+	finditem ITEM_MAX_ELIXIR
 	end
 
 SilphCo_8F_EventScript_ItemIron::
@@ -487,7 +487,7 @@ PokemonTower_5F_EventScript_ItemCleanseTag::
 	end
 
 CeladonCity_EventScript_ItemEther::
-	finditem ITEM_ETHER
+	finditem ITEM_ELIXIR
 	end
 
 RocketHideout_B3F_EventScript_ItemBlackGlasses::
@@ -527,7 +527,7 @@ FourIsland_EventScript_ItemStardust::
 	end
 
 OneIsland_KindleRoad_EventScript_ItemEther::
-	finditem ITEM_ETHER
+	finditem ITEM_ELIXIR
 	end
 
 OneIsland_KindleRoad_EventScript_ItemMaxRepel::
@@ -587,7 +587,7 @@ SevenIsland_SevaultCanyon_EventScript_ItemNugget::
 	end
 
 ThreeIsland_BerryForest_EventScript_ItemMaxEther::
-	finditem ITEM_MAX_ETHER
+	finditem ITEM_MAX_ELIXIR
 	end
 
 ThreeIsland_BerryForest_EventScript_ItemFullHeal::
@@ -607,7 +607,7 @@ MtEmber_Exterior_EventScript_ItemFireStone::
 	end
 
 MtEmber_Exterior_EventScript_ItemDireHit::
-	finditem ITEM_DIRE_HIT
+	finditem ITEM_CHARCOAL
 	end
 
 FourIsland_IcefallCave_1F_EventScript_ItemUltraBall::

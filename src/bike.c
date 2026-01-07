@@ -187,9 +187,9 @@ static void BikeTransition_MoveDirection(u8 direction)
         {
             
             if (collision == COLLISION_COUNT)
-                PlayerWalkFast(direction);
+                PlayerWalkFaster(direction);
             else if (PlayerIsMovingOnRockStairs(direction))
-                PlayerWalkFast(direction);
+                PlayerWalkFaster(direction);
             else
                 PlayerRideWaterCurrent(direction);
         }

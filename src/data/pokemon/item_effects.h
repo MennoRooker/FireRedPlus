@@ -332,7 +332,7 @@ static const u8 sItemEffect_LumBerry[6] = {
 
 static const u8 sItemEffect_SitrusBerry[7] = {
     [4] = ITEM4_HEAL_HP,
-    [6] = 30, // Amount of HP to recover
+    [6] = ITEM6_HEAL_HP_QUARTER, // Recover 25% of max HP
 };
 
 // EV-reducing berries (Gen 4 behavior): lower EVs by 10 and increase friendship
