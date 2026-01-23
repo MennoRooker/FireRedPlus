@@ -195,7 +195,7 @@
 #define VAR_BUGSY_ROUTE2_SCENE                                                 0x408F
 
 
-#define VAR_0x4090                 0x4090
+#define VAR_INFINITE_REPEL_ACTIVE   0x4090
 #define VAR_0x4091                 0x4091
 #define VAR_0x4092                 0x4092
 #define VAR_0x4093                 0x4093

@@ -6,6 +6,8 @@ Story linearization
 Custom sprites, items and cutsenes
 Better access to EVs, IVs and natures
 QoL changes
+Ultra Ball Catch Bonus  2.0x -> 2.5x
+Safari Ball Catch Bonus 1.5x -> 3.5x
 
 
 Dark and Dragon are now physical, Ghost is special

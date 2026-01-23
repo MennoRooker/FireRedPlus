@@ -495,6 +495,10 @@ should, as the player, be Champion, but that won't work so
 maybe just add Steven as the Champion rematch and give him
 legendaries.
 
+I want to start changing the evolutions of trade evos to just 
+be level-up evos soon. I don't want to make them all lvl 36
+evolutions, I want some variation.
+
 Wild TMs:
 01
 02
@@ -577,9 +581,9 @@ x Nature highlighting
 x IV/EV screen
 / Linearizations
 x TM redistribution
-- Ethers -> Elixirs
+x Ethers -> Elixirs
 / Balancing
-- Remove X items
+x Remove X items
 x Instant Running Shoes
 x Instant National Dex
 x Determine opponent natures & abilities
@@ -592,7 +596,8 @@ x No items in battle
 x Increase Safari catch rates
 - Fishing rods redistribution
 x LR buttons
-- Bugsy gives perma repel
+x Perma repel
+- L = map before getting fly
 ---------------------------------------
 - Implement abilites
 - Determine opponent EVs
@@ -605,6 +610,7 @@ x LR buttons
 - Gym leaders rematches
 - Simultaneous wild pkmn and own pkmn anim
 - Improved AI
+- Medicine pocket
 
 
 

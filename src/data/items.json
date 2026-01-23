@@ -307,7 +307,7 @@
     {
       "english": "FULL RESTORE",
       "itemId": "ITEM_FULL_RESTORE",
-      "price": 3000,
+      "price": 2500,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 255,
       "description_english": "A medicine that fully restores the\\nHP and heals any status problems\\nof one POKéMON.",
@@ -323,7 +323,7 @@
     {
       "english": "MAX POTION",
       "itemId": "ITEM_MAX_POTION",
-      "price": 2500,
+      "price": 1800,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 255,
       "description_english": "A spray-type wound medicine.\\nIt fully restores the HP of one\\nPOKéMON.",
@@ -371,7 +371,7 @@
     {
       "english": "FULL HEAL",
       "itemId": "ITEM_FULL_HEAL",
-      "price": 600,
+      "price": 800,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A spray-type medicine.\\nIt heals all the status problems of\\none POKéMON.",
@@ -579,7 +579,7 @@
     {
       "english": "ELIXIR",
       "itemId": "ITEM_ELIXIR",
-      "price": 3000,
+      "price": 1000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 10,
       "description_english": "Restores the PP of all moves for\\none POKéMON by 10 points each.",
@@ -595,7 +595,7 @@
     {
       "english": "MAX ELIXIR",
       "itemId": "ITEM_MAX_ELIXIR",
-      "price": 4500,
+      "price": 1500,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 255,
       "description_english": "Fully restores the PP of all moves\\nfor one POKéMON.",
@@ -1126,7 +1126,7 @@
       "price": 9800,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "A nutritious drink for POKéMON.\\nIt raises the   SP. DEF stat\\nof one POKéMON.",
+      "description_english": "A nutritious drink for POKéMON.\\nIt adds 10 SP. DEF EVs to\\none POKéMON.",
       "importance": 0,
       "registrability": 0,
       "pocket": "POCKET_ITEMS",

@@ -316,12 +316,15 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
             // Repel toggle: requires LR mode and FLAG_BUGSY_ITEM_EXCHANGED
             if (FlagGet(FLAG_BUGSY_ITEM_EXCHANGED) == TRUE)
             {
-                extern bool8 gInfiniteRepelOn;
-                gInfiniteRepelOn = (gInfiniteRepelOn == FALSE);
-                if (gInfiniteRepelOn)
+                // Toggle persistent infinite repel state
+                bool8 active = VarGet(VAR_INFINITE_REPEL_ACTIVE) != 0;
+                active = !active;
+                VarSet(VAR_INFINITE_REPEL_ACTIVE, active ? 1 : 0);
+                if (active)
                 {
                     VarSet(VAR_REPEL_STEP_COUNT, 1); // Treat as active; UpdateRepelCounter ignores when infinite
-                    PlaySE(SE_USE_ITEM);
+                    // Use the standard repel sound
+                    PlaySE(SE_REPEL);
                     // Do not lock controls on toggle ON
                     return FALSE;
                 }
