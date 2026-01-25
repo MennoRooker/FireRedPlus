@@ -1122,6 +1122,50 @@ void Task_HandleChooseMonInput(u8 taskId)
     {
         s8 *slotPtr = GetCurrentPartySlotPtr();
 
+        // LR quick switch: override LR movement with direct swap behavior
+        // Only active when choosing a mon (not in the interactive SWITCH/Softboiled flows)
+        if (gPartyMenu.action == PARTY_ACTION_CHOOSE_MON)
+        {
+            u8 lr = GetLRKeysPressed();
+            if (lr == MENU_L_PRESSED)
+            {
+                // L: switch selected mon to first slot if not already there; do nothing on Cancel
+                if (*slotPtr != SLOT_CANCEL && *slotPtr != 0)
+                {
+                    gPartyMenu.action = PARTY_ACTION_SWITCH;
+                    gPartyMenu.slotId = *slotPtr;  // source is current selection
+                    gPartyMenu.slotId2 = 0;        // destination is first slot
+                    PlaySE(SE_SELECT);
+                    SwitchSelectedMons(taskId);
+                    return;
+                }
+                // Swallow L press when hovering Cancel or already in first slot
+                return;
+            }
+            else if (lr == MENU_R_PRESSED)
+            {
+                // R: when current selection is first slot, swap it with previously selected slot
+                // If no previous slot recorded or invalid, fallback to second slot
+                if (*slotPtr == 0)
+                {
+                    u8 dest = sPartyMenuInternal->lastSelectedSlot;
+                    if (dest == 0 || dest >= gPlayerPartyCount || GetMonData(&gPlayerParty[dest], MON_DATA_SPECIES) == SPECIES_NONE)
+                        dest = (gPlayerPartyCount > 1 ? 1 : 0);
+                    if (dest != 0)
+                    {
+                        gPartyMenu.action = PARTY_ACTION_SWITCH;
+                        gPartyMenu.slotId = 0;       // source is first slot
+                        gPartyMenu.slotId2 = dest;   // destination is previous slot (or second slot fallback)
+                        PlaySE(SE_SELECT);
+                        SwitchSelectedMons(taskId);
+                        return;
+                    }
+                }
+                // Swallow R press if not on first slot or no valid destination
+                return;
+            }
+        }
+
         switch (PartyMenuButtonHandler(slotPtr))
         {
         case A_BUTTON:
