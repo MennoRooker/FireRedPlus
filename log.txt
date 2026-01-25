@@ -525,6 +525,26 @@ National Dex flags need to be altered since I give the player
 the NatDex instantly. 2 grunts at Mt. Ember fight you if you 
 have the NatDex.
 
+I found 2 MAX REPELS around OneIsland and ThreeIsland. I need 
+to grep through "hidden_item" and some more of the pokeballs
+to get all of them out.
+
+I need to think of another reason to go to the seafoam island
+caves now that the birds are gone.
+
+I just changed a bunch of stats of pokemon that were buffed
+in gen VI and onwards. I need to update pkmn.txt to reflect
+these changes.
+
+There are some scripts, flags and names in the codebase that
+are no longer relevant:
+- Rival names
+- Pokeball scripts & flags
+- Hidden item flags
+Perhaps I will change these at some point. It doesn't really
+matter much but it would be cleaner to change these.
+
+
 Wild TMs:
 01
 02
@@ -621,7 +641,7 @@ x Gen 6 types (no fairy)
 x No items in battle
 x Increase Safari catch rates
 - Fishing rods redistribution
-x LR buttons
+/ LR buttons
 x Perma repel
 - L = map before getting fly
 ---------------------------------------

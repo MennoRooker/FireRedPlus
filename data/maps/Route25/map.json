@@ -238,7 +238,7 @@
       "x": 58,
       "y": 6,
       "elevation": 3,
-      "item": "ITEM_ETHER",
+      "item": "ITEM_ELIXIR",
       "flag": "FLAG_HIDDEN_ITEM_ROUTE25_ETHER",
       "quantity": 1,
       "underfoot": false

@@ -105,7 +105,7 @@ Magnet Pull/Sturdy -> Levitate
 Magnet Pull/Sturdy -> Levitate
 
 - FARFETCH'D
-atk:	65 -> 74
+atk:	65 -> 90
 spd:	60 -> 74
 NORMAL/FLYING -> FIGHTING/FLYING
 
@@ -328,12 +328,6 @@ spd:	100-> 115
 
 - CAMERUPT
 hp:	70 -> 100
-
-- LUNATONE
-def:	65 -> 85
-
-- SOLROCK
-spdef:	65 -> 85
 
 - TROPIUS
 hp:	99 -> 109
