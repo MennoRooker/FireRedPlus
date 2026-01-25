@@ -5500,7 +5500,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_SwimmerMaleGarrett),
+        .party = NO_ITEM_DEFAULT_MOVES_NATURE_ABILITY(sParty_SwimmerMaleGarrett),
     },
     [TRAINER_FISHERMAN_TOMMY] = {
         .trainerClass = TRAINER_CLASS_FISHERMAN,
@@ -7420,7 +7420,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_CueBallPaxton),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_CueBallPaxton),
     },
     [TRAINER_CAMPER_MAX] = {
         .trainerClass = TRAINER_CLASS_CAMPER,

@@ -531,7 +531,7 @@ OneIsland_KindleRoad_EventScript_ItemEther::
 	end
 
 OneIsland_KindleRoad_EventScript_ItemMaxRepel::
-	finditem ITEM_MAX_REPEL
+	finditem ITEM_MAX_ELIXIR
 	end
 
 OneIsland_KindleRoad_EventScript_ItemCarbos::

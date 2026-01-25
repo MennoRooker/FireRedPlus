@@ -549,14 +549,19 @@ static void Task_InitTeachyTvFromField(u8 taskId)
 
 void FieldUseFunc_Repel(u8 taskId)
 {
-    if (VarGet(VAR_REPEL_STEP_COUNT) == 0)
+    if (VarGet(VAR_INFINITE_REPEL_ACTIVE) == 0)
     {
         PlaySE(SE_REPEL);
         gTasks[taskId].func = Task_UseRepel;
     }
     else
-        // An earlier repel is still in effect
-        DisplayItemMessageInBag(taskId, FONT_NORMAL, gText_RepelEffectsLingered, Task_ReturnToBagFromContextMenu);
+    {
+        // Deactivate infinite repel (mirror overworld R-toggle behavior)
+        VarSet(VAR_INFINITE_REPEL_ACTIVE, 0);
+        VarSet(VAR_REPEL_STEP_COUNT, 0);
+        // Show wore-off message in bag context
+        DisplayItemMessageInBag(taskId, FONT_NORMAL, gText_RepelEffectWoreOff, Task_ReturnToBagFromContextMenu);
+    }
 }
 
 static void Task_UseRepel(u8 taskId)
@@ -564,8 +569,12 @@ static void Task_UseRepel(u8 taskId)
     if (!IsSEPlaying())
     {
         ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, NULL, gSpecialVar_ItemId, 0xFFFF);
-        VarSet(VAR_REPEL_STEP_COUNT, ItemId_GetHoldEffectParam(gSpecialVar_ItemId));
-        RemoveUsedItem();
+        // Activate infinite repel and ensure step-based repel is disabled
+        VarSet(VAR_INFINITE_REPEL_ACTIVE, 1);
+        VarSet(VAR_REPEL_STEP_COUNT, 0);
+        // Build "Used <item>. Wild Pokémon will be repelled" message
+        CopyItemName(gSpecialVar_ItemId, gStringVar2);
+        StringExpandPlaceholders(gStringVar4, gText_UsedVar2WildRepelled);
         DisplayItemMessageInBag(taskId, FONT_NORMAL, gStringVar4, Task_ReturnToBagFromContextMenu);
     }
 }

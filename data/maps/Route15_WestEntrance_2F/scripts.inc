@@ -1,4 +1,4 @@
-.equ REQUIRED_CAUGHT_MONS, 50
+.equ REQUIRED_CAUGHT_MONS, 30
 
 Route15_WestEntrance_2F_MapScripts::
 	.byte 0
@@ -26,7 +26,7 @@ Route15_WestEntrance_2F_EventScript_Aide::
 	goto_if_set FLAG_GOT_SHELL_BELL_FROM_OAKS_AIDE, Route15_WestEntrance_2F_EventScript_AlreadyGotShellBell
 	msgbox Route15_WestEntrance_2F_Text_GiveItemIfCaughtEnough, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Aide_EventScript_DeclineCheckMons
-	setvar VAR_0x8004, 0
+	setvar VAR_0x8004, 1
 	specialvar VAR_RESULT, GetPokedexCount
 	buffernumberstring STR_VAR_3, VAR_0x8006
 	call Route15_WestEntrance_2F_EventScript_GetAideRequestInfo

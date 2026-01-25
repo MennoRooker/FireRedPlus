@@ -499,6 +499,32 @@ I want to start changing the evolutions of trade evos to just
 be level-up evos soon. I don't want to make them all lvl 36
 evolutions, I want some variation.
 
+Next commit: Trade evos, national dex checks and birds
+
+I gave the player the national dex instantly, this means that
+the national dex scene no longer has the enableNationalDex 
+function call in it. I want to change this scene to mention
+gen IV mons once I get to that point.
+
+I rearranged the required amount of caught pokemon for the 
+aides scattered around the map to match the order in which
+you meet them, but that does mean that you need more mons to
+get Flash from the aide in the route 2 building. For now I 
+think I will just make this 15 mons and make all the other 
+aides more lenient as well. In order:
+ROUTE 11: 10 mons, Itemfinder
+ROUTE 2 : 15 mons, HM05 Flash
+ROUTE 10: 20 mons, Everstone
+ROUTE 16: 25 mons, Amulet Coin
+ROUTE 15: 30 mons, Shell Bell
+
+Maybe copy one of the aide scripts and add extra aides just 
+for extra items?
+
+National Dex flags need to be altered since I give the player
+the NatDex instantly. 2 grunts at Mt. Ember fight you if you 
+have the NatDex.
+
 Wild TMs:
 01
 02
@@ -660,6 +686,7 @@ x Bulldoze
 - Draco Meteor
 - Dragon Pulse (lower Dragonbreath BP)
 - High Horsepower
+- X-Scissor
 
 Items to add:
 - Eviolite
