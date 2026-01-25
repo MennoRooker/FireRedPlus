@@ -88,7 +88,7 @@
       "x": 55,
       "y": 2,
       "elevation": 3,
-      "item": "ITEM_ETHER",
+      "item": "ITEM_ELIXIR",
       "flag": "FLAG_HIDDEN_ITEM_UNDERGROUND_PATH_EAST_WEST_TUNNEL_ETHER",
       "quantity": 1,
       "underfoot": false
