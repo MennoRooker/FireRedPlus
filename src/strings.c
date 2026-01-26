@@ -168,6 +168,7 @@ const u8 gText_MenuSafariStats[] = _("{STR_VAR_1}/{STR_VAR_2}\nBALLS  {STR_VAR_3
 const u8 gText_TimesStrVar1[] = _("×{STR_VAR_1}");
 const u8 gText_Berry[] = _(" BERRY");
 const u8 gText_Coins[] = _("{STR_VAR_1} COINS");
+const u8 gText_Medicine2[] = _("MEDICINE");
 const u8 gText_Items2[] = _("ITEMS");
 const u8 gText_PokeBalls2[] = _("POKé BALLS");
 const u8 gText_KeyItems2[] = _("KEY ITEMS");

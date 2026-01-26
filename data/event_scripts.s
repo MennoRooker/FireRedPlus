@@ -1275,12 +1275,17 @@ Std_PutItemAway::
 
 EventScript_BufferPutAwayPocketName::
 	switch VAR_RESULT
+	case POCKET_MEDICINE,    EventScript_BufferPutAwayPocketMedicine
 	case POCKET_ITEMS,       EventScript_BufferPutAwayPocketItems
 	case POCKET_KEY_ITEMS,   EventScript_BufferPutAwayPocketKeyItems
 	case POCKET_POKE_BALLS,  EventScript_BufferPutAwayPocketPokeBalls
 	case POCKET_TM_CASE,     EventScript_BufferPutAwayPocketTMCase
 	case POCKET_BERRY_POUCH, EventScript_BufferPutAwayPocketBerryPouch
 	end
+
+EventScript_BufferPutAwayPocketMedicine::
+	bufferstdstring STR_VAR_3, STDSTRING_ITEMS_POCKET
+	return
 
 EventScript_BufferPutAwayPocketItems::
 	bufferstdstring STR_VAR_3, STDSTRING_ITEMS_POCKET

@@ -1086,6 +1086,7 @@ extern const u8 gOtherText_Walk[];
 extern const u8 gOtherText_Check[];
 extern const u8 gOtherText_Open[];
 extern const u8 gOtherText_Deselect[];
+extern const u8 gText_Medicine2[];
 extern const u8 gText_Items2[];
 extern const u8 gText_PokeBalls2[];
 extern const u8 gText_KeyItems2[];

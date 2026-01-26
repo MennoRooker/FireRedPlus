@@ -54,6 +54,7 @@ struct BagMenuAlloc
 
 struct BagSlots
 {
+    struct ItemSlot bagPocket_Medicine[BAG_MEDICINE_COUNT];
     struct ItemSlot bagPocket_Items[BAG_ITEMS_COUNT];
     struct ItemSlot bagPocket_KeyItems[BAG_KEYITEMS_COUNT];
     struct ItemSlot bagPocket_PokeBalls[BAG_POKEBALLS_COUNT];
@@ -181,6 +182,7 @@ static const struct BgTemplate sBgTemplates[2] = {
 };
 
 static const u8 *const sPocketNames[] = {
+    gText_Medicine2,
     gText_Items2,
     gText_KeyItems2,
     gText_PokeBalls2
@@ -292,7 +294,7 @@ static const struct ScrollArrowsTemplate sPocketSwitchArrowPairTemplate = {
     .secondX = 72,
     .secondY = 72,
     .fullyUpThreshold = 0,
-    .fullyDownThreshold = 2,
+    .fullyDownThreshold = 3,
     .tileTag = 111,
     .palTag = 111,
     .palNum = 0,
@@ -1129,7 +1131,7 @@ static u8 ProcessPocketSwitchInput(u8 taskId, u8 pocketId)
     lrState = GetLRKeysPressed();
     if (JOY_NEW(DPAD_LEFT) || lrState == MENU_L_PRESSED)
     {
-        if (pocketId == POCKET_ITEMS - 1)
+        if (pocketId == POCKET_MEDICINE - 1)
             return 0;
         PlaySE(SE_BAG_POCKET);
         return 1;
@@ -2063,6 +2065,7 @@ static void BackUpPlayerBag(void)
 {
     u32 i;
     sBackupPlayerBag = AllocZeroed(sizeof(struct BagSlots));
+    memcpy(sBackupPlayerBag->bagPocket_Medicine, gSaveBlock1Ptr->bagPocket_Medicine, BAG_MEDICINE_COUNT * sizeof(struct ItemSlot));
     memcpy(sBackupPlayerBag->bagPocket_Items, gSaveBlock1Ptr->bagPocket_Items, BAG_ITEMS_COUNT * sizeof(struct ItemSlot));
     memcpy(sBackupPlayerBag->bagPocket_KeyItems, gSaveBlock1Ptr->bagPocket_KeyItems, BAG_KEYITEMS_COUNT * sizeof(struct ItemSlot));
     memcpy(sBackupPlayerBag->bagPocket_PokeBalls, gSaveBlock1Ptr->bagPocket_PokeBalls, BAG_POKEBALLS_COUNT * sizeof(struct ItemSlot));
@@ -2073,6 +2076,7 @@ static void BackUpPlayerBag(void)
         sBackupPlayerBag->itemsAbove[i] = gBagMenuState.itemsAbove[i];
         sBackupPlayerBag->cursorPos[i] = gBagMenuState.cursorPos[i];
     }
+    ClearItemSlots(gSaveBlock1Ptr->bagPocket_Medicine, BAG_MEDICINE_COUNT);
     ClearItemSlots(gSaveBlock1Ptr->bagPocket_Items, BAG_ITEMS_COUNT);
     ClearItemSlots(gSaveBlock1Ptr->bagPocket_KeyItems, BAG_KEYITEMS_COUNT);
     ClearItemSlots(gSaveBlock1Ptr->bagPocket_PokeBalls, BAG_POKEBALLS_COUNT);
@@ -2083,6 +2087,7 @@ static void BackUpPlayerBag(void)
 static void RestorePlayerBag(void)
 {
     u32 i;
+    memcpy(gSaveBlock1Ptr->bagPocket_Medicine, sBackupPlayerBag->bagPocket_Medicine, BAG_MEDICINE_COUNT * sizeof(struct ItemSlot));
     memcpy(gSaveBlock1Ptr->bagPocket_Items, sBackupPlayerBag->bagPocket_Items, BAG_ITEMS_COUNT * sizeof(struct ItemSlot));
     memcpy(gSaveBlock1Ptr->bagPocket_KeyItems, sBackupPlayerBag->bagPocket_KeyItems, BAG_KEYITEMS_COUNT * sizeof(struct ItemSlot));
     memcpy(gSaveBlock1Ptr->bagPocket_PokeBalls, sBackupPlayerBag->bagPocket_PokeBalls, BAG_POKEBALLS_COUNT * sizeof(struct ItemSlot));

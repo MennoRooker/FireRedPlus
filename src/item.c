@@ -58,6 +58,8 @@ void ApplyNewEncryptionKeyToBagItems_(u32 key)
 
 void SetBagPocketsPointers(void)
 {
+    gBagPockets[POCKET_MEDICINE - 1].itemSlots = gSaveBlock1Ptr->bagPocket_Medicine;
+    gBagPockets[POCKET_MEDICINE - 1].capacity = BAG_MEDICINE_COUNT;
     gBagPockets[POCKET_ITEMS - 1].itemSlots = gSaveBlock1Ptr->bagPocket_Items;
     gBagPockets[POCKET_ITEMS - 1].capacity = BAG_ITEMS_COUNT;
     gBagPockets[POCKET_KEY_ITEMS - 1].itemSlots = gSaveBlock1Ptr->bagPocket_KeyItems;

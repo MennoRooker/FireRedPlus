@@ -68,6 +68,7 @@ static const union AnimCmd sAnim_Bag_OpenKeyItemsPocket[] = {
 };
 
 static const union AnimCmd *const sAnims_Bag[] = {
+    [POCKET_MEDICINE - 1]   = sAnim_Bag_OpenItemsPocket,  // Uses same frame as ITEMS for now
     [POCKET_ITEMS - 1]      = sAnim_Bag_OpenItemsPocket,
     [POCKET_KEY_ITEMS - 1]  = sAnim_Bag_OpenKeyItemsPocket,
     [POCKET_POKE_BALLS - 1] = sAnim_Bag_OpenPokeBallsPocket,

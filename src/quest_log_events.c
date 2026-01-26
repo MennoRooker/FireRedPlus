@@ -1075,6 +1075,7 @@ static const u16 *LoadEvent_UsedItem(const u16 *eventData)
 
     switch (ItemId_GetPocket(rItemId))
     {
+    case POCKET_MEDICINE:
     case POCKET_ITEMS:
     case POCKET_POKE_BALLS:
     case POCKET_BERRY_POUCH:
