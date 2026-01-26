@@ -1123,8 +1123,8 @@ void Task_HandleChooseMonInput(u8 taskId)
         s8 *slotPtr = GetCurrentPartySlotPtr();
 
         // LR quick switch: override LR movement with direct swap behavior
-        // Only active when choosing a mon (not in the interactive SWITCH/Softboiled flows)
-        if (gPartyMenu.action == PARTY_ACTION_CHOOSE_MON)
+        // Only active when choosing a mon outside of battle
+        if (gPartyMenu.action == PARTY_ACTION_CHOOSE_MON && gPartyMenu.menuType != PARTY_MENU_TYPE_IN_BATTLE)
         {
             u8 lr = GetLRKeysPressed();
             if (lr == MENU_L_PRESSED)

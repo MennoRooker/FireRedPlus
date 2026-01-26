@@ -544,6 +544,13 @@ are no longer relevant:
 Perhaps I will change these at some point. It doesn't really
 matter much but it would be cleaner to change these.
 
+The berries that are not easily accessible through pickup
+or the department store should be available at TwoIsland.
+
+Apparently I can SWITCH pokemon during a turn for free with
+the current LR switching implementation...
+Need to fix that soon.
+
 
 Wild TMs:
 01
