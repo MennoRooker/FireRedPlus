@@ -634,14 +634,14 @@ x Instant Running Shoes
 x Instant National Dex
 x Determine opponent natures & abilities
 x Sitrus berry 25% HP
-- National dex checks by aides
+x NatDex checks by aides
 x Get Old Rod from Old Man
 x Weather defense boosts
 x Gen 6 types (no fairy)
 x No items in battle
 x Increase Safari catch rates
 - Fishing rods redistribution
-/ LR buttons
+x LR buttons
 x Perma repel
 - L = map before getting fly
 ---------------------------------------

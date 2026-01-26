@@ -59,7 +59,6 @@ spd:	91 -> 101
 Keen Eye -> Keen Eye/Own Tempo
 
 - ARBOK
-atk:	85 -> 105
 POISON -> POISON/DARK
 
 - VULPIX
