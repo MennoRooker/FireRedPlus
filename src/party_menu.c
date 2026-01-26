@@ -1135,6 +1135,8 @@ void Task_HandleChooseMonInput(u8 taskId)
                     gPartyMenu.action = PARTY_ACTION_SWITCH;
                     gPartyMenu.slotId = *slotPtr;  // source is current selection
                     gPartyMenu.slotId2 = 0;        // destination is first slot
+                    // Remember the source slot for potential R press reversal
+                    sPartyMenuInternal->lastSelectedSlot = *slotPtr;
                     PlaySE(SE_SELECT);
                     SwitchSelectedMons(taskId);
                     return;
