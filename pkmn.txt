@@ -135,6 +135,15 @@ WATER -> WATER/DRAGON
 - STARYU
 WATER -> WATER/PSYCHIC
 
+- ARTICUNO
+Pressure -> Pressure/Snow Warning
+
+- ZAPDOS
+Pressure -> Pressure/Drizzle
+
+- MOLTRES
+Pressure -> Pressure/Drought
+
 - CHIKORITA
 Overgrow -> Overgrow/Chlorophyll
 
@@ -165,6 +174,9 @@ Torrent -> Torrent/Strong Jaw
 
 - LEDIAN
 atk:	35 -> 85
+
+- SPINARAK
+spd:	30 -> 55
 
 - ARIADOS
 spatk:	60 -> 75

@@ -94,7 +94,7 @@ ability slot that is used. I think for the 9 starter lines:
 
 VEN: Harvest to Thick Fat
 BLA: Shell Armor
-CHA: *Solar Power
+CHA: *Solar Power/*Dragon's Maw
 MEG: Chlorophyll
 FER: *Strong Jaw
 TYP: Flash Fire
@@ -549,62 +549,28 @@ or the department store should be available at TwoIsland.
 
 Apparently I can SWITCH pokemon during a turn for free with
 the current LR switching implementation...
-Need to fix that soon.
 
+Maybe adding an item icon to the opponent when in battle is
+a nice addition.
 
-Wild TMs:
-01
-02
-05
-07
-08
-09
-11
-12
-14
-17
-18
-21
-22
-25
-31
-32
-36
-37
-40
-41
-43
-44
-45
-46
-47
-48
-49
-50
+BLUE should leave notes at all legendary birds locations 
+without letting the player know who's leaving them. The first
+note found should read something like "too late", then "too
+late again, you should do better" and then "I bet you're 
+getting frustrated by now". It should be doable to use
+dynamic pokeball scripts that change depending on how many
+the player has already found. At the champion battle BLUE
+should say "Did you find my notes?" revealing that it was him
+who left them and has the legendary birds. After beating the 
+champion he releases the birds to their original location and
+releases the dogs as roamers. (I gave the birds weather
+abilities that suit them)
 
-Gifted TMs:
-03
-04
-06
-19
-26
-29
-34
-38
-39
-
-Game Corner TMs:
-13
-23
-24
-30
-35
-
-Missing:
-10 (Formerly through Pickup)
-Maybe add TMs? (Sludge, Thunder Wave etc.)
+Add all legendaries as events through items that lead to the
+event.
 
 NEW GAME:
+- Medicine pocket
 - Old Man functions properly
 - Bugsy scenes function properly
 - Kelvin
@@ -664,12 +630,17 @@ x Perma repel
 - Simultaneous wild pkmn and own pkmn anim
 - Improved AI
 - Medicine pocket
+- Letters
+- Roamers
+- Events
+- Deoxys forms
 
 
 
 
 Abilities to add:
 x Snow Warning
+- Dragon's Maw
 / Solar Power
 / Strong Jaw
 - Technician (Breloom & Hitmontop)
@@ -695,6 +666,7 @@ x Snow Warning
 
 Moves to add:
 x Quiver Dance
+x Bulldoze
 - Air Slash
 - Close Combat
 - Brave Bird/Dragon Ascent
@@ -705,13 +677,12 @@ x Quiver Dance
 - Iron Head
 - Poison Jab
 - Rock Polish (Erika's sudowoodo)
-x Bulldoze
 - Freeze Dry
 - Dark Pulse
 - Focus Blast
 - Aura Sphere
 - Draco Meteor
-- Dragon Pulse (lower Dragonbreath BP)
+- Dragon Pulse
 - High Horsepower
 - X-Scissor
 
@@ -736,7 +707,7 @@ LR BUTTONS:
 x LR Fly/Repel in overworld
 x LR+arrow keys switch pockets in bag
 x Press A to switch between stats/IVs/EVs
-- LR Left switches mon with lead and vice versa
+x LR Left switches mon with lead and vice versa
 
 Online resources/tutorials:
 https://github.com/pret/pokeemerald/wiki/Tutorials
