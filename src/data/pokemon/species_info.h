@@ -531,7 +531,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_PIDGEOT] =
     {
         .baseHP = 83,
-        .baseAttack = 96,
+        .baseAttack = 92,
         .baseDefense = 75,
         .baseSpeed = 101,
         .baseSpAttack = 70,

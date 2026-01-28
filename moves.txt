@@ -97,6 +97,9 @@ Now has a 20% chance to flinch
 - Clamp
 75% -> 85%
 
+- Skull Bash
+100 -> 130
+
 - High Jump Kick
 85 -> 110
 
