@@ -190,6 +190,10 @@ NORMAL -> ELECTRIC
 - Rock Tomb
 80% -> 90%
 
+- Sky Uppercut
+85 -> 90
+90% -> 95%
+
 - Sand Tomb
 70% -> 80%
 

@@ -653,6 +653,7 @@ x Perma repel
 - Gym leaders rematches
 - Simultaneous wild pkmn and own pkmn anim
 - Improved AI
+- Victory Road FLY checkpoint
 - Letters
 - Roamers
 - Events
