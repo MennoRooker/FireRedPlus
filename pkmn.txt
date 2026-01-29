@@ -19,13 +19,13 @@ Torrent -> Torrent/Shell Armor
 Torrent -> Torrent/Shell Armor
 
 - CHARMANDER
-Blaze -> Blaze/Solar Power
+Blaze -> Blaze/Dragon's Maw
 
 - CHARMELEON
-Blaze -> Blaze/Solar Power
+Blaze -> Blaze/Dragon's Maw
 
 - CHARIZARD
-Blaze -> Blaze/Solar Power
+Blaze -> Blaze/Dragon's Maw
 
 - METAPOD
 atk:	20 -> 40
@@ -54,7 +54,7 @@ spd:	71 -> 81
 Keen Eye -> Keen Eye/Own Tempo
 
 -PIDGEOT
-atk:	80 -> 96
+atk:	80 -> 92
 spd:	91 -> 101
 Keen Eye -> Keen Eye/Own Tempo
 
@@ -135,6 +135,15 @@ WATER -> WATER/DRAGON
 - STARYU
 WATER -> WATER/PSYCHIC
 
+- ARTICUNO
+Pressure -> Pressure/Snow Warning
+
+- ZAPDOS
+Pressure -> Pressure/Drizzle
+
+- MOLTRES
+Pressure -> Pressure/Drought
+
 - CHIKORITA
 Overgrow -> Overgrow/Chlorophyll
 
@@ -165,6 +174,9 @@ Torrent -> Torrent/Strong Jaw
 
 - LEDIAN
 atk:	35 -> 85
+
+- SPINARAK
+spd:	30 -> 55
 
 - ARIADOS
 spatk:	60 -> 75

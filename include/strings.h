@@ -743,6 +743,7 @@ extern const u8 gText_Left[];
 extern const u8 gText_Tm13_1500Coins[];
 extern const u8 gText_Tm23_1200Coins[];
 extern const u8 gText_Tm24_1500Coins[];
+extern const u8 gText_Tm26_1500Coins[];
 extern const u8 gText_Tm30_1800Coins[];
 extern const u8 gText_Tm35_1500Coins[];
 extern const u8 gText_1F_2[];
