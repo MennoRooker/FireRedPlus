@@ -586,6 +586,10 @@ done all the rematches against that trainer.
 HM06 is in the Kindle Road spa, which is ridiculous. I need
 to redistribute that to somewhere.
 
+I think it's a good idea to make Spider Web 'super effective'
+on FLYING types so that it reduces their speed by 2 stages
+instead of 1.
+
 NEW GAME:
 - Medicine pocket
 - Old Man functions properly
@@ -644,6 +648,7 @@ x Perma repel
 - Add gen 4 evos after dex upgrade
 - Determine opponent EVs
 - Add Fairy type
+- Held berries reusable
 - Physical/special split
 - Gym leaders rematches
 - Simultaneous wild pkmn and own pkmn anim

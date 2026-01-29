@@ -439,6 +439,7 @@ const u16 gEggMoves[] = {
 
     egg_moves(MAGIKARP,
               MOVE_DRAGON_DANCE,
+              MOVE_BOUNCE,
               MOVE_OUTRAGE),
 
     egg_moves(LAPRAS,
