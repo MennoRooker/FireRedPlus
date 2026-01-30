@@ -13,10 +13,10 @@ script ViridianForest_EventScript_BugsyCutscene {
     lockall
 	applymovement(LOCALID_BUGSY_VIRIDIAN_FOREST, ViridianForest_Movement_BugsyLooksAround)
 	waitmovement(0)
-	msgbox(ViridianForest_Text_BugsyLooksForNet, MSGBOX_DEFAULT)
+	msgbox(ViridianForest_Text_BugsyLooksForNet, MSGBOX_NPC)
 	applymovement(LOCALID_BUGSY_VIRIDIAN_FOREST, ViridianForest_Movement_BugsyFacesPlayer)
 	waitmovement(0)
-	msgbox(ViridianForest_Text_BugsySendsPlayerToRoute22, MSGBOX_DEFAULT)
+	msgbox(ViridianForest_Text_BugsySendsPlayerToRoute22, MSGBOX_NPC)
     applymovement(LOCALID_BUGSY_VIRIDIAN_FOREST, ViridianForest_Movement_BugsyLeaves)
     waitmovement(0)
     removeobject(LOCALID_BUGSY_VIRIDIAN_FOREST)

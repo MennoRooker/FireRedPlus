@@ -1352,7 +1352,7 @@ static void OpenContextMenu(u8 taskId)
             sContextMenuItemsPtr = sContextMenuItemsBuffer;
             sContextMenuNumItems = 2;
         }
-        else if (gBagMenuState.pocket == OPEN_BAG_POKEBALLS && ItemId_GetBattleUsage(gSpecialVar_ItemId))
+        else if (ItemId_GetPocket(gSpecialVar_ItemId) == POCKET_POKE_BALLS && ItemId_GetBattleUsage(gSpecialVar_ItemId))
         {
             // In battle, only Poké Balls get a Use option; Items and Key Items show Cancel only.
             sContextMenuItemsPtr = sContextMenuItems_BattleUse;

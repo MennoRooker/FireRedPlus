@@ -79,7 +79,7 @@ static const u8 sAirLockDescription[] = _("Negates weather effects.");
 static const u8 sSolarPowerDescription[] = _("Ups SPATK but lowers HP in sun.");
 static const u8 sStrongJawDescription[] = _("Ups the power of biting moves.");
 static const u8 sSnowWarningDescription[] = _("Summons hail in battle.");
-static const u8 sDragonsMawDescription[] = _("Ups damage of DRAGON moves.");
+static const u8 sDragonsMawDescription[] = _("Ups damage of DRAGON-type moves.");
 
 const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 {

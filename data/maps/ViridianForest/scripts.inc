@@ -25,13 +25,13 @@ ViridianForest_EventScript_BugsyCutscene::
 # 15 "data/maps/ViridianForest/scripts.pory"
 	waitmovement 0
 # 16 "data/maps/ViridianForest/scripts.pory"
-	msgbox ViridianForest_Text_BugsyLooksForNet, MSGBOX_DEFAULT
+	msgbox ViridianForest_Text_BugsyLooksForNet, MSGBOX_NPC
 # 17 "data/maps/ViridianForest/scripts.pory"
 	applymovement LOCALID_BUGSY_VIRIDIAN_FOREST, ViridianForest_Movement_BugsyFacesPlayer
 # 18 "data/maps/ViridianForest/scripts.pory"
 	waitmovement 0
 # 19 "data/maps/ViridianForest/scripts.pory"
-	msgbox ViridianForest_Text_BugsySendsPlayerToRoute22, MSGBOX_DEFAULT
+	msgbox ViridianForest_Text_BugsySendsPlayerToRoute22, MSGBOX_NPC
 # 20 "data/maps/ViridianForest/scripts.pory"
 	applymovement LOCALID_BUGSY_VIRIDIAN_FOREST, ViridianForest_Movement_BugsyLeaves
 # 21 "data/maps/ViridianForest/scripts.pory"

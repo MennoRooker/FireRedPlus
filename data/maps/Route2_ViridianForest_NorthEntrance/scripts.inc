@@ -37,7 +37,7 @@ Route2_ViridianForest_NorthEntrance_EventScript_Bugsy::
 # 21 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	waitmovement 0
 # 22 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	msgbox Route2_ViridianForest_NorthEntrance_Text_BugsyGreeting, MSGBOX_DEFAULT
+	msgbox Route2_ViridianForest_NorthEntrance_Text_BugsyGreeting, MSGBOX_NPC
 # 23 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	closemessage
 # 24 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"

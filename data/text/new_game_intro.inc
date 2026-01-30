@@ -150,9 +150,9 @@ gControlsGuide_Text_SelectButton::
     .string "a registered item.$"
 
 gControlsGuide_Text_LRButtons::
-    .string "If you need help playing the\n"
-    .string "game, or on how to do things,\n"
-    .string "press the L or R Button.$"
+    .string "The LR buttons can be used to\n"
+    .string "switch around POKéMON, or to\n"
+    .string "FLY (L) and Repel (R).$"
 
 gOakSpeech_Text_AskPlayerGender::
     .string "Now tell me. Are you a boy?\n"

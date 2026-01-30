@@ -20,6 +20,8 @@ Route22_Text_EarlyRivalDefeat::
 	.string "You just lucked out!$"
 
 Route22_Text_EarlyRivalPostBattle::
+	.string "You may have won, but you're still\n"
+	.string "not beating me to the first GYM.\p"
 	.string "Oh yeah, you wanted that item,\n"
 	.string "didn't you?\p"
 	.string "It's useless anyway, you can only\n"

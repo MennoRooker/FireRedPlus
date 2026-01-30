@@ -21,6 +21,10 @@ Route2_Text_BugsyNetInInventory::
     .string "As promised, I have something\n"
     .string "that might be useful to you.$"
 
+Route2_Text_ExplainRepel::
+    .string "Press R to toggle the REPEL ON\n"
+    .string "and OFF.$"
+
 Route2_Text_BugsyHasGivenRepel::
     .string "This is a REPEL. It keeps POKéMON\n"
     .string "away when you're walking through\p"
