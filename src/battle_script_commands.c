@@ -1621,6 +1621,17 @@ static void Cmd_adjustnormaldamage(void)
         RecordItemEffectBattle(gBattlerTarget, holdEffect);
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
     }
+    // Gen 5+ Sturdy: from full HP, survive with 1 HP and show Endure message
+    if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
+     && gBattleMons[gBattlerTarget].ability == ABILITY_STURDY
+     && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP
+     && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage
+     && gBattleMoves[gCurrentMove].power)
+    {
+        RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
+        gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
+        gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
+    }
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
      && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage)
@@ -1663,6 +1674,17 @@ static void Cmd_adjustnormaldamage2(void)
     {
         RecordItemEffectBattle(gBattlerTarget, holdEffect);
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
+    }
+    // Gen 5+ Sturdy for moves that skip False Swipe check
+    if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
+     && gBattleMons[gBattlerTarget].ability == ABILITY_STURDY
+     && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP
+     && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage
+     && gBattleMoves[gCurrentMove].power)
+    {
+        RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
+        gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
+        gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
     }
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
@@ -7188,12 +7210,14 @@ static void Cmd_tryKO(void)
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
     }
 
-    if (gBattleMons[gBattlerTarget].ability == ABILITY_STURDY)
+    // Gen 5+ Sturdy: if at full HP, survive OHKO moves with 1 HP and show Endure message
+    if (gBattleMons[gBattlerTarget].ability == ABILITY_STURDY
+        && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
     {
-        gMoveResultFlags |= MOVE_RESULT_MISSED;
-        gLastUsedAbility = ABILITY_STURDY;
-        gBattlescriptCurrInstr = BattleScript_SturdyPreventsOHKO;
         RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
+        gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
+        gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
+        gBattlescriptCurrInstr += 5;
     }
     else
     {

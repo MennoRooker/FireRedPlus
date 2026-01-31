@@ -37,91 +37,93 @@ Route2_ViridianForest_NorthEntrance_EventScript_Bugsy::
 # 21 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	waitmovement 0
 # 22 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	msgbox Route2_ViridianForest_NorthEntrance_Text_BugsyGreeting, MSGBOX_NPC
+	textcolor NPC_TEXT_COLOR_MALE
 # 23 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	closemessage
+	msgbox Route2_ViridianForest_NorthEntrance_Text_BugsyGreeting, MSGBOX_NPC
 # 24 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	setvar VAR_SPOKE_TO_BUGSY, 1
+	closemessage
 # 25 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, Route2_ViridianForest_NorthEntrance_PlayerLetsBugsyPass
+	setvar VAR_SPOKE_TO_BUGSY, 1
 # 26 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	applymovement LOCALID_BUGSY_NORTH_GATE, Route2_ViridianForest_NorthEntrance_Movement_BugsyLeaves
+	applymovement OBJ_EVENT_ID_PLAYER, Route2_ViridianForest_NorthEntrance_PlayerLetsBugsyPass
 # 27 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	waitmovement 0
+	applymovement LOCALID_BUGSY_NORTH_GATE, Route2_ViridianForest_NorthEntrance_Movement_BugsyLeaves
 # 28 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	removeobject LOCALID_BUGSY_NORTH_GATE
-# 29 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, Route2_ViridianForest_NorthEntrance_PlayerLeavesAfterBugsy
-# 30 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	waitmovement 0
+# 29 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+	removeobject LOCALID_BUGSY_NORTH_GATE
+# 30 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, Route2_ViridianForest_NorthEntrance_PlayerLeavesAfterBugsy
 # 31 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	setflag FLAG_HIDE_BUGSY_NORTH_GATE
+	waitmovement 0
 # 32 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	clearflag FLAG_HIDE_BUGSY_VIRIDIAN_FOREST
+	setflag FLAG_HIDE_BUGSY_NORTH_GATE
 # 33 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	setvar VAR_BUGSY_VIRIDIAN_FOREST_SCENE, 1
+	clearflag FLAG_HIDE_BUGSY_VIRIDIAN_FOREST
 # 34 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	warp MAP_VIRIDIAN_FOREST, 5, 10
+	setvar VAR_BUGSY_VIRIDIAN_FOREST_SCENE, 1
 # 35 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	waitstate
+	warp MAP_VIRIDIAN_FOREST, 5, 10
 # 36 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+	waitstate
+# 37 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	releaseall
 	return
 
 
-# 39 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-Route2_ViridianForest_NorthEntrance_Movement_BugsyApproach:
 # 40 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	walk_down
+Route2_ViridianForest_NorthEntrance_Movement_BugsyApproach:
 # 41 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+	walk_down
+# 42 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	walk_down
 	step_end
 
-# 44 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-Route2_ViridianForest_NorthEntrance_PlayerLetsBugsyPass:
 # 45 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	walk_left
+Route2_ViridianForest_NorthEntrance_PlayerLetsBugsyPass:
 # 46 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+	walk_left
+# 47 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	face_right
 	step_end
 
-# 49 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-Route2_ViridianForest_NorthEntrance_Movement_BugsyLeaves:
 # 50 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	walk_down
+Route2_ViridianForest_NorthEntrance_Movement_BugsyLeaves:
 # 51 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	walk_down
-	step_end
-
-# 54 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-Route2_ViridianForest_NorthEntrance_PlayerLeavesAfterBugsy:
-# 55 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	walk_right
-# 56 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+# 52 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	walk_down
 	step_end
 
-# 60 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+# 55 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+Route2_ViridianForest_NorthEntrance_PlayerLeavesAfterBugsy:
+# 56 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+	walk_right
+# 57 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+	walk_down
+	step_end
 
 # 61 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-Route2_ViridianForest_NorthEntrance_EventScript_Youngster::
+
 # 62 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	msgbox Route2_ViridianForest_NorthEntrance_Text_ManyMonsOnlyInForests, MSGBOX_NPC
+Route2_ViridianForest_NorthEntrance_EventScript_Youngster::
 # 63 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	end
+	msgbox Route2_ViridianForest_NorthEntrance_Text_ManyMonsOnlyInForests, MSGBOX_NPC
 # 64 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-
-# 65 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-Route2_ViridianForest_NorthEntrance_EventScript_OldMan::
-# 66 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	msgbox Route2_ViridianForest_NorthEntrance_Text_CanCutSkinnyTrees, MSGBOX_NPC
-# 67 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	end
-# 68 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+# 65 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 
+# 66 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+Route2_ViridianForest_NorthEntrance_EventScript_OldMan::
+# 67 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+	msgbox Route2_ViridianForest_NorthEntrance_Text_CanCutSkinnyTrees, MSGBOX_NPC
+# 68 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+	end
 # 69 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-Route2_ViridianForest_NorthEntrance_EventScript_CooltrainerF::
+
 # 70 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
-	msgbox Route2_ViridianForest_NorthEntrance_Text_CanCancelEvolution, MSGBOX_NPC
+Route2_ViridianForest_NorthEntrance_EventScript_CooltrainerF::
 # 71 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
+	msgbox Route2_ViridianForest_NorthEntrance_Text_CanCancelEvolution, MSGBOX_NPC
+# 72 "data/maps/Route2_ViridianForest_NorthEntrance/scripts.pory"
 	end

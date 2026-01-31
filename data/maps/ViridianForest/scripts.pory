@@ -13,6 +13,7 @@ script ViridianForest_EventScript_BugsyCutscene {
     lockall
 	applymovement(LOCALID_BUGSY_VIRIDIAN_FOREST, ViridianForest_Movement_BugsyLooksAround)
 	waitmovement(0)
+	textcolor(NPC_TEXT_COLOR_MALE)
 	msgbox(ViridianForest_Text_BugsyLooksForNet, MSGBOX_NPC)
 	applymovement(LOCALID_BUGSY_VIRIDIAN_FOREST, ViridianForest_Movement_BugsyFacesPlayer)
 	waitmovement(0)

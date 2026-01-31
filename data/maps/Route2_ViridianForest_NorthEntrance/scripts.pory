@@ -19,6 +19,7 @@ script Route2_ViridianForest_NorthEntrance_EventScript_Bugsy {
     waitmovement(0)
     applymovement(LOCALID_BUGSY_NORTH_GATE, Route2_ViridianForest_NorthEntrance_Movement_BugsyApproach)
     waitmovement(0)
+    textcolor(NPC_TEXT_COLOR_MALE)
     msgbox(Route2_ViridianForest_NorthEntrance_Text_BugsyGreeting, MSGBOX_NPC)
     closemessage
     setvar(VAR_SPOKE_TO_BUGSY, 1)

@@ -131,12 +131,14 @@ PewterCity_Text_ExplainExpShare::
     .string "by a POKéMON.\p"
     .string "The POKéMON will receive a share\n"
     .string "of the EXP. Points without having\l"
-    .string "to battle.\p"
+    .string "to battle.$"
+
+PewterCity_Text_CantBelieveColleague::
     .string "Can you believe my colleague wanted\n"
     .string "to give you this after catching 50\l"
     .string "different kinds of POKéMON?!\p"
     .string "I told him he's nuts, that's way\n"
-    .string "too much for just an EXP. SHARE!$"
+    .string "too late for an EXP. SHARE!$"
 
 PewterCity_Text_MustBeGoingBackToLab::
     .string "Well, I must be going back to\n"

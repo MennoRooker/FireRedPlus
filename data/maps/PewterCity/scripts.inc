@@ -702,7 +702,8 @@ PewterCity_EventScript_AideGiveRunningShoes::
 	signmsg
 	msgbox PewterCity_Text_ExplainExpShare
 	normalmsg
-	call EventScript_RestorePrevTextColor
+	textcolor NPC_TEXT_COLOR_MALE
+	msgbox PewterCity_Text_CantBelieveColleague
 	msgbox PewterCity_Text_MustBeGoingBackToLab
 	closemessage
 	call_if_eq VAR_TEMP_1, 0, PewterCity_EventScript_AideExit0

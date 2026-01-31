@@ -493,18 +493,22 @@ static const struct TrainerMonNoItemCustomMoves sParty_CamperLiam[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_LeaderBrock[] = {
+static const struct TrainerMonNoItemCustomMovesNatureAbility sParty_LeaderBrock[] = {
     {
         .iv = 3,
         .lvl = 12,
         .species = SPECIES_GEODUDE,
         .moves = {MOVE_TACKLE, MOVE_DEFENSE_CURL, MOVE_NONE, MOVE_NONE},
+        .nature = NATURE_HARDY,
+        .abilitySlot = 0,
     },
     {
         .iv = 3,
         .lvl = 14,
         .species = SPECIES_ONIX,
         .moves = {MOVE_ROCK_TOMB, MOVE_TACKLE, MOVE_BIND, MOVE_NONE},
+        .nature = NATURE_CALM,
+        .abilitySlot = 1,
     },
 };
 

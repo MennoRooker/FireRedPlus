@@ -18,6 +18,10 @@ PalletTown_RivalsHouse_Text_ReceivedTownMapFromDaisy::
     .string "{PLAYER} received a TOWN MAP\n"
     .string "from DAISY.$"
 
+PalletTown_RivalsHouse_Text_HowToOpenTownMap::
+    .string "Press L while in the overworld\n"
+    .string "to open the map.$"
+
 PalletTown_RivalsHouse_Text_DontHaveSpaceForThis::
     .string "You don't have space for this in\n"
     .string "your BAG.$"

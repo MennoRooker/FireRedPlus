@@ -15,6 +15,7 @@
 #include "field_specials.h"
 #include "menu_helpers.h"
 #include "item_menu.h"
+#include "item.h"
 #include "link.h"
 #include "wonder_news.h"
 #include "metatile_behavior.h"
@@ -34,6 +35,7 @@
 #include "constants/maps.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/flags.h"
+#include "constants/items.h"
 
 #define SIGNPOST_POKECENTER 0
 #define SIGNPOST_POKEMART 1
@@ -299,15 +301,22 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         return TRUE;
     }
 
-    // L-button Fly: only in LR mode, with HM02, and if map allows Fly
+    // L-button: Fly or Town Map
     {
         u8 lr = GetLRKeysPressed();
         if (lr == MENU_L_PRESSED)
         {
+            // Prefer Fly when available and allowed
             if (FlagGet(FLAG_GOT_HM02) == TRUE && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
             {
                 gFlyInvokedFromOverworld = TRUE;
                 SetMainCallback2(CB2_OpenFlyMap);
+                return TRUE;
+            }
+            // Otherwise, open Town Map if the player has it
+            else if (CheckBagHasItem(ITEM_TOWN_MAP, 1))
+            {
+                SetMainCallback2(CB2_OpenTownMap);
                 return TRUE;
             }
         }

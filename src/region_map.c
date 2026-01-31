@@ -3876,6 +3876,12 @@ void CB2_OpenFlyMap(void)
     InitRegionMap(REGIONMAP_TYPE_FLY);
 }
 
+// Open the standard Town Map (non-flyable region map)
+void CB2_OpenTownMap(void)
+{
+    InitRegionMap(REGIONMAP_TYPE_NORMAL);
+}
+
 static void Task_FlyMap(u8 taskId)
 {
     switch (sFlyMap->state)

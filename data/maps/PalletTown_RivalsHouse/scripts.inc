@@ -142,6 +142,9 @@ PalletTown_RivalsHouse_EventScript_GiveTownMap::
 	waitmovement 0
 	delay 12
 	giveitem_msg PalletTown_RivalsHouse_Text_ReceivedTownMapFromDaisy, ITEM_TOWN_MAP, 1, MUS_OBTAIN_KEY_ITEM
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	signmsg
+	msgbox PalletTown_RivalsHouse_Text_HowToOpenTownMap
 	release
 	end
 

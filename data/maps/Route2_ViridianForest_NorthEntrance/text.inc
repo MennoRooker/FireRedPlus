@@ -19,7 +19,7 @@ Route2_ViridianForest_NorthEntrance_Text_CanCancelEvolution::
     .string "POKéMON the way they are.$"
 
 Route2_ViridianForest_NorthEntrance_Text_BugsyGreeting::
-    .string "Hey, have you seen my BUG CATCHING\n"
+    .string "???: Hey, have you seen my BUG\n"
     .string "NET?\p"
     .string "I left it somewhere around here,\n"
     .string "but I can't find it anywhere.\p"
