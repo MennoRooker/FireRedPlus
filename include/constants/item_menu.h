@@ -1,10 +1,11 @@
 #ifndef GUARD_CONSTANTS_ITEM_MENU_H
 #define GUARD_CONSTANTS_ITEM_MENU_H
 
-#define OPEN_BAG_ITEMS     0
-#define OPEN_BAG_KEYITEMS  1
-#define OPEN_BAG_POKEBALLS 2
-#define OPEN_BAG_LAST      3
+#define OPEN_BAG_MEDICINE  0
+#define OPEN_BAG_ITEMS     1
+#define OPEN_BAG_KEYITEMS  2
+#define OPEN_BAG_POKEBALLS 3
+#define OPEN_BAG_LAST      4
 
 #define ITEMMENULOCATION_FIELD            0
 #define ITEMMENULOCATION_PARTY            1

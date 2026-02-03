@@ -428,6 +428,12 @@ PewterCity_EventScript_Lass::
 	msgbox PewterCity_Text_ClefairyCameFromMoon, MSGBOX_NPC
 	end
 
+PewterCity_EventScript_Kelvin::
+	trainerbattle_single TRAINER_BURGLAR_KELVIN, PewterCity_Text_KelvinIntro, PewterCity_Text_KelvinDefeat
+	textcolor NPC_TEXT_COLOR_MALE
+	msgbox PewterCity_Text_KelvinPostBattle, MSGBOX_AUTOCLOSE
+	end
+
 PewterCity_EventScript_MuseumGuide::
 	lock
 	faceplayer

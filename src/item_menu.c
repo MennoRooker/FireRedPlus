@@ -208,8 +208,18 @@ static const struct MenuAction sItemMenuContextActions[] = {
     [ITEMMENUACTION_DUMMY] = {gString_Dummy, {.void_u8 = NULL}}
 };
 
+// Field context menu actions per pocket:
+// [Medicine]   Use, Toss, Cancel
+// [Items]      Use, Give, Toss, Cancel
+// [Key Items]  Use, Register, Cancel
+// [Poké Balls] Toss, Cancel
 static const u8 sContextMenuItems_Field[][4] = {
     {
+        ITEMMENUACTION_USE,
+        ITEMMENUACTION_TOSS,
+        ITEMMENUACTION_CANCEL,
+        ITEMMENUACTION_DUMMY
+    }, {
         ITEMMENUACTION_USE,
         ITEMMENUACTION_GIVE,
         ITEMMENUACTION_TOSS,
@@ -220,9 +230,9 @@ static const u8 sContextMenuItems_Field[][4] = {
         ITEMMENUACTION_CANCEL,
         ITEMMENUACTION_DUMMY
     }, {
-        ITEMMENUACTION_GIVE,
         ITEMMENUACTION_TOSS,
         ITEMMENUACTION_CANCEL,
+        ITEMMENUACTION_DUMMY,
         ITEMMENUACTION_DUMMY
     }
 };
@@ -234,16 +244,20 @@ static const u8 sContextMenuItems_CheckGiveTossCancel[] = {
     ITEMMENUACTION_CANCEL
 };
 
+// Link/Union: Only Items can be given; others show Cancel.
 static const u8 sContextMenuItems_GiveIfNotKeyItemPocket[][2] = {
     {
+        ITEMMENUACTION_CANCEL,
+        ITEMMENUACTION_DUMMY
+    }, {
         ITEMMENUACTION_GIVE,
         ITEMMENUACTION_CANCEL
     }, {
         ITEMMENUACTION_CANCEL,
         ITEMMENUACTION_DUMMY
     }, {
-        ITEMMENUACTION_GIVE,
-        ITEMMENUACTION_CANCEL
+        ITEMMENUACTION_CANCEL,
+        ITEMMENUACTION_DUMMY
     }
 };
 
@@ -336,7 +350,8 @@ void GoToBagMenu(u8 location, u8 pocket, MainCallback bagCallback)
         {
             sBagMenuDisplay->data[i] = 0;
         }
-        if (pocket == OPEN_BAG_ITEMS || pocket == OPEN_BAG_KEYITEMS || pocket == OPEN_BAG_POKEBALLS)
+        // Accept any valid pocket tab, including Medicine.
+        if (pocket < OPEN_BAG_LAST)
             gBagMenuState.pocket = pocket;
         gTextFlags.autoScroll = FALSE;
         gSpecialVar_ItemId = ITEM_NONE;
@@ -1390,6 +1405,10 @@ static void OpenContextMenu(u8 taskId)
         {
             switch (gBagMenuState.pocket)
             {
+            case OPEN_BAG_MEDICINE:
+                sContextMenuNumItems = 3;
+                sContextMenuItemsPtr = sContextMenuItems_Field[gBagMenuState.pocket];
+                break;
             case OPEN_BAG_ITEMS:
                 sContextMenuNumItems = 4;
                 if (ItemIsMail(gSpecialVar_ItemId) == TRUE)
@@ -1414,7 +1433,7 @@ static void OpenContextMenu(u8 taskId)
                 break;
             case OPEN_BAG_POKEBALLS:
                 sContextMenuItemsPtr = sContextMenuItems_Field[gBagMenuState.pocket];
-                sContextMenuNumItems = 3;
+                sContextMenuNumItems = 2;
                 break;
             }
         }

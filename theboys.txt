@@ -15,16 +15,18 @@ text:	"How much can you bench?"
 
 - KELVIN (Burglar)
 loc:	Outside Pewter's museum
-party:	POOCHYENA (8), VULPIX (8)
-text:	"I got my hands on some collector's
-	items. I'm gonna sell these for profit."
-	"My wife won't be happy."
-	"I'm still going to sell these items and
-	buy drugs with the money I make."
+party:	POOCHYENA (11)
+text:	"Huh?!
+	I'm not stealing from the museum.
+	Mind your own business.
+	POOCHYENA get him!"
+	"My wife's gonna kill me..."
+	"I'm only stealing to pay of my 
+	gambling debt."
 
 x LUC (Fisherman)
 loc:	Route 12
-party:	MAGIKARP (24), GOLDEEN (25)
+party:	MAGIKARP (30), WHISCASH (30)
 text:	"You wanna bet on who can catch the
 	biggest fish? There's no way I lose!"
 	"Now I can't pay my rent."

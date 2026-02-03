@@ -83,21 +83,23 @@ Route2_EventScript_BugsyCutscene::
 # 52 "data/maps/Route2/scripts.pory"
 	textcolor NPC_TEXT_COLOR_MALE
 # 53 "data/maps/Route2/scripts.pory"
-	msgbox Route2_Text_BugsySaysGoodbye, MSGBOX_NPC
+	msgbox Route2_Text_BugsyHasGivenRepel, MSGBOX_NPC
 # 54 "data/maps/Route2/scripts.pory"
-	closemessage
+	msgbox Route2_Text_BugsySaysGoodbye, MSGBOX_NPC
 # 55 "data/maps/Route2/scripts.pory"
-	setvar VAR_BUGSY_ROUTE2_SCENE, 1
+	closemessage
 # 56 "data/maps/Route2/scripts.pory"
-	setflag FLAG_BUGSY_ITEM_EXCHANGED
+	setvar VAR_BUGSY_ROUTE2_SCENE, 1
 # 57 "data/maps/Route2/scripts.pory"
-	applymovement LOCALID_BUGSY_ROUTE2, Route2_Movement_BugsyLeaves
+	setflag FLAG_BUGSY_ITEM_EXCHANGED
 # 58 "data/maps/Route2/scripts.pory"
-	waitmovement 0
+	applymovement LOCALID_BUGSY_ROUTE2, Route2_Movement_BugsyLeaves
 # 59 "data/maps/Route2/scripts.pory"
+	waitmovement 0
+# 60 "data/maps/Route2/scripts.pory"
 	removeobject LOCALID_BUGSY_ROUTE2
 Route2_EventScript_BugsyCutscene_1:
-# 61 "data/maps/Route2/scripts.pory"
+# 62 "data/maps/Route2/scripts.pory"
 	releaseall
 	return
 
@@ -115,36 +117,34 @@ Route2_EventScript_BugsyCutscene_2:
 	goto Route2_EventScript_BugsyCutscene_1
 
 
-# 64 "data/maps/Route2/scripts.pory"
-Route2_Movement_BugsyFacesPlayer:
 # 65 "data/maps/Route2/scripts.pory"
+Route2_Movement_BugsyFacesPlayer:
+# 66 "data/maps/Route2/scripts.pory"
 	face_down
 	step_end
 
-# 68 "data/maps/Route2/scripts.pory"
-Route2_Movement_BugsyApproach:
 # 69 "data/maps/Route2/scripts.pory"
-	walk_down
+Route2_Movement_BugsyApproach:
 # 70 "data/maps/Route2/scripts.pory"
 	walk_down
+# 71 "data/maps/Route2/scripts.pory"
+	walk_down
 	step_end
 
-# 73 "data/maps/Route2/scripts.pory"
-Route2_Movement_PlayerLeaves:
 # 74 "data/maps/Route2/scripts.pory"
-	walk_down
+Route2_Movement_PlayerLeaves:
 # 75 "data/maps/Route2/scripts.pory"
 	walk_down
+# 76 "data/maps/Route2/scripts.pory"
+	walk_down
 	step_end
 
-# 78 "data/maps/Route2/scripts.pory"
-Route2_Movement_BugsyLeaves:
 # 79 "data/maps/Route2/scripts.pory"
-	walk_up
+Route2_Movement_BugsyLeaves:
 # 80 "data/maps/Route2/scripts.pory"
 	walk_up
 # 81 "data/maps/Route2/scripts.pory"
-	walk_right
+	walk_up
 # 82 "data/maps/Route2/scripts.pory"
 	walk_right
 # 83 "data/maps/Route2/scripts.pory"
@@ -154,7 +154,7 @@ Route2_Movement_BugsyLeaves:
 # 85 "data/maps/Route2/scripts.pory"
 	walk_right
 # 86 "data/maps/Route2/scripts.pory"
-	walk_up
+	walk_right
 # 87 "data/maps/Route2/scripts.pory"
 	walk_up
 # 88 "data/maps/Route2/scripts.pory"
@@ -163,21 +163,23 @@ Route2_Movement_BugsyLeaves:
 	walk_up
 # 90 "data/maps/Route2/scripts.pory"
 	walk_up
+# 91 "data/maps/Route2/scripts.pory"
+	walk_up
 	step_end
 
-# 93 "data/maps/Route2/scripts.pory"
-
 # 94 "data/maps/Route2/scripts.pory"
-Route2_EventScript_RouteSign::
-# 95 "data/maps/Route2/scripts.pory"
-	msgbox Route2_Text_RouteSign, MSGBOX_SIGN
-# 96 "data/maps/Route2/scripts.pory"
-	end
-# 97 "data/maps/Route2/scripts.pory"
 
+# 95 "data/maps/Route2/scripts.pory"
+Route2_EventScript_RouteSign::
+# 96 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_RouteSign, MSGBOX_SIGN
+# 97 "data/maps/Route2/scripts.pory"
+	end
 # 98 "data/maps/Route2/scripts.pory"
-Route2_EventScript_DiglettsCaveSign::
+
 # 99 "data/maps/Route2/scripts.pory"
-	msgbox Route2_Text_DiglettsCave, MSGBOX_SIGN
+Route2_EventScript_DiglettsCaveSign::
 # 100 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_DiglettsCave, MSGBOX_SIGN
+# 101 "data/maps/Route2/scripts.pory"
 	end

@@ -117,6 +117,19 @@ PewterCity_Text_MonsWillUseHeldBerriesOnTheirOwn::
     .string "キズぐすり　とか　どくけし　より\n"
     .string "てがるで　べんり　だろ？$"
 
+PewterCity_Text_KelvinIntro::
+    .string "Huh?!\p"
+    .string "I'm not stealing from the museum.\n"
+    .string "Mind your own business.\p"
+    .string "POOCHYENA get him!$"
+
+PewterCity_Text_KelvinDefeat::
+    .string "My wife's gonna kill me…$"
+
+PewterCity_Text_KelvinPostBattle::
+    .string "I'm only stealing to pay off my\n"
+    .string "gambling debt.$"
+
 PewterCity_Text_OhPlayer::
     .string "Oh, {PLAYER}{KUN}!$"
 

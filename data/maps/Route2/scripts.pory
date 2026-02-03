@@ -50,6 +50,7 @@ script Route2_EventScript_BugsyCutscene {
         msgbox(Route2_Text_ExplainRepel, MSGBOX_DEFAULT)
         normalmsg
         textcolor(NPC_TEXT_COLOR_MALE)
+        msgbox(Route2_Text_BugsyHasGivenRepel, MSGBOX_NPC)
         msgbox(Route2_Text_BugsySaysGoodbye, MSGBOX_NPC)
         closemessage
         setvar(VAR_BUGSY_ROUTE2_SCENE, 1)

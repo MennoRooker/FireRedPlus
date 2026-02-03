@@ -602,19 +602,35 @@ so you can level up before facing his Onix.
 Viridian Forest flashes red briefly every time I enter the 
 map.
 
+Implemented Sturdy quickly, but the animation and message
+are not yet implemented.
+
+======================= DEMO RELEASED =======================
+I just released the demo to the boys. One of the first things
+I noticed that Blizzard does not bypass accuracy checks,
+whereas Thunder does. I need to pick out these kind of quirks
+as soon as I can for v1.0.
+
+Max already mentioned that the catching tutorial has a bug 
+with the pockets it shows in the bag menu. With the added
+Medicine pocket the indexing of the scene's bag menu was off.
+
 NEW GAME:
-- Medicine pocket
-- Old Man functions properly
-- Bugsy scenes function properly
-- Kelvin
+x Medicine pocket
+x Old Man functions properly
+- Update early-game items
+- Fix Viridian Forest red screen
+x Bugsy scenes function properly
+x Kelvin
+x Blizzard inf acc in hail
+- Sturdy animation + text
 - Cerulean gym blocked
 - Team Rocket Scene 
-- Old pervert not at Celadon Gym
-- Tea lady functions properly
-- Silph Co. blocked before Koga
-- Pokémon Mansion blocked before Sabrina
-- Calio's quest = mandatory before Giovanni
-- No repels, X items or Ethers anywhere
+x Old pervert not at Celadon Gym
+x Tea lady functions properly
+x Silph Co. blocked before Koga
+x Pokémon Mansion blocked before Sabrina
+x No repels, X items or Ethers anywhere
 
 
 
@@ -649,14 +665,14 @@ x Increase Safari catch rates
 - Fishing rods redistribution
 x LR buttons
 x Perma repel
-/ Medicine pocket
-- L = map before getting fly
+x Medicine pocket
+x L = map before getting fly
 ---------------------------------------
-- Implement abilites
+/ Implement abilites
 - Increase IVs through bottle caps
 - Neutralize natures in daycare
 - Custom move animations
-- Generate docs with Python scripts
+- Complete documentation
 - Add gen 4 evos after dex upgrade
 - Determine opponent EVs
 - Add Fairy type
