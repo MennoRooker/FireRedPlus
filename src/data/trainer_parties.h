@@ -9101,7 +9101,7 @@ static const struct TrainerMonItemCustomMovesNatureAbility sParty_EliteFourLance
         .iv = 30,
         .lvl = 62,
         .species = SPECIES_LATIOS,
-        .heldItem = ITEM_NONE,
+        .heldItem = ITEM_SOUL_ORB,
         .moves = {MOVE_PSYCHIC, MOVE_CALM_MIND, MOVE_DRAGON_CLAW, MOVE_SHADOW_BALL},
         .nature =  NATURE_HARDY,
         .abilitySlot = 0,

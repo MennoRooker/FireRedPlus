@@ -6073,6 +6073,22 @@
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0
+    },
+    {
+      "english": "SOUL ORB",
+      "itemId": "ITEM_SOUL_ORB",
+      "price": 200,
+      "holdEffect": "HOLD_EFFECT_SOUL_ORB",
+      "holdEffectParam": 0,
+      "description_english": "An orb to be held by a LATIOS or\\nLATIAS. It raises the power of\\nPSYCHIC and DRAGON moves.",
+      "importance": 0,
+      "registrability": 0,
+      "pocket": "POCKET_ITEMS",
+      "type": "ITEM_TYPE_BAG_MENU",
+      "fieldUseFunc": "FieldUseFunc_OakStopsYou",
+      "battleUsage": 0,
+      "battleUseFunc": "NULL",
+      "secondaryId": 0
     }
   ]
 }

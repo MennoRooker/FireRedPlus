@@ -615,6 +615,11 @@ Max already mentioned that the catching tutorial has a bug
 with the pockets it shows in the bag menu. With the added
 Medicine pocket the indexing of the scene's bag menu was off.
 
+Bag was fixed. The other tip I got was to redistribute some
+of the early-game items. I added a Leaf Stone to Viridian
+Forest and the hidden Moon Stone in Mt. Moon is replaced by
+a Fire Stone.
+
 NEW GAME:
 x Medicine pocket
 x Old Man functions properly

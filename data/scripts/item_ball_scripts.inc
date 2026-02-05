@@ -107,7 +107,7 @@ RocketHideout_B2F_EventScript_ItemXSpeed::
 	end
 
 RocketHideout_B2F_EventScript_ItemMoonStone::
-	finditem ITEM_MOON_STONE
+	finditem ITEM_WHITE_HERB
 	end
 
 RocketHideout_B2F_EventScript_ItemTM12::
@@ -471,7 +471,7 @@ PokemonMansion_2F_EventScript_ItemHPUp::
 	end
 
 ViridianCity_EventScript_ItemPotion::
-	finditem ITEM_POTION
+	finditem ITEM_LEAF_STONE
 	end
 
 Route11_EventScript_ItemGreatBall::
