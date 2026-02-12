@@ -643,7 +643,7 @@ FiveIsland_RocketWarehouse_EventScript_ItemUpGrade::
 	end
 
 FiveIsland_LostCave_Room10_EventScript_ItemSilkScarf::
-	finditem ITEM_SILK_SCARF
+	finditem ITEM_MYSTIC_TICKET
 	end
 
 FiveIsland_LostCave_Room11_EventScript_ItemLaxIncense::

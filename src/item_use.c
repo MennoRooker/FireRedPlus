@@ -430,6 +430,13 @@ void FieldUseFunc_RareCandy(u8 taskId)
     DoSetUpItemUseCallback(taskId);
 }
 
+void FieldUseFunc_ExpCandy(u8 taskId)
+{
+    // Opens the party menu and delegates to ItemUseCB_ExpCandy
+    gItemUseCB = ItemUseCB_ExpCandy;
+    DoSetUpItemUseCallback(taskId);
+}
+
 void FieldUseFunc_EvoItem(u8 taskId)
 {
     gItemUseCB = ItemUseCB_EvolutionStone;

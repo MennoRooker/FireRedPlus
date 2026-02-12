@@ -335,6 +335,8 @@ static void Task_StopLearningMoveYesNo(u8 taskId);
 static void Task_HandleStopLearningMoveYesNoInput(u8 taskId);
 static void Task_TryLearningNextMoveAfterText(u8 taskId);
 static void ItemUseCB_RareCandyStep(u8 taskId, TaskFunc func);
+void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func);
+static void ItemUseCB_ExpCandyStep(u8 taskId, TaskFunc func);
 static void Task_DisplayLevelUpStatsPg1(u8 taskId);
 static void Task_DisplayLevelUpStatsPg2(u8 taskId);
 static void UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon);
@@ -5118,6 +5120,116 @@ static void ItemUseCB_RareCandyStep(u8 taskId, TaskFunc func)
     DisplayPartyMenuMessage(gStringVar4, TRUE);
     ScheduleBgCopyTilemapToVram(2);
     gTasks[taskId].func = Task_DisplayLevelUpStatsPg1;
+}
+
+static u32 GetExpCandyAmount(u16 item)
+{
+    switch (item)
+    {
+    case ITEM_EXP_CANDY_S:
+        return 800;
+    case ITEM_EXP_CANDY_M:
+        return 3000;
+    case ITEM_EXP_CANDY_L:
+        return 10000;
+    default:
+        return 0;
+    }
+}
+
+void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u16 item = gSpecialVar_ItemId;
+    bool8 noEffect = FALSE;
+
+    u8 level = GetMonData(mon, MON_DATA_LEVEL);
+    u32 curExp = GetMonData(mon, MON_DATA_EXP);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 growth = gSpeciesInfo[species].growthRate;
+    u32 maxExp = gExperienceTables[growth][MAX_LEVEL];
+
+    // If already at max level and max exp, candy has no effect
+    if (level >= MAX_LEVEL && curExp >= maxExp)
+        noEffect = TRUE;
+
+    PlaySE(SE_SELECT);
+    if (noEffect || GetExpCandyAmount(item) == 0)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = func;
+    }
+    else
+    {
+        Task_DoUseItemAnim(taskId);
+        gItemUseCB = ItemUseCB_ExpCandyStep;
+    }
+}
+
+static void ItemUseCB_ExpCandyStep(u8 taskId, TaskFunc func)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    struct PartyMenuInternal *ptr = sPartyMenuInternal;
+    s16 *arrayPtr = ptr->data;
+
+    u16 item = gSpecialVar_ItemId;
+    u32 gain = GetExpCandyAmount(item);
+    u8 prevLevel = GetMonData(mon, MON_DATA_LEVEL);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 growth = gSpeciesInfo[species].growthRate;
+    u32 curExp = GetMonData(mon, MON_DATA_EXP);
+    u32 maxExp = gExperienceTables[growth][MAX_LEVEL];
+    u32 newExp = curExp + gain;
+    if (newExp > maxExp)
+        newExp = maxExp;
+
+    // Capture pre-level-up stats for window
+    GetMonLevelUpWindowStats(mon, arrayPtr);
+
+    SetMonData(mon, MON_DATA_EXP, &newExp);
+    CalculateMonStats(mon);
+
+    gPartyMenuUseExitCallback = TRUE;
+    RemoveBagItem(item, 1);
+
+    UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
+
+    // If the candy caused a level increase, show level-up flow like Rare Candy
+    if (GetMonData(mon, MON_DATA_LEVEL) > prevLevel)
+    {
+        u8 level;
+        GetMonLevelUpWindowStats(mon, &ptr->data[NUM_STATS]);
+        ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, mon, item, 0xFFFF);
+        PlayFanfareByFanfareNum(FANFARE_LEVEL_UP);
+        GetMonNickname(mon, gStringVar1);
+        level = GetMonData(mon, MON_DATA_LEVEL);
+        ConvertIntToDecimalStringN(gStringVar2, level, STR_CONV_MODE_LEFT_ALIGN, 3);
+        StringExpandPlaceholders(gStringVar4, gText_PkmnElevatedToLvVar2);
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = Task_DisplayLevelUpStatsPg1;
+    }
+    else
+    {
+        // No level increase; show a simple gained EXP message and exit
+        GetMonNickname(mon, gStringVar1);
+        ConvertIntToDecimalStringN(gStringVar2, gain, STR_CONV_MODE_LEFT_ALIGN, 5);
+        // Build: "<nick> gained <amount> EXP. points!"
+        StringCopy(gStringVar4, gStringVar1);
+        // Use plain literals to avoid _() macro expansion in code context
+        {
+            static const u8 sText_Gained[] = " gained ";
+            static const u8 sText_ExpPoints[] = " EXP. points!";
+            StringAppend(gStringVar4, sText_Gained);
+            StringAppend(gStringVar4, gStringVar2);
+            StringAppend(gStringVar4, sText_ExpPoints);
+        }
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+    }
 }
 
 static void UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon)

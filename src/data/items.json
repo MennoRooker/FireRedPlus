@@ -6089,6 +6089,54 @@
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0
+    },
+    {
+      "english": "EXP CANDY S",
+      "itemId": "ITEM_EXP_CANDY_S",
+      "price": 400,
+      "holdEffect": "HOLD_EFFECT_NONE",
+      "holdEffectParam": 0,
+      "description_english": "A special candy that grants\\n800 EXP. points.",
+      "importance": 0,
+      "registrability": 0,
+      "pocket": "POCKET_MEDICINE",
+      "type": "ITEM_TYPE_PARTY_MENU",
+      "fieldUseFunc": "FieldUseFunc_ExpCandy",
+      "battleUsage": 0,
+      "battleUseFunc": "NULL",
+      "secondaryId": 0
+    },
+    {
+      "english": "EXP CANDY M",
+      "itemId": "ITEM_EXP_CANDY_M",
+      "price": 1500,
+      "holdEffect": "HOLD_EFFECT_NONE",
+      "holdEffectParam": 0,
+      "description_english": "A special candy that grants\\n3000 EXP. points.",
+      "importance": 0,
+      "registrability": 0,
+      "pocket": "POCKET_MEDICINE",
+      "type": "ITEM_TYPE_PARTY_MENU",
+      "fieldUseFunc": "FieldUseFunc_ExpCandy",
+      "battleUsage": 0,
+      "battleUseFunc": "NULL",
+      "secondaryId": 0
+    },
+    {
+      "english": "EXP CANDY L",
+      "itemId": "ITEM_EXP_CANDY_L",
+      "price": 5000,
+      "holdEffect": "HOLD_EFFECT_NONE",
+      "holdEffectParam": 0,
+      "description_english": "A special candy that grants\\n10000 EXP. points.",
+      "importance": 0,
+      "registrability": 0,
+      "pocket": "POCKET_MEDICINE",
+      "type": "ITEM_TYPE_PARTY_MENU",
+      "fieldUseFunc": "FieldUseFunc_ExpCandy",
+      "battleUsage": 0,
+      "battleUseFunc": "NULL",
+      "secondaryId": 0
     }
   ]
 }

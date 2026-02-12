@@ -714,3 +714,7 @@ const u32 gItemIconPalette_Sapphire[] = INCBIN_U32("graphics/items/icon_palettes
 
 const u32 gItemIcon_BugsysNet[] = INCBIN_U32("graphics/items/icons/bugsys_net.4bpp.lz");
 const u32 gItemIconPalette_BugsysNet[] = INCBIN_U32("graphics/items/icon_palettes/bugsys_net.gbapal.lz");
+
+const u32 gItemIcon_ExpCandyS[] = INCBIN_U32("graphics/items/icons/exp_candy_s_sprite.4bpp.lz");
+const u32 gItemIcon_ExpCandyM[] = INCBIN_U32("graphics/items/icons/exp_candy_m_sprite.4bpp.lz");
+const u32 gItemIcon_ExpCandyL[] = INCBIN_U32("graphics/items/icons/exp_candy_l_sprite.4bpp.lz");

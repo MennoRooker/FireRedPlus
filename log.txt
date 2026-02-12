@@ -517,6 +517,9 @@ ROUTE 2 : 15 mons, HM05 Flash
 ROUTE 10: 20 mons, Everstone
 ROUTE 16: 25 mons, Amulet Coin
 ROUTE 15: 30 mons, Shell Bell
+*ROUTE ?: 50 mons, ...
+*ROUTE ?: 100 mons, ...
+*ROUTE ?: 150 mons, Soul Dew + Soul Orb
 
 Maybe copy one of the aide scripts and add extra aides just 
 for extra items?
@@ -579,6 +582,10 @@ FUCHSIA - After reaching Fuchsia City
 INDIGO  - After becoming Champion
 BLUE	- After delivering Sapphire
 
+In Sinnoh all rematches are independent of flags and can be
+triggered at any given time I think. I might want to use
+RED 	- Immediate rematch (Sinnoh)
+
 I think if you have completed the last rematch iteration the
 diamond should only be an outline to indicate that you have
 done all the rematches against that trainer.
@@ -620,10 +627,20 @@ of the early-game items. I added a Leaf Stone to Viridian
 Forest and the hidden Moon Stone in Mt. Moon is replaced by
 a Fire Stone.
 
+I'm going to be implementing the Exp. Candies. I got sprites
+from Bulbapedia that should work if I remember how. Need to 
+set the icon sprites to 24x24 instead of 32x32. 
+
+I've set the Lost Cave item to the Mystic Ticket instead of
+the Silk Scarf. I need to find a new place for the scarf, 
+perhaps add a new aide somewhere.
+
+
 NEW GAME:
 x Medicine pocket
 x Old Man functions properly
 - Update early-game items
+- Fix Exp Candy sprites
 - Fix Viridian Forest red screen
 x Bugsy scenes function properly
 x Kelvin
@@ -634,7 +651,8 @@ x Blizzard inf acc in hail
 x Old pervert not at Celadon Gym
 x Tea lady functions properly
 x Silph Co. blocked before Koga
-x Pokémon Mansion blocked before Sabrina
+- Wild encounters complete
+- Pokémon Mansion blocked before Sabrina
 x No repels, X items or Ethers anywhere
 
 
@@ -670,6 +688,7 @@ x Increase Safari catch rates
 - Fishing rods redistribution
 x LR buttons
 x Perma repel
+/ Exp Candies
 x Medicine pocket
 x L = map before getting fly
 ---------------------------------------
@@ -697,7 +716,7 @@ x L = map before getting fly
 
 Abilities to add:
 x Snow Warning
-- Dragon's Maw
+x Dragon's Maw
 / Solar Power
 / Strong Jaw
 - Technician (Breloom & Hitmontop)

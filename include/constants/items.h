@@ -446,8 +446,11 @@
 #define ITEM_SAPPHIRE 374
 #define ITEM_BUGSYS_NET 375
 #define ITEM_SOUL_ORB 376
+#define ITEM_EXP_CANDY_S 377
+#define ITEM_EXP_CANDY_M 378
+#define ITEM_EXP_CANDY_L 379
 
-#define ITEMS_COUNT 377
+#define ITEMS_COUNT 380
 
 #define ITEM_TO_BERRY(itemId)(((itemId - FIRST_BERRY_INDEX) + 1))
 #define MAIL_NONE 0xFF

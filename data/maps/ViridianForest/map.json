@@ -284,7 +284,7 @@
       "x": 3,
       "y": 22,
       "elevation": 3,
-      "item": "ITEM_POTION",
+      "item": "ITEM_EXP_CANDY_S",
       "flag": "FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_POTION",
       "quantity": 1,
       "underfoot": false
