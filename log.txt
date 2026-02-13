@@ -635,6 +635,19 @@ I've set the Lost Cave item to the Mystic Ticket instead of
 the Silk Scarf. I need to find a new place for the scarf, 
 perhaps add a new aide somewhere.
 
+I just pushed the initial Exp Candies with poor sprites and
+UI implementation, but I think it is best to do this in GIMP,
+which I do not have access to at the moment. I think it is 
+best to address some of the issues with the demo, like the 
+Viridian Forest loading screen, the map and the FLY MAP imp-
+lementations.
+
+The Viridian Forest loading screen appeared even when closing
+the TOWN MAP and it would crash occasionally from there as
+well. I think there's memory overflows with the Medicine 
+pocket somehow but the AI couldn't find any incorrect code
+in the commits.
+
 
 NEW GAME:
 x Medicine pocket

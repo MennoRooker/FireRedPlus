@@ -316,7 +316,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
             // Otherwise, open Town Map if the player has it
             else if (CheckBagHasItem(ITEM_TOWN_MAP, 1))
             {
-                SetMainCallback2(CB2_OpenTownMap);
+                ShowTownMap();
                 return TRUE;
             }
         }
