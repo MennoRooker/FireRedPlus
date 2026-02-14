@@ -411,7 +411,7 @@ ThreeIsland_EventScript_ItemZinc::
 	end
 
 ViridianForest_EventScript_ItemPotion2::
-	finditem ITEM_POTION
+	finditem ITEM_LEAF_STONE
 	end
 
 MtMoon_B2F_EventScript_ItemRevive::
@@ -471,7 +471,7 @@ PokemonMansion_2F_EventScript_ItemHPUp::
 	end
 
 ViridianCity_EventScript_ItemPotion::
-	finditem ITEM_LEAF_STONE
+	finditem ITEM_POTION
 	end
 
 Route11_EventScript_ItemGreatBall::
