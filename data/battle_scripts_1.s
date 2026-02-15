@@ -4147,12 +4147,6 @@ BattleScript_TookAttack::
 	orword gHitMarker, HITMARKER_ATTACKSTRING_PRINTED
 	return
 
-BattleScript_SturdyPreventsOHKO::
-	pause B_WAIT_TIME_SHORT
-	printstring STRINGID_PKMNPROTECTEDBY
-	pause B_WAIT_TIME_LONG
-	goto BattleScript_MoveEnd
-
 BattleScript_DampStopsExplosion::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNPREVENTSUSAGE
@@ -4461,6 +4455,12 @@ BattleScript_SelectingNotAllowedMoveChoiceItem::
 BattleScript_FocusBandActivates::
 	playanimation BS_TARGET, B_ANIM_FOCUS_BAND
 	printstring STRINGID_PKMNHUNGONWITHX
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_SturdyActivates::
+	playanimation BS_TARGET, B_ANIM_FOCUS_BAND
+	printstring STRINGID_PKMNHUNGONWITHSTURDY
 	waitmessage B_WAIT_TIME_LONG
 	return
 

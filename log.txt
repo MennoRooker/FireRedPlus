@@ -648,28 +648,28 @@ well. I think there's memory overflows with the Medicine
 pocket somehow but the AI couldn't find any incorrect code
 in the commits.
 
+I have FINALLY found the Viridian Forest issue! It was a
+memory overflow from BAG_{POCKET}_COUNT not being modified
+properly after adding the Medicine Pocket. (Medicine count
++ Items count = 42)
 
-NEW GAME:
-x Medicine pocket
-x Old Man functions properly
-- Update early-game items
-- Fix Exp Candy sprites
-- Fix Viridian Forest red screen
-x Bugsy scenes function properly
-x Kelvin
-x Blizzard inf acc in hail
-- Sturdy animation + text
-- Cerulean gym blocked
-- Team Rocket Scene 
-x Old pervert not at Celadon Gym
-x Tea lady functions properly
-x Silph Co. blocked before Koga
-- Wild encounters complete
-- Pokémon Mansion blocked before Sabrina
-x No repels, X items or Ethers anywhere
+I am now about to go through the entire game once more and 
+implement everything in chronological order. At least, things
+that can be done without GIMP. Up first will be the Sturdy
+animation and text that will appear in the Brock fight.
 
+I then want to focus on Cerulean and eventually the day-care
+and neutralize natures. I want the boosted stat to indicate 
+which neutral nature will be chosen. Luckily, I have caught
+3 mons with debilatating natures and 3 different boosted
+stats. Currently I have:
+Bulbasaur -> Adamant (+atk, -spatk) will be Hardy
+Poochyena -> Relaxed  (+def, -spd)  will be Docile
+Barboach  -> Timid    (+spd, -atk)  will be Serious
 
-
+I need to keep in mind that when updating the Exp Candies
+that every level-up needs to be handled individually, like
+when you level-up multiple times from 1 KO.
 
 
 
@@ -677,35 +677,34 @@ x No repels, X items or Ethers anywhere
 
 
 TO DO:
-x Add NPC to block route 22
 x Add Bugsy
 x Force SET mode
-x Make EV berries usable
+x EV berries
 x Nature highlighting
 x IV/EV screen
-/ Linearizations
+x Medicine pocket
+x LR buttons
+x Perma repel
+x L = map before getting fly
 x TM redistribution
 x Ethers -> Elixirs
-/ Balancing
 x Remove X items
 x Instant Running Shoes
 x Instant National Dex
-x Determine opponent natures & abilities
-x Sitrus berry 25% HP
 x NatDex checks by aides
-x Get Old Rod from Old Man
+x Opponent natures & abilities
+x Sitrus berry 25% HP
 x Weather defense boosts
-x Gen 6 types (no fairy)
+x Gen 6 type mechanics
 x No items in battle
-x Increase Safari catch rates
-- Fishing rods redistribution
-x LR buttons
-x Perma repel
+x Catch rates
+/ Fishing rods redistribution
+/ Balancing
+/ Linearizations
 / Exp Candies
-x Medicine pocket
-x L = map before getting fly
+/ Implement abilities
 ---------------------------------------
-/ Implement abilites
+- Implement all abilites
 - Increase IVs through bottle caps
 - Neutralize natures in daycare
 - Custom move animations
@@ -724,6 +723,7 @@ x L = map before getting fly
 - Events
 - Deoxys forms
 - Diamonds above rematch teams
+- Only a few red HP beeps
 
 
 

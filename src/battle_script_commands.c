@@ -1631,7 +1631,8 @@ static void Cmd_adjustnormaldamage(void)
     {
         RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
         gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
-        gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
+        gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
+        gSpecialStatuses[gBattlerTarget].sturdyActivated = 1;
     }
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
@@ -1685,7 +1686,8 @@ static void Cmd_adjustnormaldamage2(void)
     {
         RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
         gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
-        gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
+        gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
+        gSpecialStatuses[gBattlerTarget].sturdyActivated = 1;
     }
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
@@ -1989,8 +1991,34 @@ static void Cmd_resultmessage(void)
     {
         gBattleCommunication[MSG_DISPLAY] = 1;
         
-        // Check for extreme effectiveness first (4x and 0.25x)
-        if (gMoveResultFlags & MOVE_RESULT_EXTREMELY_EFFECTIVE)
+        // Check for survival effects first (Focus Band, Sturdy, Endure) before effectiveness messages
+        // This ensures animations and messages display in the correct order
+        if (gMoveResultFlags & MOVE_RESULT_FOE_ENDURED)
+        {
+            gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_EnduredMsg;
+            return;
+        }
+        else if (gMoveResultFlags & MOVE_RESULT_FOE_HUNG_ON)
+        {
+            gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
+            BattleScriptPushCursor();
+            if (gSpecialStatuses[gBattlerTarget].sturdyActivated)
+            {
+                gSpecialStatuses[gBattlerTarget].sturdyActivated = 0;
+                gBattlescriptCurrInstr = BattleScript_SturdyActivates;
+            }
+            else
+            {
+                gLastUsedItem = gBattleMons[gBattlerTarget].item;
+                gPotentialItemEffectBattler = gBattlerTarget;
+                gBattlescriptCurrInstr = BattleScript_FocusBandActivates;
+            }
+            return;
+        }
+        // Check for extreme effectiveness (4x and 0.25x)
+        else if (gMoveResultFlags & MOVE_RESULT_EXTREMELY_EFFECTIVE)
         {
             stringId = STRINGID_EXTREMELYEFFECTIVE;
         }
@@ -2009,62 +2037,31 @@ static void Cmd_resultmessage(void)
                 stringId = STRINGID_NOTVERYEFFECTIVE;
                 break;
             case MOVE_RESULT_ONE_HIT_KO:
-            stringId = STRINGID_ONEHITKO;
-            break;
-        case MOVE_RESULT_FOE_ENDURED:
-            stringId = STRINGID_PKMNENDUREDHIT;
-            break;
-        case MOVE_RESULT_FAILED:
-            stringId = STRINGID_BUTITFAILED;
-            break;
-        case MOVE_RESULT_DOESNT_AFFECT_FOE:
-            stringId = STRINGID_ITDOESNTAFFECT;
-            break;
-        case MOVE_RESULT_FOE_HUNG_ON:
-            gLastUsedItem = gBattleMons[gBattlerTarget].item;
-            gPotentialItemEffectBattler = gBattlerTarget;
-            gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
-            BattleScriptPushCursor();
-            gBattlescriptCurrInstr = BattleScript_FocusBandActivates;
-            return;
-        default:
-            if (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE)
-            {
-                stringId = STRINGID_ITDOESNTAFFECT;
-            }
-            else if (gMoveResultFlags & MOVE_RESULT_ONE_HIT_KO)
-            {
                 gMoveResultFlags &= ~MOVE_RESULT_ONE_HIT_KO;
                 gMoveResultFlags &= ~MOVE_RESULT_SUPER_EFFECTIVE;
                 gMoveResultFlags &= ~MOVE_RESULT_NOT_VERY_EFFECTIVE;
                 BattleScriptPushCursor();
                 gBattlescriptCurrInstr = BattleScript_OneHitKOMsg;
                 return;
-            }
-            else if (gMoveResultFlags & MOVE_RESULT_FOE_ENDURED)
-            {
-                gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
-                BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_EnduredMsg;
-                return;
-            }
-            else if (gMoveResultFlags & MOVE_RESULT_FOE_HUNG_ON)
-            {
-                gLastUsedItem = gBattleMons[gBattlerTarget].item;
-                gPotentialItemEffectBattler = gBattlerTarget;
-                gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
-                BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_FocusBandActivates;
-                return;
-            }
-            else if (gMoveResultFlags & MOVE_RESULT_FAILED)
-            {
+            case MOVE_RESULT_FAILED:
                 stringId = STRINGID_BUTITFAILED;
-            }
-            else
-            {
-                gBattleCommunication[MSG_DISPLAY] = 0;
-            }
+                break;
+            case MOVE_RESULT_DOESNT_AFFECT_FOE:
+                stringId = STRINGID_ITDOESNTAFFECT;
+                break;
+            default:
+                if (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE)
+                {
+                    stringId = STRINGID_ITDOESNTAFFECT;
+                }
+                else if (gMoveResultFlags & MOVE_RESULT_FAILED)
+                {
+                    stringId = STRINGID_BUTITFAILED;
+                }
+                else
+                {
+                    gBattleCommunication[MSG_DISPLAY] = 0;
+                }
             }
         }
     }
@@ -7211,13 +7208,14 @@ static void Cmd_tryKO(void)
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
     }
 
-    // Gen 5+ Sturdy: if at full HP, survive OHKO moves with 1 HP and show Endure message
+    // Gen 5+ Sturdy: if at full HP, survive OHKO moves with 1 HP and show message
     if (gBattleMons[gBattlerTarget].ability == ABILITY_STURDY
         && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
     {
         RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
         gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
-        gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
+        gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
+        gSpecialStatuses[gBattlerTarget].sturdyActivated = 1;
         gBattlescriptCurrInstr += 5;
     }
     else
