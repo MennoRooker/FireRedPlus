@@ -419,7 +419,7 @@ MtMoon_B2F_EventScript_ItemRevive::
 	end
 
 MtMoon_B2F_EventScript_ItemAntidote::
-	finditem ITEM_ANTIDOTE
+	finditem ITEM_EXP_CANDY_S
 	end
 
 Route11_EventScript_ItemXDefend::

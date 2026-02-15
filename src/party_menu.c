@@ -337,6 +337,7 @@ static void Task_TryLearningNextMoveAfterText(u8 taskId);
 static void ItemUseCB_RareCandyStep(u8 taskId, TaskFunc func);
 void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func);
 static void ItemUseCB_ExpCandyStep(u8 taskId, TaskFunc func);
+static void Task_ExpCandyAddExpForNextLevel(u8 taskId);
 static void Task_DisplayLevelUpStatsPg1(u8 taskId);
 static void Task_DisplayLevelUpStatsPg2(u8 taskId);
 static void UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon);
@@ -5168,6 +5169,9 @@ void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
     }
 }
 
+// Uses sPartyMenuInternal->data[13] to store remaining exp to give
+#define tRemainingExp data[13]
+
 static void ItemUseCB_ExpCandyStep(u8 taskId, TaskFunc func)
 {
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
@@ -5175,37 +5179,103 @@ static void ItemUseCB_ExpCandyStep(u8 taskId, TaskFunc func)
     s16 *arrayPtr = ptr->data;
 
     u16 item = gSpecialVar_ItemId;
-    u32 gain = GetExpCandyAmount(item);
-    u8 prevLevel = GetMonData(mon, MON_DATA_LEVEL);
+    u32 totalGain = GetExpCandyAmount(item);
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     u8 growth = gSpeciesInfo[species].growthRate;
     u32 curExp = GetMonData(mon, MON_DATA_EXP);
     u32 maxExp = gExperienceTables[growth][MAX_LEVEL];
-    u32 newExp = curExp + gain;
-    if (newExp > maxExp)
-        newExp = maxExp;
+    u32 finalExp = curExp + totalGain;
+    if (finalExp > maxExp)
+        finalExp = maxExp;
 
-    // Capture pre-level-up stats for window
-    GetMonLevelUpWindowStats(mon, arrayPtr);
-
-    SetMonData(mon, MON_DATA_EXP, &newExp);
-    CalculateMonStats(mon);
-
+    // Store the total remaining exp to give
+    ptr->tRemainingExp = finalExp - curExp;
+    
+    // Remove the item and set quest log (only once at the start)
     gPartyMenuUseExitCallback = TRUE;
     RemoveBagItem(item, 1);
+    ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, mon, item, 0xFFFF);
+
+    // Begin the level-by-level exp application
+    gTasks[taskId].func = Task_ExpCandyAddExpForNextLevel;
+}
+
+static void Task_ExpCandyAddExpForNextLevel(u8 taskId)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    struct PartyMenuInternal *ptr = sPartyMenuInternal;
+    s16 *arrayPtr = ptr->data;
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 growth = gSpeciesInfo[species].growthRate;
+    u32 curExp = GetMonData(mon, MON_DATA_EXP);
+    u8 curLevel = GetMonData(mon, MON_DATA_LEVEL);
+    u32 expToGive;
+    u32 newExp;
+    u32 expForNextLevel;
+    u32 maxExp;
+    u8 newLevel;
+
+    // If no more exp to give, we're done
+    if (ptr->tRemainingExp == 0)
+    {
+        // Clear the item ID to prevent further loops
+        gSpecialVar_ItemId = ITEM_NONE;
+        Task_ClosePartyMenu(taskId);
+        return;
+    }
+
+    // If already at max level, just give all remaining exp (won't level up)
+    if (curLevel >= MAX_LEVEL)
+    {
+        maxExp = gExperienceTables[growth][MAX_LEVEL];
+        newExp = curExp + ptr->tRemainingExp;
+        if (newExp > maxExp)
+            newExp = maxExp;
+        SetMonData(mon, MON_DATA_EXP, &newExp);
+        ptr->tRemainingExp = 0;
+        UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
+        
+        // Clear item ID and close menu
+        gSpecialVar_ItemId = ITEM_NONE;
+        Task_ClosePartyMenu(taskId);
+        return;
+    }
+
+    // Calculate exp needed to reach next level
+    expForNextLevel = gExperienceTables[growth][curLevel + 1];
+    
+    // Give enough exp to reach next level, or all remaining exp if not enough to level up
+    if (curExp + ptr->tRemainingExp >= expForNextLevel)
+    {
+        // Enough exp to level up - give just enough to reach next level
+        expToGive = expForNextLevel - curExp;
+    }
+    else
+    {
+        // Not enough to level up - give all remaining
+        expToGive = ptr->tRemainingExp;
+    }
+
+    // Capture stats before leveling
+    GetMonLevelUpWindowStats(mon, arrayPtr);
+
+    // Apply the exp
+    newExp = curExp + expToGive;
+    SetMonData(mon, MON_DATA_EXP, &newExp);
+    CalculateMonStats(mon);
+    ptr->tRemainingExp -= expToGive;
 
     UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
 
-    // If the candy caused a level increase, show level-up flow like Rare Candy
-    if (GetMonData(mon, MON_DATA_LEVEL) > prevLevel)
+    // Check if we leveled up
+    if (GetMonData(mon, MON_DATA_LEVEL) > curLevel)
     {
-        u8 level;
+        // Leveled up! Capture stats after and show level-up sequence
         GetMonLevelUpWindowStats(mon, &ptr->data[NUM_STATS]);
-        ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, mon, item, 0xFFFF);
         PlayFanfareByFanfareNum(FANFARE_LEVEL_UP);
         GetMonNickname(mon, gStringVar1);
-        level = GetMonData(mon, MON_DATA_LEVEL);
-        ConvertIntToDecimalStringN(gStringVar2, level, STR_CONV_MODE_LEFT_ALIGN, 3);
+        newLevel = GetMonData(mon, MON_DATA_LEVEL);
+        ConvertIntToDecimalStringN(gStringVar2, newLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
         StringExpandPlaceholders(gStringVar4, gText_PkmnElevatedToLvVar2);
         DisplayPartyMenuMessage(gStringVar4, TRUE);
         ScheduleBgCopyTilemapToVram(2);
@@ -5213,24 +5283,22 @@ static void ItemUseCB_ExpCandyStep(u8 taskId, TaskFunc func)
     }
     else
     {
-        // No level increase; show a simple gained EXP message and exit
-        GetMonNickname(mon, gStringVar1);
-        ConvertIntToDecimalStringN(gStringVar2, gain, STR_CONV_MODE_LEFT_ALIGN, 5);
-        // Build: "<nick> gained <amount> EXP. points!"
-        StringCopy(gStringVar4, gStringVar1);
-        // Use plain literals to avoid _() macro expansion in code context
+        // Didn't level up, but gained exp - continue to next iteration or finish
+        if (ptr->tRemainingExp > 0)
         {
-            static const u8 sText_Gained[] = " gained ";
-            static const u8 sText_ExpPoints[] = " EXP. points!";
-            StringAppend(gStringVar4, sText_Gained);
-            StringAppend(gStringVar4, gStringVar2);
-            StringAppend(gStringVar4, sText_ExpPoints);
+            // Still have exp to give, loop again
+            gTasks[taskId].func = Task_ExpCandyAddExpForNextLevel;
         }
-        DisplayPartyMenuMessage(gStringVar4, TRUE);
-        ScheduleBgCopyTilemapToVram(2);
-        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        else
+        {
+            // All exp given without leveling - clear item ID and exit
+            gSpecialVar_ItemId = ITEM_NONE;
+            Task_ClosePartyMenu(taskId);
+        }
     }
 }
+
+#undef tRemainingExp
 
 static void UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon)
 {
@@ -5344,7 +5412,19 @@ static void PartyMenuTryEvolution(u8 taskId)
         DestroyTask(taskId);
     }
     else
-        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+    {
+        // Check if using EXP Candy with remaining exp to give
+        if (gSpecialVar_ItemId >= ITEM_EXP_CANDY_S && gSpecialVar_ItemId <= ITEM_EXP_CANDY_L
+            && sPartyMenuInternal->data[13] > 0) // tRemainingExp
+        {
+            // Continue giving exp for next level
+            gTasks[taskId].func = Task_ExpCandyAddExpForNextLevel;
+        }
+        else
+        {
+            gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        }
+    }
 }
 
 static void DisplayMonNeedsToReplaceMove(u8 taskId)

@@ -576,15 +576,15 @@ I want to add color-coded diamonds or arrows above the heads
 of trainers that can be rematched with new teams. Depending
 on what flag sets their new team I will give them a different
 color:
-WHITE 	- Immediate rematch
+White	- Not battled yet
+RED 	- Immediate rematch
 CELADON - After reaching Celadon City
 FUCHSIA - After reaching Fuchsia City
 INDIGO  - After becoming Champion
 BLUE	- After delivering Sapphire
 
 In Sinnoh all rematches are independent of flags and can be
-triggered at any given time I think. I might want to use
-RED 	- Immediate rematch (Sinnoh)
+triggered at any given time I think.
 
 I think if you have completed the last rematch iteration the
 diamond should only be an outline to indicate that you have
@@ -671,6 +671,16 @@ I need to keep in mind that when updating the Exp Candies
 that every level-up needs to be handled individually, like
 when you level-up multiple times from 1 KO.
 
+I finally solved the Sturdy mystery as well. The MOVE_RESULT
+byte was filled in the vanilla version, so when I added the
+4x and 0.25x effectiveness messages I exceeded the 8 bits and
+the animation would be overruled by the fact that the effec-
+tiveness message was being displayed.
+
+I will update candies now and focus on the sprites when I'm
+back home. Then I can immediately start on the rematch icons.
+
+
 
 
 
@@ -702,12 +712,16 @@ x Catch rates
 / Balancing
 / Linearizations
 / Exp Candies
-/ Implement abilities
+/ Implement current abilities
+- Custom move animations
+- Neutralize natures in daycare
+- Victory Road FLY checkpoint
+- Letters
+- Diamonds above rematch teams
+- Only a few red HP beeps
 ---------------------------------------
 - Implement all abilites
 - Increase IVs through bottle caps
-- Neutralize natures in daycare
-- Custom move animations
 - Complete documentation
 - Add gen 4 evos after dex upgrade
 - Determine opponent EVs
@@ -717,13 +731,11 @@ x Catch rates
 - Gym leaders rematches
 - Simultaneous wild pkmn and own pkmn anim
 - Improved AI
-- Victory Road FLY checkpoint
-- Letters
 - Roamers
 - Events
 - Deoxys forms
-- Diamonds above rematch teams
-- Only a few red HP beeps
+
+
 
 
 
