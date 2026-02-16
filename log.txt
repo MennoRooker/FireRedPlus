@@ -680,6 +680,9 @@ tiveness message was being displayed.
 I will update candies now and focus on the sprites when I'm
 back home. Then I can immediately start on the rematch icons.
 
+Adding poisoning to draining moves on POISON types can lend 
+itself to very easy and consistent Guts strats by using
+Leech Seed and then switching into the Guts user.
 
 
 
@@ -719,6 +722,8 @@ x Catch rates
 - Letters
 - Diamonds above rematch teams
 - Only a few red HP beeps
+- Poison (Toxic, overworld & drain)
+- Change paralysis
 ---------------------------------------
 - Implement all abilites
 - Increase IVs through bottle caps
@@ -729,7 +734,7 @@ x Catch rates
 - Held berries reusable
 - Physical/special split
 - Gym leaders rematches
-- Simultaneous wild pkmn and own pkmn anim
+- Simultaneous wild and own pkmn anim
 - Improved AI
 - Roamers
 - Events

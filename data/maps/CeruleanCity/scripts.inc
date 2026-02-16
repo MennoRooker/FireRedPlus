@@ -258,6 +258,10 @@ CeruleanCity_EventScript_Youngster::
 	msgbox CeruleanCity_Text_TrainerLifeIsToughIsntIt, MSGBOX_NPC
 	end
 
+CeruleanCity_EventScript_GymBlocked::
+	msgbox CeruleanCity_Text_MistyIsOutSwimming, MSGBOX_NPC
+	end
+
 CeruleanCity_EventScript_CeruleanCaveGuard::
 	msgbox CeruleanCity_Text_ThisIsCeruleanCave, MSGBOX_NPC
 	end

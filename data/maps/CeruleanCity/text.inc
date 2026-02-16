@@ -107,6 +107,10 @@ CeruleanCity_Text_PeopleHereWereRobbed::
     .string "Even our POLICE FORCE has\n"
     .string "trouble with the ROCKETS!$"
 
+CeruleanCity_Text_MistyIsOutSwimming::
+    .string "MISTY is out of town right now.\p"
+    .string "She should be back pretty soon.$"
+
 CeruleanCity_Text_SlowbroUseSonicboom::
     .string "Okay! SLOWBRO!\n"
     .string "Use SONICBOOM!$"

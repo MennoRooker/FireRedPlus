@@ -1,3 +1,29 @@
+Route5_PokemonDayCare_EventScript_DaycareManAlt::
+	goto_if_questlog EventScript_ReleaseEnd
+	lock
+	faceplayer
+	showmoneybox 0, 0
+	msgbox Route5_PokemonDayCare_Text_WantMeToChangeNature, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route5_PokemonDayCare_EventScript_Warning
+	msgbox Route5_PokemonDayCare_Text_ComeAgain
+	goto Route5_PokemonDayCare_EventScript_CloseMoneyBox
+	end
+
+Route5_PokemonDayCare_EventScript_Warning::
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	signmsg
+	msgbox Route5_PokemonDayCare_Text_WarningAboutNatureChange, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route5_PokemonDayCare_EventScript_TryGiveMonAlt
+	end
+
+Route5_PokemonDayCare_EventScript_TryGiveMonAlt::
+	call EventScript_RestorePrevTextColor
+	normalmsg
+	msgbox Route5_PokemonDayCare_Text_WhichMonChangesNature
+	msgbox Route5_PokemonDayCare_Text_ComeAgain
+	goto Route5_PokemonDayCare_EventScript_CloseMoneyBox
+	end
+
 Route5_PokemonDayCare_EventScript_DaycareMan::
 	goto_if_questlog EventScript_ReleaseEnd
 	lock

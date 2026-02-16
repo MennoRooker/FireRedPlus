@@ -1,3 +1,20 @@
+Route5_PokemonDayCare_Text_WantMeToChangeNature::
+	.string "I run the DAY-CARE service.\p"
+	.string "I can look after one of your\n"
+	.string "POKéMON for a while.\p"
+	.string "When POKéMON socialize with others\n"
+	.string "they tend to get a NEUTRAL NATURE.\p"
+	.string "Would you like me to neutralize the\n"
+	.string "NATURE of one of your POKéMON?$"
+
+Route5_PokemonDayCare_Text_WarningAboutNatureChange::
+	.string "WARNING: Changing a POKéMON's NATURE\n"
+	.string "is permanent. Continue?$"
+
+Route5_PokemonDayCare_Text_WhichMonChangesNature::
+	.string "Which POKéMON should have its NATURE\n"
+	.string "changed?$"
+
 Route5_PokemonDayCare_Text_WantMeToRaiseMon::
 	.string "I run the DAY-CARE service.\p"
 	.string "Would you like me to raise one of\n"
