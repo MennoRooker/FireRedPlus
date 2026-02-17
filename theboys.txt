@@ -67,11 +67,12 @@ text:	"I'm gonna make you obey me."
 	"People need discipline, I just happen
 	to enjoy teaching them that."
 
-- THOMAS (Youngster Pete)
-loc:	Route 22
-party:	Ralts (9)
-text:	"Do you wanna trade POKéMON cards?"
-	"I'm not giving you my cards.
-	Hahaha!"
+- THOMAS (Youngster)
+loc:	Route 5
+party:	...
+text:	"I wanna be the very best,
+	like no-one ever was!"
 	"My cousin has much cooler POKéMON
 	than you."
+	"Did you know you can trade POKéMON?"
+	

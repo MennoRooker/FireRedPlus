@@ -387,6 +387,10 @@ gSpecials::
 	def_special IsThereMonInRoute5Daycare
 	def_special GetNumLevelsGainedForRoute5DaycareMon
 	def_special TakePokemonFromRoute5Daycare
+	def_special GetSelectedMonCurrentNature
+	def_special GetTargetNeutralNatureForSelectedMon
+	def_special ChangeSelectedMonToNeutralNature
+	def_special BufferNatureChangeInfo
 	def_special DoSeagallopFerryScene
 	def_special DoesPlayerPartyContainSpecies
 	def_special Script_SetHelpContext

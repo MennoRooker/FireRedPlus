@@ -20,7 +20,30 @@ Route5_PokemonDayCare_EventScript_TryGiveMonAlt::
 	call EventScript_RestorePrevTextColor
 	normalmsg
 	msgbox Route5_PokemonDayCare_Text_WhichMonChangesNature
-	msgbox Route5_PokemonDayCare_Text_ComeAgain
+	special ChooseSendDaycareMon
+	waitstate
+	showmoneybox 0, 0
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Route5_PokemonDayCare_EventScript_ComeAgain
+	specialvar VAR_RESULT, GetSelectedMonCurrentNature
+	copyvar VAR_0x8007, VAR_RESULT
+	specialvar VAR_0x8006, GetTargetNeutralNatureForSelectedMon
+	goto_if_eq VAR_0x8006, 255, Route5_PokemonDayCare_EventScript_AlreadyNeutral
+	specialvar VAR_RESULT, GetSelectedMonNicknameAndSpecies
+	special BufferNatureChangeInfo
+	msgbox Route5_PokemonDayCare_Text_NatureWillBeChanged, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Route5_PokemonDayCare_EventScript_ComeAgain
+	fadescreen FADE_TO_BLACK
+	delay 20
+	fadescreen FADE_FROM_BLACK
+	special ChangeSelectedMonToNeutralNature
+	specialvar VAR_RESULT, GetSelectedMonNicknameAndSpecies
+	msgbox Route5_PokemonDayCare_Text_NatureChanged
+	goto Route5_PokemonDayCare_EventScript_CloseMoneyBox
+	end
+
+Route5_PokemonDayCare_EventScript_AlreadyNeutral::
+	specialvar VAR_RESULT, GetSelectedMonNicknameAndSpecies
+	msgbox Route5_PokemonDayCare_Text_AlreadyNeutralNature
 	goto Route5_PokemonDayCare_EventScript_CloseMoneyBox
 	end
 

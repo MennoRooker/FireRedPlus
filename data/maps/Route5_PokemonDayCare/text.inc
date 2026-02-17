@@ -83,3 +83,16 @@ Route5_PokemonDayCare_Text_WantMeToTakeALookAtYours::
 Route5_PokemonDayCare_Text_CantAcceptMonWithHM::
     .string "わるいけど　ひでんのわざを　もった\n"
     .string "ポケモンは　あずかれないなぁ$"
+
+Route5_PokemonDayCare_Text_NatureWillBeChanged::
+	.string "{STR_VAR_1}'s NATURE will be\n"
+	.string "changed from {STR_VAR_2} to {STR_VAR_3}.\l"
+	.string "Is this OK?$"
+
+Route5_PokemonDayCare_Text_AlreadyNeutralNature::
+	.string "This POKéMON already has a\n"
+	.string "neutral NATURE.$"
+
+Route5_PokemonDayCare_Text_NatureChanged::
+	.string "{STR_VAR_1}'s NATURE has been\n"
+	.string "changed successfully.$"

@@ -684,7 +684,27 @@ Adding poisoning to draining moves on POISON types can lend
 itself to very easy and consistent Guts strats by using
 Leech Seed and then switching into the Guts user.
 
+The Day-Care has been implemented with so-called "hidden
+natures" that override the former nature when set. This is
+based on a nature mint implementation by ghoulslash:
+https://github.com/ghoulslash/pokeemerald
 
+After having implemented the nature changes I want to focus
+on 2 things next: removing the need for HMs and removing the
+diary from the start-up sequence. I could have all mons that 
+perform the HMs as sprites next to their HM givers to indicate
+that they will be performing the HMs. I want to add a 
+Farfetch'd to the Captain's cabin that will perform CUT. I
+don't see the Farfetch'd overworld sprite in the codebase so
+I might have to add its sprite manually. The diary sequence
+could be a new option in the options menu, but I might as well 
+just remove it entirely tbh.
+
+I also want to add Thomas to route 5, running up and down. 
+
+I cannot get Hardy to work with the neutral natures, so I set
+it to Serious for now. I want to revisit it as soon as I have
+decent internet again.
 
 
 

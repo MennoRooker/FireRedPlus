@@ -1219,6 +1219,122 @@ u16 GetSelectedMonNicknameAndSpecies(void)
     return GetBoxMonData(&gPlayerParty[GetCursorSelectionMonId()].box, MON_DATA_SPECIES);
 }
 
+u8 GetSelectedMonCurrentNature(void)
+{
+    u8 monIndex = GetCursorSelectionMonId();
+    struct Pokemon *mon = &gPlayerParty[monIndex];
+    return GetNature(mon);
+}
+
+u8 GetTargetNeutralNatureForSelectedMon(void)
+{
+    u8 monIndex = GetCursorSelectionMonId();
+    struct Pokemon *mon = &gPlayerParty[monIndex];
+    u8 currentNature = GetNature(mon);
+    u8 targetNature;
+    
+    // Check if already neutral
+    if (currentNature == NATURE_HARDY || currentNature == NATURE_DOCILE || 
+        currentNature == NATURE_SERIOUS || currentNature == NATURE_BASHFUL || 
+        currentNature == NATURE_QUIRKY)
+    {
+        return 255;
+    }
+    
+    // Determine target nature based on which stat has +1
+    if (GetNatureStatModifier(currentNature, STAT_ATK) == 1)
+    {
+        targetNature = NATURE_SERIOUS;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_DEF) == 1)
+    {
+        targetNature = NATURE_DOCILE;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_SPEED) == 1)
+    {
+        targetNature = NATURE_SERIOUS;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_SPATK) == 1)
+    {
+        targetNature = NATURE_BASHFUL;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_SPDEF) == 1)
+    {
+        targetNature = NATURE_QUIRKY;
+    }
+    else
+    {
+        targetNature = NATURE_HARDY;
+    }
+    
+    return targetNature;
+}
+
+void ChangeSelectedMonToNeutralNature(void)
+{
+    u8 monIndex = GetCursorSelectionMonId();
+    struct Pokemon *mon = &gPlayerParty[monIndex];
+    u8 targetNature = *GetVarPointer(VAR_0x8006);
+
+    // Set the hidden nature to override personality-based nature
+    SetMonData(mon, MON_DATA_HIDDEN_NATURE, &targetNature);
+    CalculateMonStats(mon);
+}
+
+void BufferCurrentAndTargetNatureNames(u8 currentNature, u8 targetNature)
+{
+    extern const u8 *const gNatureNamePointers[];
+    StringCopy(gStringVar2, gNatureNamePointers[currentNature]);
+    StringCopy(gStringVar3, gNatureNamePointers[targetNature]);
+}
+
+void BufferNatureChangeInfo(void)
+{
+    u8 monIndex = GetCursorSelectionMonId();
+    struct Pokemon *mon = &gPlayerParty[monIndex];
+    u8 currentNature = GetNature(mon);
+    u8 targetNature;
+    extern const u8 *const gNatureNamePointers[];
+    
+    // Get Pokemon nickname (already in gStringVar1)
+    // Determine target nature
+    if (currentNature == NATURE_HARDY || currentNature == NATURE_DOCILE || 
+        currentNature == NATURE_SERIOUS || currentNature == NATURE_BASHFUL || 
+        currentNature == NATURE_QUIRKY)
+    {
+        return; // Should not be called if already neutral
+    }
+    
+    if (GetNatureStatModifier(currentNature, STAT_ATK) == 1)
+    {
+        targetNature = NATURE_SERIOUS;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_DEF) == 1)
+    {
+        targetNature = NATURE_DOCILE;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_SPEED) == 1)
+    {
+        targetNature = NATURE_SERIOUS;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_SPATK) == 1)
+    {
+        targetNature = NATURE_BASHFUL;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_SPDEF) == 1)
+    {
+        targetNature = NATURE_QUIRKY;
+    }
+    else
+    {
+        targetNature = NATURE_HARDY;
+    }
+    
+    // Buffer nature names
+    StringCopy(gStringVar2, gNatureNamePointers[currentNature]);
+    StringCopy(gStringVar3, gNatureNamePointers[targetNature]);
+}
+
 void GetDaycareMonNicknames(void)
 {
     _GetDaycareMonNicknames(&gSaveBlock1Ptr->daycare);

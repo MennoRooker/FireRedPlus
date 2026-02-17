@@ -1868,6 +1868,9 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
     }
 
+    value = (u8)HIDDEN_NATURE_NONE;
+    SetBoxMonData(boxMon, MON_DATA_HIDDEN_NATURE, &value);
+
     GiveBoxMonInitialMoveset(boxMon);
 }
 
@@ -3025,6 +3028,7 @@ u32 GetMonData3(struct Pokemon *mon, s32 field, u8 *data)
     case MON_DATA_MAIL:
         ret = mon->mail;
         break;
+    case MON_DATA_HIDDEN_NATURE:
     default:
         ret = GetBoxMonData(&mon->box, field, data);
         break;
@@ -3159,6 +3163,9 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         break;
     case MON_DATA_FRIENDSHIP:
         retVal = substruct0->friendship;
+        break;
+    case MON_DATA_HIDDEN_NATURE:
+        retVal = substruct0->hiddenNature;
         break;
     case MON_DATA_MOVE1:
     case MON_DATA_MOVE2:
@@ -3559,6 +3566,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         break;
     case MON_DATA_FRIENDSHIP:
         SET8(substruct0->friendship);
+        break;
+    case MON_DATA_HIDDEN_NATURE:
+        SET8(substruct0->hiddenNature);
         break;
     case MON_DATA_MOVE1:
     case MON_DATA_MOVE2:
@@ -5132,6 +5142,14 @@ const u8 *Battle_PrintStatBoosterEffectMessage(u16 itemId)
 
 u8 GetNature(struct Pokemon *mon)
 {
+    u8 hiddenNature = GetMonData(mon, MON_DATA_HIDDEN_NATURE, NULL);
+    
+    // If a hidden nature is set, use it instead of personality-based nature
+    // 0xFF is the sentinel for "no override"; also accept 0x00 for backward compatibility with saves
+    // that had a zeroed filler field
+    if (hiddenNature != 0xFF && hiddenNature != 0x00)
+        return hiddenNature;
+    
     return GetMonData(mon, MON_DATA_PERSONALITY, NULL) % NUM_NATURES;
 }
 
