@@ -9,7 +9,7 @@ Route5_PokemonDayCare_Text_WantMeToChangeNature::
 
 Route5_PokemonDayCare_Text_WarningAboutNatureChange::
 	.string "WARNING: Changing a POKéMON's NATURE\n"
-	.string "is permanent. Continue?$"
+	.string "changes its stats. Continue?$"
 
 Route5_PokemonDayCare_Text_WhichMonChangesNature::
 	.string "Which POKéMON should have its NATURE\n"
@@ -96,3 +96,13 @@ Route5_PokemonDayCare_Text_AlreadyNeutralNature::
 Route5_PokemonDayCare_Text_NatureChanged::
 	.string "{STR_VAR_1}'s NATURE has been\n"
 	.string "changed successfully.$"
+
+Route5_PokemonDayCare_Text_MonHasModifiedNature::
+	.string "{STR_VAR_1}'s NATURE has already been\n"
+	.string "changed from {STR_VAR_3} to {STR_VAR_2}.\p"
+	.string "Would you like me to restore it to\n"
+	.string "its original {STR_VAR_3} NATURE?$"
+
+Route5_PokemonDayCare_Text_NatureReverted::
+	.string "{STR_VAR_1}'s NATURE has been\n"
+	.string "restored to its original state.$"

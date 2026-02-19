@@ -24,6 +24,8 @@ Route5_PokemonDayCare_EventScript_TryGiveMonAlt::
 	waitstate
 	showmoneybox 0, 0
 	goto_if_ge VAR_0x8004, PARTY_SIZE, Route5_PokemonDayCare_EventScript_ComeAgain
+	specialvar VAR_RESULT, SelectedMonHasHiddenNature
+	goto_if_eq VAR_RESULT, TRUE, Route5_PokemonDayCare_EventScript_MonHasHiddenNature
 	specialvar VAR_RESULT, GetSelectedMonCurrentNature
 	copyvar VAR_0x8007, VAR_RESULT
 	specialvar VAR_0x8006, GetTargetNeutralNatureForSelectedMon
@@ -38,6 +40,20 @@ Route5_PokemonDayCare_EventScript_TryGiveMonAlt::
 	special ChangeSelectedMonToNeutralNature
 	specialvar VAR_RESULT, GetSelectedMonNicknameAndSpecies
 	msgbox Route5_PokemonDayCare_Text_NatureChanged
+	goto Route5_PokemonDayCare_EventScript_CloseMoneyBox
+	end
+
+Route5_PokemonDayCare_EventScript_MonHasHiddenNature::
+	specialvar VAR_RESULT, GetSelectedMonNicknameAndSpecies
+	special BufferNatureReversionInfo
+	msgbox Route5_PokemonDayCare_Text_MonHasModifiedNature, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Route5_PokemonDayCare_EventScript_ComeAgain
+	fadescreen FADE_TO_BLACK
+	delay 60
+	fadescreen FADE_FROM_BLACK
+	special RevertSelectedMonNature
+	specialvar VAR_RESULT, GetSelectedMonNicknameAndSpecies
+	msgbox Route5_PokemonDayCare_Text_NatureReverted
 	goto Route5_PokemonDayCare_EventScript_CloseMoneyBox
 	end
 

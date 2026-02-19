@@ -1322,6 +1322,50 @@ void BufferNatureChangeInfo(void)
     StringCopy(gStringVar3, gNatureNamePointers[targetNature]);
 }
 
+u8 SelectedMonHasHiddenNature(void)
+{
+    u8 monIndex = GetCursorSelectionMonId();
+    struct Pokemon *mon = &gPlayerParty[monIndex];
+    u8 hiddenNature = GetMonData(mon, MON_DATA_HIDDEN_NATURE, NULL);
+    
+    // Check if a hidden nature is set (< NUM_NATURES means a nature override is active)
+    return (hiddenNature < NUM_NATURES) ? TRUE : FALSE;
+}
+
+u8 GetSelectedMonOriginalNature(void)
+{
+    u8 monIndex = GetCursorSelectionMonId();
+    struct Pokemon *mon = &gPlayerParty[monIndex];
+    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, NULL);
+    
+    // Return the personality-based nature
+    return personality % NUM_NATURES;
+}
+
+void RevertSelectedMonNature(void)
+{
+    u8 monIndex = GetCursorSelectionMonId();
+    struct Pokemon *mon = &gPlayerParty[monIndex];
+    u8 resetValue = HIDDEN_NATURE_NONE;
+    
+    // Reset the hidden nature to NONE, restoring personality-based nature
+    SetMonData(mon, MON_DATA_HIDDEN_NATURE, &resetValue);
+    CalculateMonStats(mon);
+}
+
+void BufferNatureReversionInfo(void)
+{
+    u8 monIndex = GetCursorSelectionMonId();
+    struct Pokemon *mon = &gPlayerParty[monIndex];
+    u8 currentNature = GetNature(mon);  // Current (overridden) nature
+    u8 originalNature = GetSelectedMonOriginalNature();  // Personality-based nature
+    extern const u8 *const gNatureNamePointers[];
+    
+    // Buffer nature names - current in STR_VAR_2, original in STR_VAR_3
+    StringCopy(gStringVar2, gNatureNamePointers[currentNature]);
+    StringCopy(gStringVar3, gNatureNamePointers[originalNature]);
+}
+
 void GetDaycareMonNicknames(void)
 {
     _GetDaycareMonNicknames(&gSaveBlock1Ptr->daycare);

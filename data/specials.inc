@@ -391,6 +391,10 @@ gSpecials::
 	def_special GetTargetNeutralNatureForSelectedMon
 	def_special ChangeSelectedMonToNeutralNature
 	def_special BufferNatureChangeInfo
+	def_special SelectedMonHasHiddenNature
+	def_special GetSelectedMonOriginalNature
+	def_special RevertSelectedMonNature
+	def_special BufferNatureReversionInfo
 	def_special DoSeagallopFerryScene
 	def_special DoesPlayerPartyContainSpecies
 	def_special Script_SetHelpContext
