@@ -706,6 +706,14 @@ I cannot get Hardy to work with the neutral natures, so I set
 it to Serious for now. I want to revisit it as soon as I have
 decent internet again.
 
+Nature changing works, though there seems to be some slight 
+backwards-compatibility issues with the natures, but nothing
+too aggregious as of yet.
+
+The next few things at hand are Harvest and Solar Power as 
+abilities and Poisoning on draining moves. I also want to
+remove Poisoning from the overworld entirely.
+
 
 
 
@@ -731,13 +739,13 @@ x Weather defense boosts
 x Gen 6 type mechanics
 x No items in battle
 x Catch rates
+x Neutralize natures in daycare
 / Fishing rods redistribution
 / Balancing
 / Linearizations
 / Exp Candies
 / Implement current abilities
 - Custom move animations
-- Neutralize natures in daycare
 - Victory Road FLY checkpoint
 - Letters
 - Diamonds above rematch teams
