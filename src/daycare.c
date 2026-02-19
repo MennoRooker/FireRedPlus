@@ -1226,55 +1226,65 @@ u8 GetSelectedMonCurrentNature(void)
     return GetNature(mon);
 }
 
+// Helper function to determine the target neutral nature for a given nature
+static u8 GetTargetNeutralNature(u8 currentNature)
+{
+    // Determine target nature based on which stat has +1
+    if (GetNatureStatModifier(currentNature, STAT_ATK) == 1)
+    {
+        return NATURE_HARDY;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_DEF) == 1)
+    {
+        return NATURE_DOCILE;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_SPEED) == 1)
+    {
+        return NATURE_SERIOUS;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_SPATK) == 1)
+    {
+        return NATURE_BASHFUL;
+    }
+    else if (GetNatureStatModifier(currentNature, STAT_SPDEF) == 1)
+    {
+        return NATURE_QUIRKY;
+    }
+    else
+    {
+        return NATURE_HARDY;
+    }
+}
+
 u8 GetTargetNeutralNatureForSelectedMon(void)
 {
     u8 monIndex = GetCursorSelectionMonId();
     struct Pokemon *mon = &gPlayerParty[monIndex];
     u8 currentNature = GetNature(mon);
-    u8 targetNature;
     
     // Check if already neutral
     if (currentNature == NATURE_HARDY || currentNature == NATURE_DOCILE || 
         currentNature == NATURE_SERIOUS || currentNature == NATURE_BASHFUL || 
         currentNature == NATURE_QUIRKY)
     {
-        return 255;
+        return 255;  // Special value to indicate already neutral
     }
     
-    // Determine target nature based on which stat has +1
-    if (GetNatureStatModifier(currentNature, STAT_ATK) == 1)
-    {
-        targetNature = NATURE_SERIOUS;
-    }
-    else if (GetNatureStatModifier(currentNature, STAT_DEF) == 1)
-    {
-        targetNature = NATURE_DOCILE;
-    }
-    else if (GetNatureStatModifier(currentNature, STAT_SPEED) == 1)
-    {
-        targetNature = NATURE_SERIOUS;
-    }
-    else if (GetNatureStatModifier(currentNature, STAT_SPATK) == 1)
-    {
-        targetNature = NATURE_BASHFUL;
-    }
-    else if (GetNatureStatModifier(currentNature, STAT_SPDEF) == 1)
-    {
-        targetNature = NATURE_QUIRKY;
-    }
-    else
-    {
-        targetNature = NATURE_HARDY;
-    }
-    
-    return targetNature;
+    return GetTargetNeutralNature(currentNature);
 }
 
 void ChangeSelectedMonToNeutralNature(void)
 {
     u8 monIndex = GetCursorSelectionMonId();
     struct Pokemon *mon = &gPlayerParty[monIndex];
-    u8 targetNature = *GetVarPointer(VAR_0x8006);
+    u16 *varPtr = GetVarPointer(VAR_0x8006);
+    u8 targetNature = (u8)*varPtr;  // Explicitly cast from u16 to u8
+
+    // Validate the nature value to prevent corruption
+    if (targetNature >= NUM_NATURES)
+    {
+        return;  // Invalid nature, don't proceed
+    }
 
     // Set the hidden nature to override personality-based nature
     SetMonData(mon, MON_DATA_HIDDEN_NATURE, &targetNature);
@@ -1305,30 +1315,7 @@ void BufferNatureChangeInfo(void)
         return; // Should not be called if already neutral
     }
     
-    if (GetNatureStatModifier(currentNature, STAT_ATK) == 1)
-    {
-        targetNature = NATURE_SERIOUS;
-    }
-    else if (GetNatureStatModifier(currentNature, STAT_DEF) == 1)
-    {
-        targetNature = NATURE_DOCILE;
-    }
-    else if (GetNatureStatModifier(currentNature, STAT_SPEED) == 1)
-    {
-        targetNature = NATURE_SERIOUS;
-    }
-    else if (GetNatureStatModifier(currentNature, STAT_SPATK) == 1)
-    {
-        targetNature = NATURE_BASHFUL;
-    }
-    else if (GetNatureStatModifier(currentNature, STAT_SPDEF) == 1)
-    {
-        targetNature = NATURE_QUIRKY;
-    }
-    else
-    {
-        targetNature = NATURE_HARDY;
-    }
+    targetNature = GetTargetNeutralNature(currentNature);
     
     // Buffer nature names
     StringCopy(gStringVar2, gNatureNamePointers[currentNature]);

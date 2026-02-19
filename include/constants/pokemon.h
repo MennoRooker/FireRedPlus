@@ -90,8 +90,8 @@
 #define MON_DATA_DEF2                     85
 #define MON_DATA_SPEED2                   86
 #define MON_DATA_SPATK2                   87
-#define MON_DATA_SPDEF2                88
-#define MON_DATA_HIDDEN_NATURE         89
+#define MON_DATA_SPDEF2                   88
+#define MON_DATA_HIDDEN_NATURE            89
 
 // Pokemon types
 #define TYPE_NONE           255
@@ -163,7 +163,7 @@
 #define NATURE_QUIRKY   24
 #define NUM_NATURES     25
 
-#define HIDDEN_NATURE_NONE  0xFF  // Value indicating no hidden nature override is set
+#define HIDDEN_NATURE_NONE  31  // Value indicating no hidden nature override is set (5-bit max, backward compatible with 0xFF truncation)
 
 // Pokemon Stats
 #define STAT_HP      0

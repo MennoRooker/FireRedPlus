@@ -5145,9 +5145,8 @@ u8 GetNature(struct Pokemon *mon)
     u8 hiddenNature = GetMonData(mon, MON_DATA_HIDDEN_NATURE, NULL);
     
     // If a hidden nature is set, use it instead of personality-based nature
-    // 0xFF is the sentinel for "no override"; also accept 0x00 for backward compatibility with saves
-    // that had a zeroed filler field
-    if (hiddenNature != 0xFF && hiddenNature != 0x00)
+    // Only use hiddenNature if it's in the valid range [0, NUM_NATURES)
+    if (hiddenNature < NUM_NATURES)
         return hiddenNature;
     
     return GetMonData(mon, MON_DATA_PERSONALITY, NULL) % NUM_NATURES;

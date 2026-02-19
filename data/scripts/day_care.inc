@@ -33,7 +33,7 @@ Route5_PokemonDayCare_EventScript_TryGiveMonAlt::
 	msgbox Route5_PokemonDayCare_Text_NatureWillBeChanged, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Route5_PokemonDayCare_EventScript_ComeAgain
 	fadescreen FADE_TO_BLACK
-	delay 20
+	delay 60
 	fadescreen FADE_FROM_BLACK
 	special ChangeSelectedMonToNeutralNature
 	specialvar VAR_RESULT, GetSelectedMonNicknameAndSpecies
