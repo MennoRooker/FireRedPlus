@@ -3364,6 +3364,35 @@ BattleScript_LeechSeedTurnPrintAndUpdateHp::
 	tryfaintmon BS_TARGET
 	end2
 
+BattleScript_LeechSeedTurnDrainWithPoison::
+	playanimation BS_ATTACKER, B_ANIM_LEECH_SEED_DRAIN, sB_ANIM_ARG1
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	copyword gBattleMoveDamage, gHpDealt
+	jumpifability BS_ATTACKER, ABILITY_LIQUID_OOZE, BattleScript_LeechSeedLiquidOozePoisoned
+	manipulatedamage 0
+	setbyte cMULTISTRING_CHOOSER, 3
+	goto BattleScript_LeechSeedTurnPrintAndUpdateHpPoisoned
+
+BattleScript_LeechSeedLiquidOozePoisoned::
+	setbyte cMULTISTRING_CHOOSER, 4
+BattleScript_LeechSeedTurnPrintAndUpdateHpPoisoned::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_TARGET
+	datahpupdate BS_TARGET
+	printfromtable gLeechSeedStringIds
+	waitmessage B_WAIT_TIME_LONG
+	tryfaintmon BS_ATTACKER
+	tryfaintmon BS_TARGET
+	waitstate
+	statusanimation BS_EFFECT_BATTLER
+	printstring STRINGID_PKMNBADLYPOISONED
+	waitmessage B_WAIT_TIME_LONG
+	updatestatusicon BS_EFFECT_BATTLER
+	waitstate
+	end2
+
 BattleScript_BideStoringEnergy::
 	printstring STRINGID_PKMNSTORINGENERGY
 	waitmessage B_WAIT_TIME_LONG
@@ -4213,6 +4242,14 @@ BattleScript_PSNPrevention::
 	pause B_WAIT_TIME_SHORT
 	printfromtable gPSNPreventionStringIds
 	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_DrainPoisonToxic::
+	statusanimation BS_EFFECT_BATTLER
+	printstring STRINGID_PKMNBADLYPOISONED
+	waitmessage B_WAIT_TIME_LONG
+	updatestatusicon BS_EFFECT_BATTLER
+	waitstate
 	return
 
 BattleScript_ObliviousPreventsAttraction::

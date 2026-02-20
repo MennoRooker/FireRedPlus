@@ -1913,6 +1913,35 @@ static void Cmd_datahpupdate(void)
             gSpecialStatuses[gActiveBattler].dmg = 0xFFFF;
     }
     gBattlescriptCurrInstr += 2;
+    
+    // Check for poison drain toxic application after HP update
+    if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
+    {
+        gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[-1]); // -1 because we already advanced
+        if (gBattleMoveDamage < 0 && gBattlescriptCurrInstr[-1] == BS_ATTACKER)
+        {
+            // Check if defender (target) is Poison type
+            if (IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_POISON))
+            {
+                // Check if attacker can be badly poisoned
+                if (!(gBattleMons[gBattlerAttacker].status1 & STATUS1_ANY)
+                    && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_POISON)
+                    && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
+                    && gBattleMons[gBattlerAttacker].ability != ABILITY_IMMUNITY)
+                {
+                    // Apply toxic status
+                    gBattleMons[gBattlerAttacker].status1 = STATUS1_TOXIC_POISON | STATUS1_TOXIC_TURN(1);
+                    gEffectBattler = gBattlerAttacker;
+                    gActiveBattler = gBattlerAttacker;
+                    BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[gBattlerAttacker].status1), &gBattleMons[gBattlerAttacker].status1);
+                    MarkBattlerForControllerExec(gActiveBattler);
+                    // Push and execute toxic message script
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_DrainPoisonToxic;
+                }
+            }
+        }
+    }
 }
 
 static void Cmd_critmessage(void)

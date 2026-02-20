@@ -752,6 +752,7 @@ x Neutralize natures in daycare
 - Only a few red HP beeps
 - Poison (Toxic, overworld & drain)
 - Change paralysis
+- Full restore PP
 ---------------------------------------
 - Implement all abilites
 - Increase IVs through bottle caps

@@ -51,6 +51,8 @@ extern const u8 BattleScript_SideStatusWoreOff[];
 extern const u8 BattleScript_SafeguardProtected[];
 extern const u8 BattleScript_SafeguardEnds[];
 extern const u8 BattleScript_LeechSeedTurnDrain[];
+extern const u8 BattleScript_LeechSeedTurnDrainWithPoison[];
+extern const u8 BattleScript_DrainPoisonToxic[];
 extern const u8 BattleScript_BideStoringEnergy[];
 extern const u8 BattleScript_BideAttack[];
 extern const u8 BattleScript_BideNoEnergyToAttack[];

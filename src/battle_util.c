@@ -28,7 +28,6 @@
 
 #define SOUND_MOVES_END  0xFFFF
 
-
 static const u16 sSoundMovesTable[] =
 {
     MOVE_GROWL, MOVE_ROAR, MOVE_SING, MOVE_SUPERSONIC, MOVE_SCREECH, MOVE_SNORE,
@@ -812,13 +811,37 @@ u8 DoBattlerEndTurnEffects(void)
                  && gBattleMons[gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER].hp != 0
                  && gBattleMons[gActiveBattler].hp != 0)
                 {
-                    gBattlerTarget = gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER; // Notice gBattlerTarget is actually the HP receiver.
+                    u8 leechSeedUser = gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER;
+                    gBattlerTarget = leechSeedUser; // Notice gBattlerTarget is actually the HP receiver.
                     gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
                     if (gBattleMoveDamage == 0)
                         gBattleMoveDamage = 1;
                     gBattleScripting.animArg1 = gBattlerTarget;
                     gBattleScripting.animArg2 = gBattlerAttacker;
-                    BattleScriptExecute(BattleScript_LeechSeedTurnDrain);
+                    
+                    // Check if the Pokémon being drained (gActiveBattler) is Poison type
+                    // If so, poison the HP receiver (leechSeedUser) - like drain moves
+                    if (IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_POISON)
+                     && !(gBattleMons[leechSeedUser].status1 & STATUS1_ANY)
+                     && !IS_BATTLER_OF_TYPE(leechSeedUser, TYPE_POISON)
+                     && !IS_BATTLER_OF_TYPE(leechSeedUser, TYPE_STEEL)
+                     && gBattleMons[leechSeedUser].ability != ABILITY_IMMUNITY)
+                    {
+                        // Apply toxic poison status to the HP receiver
+                        gBattleMons[leechSeedUser].status1 = STATUS1_TOXIC_POISON | STATUS1_TOXIC_TURN(1);
+                        gEffectBattler = leechSeedUser;
+                        gActiveBattler = leechSeedUser;
+                        BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[leechSeedUser].status1), &gBattleMons[leechSeedUser].status1);
+                        MarkBattlerForControllerExec(gActiveBattler);
+                        // Execute Leech Seed drain with poison message after
+                        BattleScriptExecute(BattleScript_LeechSeedTurnDrainWithPoison);
+                    }
+                    else
+                    {
+                        // No poison, just do normal Leech Seed drain
+                        BattleScriptExecute(BattleScript_LeechSeedTurnDrain);
+                    }
+                    
                     effect++;
                 }
                 gBattleStruct->turnEffectsTracker++;
