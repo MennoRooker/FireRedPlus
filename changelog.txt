@@ -19,7 +19,4 @@ Changed global exp curve from /7 to /6 (~17% increase)
 For additional documentation, look at:
 - moves.txt (all the moves that were changed)
 - pkmn.txt (all Pokemon that got buffs/changes)
-- learnsets.txt (all learnsets of all Pokemon)
-- encounters.txt (all wild encounters)
-- parties.txt (all trainer parties)
 

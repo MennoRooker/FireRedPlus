@@ -741,6 +741,7 @@ x No items in battle
 x Catch rates
 x Neutralize natures in daycare
 / Fishing rods redistribution
+/ Poison (Toxic, overworld & drain)
 / Balancing
 / Linearizations
 / Exp Candies
@@ -750,9 +751,9 @@ x Neutralize natures in daycare
 - Letters
 - Diamonds above rematch teams
 - Only a few red HP beeps
-- Poison (Toxic, overworld & drain)
 - Change paralysis
 - Full restore PP
+- Rename scripts
 ---------------------------------------
 - Implement all abilites
 - Increase IVs through bottle caps

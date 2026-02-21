@@ -4093,6 +4093,17 @@ BattleScript_RainDishActivates::
 	datahpupdate BS_ATTACKER
 	end3
 
+BattleScript_SolarPowerDamage::
+	printstring STRINGID_PKMNHURTBYSOLARPOWER
+	waitmessage B_WAIT_TIME_LONG
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	tryfaintmon BS_ATTACKER
+	checkteamslost BattleScript_SolarPowerDamageEnd
+BattleScript_SolarPowerDamageEnd::
+	end3
+
 BattleScript_SandstreamActivates::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNSXWHIPPEDUPSANDSTORM
