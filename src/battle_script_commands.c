@@ -590,7 +590,7 @@ static const u16 sCriticalHitChance[] = {16, 8, 4, 3, 2};
 static const u32 sStatusFlagsForMoveEffects[NUM_MOVE_EFFECTS] =
 {
     [MOVE_EFFECT_SLEEP]          = STATUS1_SLEEP,
-    [MOVE_EFFECT_POISON]         = STATUS1_POISON,
+    [MOVE_EFFECT_POISON]         = STATUS1_TOXIC_POISON,
     [MOVE_EFFECT_BURN]           = STATUS1_BURN,
     [MOVE_EFFECT_FREEZE]         = STATUS1_FREEZE,
     [MOVE_EFFECT_PARALYSIS]      = STATUS1_PARALYSIS,
@@ -610,7 +610,7 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
 {
     [0]                            = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_SLEEP]            = BattleScript_MoveEffectSleep,
-    [MOVE_EFFECT_POISON]           = BattleScript_MoveEffectPoison,
+    [MOVE_EFFECT_POISON]           = BattleScript_MoveEffectToxic,
     [MOVE_EFFECT_BURN]             = BattleScript_MoveEffectBurn,
     [MOVE_EFFECT_FREEZE]           = BattleScript_MoveEffectFreeze,
     [MOVE_EFFECT_PARALYSIS]        = BattleScript_MoveEffectParalysis,
@@ -9344,7 +9344,7 @@ static void Cmd_getsecretpowereffect(void)
     switch (gBattleTerrain)
     {
     case BATTLE_TERRAIN_GRASS:
-        gBattleCommunication[MOVE_EFFECT_BYTE] = MOVE_EFFECT_POISON;
+        gBattleCommunication[MOVE_EFFECT_BYTE] = MOVE_EFFECT_TOXIC;
         break;
     case BATTLE_TERRAIN_LONG_GRASS:
         gBattleCommunication[MOVE_EFFECT_BYTE] = MOVE_EFFECT_SLEEP;

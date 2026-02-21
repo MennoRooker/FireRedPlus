@@ -8,6 +8,21 @@ Better access to EVs, IVs and natures
 QoL changes
 Ultra Ball Catch Bonus  2.0x -> 2.5x
 Safari Ball Catch Bonus 1.5x -> 3.5x
+Blaze, Torrent, Overgrow & Swarm activate at 50% HP
+Draining POISON-types causes bad poisoning
+No PSN overworld damage
+Gen 5+ sturdy
+IV and EV screens in summary
+Nature changing in day-care
+EV reducing berries
+All TMs can be bought
+Rare Candies in department store
+No Ethers or X-items
+Repels replaced by perma repel option
+New LR button functionality
+Poison is all badly poisoned
+Paralysis is speed / 2
+Macho brace has no speed drop
 
 
 Dark and Dragon are now physical, Ghost is special

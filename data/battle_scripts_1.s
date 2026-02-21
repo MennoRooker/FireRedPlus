@@ -322,7 +322,7 @@ BattleScript_CantMakeAsleep::
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectPoisonHit::
-	setmoveeffect MOVE_EFFECT_POISON
+	setmoveeffect MOVE_EFFECT_TOXIC
 	goto BattleScript_EffectHit
 
 BattleScript_EffectAbsorb::
@@ -999,7 +999,7 @@ BattleScript_EffectPoison::
 	jumpifsideaffecting BS_TARGET, SIDE_STATUS_SAFEGUARD, BattleScript_SafeguardProtected
 	attackanimation
 	waitanimation
-	setmoveeffect MOVE_EFFECT_POISON
+	setmoveeffect MOVE_EFFECT_TOXIC
 	seteffectprimary
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -1104,7 +1104,7 @@ BattleScript_EffectConfuseHit::
 BattleScript_EffectTwineedle::
 	attackcanceler
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	setbyte sMULTIHIT_EFFECT, MOVE_EFFECT_POISON
+	setbyte sMULTIHIT_EFFECT, MOVE_EFFECT_TOXIC
 	attackstring
 	ppreduce
 	setmultihitcounter 2

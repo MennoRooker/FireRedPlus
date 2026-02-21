@@ -740,8 +740,8 @@ x Gen 6 type mechanics
 x No items in battle
 x Catch rates
 x Neutralize natures in daycare
+x Poison & Paralysis
 / Fishing rods redistribution
-/ Poison (Toxic, overworld & drain)
 / Balancing
 / Linearizations
 / Exp Candies
