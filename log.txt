@@ -720,6 +720,17 @@ time to make battle items replenish after battle if it is
 held. So berries and herbs should be consumed, but given
 back as the held item right after the battle is completed.
 
+I have checked off the abilities, but I need to keep in mind
+that I might want to update the animations for things even-
+tually. I still (might) need custom animations/audio for:
+x Solar Power
+x Bulldoze
+x Sturdy
+/ Harvest
+- Quiver Dance
+- Fly
+- Using EV berries
+- Using Exp Candies
 
 
 
@@ -747,18 +758,19 @@ x No items in battle
 x Catch rates
 x Neutralize natures in daycare
 x Poison & Paralysis
+x Implement current abilities
 / Fishing rods redistribution
 / Balancing
 / Linearizations
 / Exp Candies
-/ Implement current abilities
+- HM mons sprites
 - Custom move animations
 - Victory Road FLY checkpoint
 - Letters
 - Diamonds above rematch teams
 - Only a few red HP beeps
 - Full restore PP
-- Rename scripts
+- Rename scripts and remove dead code
 ---------------------------------------
 - Implement all abilites
 - Increase IVs through bottle caps

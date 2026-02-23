@@ -1488,7 +1488,20 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt5[] = {
 // ======================================================================================= //
 // ======================================= Route 5 ======================================= //
 // ======================================================================================= //
-// Add trainer?
+static const struct TrainerMonNoItemCustomMoves sParty_YoungsterThomas[] = {
+    {
+        .iv = 0,
+        .lvl = 18,
+        .species = SPECIES_GROWLITHE,
+        .moves = {MOVE_EMBER, MOVE_BITE, MOVE_TACKLE, MOVE_GROWL},
+    },
+    {
+        .iv = 0,
+        .lvl = 18,
+        .species = SPECIES_TEDDIURSA,
+        .moves = {MOVE_SCRATCH, MOVE_LICK, MOVE_YAWN, MOVE_METAL_CLAW},
+    },
+};
 
 
 // ======================================================================================= //
@@ -1903,7 +1916,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GamerDirk[] = {
 // ======================================================================================= //
 // ======================================= S.S. Anne ===================================== //
 // ======================================================================================= //
-static const struct TrainerMonNoItemDefaultMoves sParty_GentlemanThomas[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_GentlemanHenderson[] = {
     {
         .iv = 0,
         .lvl = 19,

@@ -1,7 +1,7 @@
 SSAnne_1F_Room7_MapScripts::
 	.byte 0
 
-SSAnne_1F_Room7_EventScript_Thomas::
-	trainerbattle_single TRAINER_GENTLEMAN_THOMAS, SSAnne_1F_Room7_Text_ThomasIntro, SSAnne_1F_Room7_Text_ThomasDefeat
-	msgbox SSAnne_1F_Room7_Text_ThomasPostBattle, MSGBOX_AUTOCLOSE
+SSAnne_1F_Room7_EventScript_Henderson::
+	trainerbattle_single TRAINER_GENTLEMAN_HENDERSON, SSAnne_1F_Room7_Text_HendersonIntro, SSAnne_1F_Room7_Text_HendersonDefeat
+	msgbox SSAnne_1F_Room7_Text_HendersonPostBattle, MSGBOX_AUTOCLOSE
 	end
