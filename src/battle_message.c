@@ -91,6 +91,7 @@ static const u8 sText_PkmnHurtByPoison[] = _("{B_ATK_NAME_WITH_PREFIX} is hurt\n
 static const u8 sText_PkmnAlreadyPoisoned[] = _("{B_DEF_NAME_WITH_PREFIX} is already\npoisoned.");
 static const u8 sText_PkmnBadlyPoisoned[] = _("{B_EFF_NAME_WITH_PREFIX} is badly\npoisoned!");
 static const u8 sText_PkmnEnergyDrained[] = _("{B_DEF_NAME_WITH_PREFIX} had its\nenergy drained!");
+static const u8 sText_PkmnHarvestedBerry[] = _("{B_EFF_NAME_WITH_PREFIX} harvested\nanother {B_LAST_ITEM}.");
 static const u8 sText_PkmnWasBurned[] = _("{B_EFF_NAME_WITH_PREFIX} was burned!");
 static const u8 sText_PkmnBurnedBy[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nburned {B_EFF_NAME_WITH_PREFIX}!");
 static const u8 sText_PkmnHurtByBurn[] = _("{B_ATK_NAME_WITH_PREFIX} is hurt\nby its burn!");
@@ -899,6 +900,7 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_PKMNSXWHIPPEDUPHAILSTORM - BATTLESTRINGS_TABLE_START]      = sText_PkmnsXWhippedUpHailstorm,
     [STRINGID_PKMNHUNGONWITHSTURDY - BATTLESTRINGS_TABLE_START]          = sText_PkmnHungOnWithSturdy,
     [STRINGID_PKMNHURTBYSOLARPOWER - BATTLESTRINGS_TABLE_START]          = sText_PkmnHurtBySolarPower,
+    [STRINGID_PKMNHARVESTEDBERRY - BATTLESTRINGS_TABLE_START]            = sText_PkmnHarvestedBerry,
 };
 
 const u16 gMissStringIds[] =

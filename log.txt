@@ -714,6 +714,12 @@ The next few things at hand are Harvest and Solar Power as
 abilities and Poisoning on draining moves. I also want to
 remove Poisoning from the overworld entirely.
 
+Solar Power is implemented, now Harvest is up. This might be 
+more challenging to implement. I think it is now also a good 
+time to make battle items replenish after battle if it is 
+held. So berries and herbs should be consumed, but given
+back as the held item right after the battle is completed.
+
 
 
 
@@ -751,7 +757,6 @@ x Poison & Paralysis
 - Letters
 - Diamonds above rematch teams
 - Only a few red HP beeps
-- Change paralysis
 - Full restore PP
 - Rename scripts
 ---------------------------------------

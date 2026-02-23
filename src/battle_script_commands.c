@@ -5755,12 +5755,19 @@ static void Cmd_adjustsetdamage(void)
 static void Cmd_removeitem(void)
 {
     u16 *usedHeldItem;
+    u8 partyIndex;
 
     gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
 
     usedHeldItem = &gBattleStruct->usedHeldItems[gActiveBattler];
     *usedHeldItem = gBattleMons[gActiveBattler].item;
     gBattleMons[gActiveBattler].item = ITEM_NONE;
+
+    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+    {
+        partyIndex = gBattlerPartyIndexes[gActiveBattler];
+        gBattleStruct->usedHeldItemsByParty[partyIndex] = *usedHeldItem;
+    }
 
     BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gActiveBattler].item), &gBattleMons[gActiveBattler].item);
     MarkBattlerForControllerExec(gActiveBattler);

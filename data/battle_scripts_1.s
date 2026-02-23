@@ -4466,6 +4466,12 @@ BattleScript_WhiteHerbRet::
 	removeitem BS_SCRIPTING
 	return
 
+BattleScript_HarvestedBerry::
+	playanimation BS_EFFECT_BATTLER, B_ANIM_HELD_ITEM_EFFECT
+	printstring STRINGID_PKMNHARVESTEDBERRY
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
 BattleScript_ItemHealHP_RemoveItem::
 	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
 	printstring STRINGID_PKMNSITEMRESTOREDHEALTH

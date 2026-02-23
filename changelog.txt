@@ -23,6 +23,8 @@ New LR button functionality
 Poison is all badly poisoned
 Paralysis is speed / 2
 Macho brace has no speed drop
+Held items are replenished after battle
+
 
 
 Dark and Dragon are now physical, Ghost is special

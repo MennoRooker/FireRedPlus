@@ -2344,6 +2344,8 @@ static void BattleStartClearSetData(void)
         *(i + 2 * 8 + (u8 *)(gBattleStruct->lastTakenMoveFrom) + 0) = 0;
         *(i + 3 * 8 + (u8 *)(gBattleStruct->lastTakenMoveFrom) + 0) = 0;
     }
+    for (i = 0; i < PARTY_SIZE; i++)
+        gBattleStruct->usedHeldItemsByParty[i] = ITEM_NONE;
     *(gBattleStruct->AI_monToSwitchIntoId + 0) = PARTY_SIZE;
     *(gBattleStruct->AI_monToSwitchIntoId + 1) = PARTY_SIZE;
     *(&gBattleStruct->givenExpMons) = 0;
@@ -3816,6 +3818,32 @@ static void HandleEndTurn_BattleWon(void)
     gBattleMainFunc = HandleEndTurn_FinishBattle;
 }
 
+static void RestoreConsumedHeldItemsToParty(void)
+{
+    s32 i;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
+        return;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        u16 item = gBattleStruct->usedHeldItemsByParty[i];
+        u16 currentItem;
+
+        if (item == ITEM_NONE)
+            continue;
+
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
+            continue;
+
+        currentItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
+        if (currentItem == ITEM_NONE)
+            SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &item);
+
+        gBattleStruct->usedHeldItemsByParty[i] = ITEM_NONE;
+    }
+}
+
 static void HandleEndTurn_BattleLost(void)
 {
     gCurrentActionFuncId = 0;
@@ -3875,6 +3903,7 @@ static void HandleEndTurn_FinishBattle(void)
 {
     if (gCurrentActionFuncId == B_ACTION_TRY_FINISH || gCurrentActionFuncId == B_ACTION_FINISHED)
     {
+        RestoreConsumedHeldItemsToParty();
         if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_OLD_MAN_TUTORIAL | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_SAFARI | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_LINK)))
         {
             for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)

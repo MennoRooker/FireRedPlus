@@ -1933,6 +1933,39 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                         effect++;
                     }
                     break;
+                case ABILITY_HARVEST:
+                    // Check if the berry was consumed and if battler doesn't have an item
+                    if (gBattleStruct->usedHeldItems[battler] != ITEM_NONE && gBattleMons[battler].item == ITEM_NONE)
+                    {
+                        // Check if the consumed item is a berry
+                        if (ItemId_GetPocket(gBattleStruct->usedHeldItems[battler]) == POCKET_BERRY_POUCH)
+                        {
+                            u8 shouldRestore = 0;
+                            u16 berryToRestore = gBattleStruct->usedHeldItems[battler];
+                            
+                            // 100% recovery if sun is up
+                            if (WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_SUN))
+                            {
+                                shouldRestore = 1;
+                            }
+                            // 50% chance otherwise
+                            else if ((Random() % 100) < 50)
+                            {
+                                shouldRestore = 1;
+                            }
+                            
+                            if (shouldRestore)
+                            {
+                                gLastUsedItem = berryToRestore;
+                                gBattleMons[battler].item = berryToRestore;
+                                gBattleStruct->usedHeldItems[battler] = ITEM_NONE;
+                                gEffectBattler = battler;
+                                BattleScriptPushCursorAndCallback(BattleScript_HarvestedBerry);
+                                effect++;
+                            }
+                        }
+                    }
+                    break;
                 case ABILITY_TRUANT:
                     gDisableStructs[gBattlerAttacker].truantCounter ^= 1;
                     break;
