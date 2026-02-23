@@ -25,7 +25,7 @@ static const u8 sItemEffect_ParalyzeHeal[6] = {
 
 static const u8 sItemEffect_FullRestore[7] = {
     [3] = ITEM3_STATUS_ALL,
-    [4] = ITEM4_HEAL_HP,
+    [4] = ITEM4_HEAL_HP | ITEM4_HEAL_PP_ALL,
     [6] = ITEM6_HEAL_HP_FULL,
 };
 

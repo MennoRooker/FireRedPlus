@@ -16854,8 +16854,8 @@
                 "species": "SPECIES_ODDISH"
               },
               {
-                "min_level": 16,
-                "max_level": 16,
+                "min_level": 15,
+                "max_level": 15,
                 "species": "SPECIES_GIRAFARIG"
               },
               {
@@ -17008,8 +17008,8 @@
                 "species": "SPECIES_BELLSPROUT"
               },
               {
-                "min_level": 16,
-                "max_level": 16,
+                "min_level": 15,
+                "max_level": 15,
                 "species": "SPECIES_GIRAFARIG"
               },
               {

@@ -10,17 +10,15 @@ FuchsiaCity_House2_Text_LikeYourStyleTakeThis::
     .string "I think we can be friends.\p"
     .string "Take this and fish, young friend!$"
 
-FuchsiaCity_House2_Text_ReceivedGoodRod::
-    .string "{PLAYER} received a GOOD ROD from\n"
+FuchsiaCity_House2_Text_ReceivedSuperRod::
+    .string "{PLAYER} received a SUPER ROD from\n"
     .string "the FISHING GURU's brother.$"
 
 FuchsiaCity_House2_Text_GoodRodCanCatchBetterMons::
     .string "Fishing is a way of life!\n"
     .string "It is like the finest poetry.\p"
-    .string "A crummy OLD ROD could only catch\n"
-    .string "MAGIKARP, yes?\p"
-    .string "But with a GOOD ROD, you can\n"
-    .string "catch much better POKéMON.$"
+    .string "With a SUPER ROD, you can\n"
+    .string "catch the best better POKéMON.$"
 
 FuchsiaCity_House2_Text_OhThatsDisappointing::
     .string "Oh…\n"

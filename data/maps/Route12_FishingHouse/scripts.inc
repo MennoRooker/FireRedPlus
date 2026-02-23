@@ -4,26 +4,38 @@ Route12_FishingHouse_MapScripts::
 Route12_FishingHouse_EventScript_FishingGuruBrother::
 	lock
 	faceplayer
-	goto_if_set FLAG_GOT_SUPER_ROD, Route12_FishingHouse_EventScript_CheckMagikarpRecord
-	msgbox Route12_FishingHouse_Text_DoYouLikeToFish, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, Route12_FishingHouse_EventScript_GiveSuperRod
-	msgbox Route12_FishingHouse_Text_OhThatsDisappointing
+	goto_if_set FLAG_SHOWED_SUPER_ROD_TO_GURU, Route12_FishingHouse_EventScript_CheckMagikarpRecord
+	msgbox Route12_FishingHouse_Text_DoesPlayerHaveProperFishingGear, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route12_FishingHouse_EventScript_CheckWhichRodPlayerHas
+	msgbox Route12_FishingHouse_Text_VisitMyOldestBrother
 	release
 	end
 
-Route12_FishingHouse_EventScript_GiveSuperRod::
-	checkitemspace ITEM_SUPER_ROD
-	goto_if_eq VAR_RESULT, FALSE, Route12_FishingHouse_EventScript_NoRoomForSuperRod
-	additem ITEM_SUPER_ROD
-	msgbox Route12_FishingHouse_Text_TakeThisAndFish
-	msgreceiveditem Route12_FishingHouse_Text_ReceivedSuperRod, ITEM_SUPER_ROD
-	setflag FLAG_GOT_SUPER_ROD
-	msgbox Route12_FishingHouse_Text_IfYouCatchBigMagikarpShowMe
+Route12_FishingHouse_EventScript_CheckWhichRodPlayerHas::
+	goto_if_set FLAG_GOT_SUPER_ROD, Route12_FishingHouse_EventScript_ShowSuperRod
+	goto_if_set FLAG_GOT_GOOD_ROD, Route12_FishingHouse_EventScript_ShowOldRod
+	goto Route12_FishingHouse_EventScript_VisitOldestBrother
 	release
 	end
 
-Route12_FishingHouse_EventScript_NoRoomForSuperRod::
-	msgbox Route12_FishingHouse_Text_NoRoomForGift
+Route12_FishingHouse_EventScript_VisitOldestBrother::
+	msgbox Route12_FishingHouse_Text_VisitMyOldestBrother
+	release
+	end
+
+Route12_FishingHouse_EventScript_ShowSuperRod::
+	msgbox Route12_FishingHouse_Text_CatchABigMagikarpForMe
+	setflag FLAG_SHOWED_SUPER_ROD_TO_GURU
+	release
+	end
+
+Route12_FishingHouse_EventScript_ShowGoodRod::
+	msgbox Route12_FishingHouse_Text_UsingGoodRod
+	release
+	end
+
+Route12_FishingHouse_EventScript_ShowOldRod::
+	msgbox Route12_FishingHouse_Text_UsingOldRod
 	release
 	end
 

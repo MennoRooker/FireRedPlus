@@ -732,6 +732,10 @@ x Sturdy
 - Using EV berries
 - Using Exp Candies
 
+I just got to Vermillion again. I got the VS Seeker from a
+lady in the pokecenter, but I think it's good to have it be 
+a lot more abvious so you don't miss the VS Seeker
+
 
 
 TO DO:
@@ -759,7 +763,7 @@ x Catch rates
 x Neutralize natures in daycare
 x Poison & Paralysis
 x Implement current abilities
-/ Fishing rods redistribution
+x Fishing rods redistribution
 / Balancing
 / Linearizations
 / Exp Candies
