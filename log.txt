@@ -764,16 +764,17 @@ x Neutralize natures in daycare
 x Poison & Paralysis
 x Implement current abilities
 x Fishing rods redistribution
+x Full restore PP
 / Balancing
 / Linearizations
 / Exp Candies
+- Faster Bike
 - HM mons sprites
 - Custom move animations
 - Victory Road FLY checkpoint
 - Letters
 - Diamonds above rematch teams
 - Only a few red HP beeps
-- Full restore PP
 - Rename scripts and remove dead code
 ---------------------------------------
 - Implement all abilites

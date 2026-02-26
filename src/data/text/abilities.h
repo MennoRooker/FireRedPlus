@@ -81,6 +81,7 @@ static const u8 sStrongJawDescription[] = _("Ups the power of biting moves.");
 static const u8 sSnowWarningDescription[] = _("Summons hail in battle.");
 static const u8 sDragonsMawDescription[] = _("Ups damage of DRAGON-type moves.");
 static const u8 sHarvestDescription[] = _("May harvest another berry after use.");
+static const u8 sVenomousDescription[] = _("Biting moves may cause poisoning.");
 
 const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 {
@@ -167,6 +168,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_SNOW_WARNING] = sSnowWarningDescription,
     [ABILITY_DRAGONS_MAW] = sDragonsMawDescription,
     [ABILITY_HARVEST] = sHarvestDescription,
+    [ABILITY_VENOMOUS] = sVenomousDescription,
 };
 
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -253,5 +255,6 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_STRONG_JAW] = _("STRONG JAW"),
     [ABILITY_SNOW_WARNING] = _("SNOW WARNING"),
     [ABILITY_DRAGONS_MAW] = _("DRAGON'S MAW"),
-    [ABILITY_HARVEST] = _("HARVEST")
+    [ABILITY_HARVEST] = _("HARVEST"),
+    [ABILITY_VENOMOUS] = _("VENOMOUS"),
 };
