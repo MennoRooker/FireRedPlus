@@ -748,6 +748,17 @@ Early Bird 1 turn guaranteed instead of 0-2 turns. Change
 Thunder Wave to not affect Electric types and make sure Evasion
 and Accuracy can only be raised/lowered by 2 stages.
 
+The PC has streamlined the game quite a bit so I'm trying to
+think of other moements where you can shave off a bit of time
+for repeating instances. I want the pokecenter to be a lot
+quicker in general. I'll make a list of all the things that I
+want to quicken.
+
+SPEED UPS:
+x Instant PC BOX
+- No fade-in upon warp
+- Quicker nurse interaction
+- Simultaneous ball throw with wild mons
 
 
 TO DO:
@@ -806,9 +817,6 @@ x Full restore PP
 - Deoxys forms
 
 
-
-
-
 Abilities to add:
 x Snow Warning
 x Dragon's Maw
@@ -835,6 +843,7 @@ x Dragon's Maw
 - Tinted Lens
 - Multiscale
 
+
 Moves to add:
 x Quiver Dance
 x Bulldoze
@@ -857,6 +866,7 @@ x Bulldoze
 - High Horsepower
 - X-Scissor
 
+
 Items to add:
 - Eviolite
 - Expert Belt
@@ -874,11 +884,13 @@ Items to add:
 - Light Clay
 - Soul Orb (Gen VII Soul Dew)
 
+
 LR BUTTONS:
 x LR Fly/Repel in overworld
 x LR+arrow keys switch pockets in bag
 x Press A to switch between stats/IVs/EVs
 x LR Left switches mon with lead and vice versa
+
 
 Online resources/tutorials:
 https://github.com/pret/pokeemerald/wiki/Tutorials

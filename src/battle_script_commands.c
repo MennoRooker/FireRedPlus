@@ -26,6 +26,7 @@
 #include "reshow_battle_screen.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
+#include "battle_util.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_move_effects.h"
 #include "constants/battle_script_commands.h"
@@ -4211,6 +4212,23 @@ static void Cmd_moveend(void)
         case MOVEEND_ON_DAMAGE_ABILITIES: // Such as abilities activating on contact (Effect Spore, Rough Skin, etc.).
             if (AbilityBattleEffects(ABILITYEFFECT_ON_DAMAGE, gBattlerTarget, 0, 0, 0))
                 effect = TRUE;
+            gBattleScripting.moveendState++;
+            break;
+        case MOVEEND_VENOMOUS:
+            if (gBattleMons[gBattlerAttacker].ability == ABILITY_VENOMOUS
+             && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+             && gBattleMons[gBattlerAttacker].hp != 0
+             && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+             && TARGET_TURN_DAMAGED
+             && IsBitingMove(gCurrentMove)
+             && (Random() % 3) == 0)
+            {
+                gBattleCommunication[MOVE_EFFECT_BYTE] = MOVE_EFFECT_TOXIC;
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_ApplySecondaryEffect;
+                gHitMarker |= HITMARKER_STATUS_ABILITY_EFFECT;
+                effect = TRUE;
+            }
             gBattleScripting.moveendState++;
             break;
         case MOVEEND_IMMUNITY_ABILITIES: // status immunities
@@ -9380,7 +9398,6 @@ static void Cmd_getsecretpowereffect(void)
     }
     gBattlescriptCurrInstr++;
 }
-
 static void Cmd_pickup(void)
 {
     s32 i;
