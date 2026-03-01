@@ -1,10 +1,10 @@
 POKÉMON CHANGES
 
 - BULBASAUR
-Overgrow -> Overgrow/Effect Spore
+Overgrow -> Overgrow/Harvest
 
 - IVYSAUR
-Overgrow -> Overgrow/Effect Spore
+Overgrow -> Overgrow/Harvest
 
 - VENUSAUR
 Overgrow -> Overgrow/Thick Fat
@@ -60,6 +60,7 @@ Keen Eye -> Keen Eye/Own Tempo
 
 - ARBOK
 POISON -> POISON/DARK
+Intimidate/Shed Skin -> Intimidate/Venomous
 
 - VULPIX
 Flash Fire -> Flash Fire/Drought
@@ -125,6 +126,9 @@ spdef:	25 -> 35
 
 - KINGLER
 spdef:	50 -> 55
+
+- EXEGGUTOR
+Chlorophyll -> Chlorophyll/Harvest
 
 - CHANSEY
 Lucky Egg 5% -> 50%
@@ -289,18 +293,34 @@ spd:	60 -> 70
 - SHIFTRY
 spd:	80 -> 108
 
-- NINJASK
-Speed Boost -> Hyper Cutter
-
-- BRELOOM
-hp:	60 -> 70
-spd:	70 -> 78
-
 - WINGULL
 Keen Eye -> Keen Eye/Early Bird
 
 - PELLIPER
 Keen Eye -> Keen Eye/Drizzle
+
+- BRELOOM
+hp:	60 -> 70
+spd:	70 -> 78
+
+- NINJASK
+Speed Boost -> Hyper Cutter
+
+- EXPLOUD
+atk:	91 -> 108
+
+- DELCATTY
+spatk:	55 -> 75
+spdef:	55 -> 75
+
+- LAIRON
+hp:	60 -> 70
+
+- AGGRON
+hp:	70 -> 90
+
+- SHARPEDO
+spd:	95 -> 115
 
 - WAILMER
 def:	35 -> 40
@@ -310,20 +330,11 @@ spdef:	35 -> 42
 def:	45 -> 50
 spdef:	45 -> 55
 
+- CAMERUPT
+hp:	70 -> 100
+
 - TORKOAL
 White Smoke -> Drought
-
-- ALTARIA
-atk:	70 -> 80
-
-- WHISCASH
-atk:	78 -> 88
-
-- LUVDISC
-spatk:	40 -> 90
-
-- SHARPEDO
-spd:	95 -> 115
 
 - VIBRAVA
 hp:	50 -> 55
@@ -337,15 +348,23 @@ spd:	70 -> 80
 atk:	100-> 115
 spd:	100-> 115
 
-- CAMERUPT
-hp:	70 -> 100
+- ALTARIA
+atk:	70 -> 80
 
-- TROPIUS
-hp:	99 -> 109
-spatk:	72 -> 92
+- SEVIPER
+Shed Skin -> Shed Skin/Venomous
+def:	60 -> 90
+spatk:	100-> 80
+spdef:	60 -> 80
 
-- EXPLOUD
-atk:	91 -> 108
+- WHISCASH
+atk:	78 -> 88
+
+- CRADILY
+spatk:	81 -> 91
+
+- ARMALDO
+spd:	45 -> 55
 
 - CASTFORM
 hp:	70 -> 80
@@ -355,31 +374,21 @@ spatk:	70 -> 80
 spdef:	70 -> 80
 spd:	70 -> 80
 
+- TROPIUS
+hp:	99 -> 109
+spatk:	72 -> 92
+
 - ABSOL
 spd:	75 -> 98
-
-- SEVIPER
-def:	60 -> 90
-spatk:	100-> 80
-spdef:	60 -> 80
-
-- LAIRON
-hp:	60 -> 70
-
-- AGGRON
-hp:	70 -> 90
-
-- CRADILY
-spatk:	81 -> 91
-
-- ARMALDO
-spd:	45 -> 55
 
 - SEALEO
 atk:	60 -> 70
 
 - WALREIN
 atk:	80 -> 110
+
+- LUVDISC
+spatk:	40 -> 90
 
 - SHELGON
 spdef:	50 -> 70

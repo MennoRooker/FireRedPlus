@@ -85,7 +85,7 @@ static const u8 *const sItemStorageActionDescriptionPtrs[] = {
 static const struct MenuAction sMenuActions_TopMenu[] = {
     {gText_ItemStorage, Task_PlayerPcItemStorage},
     {gText_Mailbox, Task_PlayerPcMailbox},
-    {gText_TurnOff, Task_PlayerPcTurnOff}
+    {gText_Back, Task_PlayerPcTurnOff}
 };
 
 static const u8 sItemOrder_BedroomPC[] = { 0, 1, 2 };

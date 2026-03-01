@@ -734,7 +734,12 @@ x Sturdy
 
 I just got to Vermillion again. I got the VS Seeker from a
 lady in the pokecenter, but I think it's good to have it be 
-a lot more abvious so you don't miss the VS Seeker
+a lot more abvious so you don't miss the VS Seeker.
+
+I'm thinking of also making the PC a lot more pleasnt to use
+by booting into the boxes instantly and having the option to
+use the PC normally. I'm starting my making the menu text
+different so they make more sense.
 
 
 
@@ -769,6 +774,7 @@ x Full restore PP
 / Linearizations
 / Exp Candies
 - Faster Bike
+- VS Seeker location
 - HM mons sprites
 - Custom move animations
 - Victory Road FLY checkpoint
