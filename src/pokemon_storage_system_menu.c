@@ -17,6 +17,11 @@
 
 static EWRAM_DATA u8 sPreviousBoxOption = 0;
 static EWRAM_DATA struct ChooseBoxMenu *sChooseBoxMenu = NULL;
+static EWRAM_DATA bool8 sExitPcOnStorageClose = FALSE;
+static EWRAM_DATA u16 sPcInitialHoldFrames = 0;
+static EWRAM_DATA bool8 sPcHoldCounterTaskActive = FALSE;
+
+#define PC_LONG_PRESS_THRESHOLD 15
 
 static void CreatePCMainMenu(u8 whichMenu, s16 *windowIdPtr);
 static void ChooseBoxMenu_CreateSprites(u8 curBox);
@@ -26,6 +31,9 @@ static void ChooseBoxMenu_MoveLeft(void);
 static void ChooseBoxMenu_PrintBoxNameAndCount(void);
 static void ChooseBoxMenu_PrintTextToSprite(const u8 *a0, u16 x, u16 y);
 static void SpriteCB_ChooseBoxArrow(struct Sprite *sprite);
+static void Task_OpenMoveMonsFromPc(u8 taskId);
+static void FieldTask_ExitPcAfterDirectStorage(void);
+static void Task_PcHoldCounter(u8 taskId);
 
 static const u16 sChooseBoxMenu_Pal[];
 static const u8 sChooseBoxMenuCenter_Gfx[];
@@ -353,10 +361,74 @@ static void Task_PCMainMenu(u8 taskId)
 
 void ShowPokemonStorageSystemPC(void)
 {
-    u8 taskId = CreateTask(Task_PCMainMenu, 80);
+    u8 taskId;
+
+    sExitPcOnStorageClose = FALSE;
+    sPcInitialHoldFrames = 0;
+    
+    taskId = CreateTask(Task_PCMainMenu, 80);
     gTasks[taskId].tState = STATE_LOAD;
     gTasks[taskId].tSelectedOption = 0;
     LockPlayerFieldControls();
+}
+
+void StartPcStorageLongPressCheck(void)
+{
+    sPcInitialHoldFrames = 0;
+    sPcHoldCounterTaskActive = FALSE;
+    
+    if (JOY_HELD(A_BUTTON))
+    {
+        sPcInitialHoldFrames = 1;
+        // Create a task to count hold frames during the script delay
+        CreateTask(Task_PcHoldCounter, 50);
+        sPcHoldCounterTaskActive = TRUE;
+    }
+}
+
+void TrySetPcStorageLongPress(void)
+{
+    gSpecialVar_Result = FALSE;
+
+    if (sPcInitialHoldFrames >= PC_LONG_PRESS_THRESHOLD)
+        gSpecialVar_Result = TRUE;
+
+    // Clean up
+    sPcInitialHoldFrames = 0;
+    sPcHoldCounterTaskActive = FALSE;
+}
+
+static void Task_PcHoldCounter(u8 taskId)
+{
+    // This task runs during the script delay to count how many frames A is held
+    // It will be destroyed when the delay ends and the script continues
+    if (JOY_HELD(A_BUTTON) && sPcInitialHoldFrames < 0xFFFF)
+        sPcInitialHoldFrames++;
+}
+
+// Called by the script during the delay loop to count held A frames
+void IncrementPcHoldFrameIfHeld(void)
+{
+    if (JOY_HELD(A_BUTTON) && sPcInitialHoldFrames < 0xFFFF)
+        sPcInitialHoldFrames++;
+}
+
+void ShowPokemonStorageSystemDirectMoveMons(void)
+{
+    sExitPcOnStorageClose = TRUE;
+    LockPlayerFieldControls();
+    FadeScreen(FADE_TO_BLACK, 0);
+    CreateTask(Task_OpenMoveMonsFromPc, 80);
+}
+
+static void Task_OpenMoveMonsFromPc(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        CleanupOverworldWindowsAndTilemaps();
+        EnterPokeStorage(OPTION_MOVE_MONS);
+        DestroyTask(taskId);
+    }
 }
 
 static void FieldTask_ReturnToPcMenu(void)
@@ -371,6 +443,12 @@ static void FieldTask_ReturnToPcMenu(void)
     Task_PCMainMenu(taskId);
     SetVBlankCallback(vblankCb);
     FadeInFromBlack();
+}
+
+static void FieldTask_ExitPcAfterDirectStorage(void)
+{
+    UnlockPlayerFieldControls();
+    ScriptContext_Enable();
 }
 
 static const struct WindowTemplate sWindowTemplate_MainMenu = {
@@ -396,7 +474,15 @@ static void CreatePCMainMenu(u8 whichMenu, s16 *windowIdPtr)
 void CB2_ExitPokeStorage(void)
 {
     sPreviousBoxOption = GetCurrentBoxOption();
-    gFieldCallback = FieldTask_ReturnToPcMenu;
+    if (sExitPcOnStorageClose)
+    {
+        sExitPcOnStorageClose = FALSE;
+        gFieldCallback = FieldTask_ExitPcAfterDirectStorage;
+    }
+    else
+    {
+        gFieldCallback = FieldTask_ReturnToPcMenu;
+    }
     SetMainCallback2(CB2_ReturnToField);
 }
 

@@ -193,10 +193,10 @@
 #define VAR_SPOKE_TO_BUGSY                                                     0x408D
 #define VAR_BUGSY_VIRIDIAN_FOREST_SCENE                                        0x408E
 #define VAR_BUGSY_ROUTE2_SCENE                                                 0x408F
+#define VAR_INFINITE_REPEL_ACTIVE                                              0x4090
+#define VAR_VIRIDIAN_POKECENTER_NPC_TRIGGER                                    0x4091
 
 
-#define VAR_INFINITE_REPEL_ACTIVE   0x4090
-#define VAR_0x4091                 0x4091
 #define VAR_0x4092                 0x4092
 #define VAR_0x4093                 0x4093
 #define VAR_0x4094                 0x4094

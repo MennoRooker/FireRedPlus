@@ -438,6 +438,9 @@ extern struct PokemonStorageSystemData *gStorage;
 
 void EnterPokeStorage(u8 boxOption);
 u8 GetCurrentBoxOption(void);
+void StartPcStorageLongPressCheck(void);
+void TrySetPcStorageLongPress(void);
+void ShowPokemonStorageSystemDirectMoveMons(void);
 struct Sprite *CreateChooseBoxArrows(u16 x, u16 y, u8 animId, u8 priority, u8 subpriority);
 void SetBoxWallpaper(u8 boxId, u8 wallpaperId);
 void SetCurrentBox(u8 boxId);

@@ -1,12 +1,16 @@
 EventScript_PC::
 	goto_if_questlog EventScript_ReleaseEnd
 	lockall
+	special StartPcStorageLongPressCheck
 	goto_if_set FLAG_SYS_PC_STORAGE_DISABLED, EventScript_PCDisabled
 	setvar VAR_0x8004, HELPCONTEXT_PC
 	special Script_SetHelpContext
 	setvar VAR_0x8004, 0
 	special AnimatePcTurnOn
 	playse SE_PC_ON
+	delay 16
+	special TrySetPcStorageLongPress
+	goto_if_eq VAR_RESULT, TRUE, EventScript_AccessPokemonStorageDirect
 	msgbox Text_BootedUpPC
 	goto EventScript_PCMainMenu
 	end
@@ -53,6 +57,13 @@ EventScript_AccessPokemonStorage::
 	setvar VAR_0x8004, HELPCONTEXT_PC
 	special Script_SetHelpContext
 	goto EventScript_PCMainMenu
+	end
+
+EventScript_AccessPokemonStorageDirect::
+	special ShowPokemonStorageSystemDirectMoveMons
+	waitstate
+	special AnimatePcTurnOff
+	releaseall
 	end
 
 EventScript_AccessSomeonesPC::

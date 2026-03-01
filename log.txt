@@ -738,8 +738,15 @@ a lot more abvious so you don't miss the VS Seeker.
 
 I'm thinking of also making the PC a lot more pleasnt to use
 by booting into the boxes instantly and having the option to
-use the PC normally. I'm starting my making the menu text
+use the PC normally. I'm starting by making the menu text
 different so they make more sense.
+
+While working on the PC I am making some small changes to the
+pkmn and some mechanics. I want to change taunt to last 3 turns
+instead of 2 and sleep from 1-3 turns instead of 1-4, making 
+Early Bird 1 turn guaranteed instead of 0-2 turns. Change
+Thunder Wave to not affect Electric types and make sure Evasion
+and Accuracy can only be raised/lowered by 2 stages.
 
 
 

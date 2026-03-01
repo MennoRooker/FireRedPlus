@@ -16,3 +16,6 @@ ViridianCity_PokemonCenter_1F_Text_PokeCentersHealMons::
     .string "They make all POKéMON completely\n"
     .string "healthy.$"
 
+ViridianCity_PokemonCenter_1F_Text_HoldAButtonForInstaBox::
+    .string "PRESS and HOLD the A BUTTON\n"
+    .string "to open the BOX directly.$"
