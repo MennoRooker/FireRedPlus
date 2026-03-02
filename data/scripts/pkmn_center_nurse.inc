@@ -1,4 +1,9 @@
 EventScript_PkmnCenterNurse::
+	incrementgamestat GAME_STAT_USED_POKECENTER
+	call EventScript_PkmnCenterNurse_TakeAndHealPkmn
+	end
+
+EventScript_PkmnCenterNurseLong::
 	goto_if_questlog EventScript_ReleaseEnd
 	message Text_WelcomeWantToHealPkmn
 	waitmessage

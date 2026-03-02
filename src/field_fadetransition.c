@@ -23,6 +23,7 @@
 #include "constants/songs.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
+#include "constants/map_types.h"
 #include "constants/field_weather.h"
 
 static void ExitWarpFadeInScreen(u8 playerNotMoving);
@@ -279,6 +280,15 @@ static void SetUpWarpExitTask(bool8 playerNotMoving)
 static void ExitWarpFadeInScreen(bool8 playerNotMoving)
 
 {
+    // Skip fade when entering indoor buildings (like Pokémon Centers)
+    if (!playerNotMoving && 
+        GetLastUsedWarpMapType() != MAP_TYPE_INDOOR && 
+        GetCurrentMapType() == MAP_TYPE_INDOOR)
+    {
+        // No fade - instant transition
+        return;
+    }
+    
     if (!playerNotMoving)
         WarpFadeInScreen();
     else
