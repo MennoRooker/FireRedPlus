@@ -37,8 +37,8 @@ Route12_Text_LucDefeat::
     .string "Now I can't pay my rent.$"
 
 Route12_Text_LucPostBattle::
-    .string "As soon as I get my next paycheck we\n"
-    .string "can battle again!"
+    .string "As soon as I get my next paycheck\n"
+    .string "we can battle again!$"
 
 Route12_Text_JustinIntro::
     .string "I'm searching for a MOON STONE.\n"

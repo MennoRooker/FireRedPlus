@@ -756,8 +756,8 @@ want to quicken.
 
 SPEED UPS:
 x Instant PC BOX
-- No fade-in upon warp
-- Quicker nurse interaction
+x No fade-in upon warp
+x Quicker nurse interaction
 - Simultaneous ball throw with wild mons
 - Allow running everywhere
 x No texts for HM use
@@ -770,6 +770,23 @@ player to get an encounter through Rock Smash.
 
 This would mean I'd need to redistribute Rock Smash to much
 sooner in the game.
+
+I am now at the point where I can implement the Team Rocket
+scene with Jesse and James. I may want to change their hair
+colors, but that might also be too much. For now I'll just
+add their names and have them use male and female NPC text
+colors to show who they are.
+
+I just realized something else that I can force upon the 
+player to balance the game. I can make it so that no 2 mons
+can hold the same item. This tracks with competitive and 
+makes sure the early game is balanced and you can't just 
+spam Sitrus Berry on every mon once you find them.
+
+I also want to have the hidden berries with the squigly
+lines to include exp candies so that you don't have an
+abundance of berries and you get to have exp candies in
+unique places.
 
 
 TO DO:
