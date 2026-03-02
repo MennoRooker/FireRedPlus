@@ -4857,7 +4857,7 @@
               {
                 "min_level": 16,
                 "max_level": 16,
-                "species": "SPECIES_MANKEY"
+                "species": "SPECIES_NOSEPASS"
               },
               {
                 "min_level": 17,
@@ -4926,7 +4926,7 @@
               {
                 "min_level": 16,
                 "max_level": 16,
-                "species": "SPECIES_MANKEY"
+                "species": "SPECIES_NOSEPASS"
               },
               {
                 "min_level": 17,
@@ -4995,7 +4995,7 @@
               {
                 "min_level": 16,
                 "max_level": 16,
-                "species": "SPECIES_MANKEY"
+                "species": "SPECIES_NOSEPASS"
               },
               {
                 "min_level": 17,
@@ -5048,29 +5048,29 @@
             "encounter_rate": 50,
             "mons": [
               {
-                "min_level": 5,
-                "max_level": 20,
+                "min_level": 18,
+                "max_level": 24,
                 "species": "SPECIES_GEODUDE"
               },
               {
-                "min_level": 10,
-                "max_level": 20,
-                "species": "SPECIES_GEODUDE"
+                "min_level": 20,
+                "max_level": 22,
+                "species": "SPECIES_ONIX"
               },
               {
-                "min_level": 15,
-                "max_level": 30,
-                "species": "SPECIES_GEODUDE"
+                "min_level": 20,
+                "max_level": 25,
+                "species": "SPECIES_LARVITAR"
               },
               {
                 "min_level": 25,
-                "max_level": 40,
+                "max_level": 30,
                 "species": "SPECIES_GRAVELER"
               },
               {
-                "min_level": 30,
-                "max_level": 40,
-                "species": "SPECIES_GRAVELER"
+                "min_level": 32,
+                "max_level": 34,
+                "species": "SPECIES_LAIRON"
               }
             ]
           }
@@ -5094,7 +5094,7 @@
               {
                 "min_level": 16,
                 "max_level": 16,
-                "species": "SPECIES_MANKEY"
+                "species": "SPECIES_NOSEPASS"
               },
               {
                 "min_level": 17,
@@ -5147,29 +5147,29 @@
             "encounter_rate": 50,
             "mons": [
               {
-                "min_level": 5,
-                "max_level": 20,
+                "min_level": 18,
+                "max_level": 24,
                 "species": "SPECIES_GEODUDE"
               },
               {
-                "min_level": 10,
-                "max_level": 20,
-                "species": "SPECIES_GEODUDE"
+                "min_level": 20,
+                "max_level": 22,
+                "species": "SPECIES_ONIX"
               },
               {
-                "min_level": 15,
-                "max_level": 30,
-                "species": "SPECIES_GEODUDE"
+                "min_level": 20,
+                "max_level": 25,
+                "species": "SPECIES_LARVITAR"
               },
               {
                 "min_level": 25,
-                "max_level": 40,
+                "max_level": 30,
                 "species": "SPECIES_GRAVELER"
               },
               {
-                "min_level": 30,
-                "max_level": 40,
-                "species": "SPECIES_GRAVELER"
+                "min_level": 32,
+                "max_level": 34,
+                "species": "SPECIES_LAIRON"
               }
             ]
           }

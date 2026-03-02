@@ -24,6 +24,8 @@ Poison is all badly poisoned
 Paralysis is speed / 2
 Macho brace has no speed drop
 Held items are replenished after battle
+Reusable move tutors
+No HMs required
 
 
 

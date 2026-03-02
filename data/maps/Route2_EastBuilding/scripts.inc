@@ -20,6 +20,7 @@ Route2_EastBuilding_EventScript_Aide::
 	goto_if_eq VAR_RESULT, FALSE, Aide_EventScript_NoRoomForItem
 	giveitem_msg Route2_EastBuilding_Text_ReceivedHM05FromAide, ITEM_HM05
 	setflag FLAG_GOT_HM05
+	setflag FLAG_SYS_FLASH_ACTIVE
 	msgbox Route2_EastBuilding_Text_ExplainHM05
 	release
 	end

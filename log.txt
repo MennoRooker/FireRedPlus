@@ -760,6 +760,16 @@ x Instant PC BOX
 - Quicker nurse interaction
 - Simultaneous ball throw with wild mons
 - Allow running everywhere
+x No texts for HM use
+x No FLASH use needed
+
+I just discovered Rock Smash rocks in Rock Tunnel, meaning you
+could get an encounter there if the HM is already given to you
+at that stage of the game. I'm thinking I want to allow the 
+player to get an encounter through Rock Smash.
+
+This would mean I'd need to redistribute Rock Smash to much
+sooner in the game.
 
 
 TO DO:
