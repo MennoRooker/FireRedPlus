@@ -423,7 +423,7 @@ MtMoon_B2F_EventScript_ItemAntidote::
 	end
 
 Route11_EventScript_ItemXDefend::
-	finditem ITEM_DEEP_SEA_SCALE
+	finditem ITEM_ESCAPE_ROPE
 	end
 
 Route9_EventScript_ItemBurnHeal::

@@ -15,8 +15,10 @@
 #include "script.h"
 #include "trig.h"
 #include "constants/event_objects.h"
+#include "constants/event_object_movement.h"
 #include "constants/songs.h"
 #include "constants/metatile_labels.h"
+#include "constants/species.h"
 
 #define CUT_GRASS_SPRITE_COUNT 8
 #define CUT_SIDE 3
@@ -32,6 +34,7 @@ static void SpriteCallback_CutGrass_Init(struct Sprite *sprite);
 static void SpriteCallback_CutGrass_Run(struct Sprite *sprite);
 static void SpriteCallback_CutGrass_Cleanup(struct Sprite *sprite);
 static void FieldMoveCallback_CutTree(void);
+static void Task_CutTreeWithFarfetchd(u8 taskId);
 
 static const u16 sCutGrassMetatileMapping[][2] = {
     {
@@ -182,7 +185,18 @@ static void FieldCallback_CutTree(void)
 
 bool8 FldEff_UseCutOnTree(void)
 {
-    u8 taskId = CreateFieldEffectShowMon();
+    u8 taskId;
+
+    // If no party mon knows Cut, show Farfetch'd with custom task (like Fly shows Pidgeot)
+    if (gFieldEffectArguments[0] == PARTY_SIZE)
+    {
+        taskId = CreateTask(Task_CutTreeWithFarfetchd, 8);
+    }
+    else
+    {
+        taskId = CreateFieldEffectShowMon();
+    }
+
     FLDEFF_SET_FUNC_TO_DATA(FieldMoveCallback_CutTree);
     IncrementGameStat(GAME_STAT_USED_CUT);
     return FALSE;
@@ -292,4 +306,58 @@ static void FieldMoveCallback_CutTree(void)
     PlaySE(SE_M_CUT);
     FieldEffectActiveListRemove(FLDEFF_USE_CUT_ON_TREE);
     ScriptContext_Enable();
+}
+
+// Custom task for showing Farfetch'd when no party mon knows Cut
+static void Task_CutTreeWithFarfetchd(u8 taskId)
+{
+    struct Task *task = &gTasks[taskId];
+    u8 mapObjId = gPlayerAvatar.objectEventId;
+
+    switch (task->data[0])
+    {
+    case 0: // Init
+        LockPlayerFieldControls();
+        gPlayerAvatar.preventStep = TRUE;
+        if (!ObjectEventIsMovementOverridden(&gObjectEvents[mapObjId])
+         || ObjectEventClearHeldMovementIfFinished(&gObjectEvents[mapObjId]))
+        {
+            // Set up Farfetch'd sprite arguments
+            gFieldEffectArguments[0] = SPECIES_FARFETCHD | 0x80000000; // Species + cry flag
+            gFieldEffectArguments[1] = 0x12345678;
+            gFieldEffectArguments[2] = 0x79ABCDEF;
+
+            StartPlayerAvatarSummonMonForFieldMoveAnim();
+            ObjectEventSetHeldMovement(&gObjectEvents[mapObjId], MOVEMENT_ACTION_START_ANIM_IN_DIRECTION);
+
+            // Show Farfetch'd sprite
+            FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON);
+            task->data[0]++;
+        }
+        break;
+
+    case 1: // Wait for mon animation to finish
+        if (!FieldEffectActiveListContains(FLDEFF_FIELD_MOVE_SHOW_MON))
+        {
+            gFieldEffectArguments[1] = GetPlayerFacingDirection();
+            if (gFieldEffectArguments[1] == DIR_SOUTH)
+                gFieldEffectArguments[2] = 0;
+            if (gFieldEffectArguments[1] == DIR_NORTH)
+                gFieldEffectArguments[2] = 1;
+            if (gFieldEffectArguments[1] == DIR_WEST)
+                gFieldEffectArguments[2] = 2;
+            if (gFieldEffectArguments[1] == DIR_EAST)
+                gFieldEffectArguments[2] = 3;
+
+            ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], GetPlayerAvatarGraphicsIdByCurrentState());
+            StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], gFieldEffectArguments[2]);
+            FieldEffectActiveListRemove(FLDEFF_FIELD_MOVE_SHOW_MON);
+
+            // Call the callback and cleanup
+            FLDEFF_CALL_FUNC_IN_DATA();
+            gPlayerAvatar.preventStep = FALSE;
+            DestroyTask(taskId);
+        }
+        break;
+    }
 }

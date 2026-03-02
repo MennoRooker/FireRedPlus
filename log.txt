@@ -759,6 +759,7 @@ x Instant PC BOX
 - No fade-in upon warp
 - Quicker nurse interaction
 - Simultaneous ball throw with wild mons
+- Allow running everywhere
 
 
 TO DO:

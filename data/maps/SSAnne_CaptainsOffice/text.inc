@@ -14,20 +14,20 @@ SSAnne_CaptainsOffice_Text_ThankYouHaveHMForCut::
     .string "I'm feeling much better now.\p"
     .string "You want to see my hidden CUT\n"
     .string "technique?\p"
-    .string "I could show you my prized CUT\n"
-    .string "technique if I weren't so ill…\p"
-    .string "I know! You can have this!\n"
-    .string "This HIDDEN MACHINE!\p"
+    .string "You can have this! The HIDDEN\n"
+    .string "MACHINE for CUT!\p"
+    .string "My FARFETCH'D is already a\n"
+    .string "master at cutting down trees.\p"
     .string "Teach CUT to your POKéMON, and\n"
-    .string "you can see it CUT anytime!$"
+    .string "you can see it CUT anytime!\p"
+    .string "Or just call on my FARFETCH'D if\n"
+    .string "you ever need to chop down a tree.$"
 
 SSAnne_CaptainsOffice_Text_ObtainedHM01FromCaptain::
     .string "{PLAYER} obtained HM01\n"
     .string "from the CAPTAIN!$"
 
 SSAnne_CaptainsOffice_Text_ExplainCut::
-    .string "Using CUT, you can chop down\n"
-    .string "small trees.\p"
     .string "Why not try it with the trees\n"
     .string "around VERMILION CITY?$"
 

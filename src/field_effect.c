@@ -3249,8 +3249,8 @@ static void FlyOutFieldEffect_ShowMon(struct Task *task)
         if (gFlyInvokedFromOverworld)
         {
             gFieldEffectArguments[0] = SPECIES_PIDGEOT | 0x80000000; // Play cry
-            gFieldEffectArguments[1] = 0;
-            gFieldEffectArguments[2] = 1;
+            gFieldEffectArguments[1] = 0x12345678;
+            gFieldEffectArguments[2] = 0x79ABCDEF;
             FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON);
             gFlyInvokedFromOverworld = FALSE;
         }
