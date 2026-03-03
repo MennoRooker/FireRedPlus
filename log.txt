@@ -816,9 +816,9 @@ x Poison & Paralysis
 x Implement current abilities
 x Fishing rods redistribution
 x Full restore PP
+x Exp Candies
 / Balancing
 / Linearizations
-/ Exp Candies
 - Faster Bike
 - VS Seeker location
 - HM mons sprites

@@ -3,4 +3,4 @@ Route7_Text_UndergroundPathSign::
     .string "CELADON CITY - LAVENDER TOWN$"
 
 Route7_Text_JessieAndJames::
-    .string "TEST"
+    .string "TEST$"
