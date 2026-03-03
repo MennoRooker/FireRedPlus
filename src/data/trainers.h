@@ -4840,7 +4840,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = TRUE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_TwinsEliAnne),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_TwinsEliAnne),
     },
     [TRAINER_COOL_COUPLE_RAY_TYRA] = {
         .trainerClass = TRAINER_CLASS_COOL_COUPLE,
@@ -5330,7 +5330,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = TRUE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_TwinsEliAnne2),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_TwinsEliAnne2),
     },
     [TRAINER_YOUNGSTER_JOHNSON] = {
         .trainerClass = TRAINER_CLASS_YOUNGSTER,

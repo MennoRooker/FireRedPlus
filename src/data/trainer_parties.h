@@ -2901,29 +2901,45 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SuperNerdGlenn2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_TwinsEliAnne[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_TwinsEliAnne[] = {
     {
         .iv = 5,
         .lvl = 28,
         .species = SPECIES_CHIMECHO,
+        .heldItem = ITEM_TWISTED_SPOON,
+        .moves = {MOVE_CONFUSION, MOVE_ASTONISH, MOVE_YAWN, MOVE_REFLECT},
+        .nature = NATURE_MODEST,
+        .abilitySlot = 0,
     },
     {
         .iv = 5,
         .lvl = 28,
         .species = SPECIES_TROPIUS,
+        .heldItem = ITEM_SITRUS_BERRY,
+        .moves = {MOVE_RAZOR_LEAF, MOVE_WHIRLWIND, MOVE_GROWTH, MOVE_STOMP},
+        .nature = NATURE_SERIOUS,
+        .abilitySlot = 1,
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_TwinsEliAnne2[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_TwinsEliAnne2[] = {
     {
         .iv = 12,
         .lvl = 35,
         .species = SPECIES_CHIMECHO,
+        .heldItem = ITEM_TWISTED_SPOON,
+        .moves = {MOVE_CONFUSION, MOVE_ASTONISH, MOVE_YAWN, MOVE_REFLECT},
+        .nature = NATURE_MODEST,
+        .abilitySlot = 0,
     },
     {
         .iv = 12,
         .lvl = 35,
         .species = SPECIES_TROPIUS,
+        .heldItem = ITEM_SITRUS_BERRY,
+        .moves = {MOVE_RAZOR_LEAF, MOVE_WHIRLWIND, MOVE_GROWTH, MOVE_STOMP},
+        .nature = NATURE_SERIOUS,
+        .abilitySlot = 1,
     },
 };
 

@@ -32,7 +32,7 @@ Route8_Text_GlennPostBattle::
     .string "…and…then…$"
 
 Route8_Text_PaigeIntro::
-    .string "I like NIDORAN, so I collect them!$"
+    .string "I like NIDORINA!$"
 
 Route8_Text_PaigeDefeat::
     .string "Why?\n"
@@ -40,7 +40,7 @@ Route8_Text_PaigeDefeat::
 
 Route8_Text_PaigePostBattle::
     .string "When POKéMON grow up, they get\n"
-    .string "ugly! They shouldn't evolve.$"
+    .string "pretty! They should evolve.$"
 
 Route8_Text_LeslieIntro::
     .string "School is fun, but so are POKéMON.$"
@@ -91,7 +91,7 @@ Route8_Text_RichPostBattle::
     .string "eating peanuts! I just can't stop!$"
 
 Route8_Text_JuliaIntro::
-    .string "What's a cute, round, and fluffy\n"
+    .string "What's a cute, round, and pretty\n"
     .string "POKéMON?$"
 
 Route8_Text_JuliaDefeat::
