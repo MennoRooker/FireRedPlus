@@ -289,6 +289,7 @@ static void CB2_WriteMailToGiveMon(void);
 static void Task_SwitchHoldItemsPrompt(u8 taskId);
 static void Task_GiveHoldItem(u8 taskId);
 static void Task_UpdateHeldItemSprite(u8 taskId);
+static void Task_DisplayDuplicateHeldItemMessage(u8 taskId);
 static void Task_HandleSwitchItemsYesNoInput(u8 taskId);
 static void Task_SwitchItemsYesNo(u8 taskId);
 static void Task_WriteMailToGiveMonAfterText(u8 taskId);
@@ -1664,6 +1665,29 @@ static void DisplaySwitchedHeldItemMessage(u16 item, u16 item2, bool8 keepOpen)
     StringExpandPlaceholders(gStringVar4, gText_SwitchedPkmnItem);
     DisplayPartyMenuMessage(gStringVar4, keepOpen);
     ScheduleBgCopyTilemapToVram(2);
+}
+
+static void DisplayDuplicateHeldItemMessage(bool8 keepOpen)
+{
+    DisplayPartyMenuMessage(gText_AnotherPkmnAlreadyHoldsItem, keepOpen);
+    ScheduleBgCopyTilemapToVram(2);
+}
+
+static bool8 IsUniqueHeldItem(u16 item, u8 slot)
+{
+    u8 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (i == slot)
+            continue;
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
+            continue;
+        if (GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM) == item)
+            return FALSE;
+    }
+
+    return TRUE;
 }
 
 static void GiveItemToMon(struct Pokemon *mon, u16 item)
@@ -3481,6 +3505,12 @@ void CB2_GiveHoldItem(void)
     }
     else
     {
+        if (!IsUniqueHeldItem(gSpecialVar_ItemId, gPartyMenu.slotId))
+        {
+            InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_NONE, Task_DisplayDuplicateHeldItemMessage, gPartyMenu.exitCallback);
+            return;
+        }
+
         sPartyMenuItemId = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_HELD_ITEM);
         // Already holding item
         if (sPartyMenuItemId != ITEM_NONE)
@@ -3499,6 +3529,15 @@ void CB2_GiveHoldItem(void)
         {
             InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_NONE, Task_GiveHoldItem, gPartyMenu.exitCallback);
         }
+    }
+}
+
+static void Task_DisplayDuplicateHeldItemMessage(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        DisplayDuplicateHeldItemMessage(FALSE);
+        gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
     }
 }
 
@@ -5701,6 +5740,13 @@ void CB2_ChooseMonToGiveItem(void)
 
 static void TryGiveItemOrMailToSelectedMon(u8 taskId)
 {
+    if (!IsUniqueHeldItem(gPartyMenu.bagItem, gPartyMenu.slotId))
+    {
+        DisplayDuplicateHeldItemMessage(FALSE);
+        gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+        return;
+    }
+
     sPartyMenuItemId = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_HELD_ITEM);
     if (sPartyMenuItemId == ITEM_NONE)
     {
