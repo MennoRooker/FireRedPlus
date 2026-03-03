@@ -400,9 +400,9 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_SAPPHIRE]       = {gItemIcon_Gem, gItemIconPalette_Sapphire},
     [ITEM_BUGSYS_NET]     = {gItemIcon_BugsysNet, gItemIconPalette_BugsysNet},
     [ITEM_SOUL_ORB]       = {gItemIcon_SoulDew, gItemIconPalette_DeepSeaScale},
-    [ITEM_EXP_CANDY_S]    = {gItemIcon_ExpCandyS, gItemIconPalette_RareCandy},
-    [ITEM_EXP_CANDY_M]    = {gItemIcon_ExpCandyM, gItemIconPalette_RareCandy},
-    [ITEM_EXP_CANDY_L]    = {gItemIcon_ExpCandyL, gItemIconPalette_RareCandy},
+    [ITEM_EXP_CANDY_S]    = {gItemIcon_ExpCandyS, gItemIconPalette_ExpCandyS},
+    [ITEM_EXP_CANDY_M]    = {gItemIcon_ExpCandyM, gItemIconPalette_ExpCandyM},
+    [ITEM_EXP_CANDY_L]    = {gItemIcon_ExpCandyL, gItemIconPalette_ExpCandyL},
     // Return to field arrow
     [ITEMS_COUNT]         = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},
 };
