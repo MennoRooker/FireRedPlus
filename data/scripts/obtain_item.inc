@@ -35,7 +35,7 @@ EventScript_BufferPocketNameTryFanfare::
 	end
 
 EventScript_BufferMedicinePocket::
-	bufferstdstring STR_VAR_3, STDSTRING_ITEMS_POCKET
+	bufferstdstring STR_VAR_3, STDSTRING_MEDICINE_POCKET
 	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
 	return
 

@@ -35,42 +35,45 @@
       "target_map": "MAP_CELADON_CITY"
     },
     {
+      "local_id": "LOCAL_ID_JAMES",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ROCKET_M",
       "x": 6,
       "y": 8,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
+      "movement_range_x": 1,
+      "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Route7_EventScript_James",
       "flag": "FLAG_HIDE_TEAM_ROCKET_ROUTE7"
     },
     {
+      "local_id": "LOCAL_ID_JESSIE",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ROCKET_F",
       "x": 7,
       "y": 8,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
+      "movement_range_x": 1,
+      "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Route7_EventScript_Jessie",
       "flag": "FLAG_HIDE_TEAM_ROCKET_ROUTE7"
     },
     {
+      "local_id": "LOCAL_ID_MEOWTH",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_MEOWTH",
-      "x": 7,
+      "x": 6,
       "y": 6,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
+      "movement_range_x": 1,
+      "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "NULL",
@@ -93,7 +96,35 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 9,
+      "elevation": 0,
+      "var": "VAR_TEAM_ROCKET_SCENE_COMPLETE",
+      "var_value": "0",
+      "script": "Route7_EventScript_TeamRocketSceneTop"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 11,
+      "elevation": 0,
+      "var": "VAR_TEAM_ROCKET_SCENE_COMPLETE",
+      "var_value": "0",
+      "script": "Route7_EventScript_TeamRocketSceneBottom"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 10,
+      "elevation": 0,
+      "var": "VAR_TEAM_ROCKET_SCENE_COMPLETE",
+      "var_value": "0",
+      "script": "Route7_EventScript_TeamRocketSceneMiddle"
+    }
+  ],
   "bg_events": [
     {
       "type": "sign",

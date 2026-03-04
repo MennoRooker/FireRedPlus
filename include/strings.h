@@ -828,6 +828,7 @@ extern const u8 gText_Marshbadge[];
 extern const u8 gText_Volcanobadge[];
 extern const u8 gText_Earthbadge[];
 extern const u8 gText_Coins_2[];
+extern const u8 gText_MedicinePocket[];
 extern const u8 gText_ItemsPocket[];
 extern const u8 gText_KeyItemsPocket[];
 extern const u8 gText_PokeBallsPocket[];

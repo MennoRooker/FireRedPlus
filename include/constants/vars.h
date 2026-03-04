@@ -195,9 +195,9 @@
 #define VAR_BUGSY_ROUTE2_SCENE                                                 0x408F
 #define VAR_INFINITE_REPEL_ACTIVE                                              0x4090
 #define VAR_VIRIDIAN_POKECENTER_NPC_TRIGGER                                    0x4091
+#define VAR_TEAM_ROCKET_SCENE_COMPLETE                                         0x4092
 
 
-#define VAR_0x4092                 0x4092
 #define VAR_0x4093                 0x4093
 #define VAR_0x4094                 0x4094
 #define VAR_0x4095                 0x4095

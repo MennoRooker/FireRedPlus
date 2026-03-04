@@ -1284,7 +1284,7 @@ EventScript_BufferPutAwayPocketName::
 	end
 
 EventScript_BufferPutAwayPocketMedicine::
-	bufferstdstring STR_VAR_3, STDSTRING_ITEMS_POCKET
+	bufferstdstring STR_VAR_3, STDSTRING_MEDICINE_POCKET
 	return
 
 EventScript_BufferPutAwayPocketItems::

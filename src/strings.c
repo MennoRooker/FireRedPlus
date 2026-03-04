@@ -510,6 +510,7 @@ const u8 gText_TradeCenter[] = _("TRADE CENTER");
 const u8 gText_Colosseum[] = _("COLOSSEUM");
 const u8 gText_GameLinkCable[] = _("Game Link cable");
 const u8 gText_Wireless[] = _("Wireless");
+const u8 gText_MedicinePocket[] = _("MEDICINE POCKET");
 const u8 gText_ItemsPocket[] = _("ITEMS POCKET");
 const u8 gText_KeyItemsPocket[] = _("KEY ITEMS POCKET");
 const u8 gText_PokeBallsPocket[] = _("POKé BALLS POCKET");

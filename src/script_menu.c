@@ -591,6 +591,7 @@ const u8 *const gStdStringPtrs[] = {
     [STDSTRING_VOLCANO_BADGE]    = gText_Volcanobadge,
     [STDSTRING_EARTH_BADGE]      = gText_Earthbadge,
     [STDSTRING_COINS]            = gText_Coins_2,
+    [STDSTRING_MEDICINE_POCKET]  = gText_MedicinePocket,
     [STDSTRING_ITEMS_POCKET]     = gText_ItemsPocket,
     [STDSTRING_KEY_ITEMS_POCKET] = gText_KeyItemsPocket,
     [STDSTRING_POKEBALLS_POCKET] = gText_PokeBallsPocket,
