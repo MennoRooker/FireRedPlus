@@ -841,8 +841,13 @@ starters to keep battles consistent.
 
 There is a bug with the draining of Poison types, eating
 a healing berry now also poisons the user when the berry
-is eaten in front of a poison type. Then the heling is
+is eaten in front of a poison type. Then the healing is
 also undone while the poison ticks for damage.
+
+All issues pertaining to the draining and poisoning are
+now resolved. The testing did make me realize that I 
+want to implement dynamic item usage and dynamic speed
+sooner rather than later.
 
 
 TO DO:
@@ -873,17 +878,19 @@ x Implement current abilities
 x Fishing rods redistribution
 x Full restore PP
 x Exp Candies
+x Rename scripts
 / Balancing
 / Linearizations
+- Dynamic speed & items
 - Faster Bike
 - VS Seeker location
+- Diamonds above rematch teams
 - HM mons sprites
 - Custom move animations
 - Victory Road FLY checkpoint
 - Letters
-- Diamonds above rematch teams
 - Only a few red HP beeps
-- Rename scripts and remove dead code
+- Clean up
 ---------------------------------------
 - Implement all abilites
 - Increase IVs through bottle caps
