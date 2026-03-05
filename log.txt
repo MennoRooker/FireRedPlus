@@ -788,6 +788,34 @@ lines to include exp candies so that you don't have an
 abundance of berries and you get to have exp candies in
 unique places.
 
+I've renamed all the scripts and flags and need to decide
+on where to add the following items:
+- Silk Scarf
+- Magnet
+- Mystic Water
+- Miracle Seed
+- Poison Barb
+- Mental Herb
+- Light Ball
+
+I already placed:
+x Hard Stone (Rock Tunnel)
+x White Herb (Hideout)
+x Charcoal (Mt. Ember)
+x Sharp Beak (Route 16)
+x Focus Sash (Silph Co 6F)
+x NeverMeltIce* (Icefall Cave)
+
+*I might want to change this to Seafoam Caves instead.
+
+Once all main items are distributed I probably want to
+rearrange the common items. I have a feeling there will
+be a surplus of elixirs, since I replaced most of the
+ethers with these. I probably want to add a bunch of
+PP UPs and Bottle Caps once I implement those. I think
+the amount of item balls is pretty decent. I won't need 
+to add too many of them myself.
+
 
 TO DO:
 x Add Bugsy

@@ -449,8 +449,9 @@
 #define ITEM_EXP_CANDY_S 377
 #define ITEM_EXP_CANDY_M 378
 #define ITEM_EXP_CANDY_L 379
+#define ITEM_FOCUS_SASH 380
 
-#define ITEMS_COUNT 380
+#define ITEMS_COUNT 381
 
 #define ITEM_TO_BERRY(itemId)(((itemId - FIRST_BERRY_INDEX) + 1))
 #define MAIL_NONE 0xFF

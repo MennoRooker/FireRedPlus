@@ -169,8 +169,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MtMoon_B2F_EventScript_ItemAntidote",
-      "flag": "FLAG_HIDE_MT_MOON_B2F_ANTIDOTE"
+      "script": "MtMoon_B2F_EventScript_ItemExpCandyS",
+      "flag": "FLAG_HIDE_MT_MOON_B2F_EXP_CANDY_S"
     }
   ],
   "warp_events": [
@@ -221,7 +221,7 @@
       "y": 16,
       "elevation": 3,
       "item": "ITEM_FIRE_STONE",
-      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B2F_MOON_STONE",
+      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B2F_FIRE_STONE",
       "quantity": 1,
       "underfoot": false
     },
@@ -231,7 +231,7 @@
       "y": 11,
       "elevation": 3,
       "item": "ITEM_ELIXIR",
-      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B2F_ETHER",
+      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B2F_ELIXIR",
       "quantity": 1,
       "underfoot": false
     }

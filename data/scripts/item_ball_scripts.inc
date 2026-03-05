@@ -1,4 +1,8 @@
-Route2_EventScript_ItemEther::
+ViridianCity_EventScript_ItemPotion::
+	finditem ITEM_POTION
+	end
+
+Route2_EventScript_ItemElixir::
 	finditem ITEM_ELIXIR
 	end
 
@@ -16,6 +20,10 @@ ViridianForest_EventScript_ItemAntidote::
 
 ViridianForest_EventScript_ItemPotion::
 	finditem ITEM_POTION
+	end
+
+ViridianForest_EventScript_ItemLeafStone::
+	finditem ITEM_LEAF_STONE
 	end
 
 MtMoon_1F_EventScript_ItemParalyzeHeal::
@@ -70,7 +78,7 @@ SSAnne_2F_Room2_EventScript_ItemStardust::
 	finditem ITEM_STARDUST
 	end
 
-SSAnne_2F_Room4_EventScript_ItemXAttack::
+SSAnne_2F_Room4_EventScript_ItemDeepSeaTooth::
 	finditem ITEM_DEEP_SEA_TOOTH
 	end
 
@@ -78,7 +86,7 @@ SSAnne_B1F_Room2_EventScript_ItemTM44::
 	finditem ITEM_TM44
 	end
 
-SSAnne_B1F_Room3_EventScript_ItemEther::
+SSAnne_B1F_Room3_EventScript_ItemElixir::
 	finditem ITEM_ELIXIR
 	end
 
@@ -106,7 +114,7 @@ RocketHideout_B2F_EventScript_ItemXSpeed::
 	finditem ITEM_SPELL_TAG
 	end
 
-RocketHideout_B2F_EventScript_ItemMoonStone::
+RocketHideout_B2F_EventScript_ItemWhiteHerb::
 	finditem ITEM_WHITE_HERB
 	end
 
@@ -130,7 +138,7 @@ RocketHideout_B4F_EventScript_ItemTM49::
 	finditem ITEM_TM49
 	end
 
-RocketHideout_B4F_EventScript_ItemMaxEther::
+RocketHideout_B4F_EventScript_ItemMaxElixir::
 	finditem ITEM_MAX_ELIXIR
 	end
 
@@ -162,7 +170,7 @@ PokemonTower_6F_EventScript_ItemRareCandy::
 	finditem ITEM_RARE_CANDY
 	end
 
-PokemonTower_6F_EventScript_ItemXAccuracy::
+PokemonTower_6F_EventScript_ItemScopeLens::
 	finditem ITEM_SCOPE_LENS
 	end
 
@@ -176,6 +184,10 @@ Route12_EventScript_ItemIron::
 
 Route15_EventScript_ItemTM18::
 	finditem ITEM_TM18
+	end
+
+Route16_EventScript_ItemSharpBeak::
+	finditem ITEM_SHARP_BEAK
 	end
 
 SafariZone_Center_EventScript_ItemNugget::
@@ -254,8 +266,8 @@ SilphCo_6F_EventScript_ItemHPUp::
 	finditem ITEM_HP_UP
 	end
 
-SilphCo_6F_EventScript_ItemXSpecial::
-	finditem ITEM_SHARP_BEAK
+SilphCo_6F_EventScript_ItemFocusSash::
+	finditem ITEM_FOCUS_SASH
 	end
 
 SilphCo_7F_EventScript_ItemCalcium::
@@ -342,7 +354,7 @@ VictoryRoad_1F_EventScript_ItemTM02::
 	finditem ITEM_TM02
 	end
 
-VictoryRoad_2F_EventScript_ItemGuardSpec::
+VictoryRoad_2F_EventScript_ItemFullRestore::
 	finditem ITEM_FULL_RESTORE
 	end
 
@@ -410,19 +422,15 @@ ThreeIsland_EventScript_ItemZinc::
 	finditem ITEM_ZINC
 	end
 
-ViridianForest_EventScript_ItemPotion2::
-	finditem ITEM_LEAF_STONE
-	end
-
 MtMoon_B2F_EventScript_ItemRevive::
 	finditem ITEM_REVIVE
 	end
 
-MtMoon_B2F_EventScript_ItemAntidote::
+MtMoon_B2F_EventScript_ItemExpCandyS::
 	finditem ITEM_EXP_CANDY_S
 	end
 
-Route11_EventScript_ItemXDefend::
+Route11_EventScript_ItemEscapeRope::
 	finditem ITEM_ESCAPE_ROPE
 	end
 
@@ -430,7 +438,7 @@ Route9_EventScript_ItemBurnHeal::
 	finditem ITEM_BURN_HEAL
 	end
 
-RockTunnel_1F_EventScript_ItemRepel::
+RockTunnel_1F_EventScript_ItemHardStone::
 	finditem ITEM_HARD_STONE
 	end
 
@@ -446,7 +454,7 @@ RockTunnel_B1F_EventScript_ItemRevive::
 	finditem ITEM_REVIVE
 	end
 
-RockTunnel_B1F_EventScript_ItemMaxEther::
+RockTunnel_B1F_EventScript_ItemMaxElixir::
 	finditem ITEM_MAX_ELIXIR
 	end
 
@@ -470,10 +478,6 @@ PokemonMansion_2F_EventScript_ItemHPUp::
 	finditem ITEM_HP_UP
 	end
 
-ViridianCity_EventScript_ItemPotion::
-	finditem ITEM_POTION
-	end
-
 Route11_EventScript_ItemGreatBall::
 	finditem ITEM_GREAT_BALL
 	end
@@ -486,7 +490,7 @@ PokemonTower_5F_EventScript_ItemCleanseTag::
 	finditem ITEM_CLEANSE_TAG
 	end
 
-CeladonCity_EventScript_ItemEther::
+CeladonCity_EventScript_ItemElixir::
 	finditem ITEM_ELIXIR
 	end
 
@@ -526,12 +530,12 @@ FourIsland_EventScript_ItemStardust::
 	finditem ITEM_STARDUST
 	end
 
-OneIsland_KindleRoad_EventScript_ItemEther::
-	finditem ITEM_ELIXIR
+OneIsland_KindleRoad_EventScript_ItemFullRestore::
+	finditem ITEM_FULL_RESTORE
 	end
 
-OneIsland_KindleRoad_EventScript_ItemMaxRepel::
-	finditem ITEM_MAX_ELIXIR
+OneIsland_KindleRoad_EventScript_ItemExpCandyL::
+	finditem ITEM_EXP_CANDY_L
 	end
 
 OneIsland_KindleRoad_EventScript_ItemCarbos::
@@ -586,8 +590,8 @@ SevenIsland_SevaultCanyon_EventScript_ItemNugget::
 	finditem ITEM_NUGGET
 	end
 
-ThreeIsland_BerryForest_EventScript_ItemMaxEther::
-	finditem ITEM_MAX_ELIXIR
+ThreeIsland_BerryForest_EventScript_ItemRareCandy::
+	finditem ITEM_RARE_CANDY
 	end
 
 ThreeIsland_BerryForest_EventScript_ItemFullHeal::
@@ -606,7 +610,7 @@ MtEmber_Exterior_EventScript_ItemFireStone::
 	finditem ITEM_FIRE_STONE
 	end
 
-MtEmber_Exterior_EventScript_ItemDireHit::
+MtEmber_Exterior_EventScript_ItemCharcoal::
 	finditem ITEM_CHARCOAL
 	end
 
@@ -642,7 +646,7 @@ FiveIsland_RocketWarehouse_EventScript_ItemUpGrade::
 	finditem ITEM_UP_GRADE
 	end
 
-FiveIsland_LostCave_Room10_EventScript_ItemSilkScarf::
+FiveIsland_LostCave_Room10_EventScript_ItemMysticTicket::
 	finditem ITEM_MYSTIC_TICKET
 	end
 

@@ -138,8 +138,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "SilphCo_6F_EventScript_ItemXSpecial",
-      "flag": "FLAG_HIDE_SILPH_CO_6F_X_SPECIAL"
+      "script": "SilphCo_6F_EventScript_ItemFocusSash",
+      "flag": "FLAG_HIDE_SILPH_CO_6F_FOCUS_SASH"
     },
     {
       "type": "object",

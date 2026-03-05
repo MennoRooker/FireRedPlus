@@ -177,8 +177,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route11_EventScript_ItemXDefend",
-      "flag": "FLAG_HIDE_ROUTE11_X_DEFEND"
+      "script": "Route11_EventScript_ItemEscapeRope",
+      "flag": "FLAG_HIDE_ROUTE11_ESCAPE_ROPE"
     },
     {
       "type": "object",
@@ -248,7 +248,7 @@
       "y": 5,
       "elevation": 0,
       "item": "ITEM_DEEP_SEA_SCALE",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE11_ESCAPE_ROPE",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE11_SEA_SCALE",
       "quantity": 1,
       "underfoot": false
     }

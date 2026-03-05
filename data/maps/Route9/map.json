@@ -213,7 +213,7 @@
       "y": 7,
       "elevation": 0,
       "item": "ITEM_ELIXIR",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE9_ETHER",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE9_ELIXIR",
       "quantity": 1,
       "underfoot": false
     },

@@ -289,7 +289,7 @@
       "y": 15,
       "elevation": 3,
       "item": "ITEM_EXP_CANDY_M",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE8_LEPPA_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE8_EXP_CANDY_M",
       "quantity": 1,
       "underfoot": false
     },

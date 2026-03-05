@@ -30,7 +30,7 @@ Route7_EventScript_TeamRocketSceneTop::
 	setvar VAR_TEAM_ROCKET_SCENE_COMPLETE, 1
 	special RemoveCameraObject
 	fadedefaultbgm
-	delay 60
+	delay 100
 	release
 	end
 
@@ -49,6 +49,7 @@ Route7_EventScript_TeamRocketSceneMiddle::
 	setvar VAR_TEAM_ROCKET_SCENE_COMPLETE, 1
 	special RemoveCameraObject
 	fadedefaultbgm
+	delay 100
 	release
 	end
 
@@ -67,6 +68,7 @@ Route7_EventScript_TeamRocketSceneBottom::
 	setvar VAR_TEAM_ROCKET_SCENE_COMPLETE, 1
 	special RemoveCameraObject
 	fadedefaultbgm
+	delay 100
 	release
 	end
 

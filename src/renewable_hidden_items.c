@@ -93,7 +93,7 @@ static const struct RenewableHiddenItemData sRenewableHiddenItems[] = {
         .mapGroup = MAP_GROUP(MAP_UNDERGROUND_PATH_NORTH_SOUTH_TUNNEL),
         .mapNum = MAP_NUM(MAP_UNDERGROUND_PATH_NORTH_SOUTH_TUNNEL),
         .rare = {
-            HIDDEN_ID(FLAG_HIDDEN_ITEM_UNDERGROUND_PATH_NORTH_SOUTH_TUNNEL_ETHER),
+            HIDDEN_ID(FLAG_HIDDEN_ITEM_UNDERGROUND_PATH_NORTH_SOUTH_TUNNEL_HEART_SCALE),
             NO_ITEM,
             NO_ITEM,
             NO_ITEM,
@@ -127,7 +127,7 @@ static const struct RenewableHiddenItemData sRenewableHiddenItems[] = {
         .mapGroup = MAP_GROUP(MAP_UNDERGROUND_PATH_EAST_WEST_TUNNEL),
         .mapNum = MAP_NUM(MAP_UNDERGROUND_PATH_EAST_WEST_TUNNEL),
         .rare = {
-            HIDDEN_ID(FLAG_HIDDEN_ITEM_UNDERGROUND_PATH_EAST_WEST_TUNNEL_ETHER),
+            HIDDEN_ID(FLAG_HIDDEN_ITEM_UNDERGROUND_PATH_EAST_WEST_TUNNEL_ELIXIR),
             NO_ITEM,
             NO_ITEM,
             NO_ITEM,

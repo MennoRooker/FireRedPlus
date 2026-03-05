@@ -166,8 +166,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "ViridianForest_EventScript_ItemPotion2",
-      "flag": "FLAG_HIDE_VIRIDIAN_FOREST_POTION_2"
+      "script": "ViridianForest_EventScript_ItemLeafStone",
+      "flag": "FLAG_HIDE_VIRIDIAN_FOREST_LEAF_STONE"
     },
     {
       "local_id": "LOCALID_BUGSY_VIRIDIAN_FOREST",
@@ -285,7 +285,7 @@
       "y": 22,
       "elevation": 3,
       "item": "ITEM_EXP_CANDY_S",
-      "flag": "FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_POTION",
+      "flag": "FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_EXP_CANDY_S",
       "quantity": 1,
       "underfoot": false
     },
