@@ -849,6 +849,13 @@ now resolved. The testing did make me realize that I
 want to implement dynamic item usage and dynamic speed
 sooner rather than later.
 
+I just found out that FLY can be used after Lt Surge and
+Strength after Erika. Rock Smash can be used after Sabrina
+and Waterfall after Blaine. I could reorder these a bit to:
+- Lt. Surge: Rock Smash (Usable in Rock Tunnel)
+- Erika: Fly (Keeps the player from leaving Celadon)
+- Koga: Strength (Still no surf allowed)
+- Sabrina: Surf (Now you can go to Cinnabar)
 
 TO DO:
 x Add Bugsy

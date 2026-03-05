@@ -9,8 +9,11 @@ Route16_House_EventScript_Woman::
 	checkitemspace ITEM_HM02
 	goto_if_eq VAR_RESULT, FALSE, Route16_House_EventScript_NoRoomForHM02
 	giveitem_msg Route16_House_Text_ReceivedHM02FromGirl, ITEM_HM02
-	msgbox Route16_House_Text_HowToUseFly
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	signmsg
+	msgbox Route16_House_Text_HowToUseFly
+	textcolor NPC_TEXT_COLOR_FEMALE
+	normalmsg
 	msgbox Route16_House_Text_ExplainHM02
 	textcolor NPC_TEXT_COLOR_NEUTRAL
 	setflag FLAG_GOT_HM02

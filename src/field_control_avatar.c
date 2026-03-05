@@ -306,8 +306,10 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         u8 lr = GetLRKeysPressed();
         if (lr == MENU_L_PRESSED)
         {
-            // Prefer Fly when available and allowed
-            if (FlagGet(FLAG_GOT_HM02) == TRUE && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
+            // Prefer Fly when available and allowed.
+            if (FlagGet(FLAG_GOT_HM02) == TRUE
+             && FlagGet(FLAG_BADGE04_GET) == TRUE
+             && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
             {
                 gFlyInvokedFromOverworld = TRUE;
                 SetMainCallback2(CB2_OpenFlyMap);
@@ -655,7 +657,7 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 {
     if (MetatileBehavior_IsFastWater(metatileBehavior) == TRUE && PartyHasMonWithSurf() == TRUE)
         return EventScript_CurrentTooFast;
-    if (FlagGet(FLAG_BADGE05_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+    if (FlagGet(FLAG_BADGE06_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
         return EventScript_UseSurf;
 
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE)
