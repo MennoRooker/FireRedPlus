@@ -829,7 +829,20 @@ slides into frame -> While halfway there a text appears
 saying "Press B to run away." -> If B is pressed in time
 the sound of running & text happen after the animation
 is complete (This will replace the "A wild ... appeared"
-text) -> If B is not pressed, proceed as normal
+text) -> If B is not pressed, proceed as normal.
+
+I want to change the Snorlaxes so that if you battled one
+the other disappears as well. This Snorlax will then by
+design have gone to your rival. I will then need to edit
+the Silph Co fight to not have Snorlax, but Ursaring.
+
+I changed Venusaur to evolve at lvl 36 like the other
+starters to keep battles consistent.
+
+There is a bug with the draining of Poison types, eating
+a healing berry now also poisons the user when the berry
+is eaten in front of a poison type. Then the heling is
+also undone while the poison ticks for damage.
 
 
 TO DO:
