@@ -88,10 +88,12 @@ static void BattleIntroGetMonsData(void);
 static void TurnValuesCleanUp(bool8 var0);
 static void SpecialStatusesClear(void);
 static void BattleIntroPrepareBackgroundSlide(void);
+static void BattleIntroShowEarlyWildRunPrompt(void);
 static void BattleIntroDrawTrainersOrMonsSprites(void);
 static void BattleIntroDrawPartySummaryScreens(void);
 static void BattleIntroPrintTrainerWantsToBattle(void);
 static void BattleIntroPrintWildMonAttacked(void);
+static void BattleIntroHandleEarlyWildRunPrompt(void);
 static void BattleIntroPrintOpponentSendsOut(void);
 static void BattleIntroPrintPlayerSendsOut(void);
 static void BattleIntroRecordMonsToDex(void);
@@ -107,6 +109,7 @@ static void FreeResetData_ReturnToOvOrDoEvolutions(void);
 static void ReturnFromBattleToOverworld(void);
 static void TryEvolvePokemon(void);
 static void WaitForEvoSceneToFinish(void);
+static bool8 IsEarlyWildRunPromptBattleType(void);
 
 EWRAM_DATA u16 gBattle_BG0_X = 0;
 EWRAM_DATA u16 gBattle_BG0_Y = 0;
@@ -200,6 +203,8 @@ EWRAM_DATA struct SpecialStatus gSpecialStatuses[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gBattleWeather = 0;
 EWRAM_DATA struct WishFutureKnock gWishFutureKnock = {0};
 EWRAM_DATA u16 gIntroSlideFlags = 0;
+static EWRAM_DATA bool8 sEarlyWildRunPromptShown = FALSE;
+static EWRAM_DATA bool8 sEarlyWildRunRequested = FALSE;
 EWRAM_DATA u8 gSentPokesToOpponent[2] = {0};
 EWRAM_DATA u16 gDynamicBasePower = 0;
 EWRAM_DATA u16 gExpShareExp = 0;
@@ -1935,6 +1940,9 @@ void SpriteCB_EnemyMon(struct Sprite *sprite)
 
 static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite)
 {
+    if (sEarlyWildRunPromptShown && JOY_NEW(B_BUTTON))
+        sEarlyWildRunRequested = TRUE;
+
     if ((gIntroSlideFlags & 1) == 0)
     {
         sprite->x2 += 2;
@@ -2323,6 +2331,8 @@ static void BattleStartClearSetData(void)
     gBattleScripting.animTargetsHit = 0;
     gLeveledUpInBattle = 0;
     gAbsentBattlerFlags = 0;
+    sEarlyWildRunPromptShown = FALSE;
+    sEarlyWildRunRequested = FALSE;
     gBattleStruct->runTries = 0;
     gBattleStruct->safariRockThrowCounter = 0;
     gBattleStruct->safariBaitThrowCounter = 0;
@@ -2593,10 +2603,25 @@ static void BattleIntroPrepareBackgroundSlide(void)
         gActiveBattler = GetBattlerAtPosition(0);
         BtlController_EmitIntroSlide(BUFFER_A, gBattleTerrain);
         MarkBattlerForControllerExec(gActiveBattler);
-        gBattleMainFunc = BattleIntroDrawTrainersOrMonsSprites;
+        gBattleMainFunc = BattleIntroShowEarlyWildRunPrompt;
         gBattleCommunication[MULTIUSE_STATE] = 0;
         gBattleCommunication[SPRITES_INIT_STATE1] = 0;
     }
+}
+
+static void BattleIntroShowEarlyWildRunPrompt(void)
+{
+    if (gBattleControllerExecFlags)
+        return;
+
+    if (IsEarlyWildRunPromptBattleType())
+    {
+        PrepareStringBattle(STRINGID_PRESSBTORUNAWAY, GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+        sEarlyWildRunPromptShown = TRUE;
+        sEarlyWildRunRequested = FALSE;
+    }
+
+    gBattleMainFunc = BattleIntroDrawTrainersOrMonsSprites;
 }
 
 static void BattleIntroDrawTrainersOrMonsSprites(void)
@@ -2687,6 +2712,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
             MarkBattlerForControllerExec(gActiveBattler);
         }
     }
+
     gBattleMainFunc = BattleIntroDrawPartySummaryScreens;
 }
 
@@ -2777,6 +2803,12 @@ static void BattleIntroPrintWildMonAttacked(void)
 {
     if (gBattleControllerExecFlags == 0)
     {
+        if (IsEarlyWildRunPromptBattleType())
+        {
+            gBattleMainFunc = BattleIntroHandleEarlyWildRunPrompt;
+            return;
+        }
+
         gBattleMainFunc = BattleIntroPrintPlayerSendsOut;
         PrepareStringBattle(STRINGID_INTROMSG, 0);
         if (IS_BATTLE_TYPE_GHOST_WITH_SCOPE(gBattleTypeFlags))
@@ -2785,6 +2817,65 @@ static void BattleIntroPrintWildMonAttacked(void)
             BattleScriptExecute(BattleScript_SilphScopeUnveiled);
         }
     }
+}
+
+static void BattleIntroHandleEarlyWildRunPrompt(void)
+{
+    u8 battler;
+    u8 spriteId;
+    struct Sprite *sprite;
+
+    if (sEarlyWildRunPromptShown && JOY_NEW(B_BUTTON))
+        sEarlyWildRunRequested = TRUE;
+
+    battler = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
+    spriteId = gBattlerSpriteIds[battler];
+    if (spriteId >= MAX_SPRITES)
+        return;
+
+    sprite = &gSprites[spriteId];
+
+    if (sprite->x2 == 0)
+    {
+        if (gBattleControllerExecFlags != 0)
+            return;
+
+        if (sEarlyWildRunRequested)
+        {
+            gBattlerAttacker = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+            gCurrentTurnActionNumber = gBattlersCount;
+            gBattleOutcome = B_OUTCOME_RAN;
+            gProtectStructs[gBattlerAttacker].fleeType = 0;
+            HandleEndTurn_RanFromBattle();
+        }
+        else
+        {
+            gBattleMainFunc = BattleIntroPrintPlayerSendsOut;
+            PrepareStringBattle(STRINGID_INTROMSG, 0);
+        }
+    }
+}
+
+static bool8 IsEarlyWildRunPromptBattleType(void)
+{
+    if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE
+                          | BATTLE_TYPE_LINK
+                          | BATTLE_TYPE_TRAINER
+                          | BATTLE_TYPE_FIRST_BATTLE
+                          | BATTLE_TYPE_SAFARI
+                          | BATTLE_TYPE_OLD_MAN_TUTORIAL
+                          | BATTLE_TYPE_ROAMER
+                          | BATTLE_TYPE_EREADER_TRAINER
+                          | BATTLE_TYPE_LEGENDARY
+                          | BATTLE_TYPE_REGI
+                          | BATTLE_TYPE_GHOST
+                          | BATTLE_TYPE_POKEDUDE
+                          | BATTLE_TYPE_WILD_SCRIPTED
+                          | BATTLE_TYPE_LEGENDARY_FRLG
+                          | BATTLE_TYPE_TRAINER_TOWER))
+        return FALSE;
+
+    return TRUE;
 }
 
 static void BattleIntroPrintOpponentSendsOut(void)

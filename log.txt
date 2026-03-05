@@ -758,7 +758,7 @@ SPEED UPS:
 x Instant PC BOX
 x No fade-in upon warp
 x Quicker nurse interaction
-- Simultaneous ball throw with wild mons
+- Cancel wild encounter with B
 - Allow running everywhere
 x No texts for HM use
 x No FLASH use needed
@@ -815,6 +815,21 @@ ethers with these. I probably want to add a bunch of
 PP UPs and Bottle Caps once I implement those. I think
 the amount of item balls is pretty decent. I won't need 
 to add too many of them myself.
+
+I thought about the streamlining of animations a bit 
+more and I landed on canceling wild encounters as
+an option that could significantly speed up a play-
+through. I want to give the player the option to press
+the B button any time during the appearance of the wild
+mon so that you get the text "Got away safely!" before
+you even throw a mon of your own out there. 
+It should go as follows:
+Wild encounter starts -> Music & transition -> Wild mon
+slides into frame -> While halfway there a text appears
+saying "Press B to run away." -> If B is pressed in time
+the sound of running & text happen after the animation
+is complete (This will replace the "A wild ... appeared"
+text) -> If B is not pressed, proceed as normal
 
 
 TO DO:
