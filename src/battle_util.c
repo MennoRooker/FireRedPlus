@@ -43,6 +43,9 @@ static const u16 sBitingMovesTable[] =
     BITING_MOVES_END
 };
 
+static bool8 sLeechSeedPoisonTickPending;
+static u8 sLeechSeedPoisonTickBattler;
+
 u8 GetBattlerForBattleScript(u8 caseId)
 {
     u8 ret = 0;
@@ -763,9 +766,42 @@ enum
 
 u8 DoBattlerEndTurnEffects(void)
 {
+    u8 i;
     u8 effect = 0;
 
     gHitMarker |= (HITMARKER_GRUDGE | HITMARKER_SKIP_DMG_TRACK);
+
+    if (sLeechSeedPoisonTickPending)
+    {
+        sLeechSeedPoisonTickPending = FALSE;
+
+        if (sLeechSeedPoisonTickBattler < gBattlersCount
+            && gBattleMons[sLeechSeedPoisonTickBattler].hp != 0
+            && (gBattleMons[sLeechSeedPoisonTickBattler].status1 & STATUS1_TOXIC_POISON))
+        {
+            gBattleMoveDamage = gBattleMons[sLeechSeedPoisonTickBattler].maxHP / 16;
+            if (gBattleMoveDamage == 0)
+                gBattleMoveDamage = 1;
+
+            // This queued tick is the first toxic damage instance for this status.
+            if (!(gBattleMons[sLeechSeedPoisonTickBattler].status1 & STATUS1_TOXIC_COUNTER))
+                gBattleMons[sLeechSeedPoisonTickBattler].status1 += STATUS1_TOXIC_TURN(1);
+
+            gBattlerAttacker = sLeechSeedPoisonTickBattler;
+            BattleScriptExecute(BattleScript_PoisonTurnDmg);
+            sLeechSeedPoisonTickBattler = MAX_BATTLERS_COUNT;
+            return 1;
+        }
+
+        sLeechSeedPoisonTickBattler = MAX_BATTLERS_COUNT;
+    }
+
+    if (gBattleStruct->turnEffectsTracker == 0 && gBattleStruct->turnEffectsBattlerId == 0)
+    {
+        sLeechSeedPoisonTickPending = FALSE;
+        sLeechSeedPoisonTickBattler = MAX_BATTLERS_COUNT;
+    }
+
     while (gBattleStruct->turnEffectsBattlerId < gBattlersCount && gBattleStruct->turnEffectsTracker <= ENDTURN_BATTLER_COUNT)
     {
         gActiveBattler = gBattlerAttacker = gBattlerByTurnOrder[gBattleStruct->turnEffectsBattlerId];
@@ -827,12 +863,32 @@ u8 DoBattlerEndTurnEffects(void)
                      && !IS_BATTLER_OF_TYPE(leechSeedUser, TYPE_STEEL)
                      && gBattleMons[leechSeedUser].ability != ABILITY_IMMUNITY)
                     {
+                        bool8 receiverAlreadyProcessed = FALSE;
+
+                        for (i = 0; i < gBattleStruct->turnEffectsBattlerId; i++)
+                        {
+                            if (gBattlerByTurnOrder[i] == leechSeedUser)
+                            {
+                                receiverAlreadyProcessed = TRUE;
+                                break;
+                            }
+                        }
+
                         // Apply toxic poison status to the HP receiver
-                        gBattleMons[leechSeedUser].status1 = STATUS1_TOXIC_POISON | STATUS1_TOXIC_TURN(1);
+                        gBattleMons[leechSeedUser].status1 = STATUS1_TOXIC_POISON;
                         gEffectBattler = leechSeedUser;
                         gActiveBattler = leechSeedUser;
                         BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[leechSeedUser].status1), &gBattleMons[leechSeedUser].status1);
                         MarkBattlerForControllerExec(gActiveBattler);
+
+                        // If poison steps for this battler were already processed this turn,
+                        // queue the initial 1/16 toxic tick so it still happens this turn.
+                        if (receiverAlreadyProcessed)
+                        {
+                            sLeechSeedPoisonTickPending = TRUE;
+                            sLeechSeedPoisonTickBattler = leechSeedUser;
+                        }
+
                         // Execute Leech Seed drain with poison message after
                         BattleScriptExecute(BattleScript_LeechSeedTurnDrainWithPoison);
                     }

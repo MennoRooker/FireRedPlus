@@ -61,6 +61,11 @@ static void PutMonIconOnLvlUpBanner(void);
 static void DrawLevelUpBannerText(void);
 static void SpriteCB_MonIconOnLvlUpBanner(struct Sprite* sprite);
 
+static bool8 sDrainPoisonPending;
+static u8 sDrainPoisonSourceBattler;
+static bool8 sDrainPoisonDisplayPending;
+static u8 sDrainPoisonDisplayBattler;
+
 static void Cmd_attackcanceler(void);
 static void Cmd_accuracycheck(void);
 static void Cmd_attackstring(void);
@@ -1914,34 +1919,43 @@ static void Cmd_datahpupdate(void)
             gSpecialStatuses[gActiveBattler].dmg = 0xFFFF;
     }
     gBattlescriptCurrInstr += 2;
-    
-    // Check for poison drain toxic application after HP update
-    if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
+
+    // Only drain moves that run Cmd_negativedamage should be able to trigger this effect.
+    if (sDrainPoisonPending && gBattlescriptCurrInstr[-1] == BS_ATTACKER)
     {
-        gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[-1]); // -1 because we already advanced
-        if (gBattleMoveDamage < 0 && gBattlescriptCurrInstr[-1] == BS_ATTACKER)
+        sDrainPoisonPending = FALSE;
+
+        if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+            && gBattleMoveDamage < 0
+            && sDrainPoisonSourceBattler < gBattlersCount
+            && IS_BATTLER_OF_TYPE(sDrainPoisonSourceBattler, TYPE_POISON))
         {
-            // Check if defender (target) is Poison type
-            if (IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_POISON))
+            if (!(gBattleMons[gBattlerAttacker].status1 & STATUS1_ANY)
+                && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_POISON)
+                && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
+                && gBattleMons[gBattlerAttacker].ability != ABILITY_IMMUNITY)
             {
-                // Check if attacker can be badly poisoned
-                if (!(gBattleMons[gBattlerAttacker].status1 & STATUS1_ANY)
-                    && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_POISON)
-                    && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
-                    && gBattleMons[gBattlerAttacker].ability != ABILITY_IMMUNITY)
-                {
-                    // Apply toxic status
-                    gBattleMons[gBattlerAttacker].status1 = STATUS1_TOXIC_POISON | STATUS1_TOXIC_TURN(1);
-                    gEffectBattler = gBattlerAttacker;
-                    gActiveBattler = gBattlerAttacker;
-                    BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[gBattlerAttacker].status1), &gBattleMons[gBattlerAttacker].status1);
-                    MarkBattlerForControllerExec(gActiveBattler);
-                    // Push and execute toxic message script
-                    BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_DrainPoisonToxic;
-                }
+                struct Pokemon *mon;
+
+                gBattleMons[gBattlerAttacker].status1 = STATUS1_TOXIC_POISON;
+                gEffectBattler = gBattlerAttacker;
+
+                if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
+                    mon = &gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]];
+                else
+                    mon = &gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]];
+
+                // Status icon updates read party data, so keep it in sync here
+                // without issuing another controller transaction in datahpupdate.
+                SetMonData(mon, MON_DATA_STATUS, &gBattleMons[gBattlerAttacker].status1);
+
+                // Defer poison announcement to moveend so drain text/effects resolve first.
+                sDrainPoisonDisplayPending = TRUE;
+                sDrainPoisonDisplayBattler = gBattlerAttacker;
             }
         }
+
+        sDrainPoisonSourceBattler = MAX_BATTLERS_COUNT;
     }
 }
 
@@ -3561,6 +3575,10 @@ static void MoveValuesCleanUp(void)
     gBattleCommunication[MISS_TYPE] = 0;
     gHitMarker &= ~HITMARKER_DESTINYBOND;
     gHitMarker &= ~HITMARKER_SYNCHRONISE_EFFECT;
+    sDrainPoisonPending = FALSE;
+    sDrainPoisonSourceBattler = MAX_BATTLERS_COUNT;
+    sDrainPoisonDisplayPending = FALSE;
+    sDrainPoisonDisplayBattler = MAX_BATTLERS_COUNT;
 }
 
 static void Cmd_movevaluescleanup(void)
@@ -4165,6 +4183,16 @@ static void Cmd_moveend(void)
     choicedMoveAtk = &gBattleStruct->choicedMove[gBattlerAttacker];
     GET_MOVE_TYPE(gCurrentMove, moveType);
 
+    if (sDrainPoisonDisplayPending && gBattleScripting.moveendState == MOVEEND_RAGE)
+    {
+        sDrainPoisonDisplayPending = FALSE;
+        gEffectBattler = sDrainPoisonDisplayBattler;
+        sDrainPoisonDisplayBattler = MAX_BATTLERS_COUNT;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_DrainPoisonToxic;
+        return;
+    }
+
     do
     {
         switch (gBattleScripting.moveendState)
@@ -4444,6 +4472,8 @@ static void Cmd_moveend(void)
 
     if (gBattleScripting.moveendState == MOVEEND_COUNT && effect == FALSE)
         gBattlescriptCurrInstr += 3;
+    sDrainPoisonDisplayPending = FALSE;
+    sDrainPoisonDisplayBattler = MAX_BATTLERS_COUNT;
 }
 
 static void Cmd_typecalc2(void)
@@ -6783,6 +6813,9 @@ static void Cmd_negativedamage(void)
     gBattleMoveDamage = -(gHpDealt / 2);
     if (gBattleMoveDamage == 0)
         gBattleMoveDamage = -1;
+
+    sDrainPoisonPending = TRUE;
+    sDrainPoisonSourceBattler = gBattlerTarget;
 
     gBattlescriptCurrInstr++;
 }
