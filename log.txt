@@ -857,6 +857,16 @@ and Waterfall after Blaine. I could reorder these a bit to:
 - Koga: Strength (Still no surf allowed)
 - Sabrina: Surf (Now you can go to Cinnabar)
 
+Now that the HMs are available in a different order I need
+to think about where to place the Rock Smash HM. Luckily
+the old location of Rock Smash was stupid so we can only
+improve upon it.
+
+I added a Machoke in Rock Tunnel that gives Rock Smash, I
+will also add Machoke as the standard Rock Smash sprite
+and remove the HM06 scripting from the old man on Kindle
+Road.
+
 TO DO:
 x Add Bugsy
 x Force SET mode
