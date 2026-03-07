@@ -916,7 +916,7 @@ x No items in battle
 x Catch rates
 x Neutralize natures in daycare
 x Poison & Paralysis
-x Implement current abilities
+/ Implement current abilities
 x Fishing rods redistribution
 x Full restore PP
 x Exp Candies
