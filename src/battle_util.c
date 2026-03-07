@@ -1435,7 +1435,9 @@ u8 AtkCanceller_UnableToUseMove(void)
             gBattleStruct->atkCancellerTracker++;
             break;
         case CANCELLER_TRUANT: // truant
-            if (gBattleMons[gBattlerAttacker].ability == ABILITY_TRUANT && gDisableStructs[gBattlerAttacker].truantCounter)
+            if (gBattleMons[gBattlerAttacker].ability == ABILITY_TRUANT
+             && gDisableStructs[gBattlerAttacker].truantCounter
+             && gBattleMoves[gCurrentMove].power != 0)
             {
                 CancelMultiTurnMoves(gBattlerAttacker);
                 gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
@@ -2291,10 +2293,12 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     }
                     break;
                 case ABILITY_OBLIVIOUS:
-                    if (gBattleMons[battler].status2 & STATUS2_INFATUATION)
+                    if ((gBattleMons[battler].status2 & STATUS2_INFATUATION)
+                     || gDisableStructs[battler].tauntTimer != 0)
                     {
-                        StringCopy(gBattleTextBuff1, gStatusConditionString_LoveJpn);
-                        effect = 3;
+                        if (gBattleMons[battler].status2 & STATUS2_INFATUATION)
+                            StringCopy(gBattleTextBuff1, gStatusConditionString_LoveJpn);
+                        effect = 4;
                     }
                     break;
                 }
@@ -2311,10 +2315,18 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     case 3: // get rid of infatuation
                         gBattleMons[battler].status2 &= ~STATUS2_INFATUATION;
                         break;
+                    case 4: // get rid of infatuation and taunt (Oblivious)
+                        gBattleMons[battler].status2 &= ~STATUS2_INFATUATION;
+                        gDisableStructs[battler].tauntTimer = 0;
+                        gDisableStructs[battler].tauntTimer2 = 0;
+                        break;
                     }
 
                     BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_AbilityCuredStatus;
+                    if (effect == 4)
+                        gBattlescriptCurrInstr = BattleScript_ObliviousPreventsTaunt;
+                    else
+                        gBattlescriptCurrInstr = BattleScript_AbilityCuredStatus;
                     gBattleScripting.battler = battler;
                     gActiveBattler = battler;
                     BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);

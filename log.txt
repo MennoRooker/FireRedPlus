@@ -867,6 +867,21 @@ will also add Machoke as the standard Rock Smash sprite
 and remove the HM06 scripting from the old man on Kindle
 Road.
 
+I am updating the descriptions of certain abilities since
+they are lackluster. I need to keep in mind that I do intend
+to change the workings of some of the abilities:
+- Oblivious currently blocks only infatuation. I want it to
+block taunts as well. In gen VIII it even blocks intimidate,
+but I don't want that to be the case here.
+- Own Tempo SHOULD block intimidate as well as confusion, but
+it SHOULD NOT block taunting. I want Oblivious and Own Tempo
+to cover exactly other things.
+- Inner Focus does not block intimidate even though it does
+in newer games. I want this ability to remain as it is.
+- Truant should allow non-damaging moves every other turn.
+I need to implement the logic first before I actually change
+the description.
+
 TO DO:
 x Add Bugsy
 x Force SET mode
@@ -891,18 +906,18 @@ x No items in battle
 x Catch rates
 x Neutralize natures in daycare
 x Poison & Paralysis
-x Implement current abilities
+/ Implement current abilities
 x Fishing rods redistribution
 x Full restore PP
 x Exp Candies
 x Rename scripts
-/ Balancing
+x Dynamic items
 / Linearizations
-- Dynamic speed & items
+/ Balancing
 - Faster Bike
-- VS Seeker location
-- Diamonds above rematch teams
+- VS Seeker
 - HM mons sprites
+- Dynamic speed
 - Custom move animations
 - Victory Road FLY checkpoint
 - Letters
