@@ -576,12 +576,11 @@ I want to add color-coded diamonds or arrows above the heads
 of trainers that can be rematched with new teams. Depending
 on what flag sets their new team I will give them a different
 color:
-White	- Not battled yet
-RED 	- Immediate rematch
-CELADON - After reaching Celadon City
-FUCHSIA - After reaching Fuchsia City
-INDIGO  - After becoming Champion
-BLUE	- After delivering Sapphire
+VERMILLION RED 	- Normal rematch
+CELADON GREEN   - After reaching Celadon City
+FUCHSIA PINK	- After reaching Fuchsia City
+INDIGO PURPLE 	- After becoming Champion
+SAPPHIRE BLUE	- After delivering Sapphire
 
 In Sinnoh all rematches are independent of flags and can be
 triggered at any given time I think.
@@ -758,8 +757,8 @@ SPEED UPS:
 x Instant PC BOX
 x No fade-in upon warp
 x Quicker nurse interaction
-- Cancel wild encounter with B
-- Allow running everywhere
+x Cancel wild encounter with B
+x Allow running everywhere
 x No texts for HM use
 x No FLASH use needed
 
@@ -882,6 +881,17 @@ in newer games. I want this ability to remain as it is.
 I need to implement the logic first before I actually change
 the description.
 
+I'm making minor changes and fixes and I want to get rid of
+the surplus of Elixirs that are now scattered through the 
+region because of the Ethers I removed. I want to change 
+CeladonCity_EventScript_ItemElixir to a Bottle Cap. The
+way Bottle Caps work is still something I'm debating. I 
+wanted to only increase the IV by a little bit in case 
+you want specific IV values, but now I'm thinking I should
+just Max out an IV like normal. Luckily the online Bottle
+Cap sprite is already 24x24 so I can implement it rather
+quickly and neatly.
+
 TO DO:
 x Add Bugsy
 x Force SET mode
@@ -906,7 +916,7 @@ x No items in battle
 x Catch rates
 x Neutralize natures in daycare
 x Poison & Paralysis
-/ Implement current abilities
+x Implement current abilities
 x Fishing rods redistribution
 x Full restore PP
 x Exp Candies

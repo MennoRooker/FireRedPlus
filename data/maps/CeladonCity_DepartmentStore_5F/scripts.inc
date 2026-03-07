@@ -19,13 +19,13 @@ CeladonCity_DepartmentStore_5F_EventScript_ClerkXItems::
 	faceplayer
 	message Text_MayIHelpYou
 	waitmessage
-	pokemart CeladonCity_DepartmentStore_5F_XItems
+	pokemart CeladonCity_DepartmentStore_5F_EVBerries
 	msgbox Text_PleaseComeAgain
 	release
 	end
 
 	.align 2
-CeladonCity_DepartmentStore_5F_XItems::
+CeladonCity_DepartmentStore_5F_EVBerries::
 	.2byte ITEM_POMEG_BERRY
 	.2byte ITEM_KELPSY_BERRY
 	.2byte ITEM_QUALOT_BERRY
@@ -55,6 +55,8 @@ CeladonCity_DepartmentStore_5F_Vitamins::
 	.2byte ITEM_CALCIUM
 	.2byte ITEM_ZINC
 	.2byte ITEM_CARBOS
+	.2byte ITEM_PP_UP
+	.2byte ITEM_PP_MAX
 	.2byte ITEM_RARE_CANDY
 	.2byte ITEM_NONE
 	release

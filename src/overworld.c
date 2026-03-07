@@ -1901,7 +1901,8 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 inLink)
         }
         else if (gMapHeader.showMapName == TRUE)
         {
-            ShowMapNamePopup(FALSE);
+            // Indoor warp fade-ins can be skipped; pick palette target from live fade state.
+            ShowMapNamePopup(!gPaletteFade.active);
         }
         (*state)++;
         break;
