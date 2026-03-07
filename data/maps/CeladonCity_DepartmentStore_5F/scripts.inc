@@ -57,6 +57,7 @@ CeladonCity_DepartmentStore_5F_Vitamins::
 	.2byte ITEM_CARBOS
 	.2byte ITEM_PP_UP
 	.2byte ITEM_PP_MAX
+	.2byte ITEM_BOTTLE_CAP
 	.2byte ITEM_RARE_CANDY
 	.2byte ITEM_NONE
 	release

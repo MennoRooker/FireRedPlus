@@ -483,7 +483,7 @@
 #define FLAG_HIDE_ROUTE11_GREAT_BALL                            0x1CE
 #define FLAG_HIDE_ROUTE11_AWAKENING                             0x1CF
 #define FLAG_HIDE_POKEMON_TOWER_5F_CLEANSE_TAG                  0x1D0
-#define FLAG_HIDE_CELADON_CITY_ELIXIR                           0x1D1
+#define FLAG_HIDE_CELADON_CITY_BOTTLE_CAP                       0x1D1
 #define FLAG_HIDE_ROCKET_HIDEOUT_B3F_BLACK_GLASSES              0x1D2
 #define FLAG_HIDE_SAFARI_ZONE_NORTH_QUICK_CLAW                  0x1D3
 #define FLAG_HIDE_SEAFOAM_ISLANDS_1F_ICE_HEAL                   0x1D4

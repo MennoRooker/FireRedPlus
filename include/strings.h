@@ -392,6 +392,16 @@ extern const u8 gText_PkmnAlreadyInBattle[];
 extern const u8 gText_EggCantBattle[];
 extern const u8 gText_PkmnAlreadySelected[];
 extern const u8 gText_PkmnCantSwitchOut[];
+extern const u8 gText_BottleCapChooseStat[];
+extern const u8 gText_BottleCapMaximizeStat[];
+extern const u8 gText_BottleCapIVMaximized[];
+extern const u8 gText_BottleCapStatAlreadyMax[];
+extern const u8 gText_BottleCapStatHP[];
+extern const u8 gText_BottleCapStatAttack[];
+extern const u8 gText_BottleCapStatDefense[];
+extern const u8 gText_BottleCapStatSpAttack[];
+extern const u8 gText_BottleCapStatSpDefense[];
+extern const u8 gText_BottleCapStatSpeed[];
 
 // credits
 extern const u8 gString_Dummy[];

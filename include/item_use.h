@@ -17,6 +17,7 @@ void FieldUseFunc_Ether(u8 taskId);
 void FieldUseFunc_PpUp(u8 taskId);
 void FieldUseFunc_RareCandy(u8 taskId);
 void FieldUseFunc_ExpCandy(u8 taskId);
+void FieldUseFunc_BottleCap(u8 taskId);
 void FieldUseFunc_EvoItem(u8 taskId);
 void FieldUseFunc_SacredAsh(u8 taskId);
 void FieldUseFunc_TmCase(u8 taskId);

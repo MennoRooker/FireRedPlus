@@ -490,8 +490,8 @@ PokemonTower_5F_EventScript_ItemCleanseTag::
 	finditem ITEM_CLEANSE_TAG
 	end
 
-CeladonCity_EventScript_ItemElixir::
-	finditem ITEM_ELIXIR
+CeladonCity_EventScript_ItemBottleCap::
+	finditem ITEM_BOTTLE_CAP
 	end
 
 RocketHideout_B3F_EventScript_ItemBlackGlasses::
