@@ -3878,7 +3878,7 @@ static const struct TrainerMonItemCustomMoves sParty_BossGiovanni[] = {
         .lvl = 34,
         .species = SPECIES_PERSIAN,
         .moves = {MOVE_THIEF, MOVE_ASSIST, MOVE_PAY_DAY, MOVE_FAKE_OUT},
-        .heldItem = ITEM_AMULET_COIN,
+        .heldItem = ITEM_NONE,
     },
     {
         .iv = 8,

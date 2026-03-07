@@ -892,6 +892,16 @@ just Max out an IV like normal. Luckily the online Bottle
 Cap sprite is already 24x24 so I can implement it rather
 quickly and neatly.
 
+I am now getting to the point where the Medicine pocket's
+upper limit may soon become a problem. I have set it to 16 
+to keep the ITEMS + MEDICINE at 42, but I already have 14 
+unique Medicine items in the pocket and no vitamins yet.
+I think I'll just continue playing until I've reached all
+my balancing goals and then restart with a bigger Medicine
+pocket (I'm thinking 34 and making ITEMS 36, because the
+AI mentioned that the game expects items to be the bigger 
+pocket or smth.)
+
 TO DO:
 x Add Bugsy
 x Force SET mode
@@ -916,7 +926,7 @@ x No items in battle
 x Catch rates
 x Neutralize natures in daycare
 x Poison & Paralysis
-/ Implement current abilities
+x Implement current abilities
 x Fishing rods redistribution
 x Full restore PP
 x Exp Candies
@@ -924,14 +934,14 @@ x Rename scripts
 x Dynamic items
 / Linearizations
 / Balancing
-- Faster Bike
 - VS Seeker
 - HM mons sprites
 - Dynamic speed
-- Custom move animations
+- Faster Bike
 - Victory Road FLY checkpoint
 - Letters
 - Only a few red HP beeps
+- Increase BAG space
 - Clean up
 ---------------------------------------
 - Implement all abilites
@@ -948,6 +958,7 @@ x Dynamic items
 - Roamers
 - Events
 - Deoxys forms
+- Custom move animations
 
 
 Abilities to add:

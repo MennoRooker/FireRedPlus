@@ -25,9 +25,11 @@ CeladonCity_Gym_Text_ErikaDefeat::
     .string "RAINBOWBADGE.$"
 
 CeladonCity_Gym_Text_ErikaGivesTeaLeaves::
-    .string "What's that? Ah yes, that lovely\n"
-    .string "lady is waiting for her order of\l"
-    .string "TEA LEAVES.\p"
+    .string "Now I do have a favor to ask you.\p"
+    .string "Some lovely lady is waiting\n"
+    .string "for her order of TEA LEAVES.\p"
+    .string "Could you be a dear and deliver\n"
+    .string "these to her for me?\p"
     .string "Here you go.$"
 
 CeladonCity_Gym_Text_ReceivedTeaLeaves::
@@ -119,7 +121,7 @@ CeladonCity_Gym_Text_TamiaPostBattle::
 
 CeladonCity_Gym_Text_LisaIntro::
     .string "Oh, hey!\p"
-    .string "We don't like BUG- or FIRE-type\n"
+    .string "We don't like FIRE-type\n"
     .string "POKéMON in here!$"
 
 CeladonCity_Gym_Text_LisaDefeat::

@@ -59,6 +59,9 @@ CeladonCity_DepartmentStore_5F_Vitamins::
 	.2byte ITEM_PP_MAX
 	.2byte ITEM_BOTTLE_CAP
 	.2byte ITEM_RARE_CANDY
+	.2byte ITEM_EXP_CANDY_S
+	.2byte ITEM_EXP_CANDY_M
+	.2byte ITEM_EXP_CANDY_L
 	.2byte ITEM_NONE
 	release
 	end
