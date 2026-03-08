@@ -420,13 +420,7 @@ static u8 OptionMenu_ProcessInput(void)
         else
             sOptionMenuPtr->option[sOptionMenuPtr->cursorPos] = current + 1;
 
-            
-        // Block SHIFT mode selection
-        if (sOptionMenuPtr->cursorPos == MENUITEM_BATTLESTYLE && sOptionMenuPtr->option[MENUITEM_BATTLESTYLE] == OPTIONS_BATTLE_STYLE_SHIFT)
-        {
-            sOptionMenuPtr->option[MENUITEM_BATTLESTYLE] = OPTIONS_BATTLE_STYLE_SET;
-        }
-        
+
         // Force LR mode
         if (sOptionMenuPtr->cursorPos == MENUITEM_BUTTONMODE && (sOptionMenuPtr->option[MENUITEM_BUTTONMODE] == OPTIONS_BUTTON_MODE_L_EQUALS_A || sOptionMenuPtr->option[MENUITEM_BUTTONMODE] == OPTIONS_BUTTON_MODE_HELP))
         {
@@ -445,12 +439,6 @@ static u8 OptionMenu_ProcessInput(void)
             *curr = sOptionMenuItemCounts[sOptionMenuPtr->cursorPos] - 1;
         else
             --*curr;
-    
-        // Block SHIFT mode selection
-        if (sOptionMenuPtr->cursorPos == MENUITEM_BATTLESTYLE && sOptionMenuPtr->option[MENUITEM_BATTLESTYLE] == OPTIONS_BATTLE_STYLE_SHIFT)
-        {
-            sOptionMenuPtr->option[MENUITEM_BATTLESTYLE] = OPTIONS_BATTLE_STYLE_SET;
-        }
 
         // Force LR mode
         if (sOptionMenuPtr->cursorPos == MENUITEM_BUTTONMODE && (sOptionMenuPtr->option[MENUITEM_BUTTONMODE] == OPTIONS_BUTTON_MODE_L_EQUALS_A || sOptionMenuPtr->option[MENUITEM_BUTTONMODE] == OPTIONS_BUTTON_MODE_HELP))

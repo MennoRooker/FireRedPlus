@@ -2,8 +2,7 @@ EventScript_CutTree::
 	goto_if_questlog EventScript_ReleaseEnd
 	lockall
 	goto_if_unset FLAG_BADGE02_GET, EventScript_CantCutTree
-	checkitem ITEM_HM01
-	goto_if_eq VAR_RESULT, FALSE, EventScript_CantCutTree
+	goto_if_unset FLAG_GOT_HM01, EventScript_CantCutTree
 	checkpartymove MOVE_CUT
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_NoMonHasCut
 	setfieldeffectargument 0, VAR_RESULT
@@ -23,6 +22,7 @@ EventScript_NoMonHasCut::
 
 EventScript_FldEffCut::
 	lockall
+	goto_if_unset FLAG_GOT_HM01, EventScript_CantCutTree
 	dofieldeffect FLDEFF_USE_CUT_ON_TREE
 	waitstate
 	goto EventScript_CutTreeDown
@@ -64,16 +64,18 @@ Text_TreeCanBeCutDown::
 EventScript_RockSmash::
 	goto_if_questlog EventScript_ReleaseEnd
 	lockall
-	goto_if_unset FLAG_BADGE06_GET, EventScript_CantSmashRock
+	goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	goto_if_unset FLAG_GOT_HM06, EventScript_CantSmashRock
 	checkpartymove MOVE_ROCK_SMASH
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSmashRock
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_NoMonHasRockSmash
 	setfieldeffectargument 0, VAR_RESULT
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, MOVE_ROCK_SMASH
-	msgbox Text_UseRockSmash, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, EventScript_DontSmashRock
-	msgbox Text_MonUsedMove
-	closemessage
+	dofieldeffect FLDEFF_USE_ROCK_SMASH
+	waitstate
+	goto EventScript_UseRockSmash
+	end
+
+EventScript_NoMonHasRockSmash::
+	setfieldeffectargument 0, PARTY_SIZE
 	dofieldeffect FLDEFF_USE_ROCK_SMASH
 	waitstate
 	goto EventScript_UseRockSmash
@@ -81,6 +83,7 @@ EventScript_RockSmash::
 
 EventScript_FldEffRockSmash::
 	lockall
+	goto_if_unset FLAG_GOT_HM06, EventScript_CantSmashRock
 	dofieldeffect FLDEFF_USE_ROCK_SMASH
 	waitstate
 	goto EventScript_UseRockSmash
@@ -124,7 +127,7 @@ Text_MonMaySmashRock::
 EventScript_StrengthBoulder::
 	goto_if_questlog EventScript_ReleaseEnd
 	lockall
-	goto_if_unset FLAG_BADGE04_GET, EventScript_CantMoveBoulder
+	goto_if_unset FLAG_BADGE05_GET, EventScript_CantMoveBoulder
 	goto_if_set FLAG_SYS_USE_STRENGTH, EventScript_AlreadyUsedStrength
 	checkpartymove MOVE_STRENGTH
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantMoveBoulder

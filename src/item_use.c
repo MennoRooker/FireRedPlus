@@ -437,6 +437,12 @@ void FieldUseFunc_ExpCandy(u8 taskId)
     DoSetUpItemUseCallback(taskId);
 }
 
+void FieldUseFunc_BottleCap(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_BottleCap;
+    DoSetUpItemUseCallback(taskId);
+}
+
 void FieldUseFunc_EvoItem(u8 taskId)
 {
     gItemUseCB = ItemUseCB_EvolutionStone;

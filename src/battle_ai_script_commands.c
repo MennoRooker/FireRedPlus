@@ -139,6 +139,7 @@ static void Cmd_if_target_not_taunted(void);
 
 static void RecordLastUsedMoveByTarget(void);
 static void BattleAI_DoAIProcessing(void);
+static bool8 HasUsableDamagingMove(u8 battlerId);
 static void AIStackPushVar(const u8 *ptr);
 static bool8 AIStackPop(void);
 
@@ -441,6 +442,16 @@ static void BattleAI_DoAIProcessing(void)
             }
             if (AI_THINKING_STRUCT->aiAction & AI_ACTION_DONE)
             {
+                if (gBattleMons[gBattlerAttacker].ability == ABILITY_TRUANT
+                 && gDisableStructs[gBattlerAttacker].isFirstTurn != 0
+                 && AI_THINKING_STRUCT->moveConsidered != 0
+                 && gBattleMoves[AI_THINKING_STRUCT->moveConsidered].power == 0
+                 && HasUsableDamagingMove(gBattlerAttacker))
+                {
+                    // Force turn-1 Truant users to select from damaging options when any exist.
+                    AI_THINKING_STRUCT->score[AI_THINKING_STRUCT->movesetIndex] = 0;
+                }
+
                 AI_THINKING_STRUCT->movesetIndex++;
 
                 if (AI_THINKING_STRUCT->movesetIndex < MAX_MON_MOVES && (AI_THINKING_STRUCT->aiAction & AI_ACTION_DO_NOT_ATTACK) == 0)
@@ -453,6 +464,23 @@ static void BattleAI_DoAIProcessing(void)
             break;
         }
     }
+}
+
+static bool8 HasUsableDamagingMove(u8 battlerId)
+{
+    s32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        if (gBattleMons[battlerId].pp[i] != 0
+         && gBattleMons[battlerId].moves[i] != 0
+         && gBattleMoves[gBattleMons[battlerId].moves[i]].power != 0)
+        {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
 }
 
 static void RecordLastUsedMoveByTarget(void)

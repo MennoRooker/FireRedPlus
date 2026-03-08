@@ -2,8 +2,8 @@ ViridianCity_EventScript_ItemPotion::
 	finditem ITEM_POTION
 	end
 
-Route2_EventScript_ItemElixir::
-	finditem ITEM_ELIXIR
+Route2_EventScript_ItemPoisonBarb::
+	finditem ITEM_POISON_BARB
 	end
 
 Route2_EventScript_ItemParalyzeHeal::
@@ -86,8 +86,8 @@ SSAnne_B1F_Room2_EventScript_ItemTM44::
 	finditem ITEM_TM44
 	end
 
-SSAnne_B1F_Room3_EventScript_ItemElixir::
-	finditem ITEM_ELIXIR
+SSAnne_B1F_Room3_EventScript_ItemLuckyEgg::
+	finditem ITEM_LUCKY_EGG
 	end
 
 SSAnne_B1F_Room5_EventScript_ItemSuperPotion::
@@ -110,8 +110,8 @@ RocketHideout_B1F_EventScript_ItemHyperPotion::
 	finditem ITEM_HYPER_POTION
 	end
 
-RocketHideout_B2F_EventScript_ItemXSpeed::
-	finditem ITEM_SPELL_TAG
+RocketHideout_B2F_EventScript_ItemFullRestore::
+	finditem ITEM_FULL_RESTORE
 	end
 
 RocketHideout_B2F_EventScript_ItemWhiteHerb::
@@ -150,8 +150,8 @@ PokemonTower_3F_EventScript_ItemEscapeRope::
 	finditem ITEM_ESCAPE_ROPE
 	end
 
-PokemonTower_4F_EventScript_ItemElixir::
-	finditem ITEM_ELIXIR
+PokemonTower_4F_EventScript_ItemSpellTag::
+	finditem ITEM_SPELL_TAG
 	end
 
 PokemonTower_4F_EventScript_ItemAwakening::
@@ -306,8 +306,8 @@ PowerPlant_EventScript_ItemThunderStone::
 	finditem ITEM_THUNDER_STONE
 	end
 
-PowerPlant_EventScript_ItemElixir::
-	finditem ITEM_ELIXIR
+PowerPlant_EventScript_ItemMagnet::
+	finditem ITEM_MAGNET
 	end
 
 PokemonMansion_1F_EventScript_ItemCarbos::
@@ -490,8 +490,8 @@ PokemonTower_5F_EventScript_ItemCleanseTag::
 	finditem ITEM_CLEANSE_TAG
 	end
 
-CeladonCity_EventScript_ItemElixir::
-	finditem ITEM_ELIXIR
+CeladonCity_EventScript_ItemBottleCap::
+	finditem ITEM_BOTTLE_CAP
 	end
 
 RocketHideout_B3F_EventScript_ItemBlackGlasses::

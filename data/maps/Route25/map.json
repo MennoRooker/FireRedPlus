@@ -238,8 +238,8 @@
       "x": 58,
       "y": 6,
       "elevation": 3,
-      "item": "ITEM_ELIXIR",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE25_ETHER",
+      "item": "ITEM_TAMATO_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE25_TAMATO_BERRY",
       "quantity": 1,
       "underfoot": false
     },

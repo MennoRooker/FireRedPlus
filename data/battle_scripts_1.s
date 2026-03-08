@@ -4152,6 +4152,7 @@ BattleScript_IntimidateActivationAnimLoop::
 	jumpifability BS_TARGET, ABILITY_CLEAR_BODY, BattleScript_IntimidateAbilityFail
 	jumpifability BS_TARGET, ABILITY_HYPER_CUTTER, BattleScript_IntimidateAbilityFail
 	jumpifability BS_TARGET, ABILITY_WHITE_SMOKE, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_OWN_TEMPO, BattleScript_IntimidateAbilityFail
 	statbuffchange STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_NOT_PROTECT_AFFECTED, BattleScript_IntimidateFail
 	jumpifbyte CMP_GREATER_THAN, cMULTISTRING_CHOOSER, 1, BattleScript_IntimidateFail
 	setgraphicalstatchangevalues
@@ -4265,9 +4266,16 @@ BattleScript_DrainPoisonToxic::
 
 BattleScript_ObliviousPreventsAttraction::
 	pause B_WAIT_TIME_SHORT
-	printstring STRINGID_PKMNPREVENTSROMANCEWITH
+	printstring STRINGID_PKMNWITHOBLIVIOUSISNOTAFFECTED
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
+
+BattleScript_ObliviousPreventsTaunt::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNWITHOBLIVIOUSISNOTAFFECTED
+	waitmessage B_WAIT_TIME_LONG
+	updatestatusicon BS_SCRIPTING
+	return
 
 BattleScript_FlinchPrevention::
 	pause B_WAIT_TIME_SHORT
@@ -4482,6 +4490,16 @@ BattleScript_ItemHealHP_RemoveItem::
 	removeitem BS_ATTACKER
 	end2
 
+BattleScript_ItemHealHP_RemoveItemRet::
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
+	printstring STRINGID_PKMNSITEMRESTOREDHEALTH
+	waitmessage B_WAIT_TIME_LONG
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	removeitem BS_ATTACKER
+	return
+
 BattleScript_BerryPPHealEnd2::
 	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
 	printstring STRINGID_PKMNSITEMRESTOREDPP
@@ -4532,6 +4550,20 @@ BattleScript_BerryConfuseHealEnd2::
 	removeitem BS_ATTACKER
 	end2
 
+BattleScript_BerryConfuseHealRet::
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
+	printstring STRINGID_PKMNSITEMRESTOREDHEALTH
+	waitmessage B_WAIT_TIME_LONG
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_FORXCOMMAYZ
+	waitmessage B_WAIT_TIME_LONG
+	setmoveeffect MOVE_EFFECT_CONFUSION | MOVE_EFFECT_AFFECTS_USER
+	seteffectprimary
+	removeitem BS_ATTACKER
+	return
+
 BattleScript_BerryStatRaiseEnd2::
 	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_BerryStatRaiseDoStatUp
@@ -4541,12 +4573,28 @@ BattleScript_BerryStatRaiseDoStatUp::
 	removeitem BS_ATTACKER
 	end2
 
+BattleScript_BerryStatRaiseRet::
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_BerryStatRaiseDoStatUpRet
+BattleScript_BerryStatRaiseDoStatUpRet::
+	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_ITEM
+	call BattleScript_StatUp
+	removeitem BS_ATTACKER
+	return
+
 BattleScript_BerryFocusEnergyEnd2::
 	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
 	printstring STRINGID_PKMNUSEDXTOGETPUMPED
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_ATTACKER
 	end2
+
+BattleScript_BerryFocusEnergyRet::
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
+	printstring STRINGID_PKMNUSEDXTOGETPUMPED
+	waitmessage B_WAIT_TIME_LONG
+	removeitem BS_ATTACKER
+	return
 
 BattleScript_ActionSelectionItemsCantBeUsed::
 	printselectionstring STRINGID_ITEMSCANTBEUSEDNOW

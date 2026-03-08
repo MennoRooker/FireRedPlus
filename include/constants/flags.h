@@ -358,7 +358,7 @@
 #define FLAG_0x153               0x153
 
 // Item ball hide/show
-#define FLAG_HIDE_ROUTE2_ELIXIR                                 0x154
+#define FLAG_HIDE_ROUTE2_POISON_BARB                            0x154
 #define FLAG_HIDE_ROUTE2_PARALYZE_HEAL                          0x155
 #define FLAG_HIDE_VIRIDIAN_FOREST_POKE_BALL                     0x156
 #define FLAG_HIDE_VIRIDIAN_FOREST_ANTIDOTE                      0x157
@@ -378,13 +378,13 @@
 #define FLAG_HIDE_SSANNE_2F_ROOM2_STARDUST                      0x165
 #define FLAG_HIDE_SSANNE_2F_ROOM4_DEEP_SEA_TOOTH                0x166
 #define FLAG_HIDE_SSANNE_B1F_ROOM2_TM44                         0x167
-#define FLAG_HIDE_SSANNE_B1F_ROOM3_ELIXIR                       0x168
+#define FLAG_HIDE_SSANNE_B1F_ROOM3_LUCKY_EGG                    0x168
 #define FLAG_HIDE_SSANNE_B1F_ROOM5_SUPER_POTION                 0x169
 #define FLAG_HIDE_SSANNE_KITCHEN_GREAT_BALL                     0x16A
 #define FLAG_HIDE_ROUTE9_TM40                                   0x16B
 #define FLAG_HIDE_ROCKET_HIDEOUT_B1F_ESCAPE_ROPE                0x16C
 #define FLAG_HIDE_ROCKET_HIDEOUT_B1F_HYPER_POTION               0x16D
-#define FLAG_HIDE_ROCKET_HIDEOUT_B2F_X_SPEED                    0x16E
+#define FLAG_HIDE_ROCKET_HIDEOUT_B2F_FULL_RESTORE               0x16E
 #define FLAG_HIDE_ROCKET_HIDEOUT_B2F_WHITE_HERB                 0x16F
 #define FLAG_HIDE_ROCKET_HIDEOUT_B2F_TM12                       0x170
 #define FLAG_HIDE_ROCKET_HIDEOUT_B2F_SUPER_POTION               0x171
@@ -394,7 +394,7 @@
 #define FLAG_HIDE_ROCKET_HIDEOUT_B4F_MAX_ELIXIR                 0x175
 #define FLAG_HIDE_ROCKET_HIDEOUT_B4F_CALCIUM                    0x176
 #define FLAG_HIDE_POKEMON_TOWER_3F_ESCAPE_ROPE                  0x177
-#define FLAG_HIDE_POKEMON_TOWER_4F_ELIXIR                       0x178
+#define FLAG_HIDE_POKEMON_TOWER_4F_SPELL_TAG                    0x178
 #define FLAG_HIDE_POKEMON_TOWER_4F_AWAKENING                    0x179
 #define FLAG_HIDE_POKEMON_TOWER_4F_GREAT_BALL                   0x17A
 #define FLAG_HIDE_POKEMON_TOWER_5F_NUGGET                       0x17B
@@ -432,7 +432,7 @@
 #define FLAG_HIDE_POWER_PLANT_TM17                              0x19B
 #define FLAG_HIDE_POWER_PLANT_TM25                              0x19C
 #define FLAG_HIDE_POWER_PLANT_THUNDER_STONE                     0x19D
-#define FLAG_HIDE_POWER_PLANT_ELIXIR                            0x19E
+#define FLAG_HIDE_POWER_PLANT_MAGNET                            0x19E
 #define FLAG_HIDE_POKEMON_MANSION_1F_CARBOS                     0x19F
 #define FLAG_HIDE_POKEMON_MANSION_1F_ESCAPE_ROPE                0x1A0
 #define FLAG_HIDE_POKEMON_MANSION_2F_CALCIUM                    0x1A1
@@ -483,7 +483,7 @@
 #define FLAG_HIDE_ROUTE11_GREAT_BALL                            0x1CE
 #define FLAG_HIDE_ROUTE11_AWAKENING                             0x1CF
 #define FLAG_HIDE_POKEMON_TOWER_5F_CLEANSE_TAG                  0x1D0
-#define FLAG_HIDE_CELADON_CITY_ELIXIR                           0x1D1
+#define FLAG_HIDE_CELADON_CITY_BOTTLE_CAP                       0x1D1
 #define FLAG_HIDE_ROCKET_HIDEOUT_B3F_BLACK_GLASSES              0x1D2
 #define FLAG_HIDE_SAFARI_ZONE_NORTH_QUICK_CLAW                  0x1D3
 #define FLAG_HIDE_SEAFOAM_ISLANDS_1F_ICE_HEAL                   0x1D4
@@ -1036,8 +1036,8 @@
 #define FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_ANTIDOTE                          (FLAG_HIDDEN_ITEMS_START +   1)
 #define FLAG_HIDDEN_ITEM_MT_MOON_B2F_FIRE_STONE                            (FLAG_HIDDEN_ITEMS_START +   2)
 #define FLAG_HIDDEN_ITEM_MT_MOON_B2F_ELIXIR                                (FLAG_HIDDEN_ITEMS_START +   3)
-#define FLAG_HIDDEN_ITEM_ROUTE25_ELIXIR                                    (FLAG_HIDDEN_ITEMS_START +   4)
-#define FLAG_HIDDEN_ITEM_ROUTE25_ETHER                                     (FLAG_HIDDEN_ITEMS_START +   5)
+#define FLAG_HIDDEN_ITEM_ROUTE25_TAMATO_BERRY                              (FLAG_HIDDEN_ITEMS_START +   4)
+#define FLAG_HIDDEN_ITEM_ROUTE25_ELIXIR                                    (FLAG_HIDDEN_ITEMS_START +   5)
 #define FLAG_HIDDEN_ITEM_ROUTE9_ELIXIR                                     (FLAG_HIDDEN_ITEMS_START +   6)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x07                                       (FLAG_HIDDEN_ITEMS_START +   7)
 #define FLAG_HIDDEN_ITEM_SSANNE_B1F_CORRIDOR_HYPER_POTION                  (FLAG_HIDDEN_ITEMS_START +   8)

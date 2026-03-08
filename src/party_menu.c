@@ -396,12 +396,59 @@ static void SetSwitchedPartyOrderQuestLogEvent(void);
 static void SetUsedFieldMoveQuestLogEvent(struct Pokemon *mon, u8 fieldMove);
 static void CB2_DoUseItemAnim(void);
 static void CB2_UseItem(void);
+static void ShowBottleCapStatSelectWindow(void);
+static void Task_HandleBottleCapStatSelection(u8 taskId);
+static void Task_BottleCapWaitForYesNo(u8 taskId);
+static void Task_HandleBottleCapYesNoInput(u8 taskId);
+static void ItemUseCB_BottleCapStep(u8 taskId, TaskFunc func);
 static void TryUsePPItemOutsideBattle(u8 taskId);
 static void ItemUseCB_RestorePP(u8 taskId, TaskFunc func);
 static void ItemUseCB_ReplaceMoveWithTMHM(u8 taskId, TaskFunc func);
 static void Task_ReplaceMoveWithTMHM(u8 taskId);
 static void CB2_UseEvolutionStone(void);
 static bool8 MonCanEvolve(void);
+
+enum
+{
+    BOTTLE_CAP_STAT_HP,
+    BOTTLE_CAP_STAT_ATK,
+    BOTTLE_CAP_STAT_DEF,
+    BOTTLE_CAP_STAT_SPATK,
+    BOTTLE_CAP_STAT_SPDEF,
+    BOTTLE_CAP_STAT_SPEED,
+    BOTTLE_CAP_STAT_COUNT,
+};
+
+static const struct WindowTemplate sBottleCapStatSelectWindowTemplate =
+{
+    .bg = 2,
+    .tilemapLeft = 17,
+    .tilemapTop = 7,
+    .width = 12,
+    .height = 12,
+    .paletteNum = 14,
+    .baseBlock = 0x2BF,
+};
+
+static const u8 *const sBottleCapStatNames[BOTTLE_CAP_STAT_COUNT] =
+{
+    [BOTTLE_CAP_STAT_HP] = gText_BottleCapStatHP,
+    [BOTTLE_CAP_STAT_ATK] = gText_BottleCapStatAttack,
+    [BOTTLE_CAP_STAT_DEF] = gText_BottleCapStatDefense,
+    [BOTTLE_CAP_STAT_SPATK] = gText_BottleCapStatSpAttack,
+    [BOTTLE_CAP_STAT_SPDEF] = gText_BottleCapStatSpDefense,
+    [BOTTLE_CAP_STAT_SPEED] = gText_BottleCapStatSpeed,
+};
+
+static const u8 sBottleCapStatToMonData[BOTTLE_CAP_STAT_COUNT] =
+{
+    [BOTTLE_CAP_STAT_HP] = MON_DATA_HP_IV,
+    [BOTTLE_CAP_STAT_ATK] = MON_DATA_ATK_IV,
+    [BOTTLE_CAP_STAT_DEF] = MON_DATA_DEF_IV,
+    [BOTTLE_CAP_STAT_SPATK] = MON_DATA_SPATK_IV,
+    [BOTTLE_CAP_STAT_SPDEF] = MON_DATA_SPDEF_IV,
+    [BOTTLE_CAP_STAT_SPEED] = MON_DATA_SPEED_IV,
+};
 
 static EWRAM_DATA struct PartyMenuInternal *sPartyMenuInternal = NULL;
 EWRAM_DATA struct PartyMenu gPartyMenu = {0};
@@ -4520,6 +4567,164 @@ static bool8 ExecuteTableBasedItemEffect_(u8 partyMonIndex, u16 item, u8 monMove
         return ExecuteTableBasedItemEffect(&gPlayerParty[partyMonIndex], item, GetPartyIdFromBattleSlot(partyMonIndex), monMoveIndex);
     else
         return ExecuteTableBasedItemEffect(&gPlayerParty[partyMonIndex], item, partyMonIndex, monMoveIndex);
+}
+
+static const u8 *GetBottleCapStatName(u8 statId)
+{
+    if (statId >= BOTTLE_CAP_STAT_COUNT)
+        statId = BOTTLE_CAP_STAT_HP;
+    return sBottleCapStatNames[statId];
+}
+
+static void ShowBottleCapStatSelectWindow(void)
+{
+    u8 i;
+    u8 fontId = FONT_NORMAL;
+    u8 windowId;
+
+    sPartyMenuInternal->windowId[0] = AddWindow(&sBottleCapStatSelectWindowTemplate);
+    windowId = sPartyMenuInternal->windowId[0];
+    DrawStdFrameWithCustomTileAndPalette(windowId, FALSE, 0x4F, 13);
+
+    for (i = 0; i < BOTTLE_CAP_STAT_COUNT; i++)
+    {
+        AddTextPrinterParameterized(windowId,
+                                    fontId,
+                                    sBottleCapStatNames[i],
+                                    GetFontAttribute(fontId, FONTATTR_MAX_LETTER_WIDTH) + GetFontAttribute(fontId, FONTATTR_LETTER_SPACING),
+                                    (i * 16) + 2,
+                                    TEXT_SKIP_DRAW,
+                                    NULL);
+    }
+
+    Menu_InitCursor(windowId, fontId, 0, 2, 16, BOTTLE_CAP_STAT_COUNT, FALSE);
+    ScheduleBgCopyTilemapToVram(2);
+}
+
+void ItemUseCB_BottleCap(u8 taskId, TaskFunc func)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    PlaySE(SE_SELECT);
+    if (GetMonData(mon, MON_DATA_IS_EGG) || GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = func;
+        return;
+    }
+
+    DisplayPartyMenuMessage(gText_BottleCapChooseStat, TRUE);
+    ShowBottleCapStatSelectWindow();
+    gTasks[taskId].func = Task_HandleBottleCapStatSelection;
+}
+
+static void Task_HandleBottleCapStatSelection(u8 taskId)
+{
+    s8 input = Menu_ProcessInput();
+
+    if (input == MENU_NOTHING_CHOSEN)
+        return;
+
+    if (input == MENU_B_PRESSED)
+    {
+        PlaySE(SE_SELECT);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+        ReturnToUseOnWhichMon(taskId);
+        return;
+    }
+
+    if (input >= 0 && input < BOTTLE_CAP_STAT_COUNT)
+    {
+        gPartyMenu.data[0] = input;
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+        StringCopy(gStringVar2, GetBottleCapStatName((u8)input));
+        StringExpandPlaceholders(gStringVar4, gText_BottleCapMaximizeStat);
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = Task_BottleCapWaitForYesNo;
+    }
+}
+
+static void Task_BottleCapWaitForYesNo(u8 taskId)
+{
+    if (IsPartyMenuTextPrinterActive() != TRUE)
+    {
+        PartyMenuDisplayYesNoMenu();
+        gTasks[taskId].func = Task_HandleBottleCapYesNoInput;
+    }
+}
+
+static void Task_HandleBottleCapYesNoInput(u8 taskId)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u8 statId = gPartyMenu.data[0];
+    u8 monDataField;
+    u8 iv;
+
+    if (statId >= BOTTLE_CAP_STAT_COUNT)
+        statId = BOTTLE_CAP_STAT_HP;
+    monDataField = sBottleCapStatToMonData[statId];
+    iv = GetMonData(mon, monDataField);
+
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case 0: // Yes
+        if (iv >= 31)
+        {
+            gPartyMenuUseExitCallback = FALSE;
+            GetMonNickname(mon, gStringVar1);
+            StringCopy(gStringVar2, GetBottleCapStatName(statId));
+            StringExpandPlaceholders(gStringVar4, gText_BottleCapStatAlreadyMax);
+            DisplayPartyMenuMessage(gStringVar4, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        }
+        else
+        {
+            Task_DoUseItemAnim(taskId);
+            gItemUseCB = ItemUseCB_BottleCapStep;
+        }
+        break;
+    case MENU_B_PRESSED:
+        PlaySE(SE_SELECT);
+        // fallthrough
+    case 1: // No
+        DisplayPartyMenuMessage(gText_BottleCapChooseStat, TRUE);
+        ShowBottleCapStatSelectWindow();
+        gTasks[taskId].func = Task_HandleBottleCapStatSelection;
+        break;
+    }
+}
+
+static void ItemUseCB_BottleCapStep(u8 taskId, TaskFunc func)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u8 statId = gPartyMenu.data[0];
+    u8 monDataField;
+    u8 iv = 31;
+
+    if (statId >= BOTTLE_CAP_STAT_COUNT)
+        statId = BOTTLE_CAP_STAT_HP;
+    monDataField = sBottleCapStatToMonData[statId];
+
+    SetMonData(mon, monDataField, &iv);
+    CalculateMonStats(mon);
+    UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
+
+    gPartyMenuUseExitCallback = TRUE;
+    ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, mon, gSpecialVar_ItemId, 0xFFFF);
+    PlaySE(SE_USE_ITEM);
+    if (gPartyMenu.action != PARTY_ACTION_REUSABLE_ITEM)
+        RemoveBagItem(gSpecialVar_ItemId, 1);
+
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, GetBottleCapStatName(statId));
+    StringExpandPlaceholders(gStringVar4, gText_BottleCapIVMaximized);
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = func;
 }
 
 void ItemUseCB_Medicine(u8 taskId, TaskFunc func)

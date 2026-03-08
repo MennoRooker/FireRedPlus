@@ -68,8 +68,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "PokemonTower_4F_EventScript_ItemElixir",
-      "flag": "FLAG_HIDE_POKEMON_TOWER_4F_ELIXIR"
+      "script": "PokemonTower_4F_EventScript_ItemSpellTag",
+      "flag": "FLAG_HIDE_POKEMON_TOWER_4F_SPELL_TAG"
     },
     {
       "type": "object",

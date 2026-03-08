@@ -23,7 +23,7 @@ RocketHideout_B4F_EventScript_Giovanni::
 	waitmessage
 	playbgm MUS_ENCOUNTER_ROCKET, 0
 	waitbuttonpress
-	trainerbattle_no_intro TRAINER_BOSS_GIOVANNI, RocketHideout_B4F_Text_GiovanniDefeat
+	trainerbattle_no_intro TRAINER_BOSS_GIOVANNI_ROCKET_HIDEOUT, RocketHideout_B4F_Text_GiovanniDefeat
 	msgbox RocketHideout_B4F_Text_GiovanniPostBattle
 	fadescreen FADE_TO_BLACK
 	closemessage

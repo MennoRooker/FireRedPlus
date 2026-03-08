@@ -404,6 +404,7 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_EXP_CANDY_M]    = {gItemIcon_ExpCandyM, gItemIconPalette_ExpCandyM},
     [ITEM_EXP_CANDY_L]    = {gItemIcon_ExpCandyL, gItemIconPalette_ExpCandyL},
     [ITEM_FOCUS_SASH]     = {gItemIcon_FocusBand, gItemIconPalette_FocusBand},
+    [ITEM_BOTTLE_CAP]     = {gItemIcon_BottleCap, gItemIconPalette_BottleCap},
     // Return to field arrow
     [ITEMS_COUNT]         = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},
 };

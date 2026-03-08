@@ -1901,7 +1901,8 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 inLink)
         }
         else if (gMapHeader.showMapName == TRUE)
         {
-            ShowMapNamePopup(FALSE);
+            // Indoor warp fade-ins can be skipped; pick palette target from live fade state.
+            ShowMapNamePopup(!gPaletteFade.active);
         }
         (*state)++;
         break;
@@ -2127,12 +2128,14 @@ static void InitObjectEventsLocal(void)
     SetPlayerAvatarTransitionFlags(player->transitionFlags);
     ResetInitialPlayerAvatarState();
     TrySpawnObjectEvents(0, 0);
+    VsSeekerInitIconsOnMapLoad();
     TryRunOnWarpIntoMapScript();
 }
 
 static void ReloadObjectsAndRunReturnToFieldMapScript(void)
 {
     SpawnObjectEventsOnReturnToField(0, 0);
+    VsSeekerInitIconsOnMapLoad();
     RunOnReturnToFieldMapScript();
 }
 

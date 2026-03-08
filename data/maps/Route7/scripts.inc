@@ -7,8 +7,8 @@ Route7_OnLoad::
 	end
 
 Route7_OnLoad_SetFaceDown::
-	setobjectmovementtype LOCAL_ID_JESSIE, MOVEMENT_TYPE_FACE_DOWN
-	setobjectmovementtype LOCAL_ID_JAMES, MOVEMENT_TYPE_FACE_DOWN
+	setobjectmovementtype LOCALID_JESSIE, MOVEMENT_TYPE_FACE_DOWN
+	setobjectmovementtype LOCALID_JAMES, MOVEMENT_TYPE_FACE_DOWN
 	end
 
 Route7_EventScript_UndergroundPathSign::
@@ -84,7 +84,7 @@ Route7_EventScript_TeamRocketArgues::
 	waitmovement 0
 	delay 10
 	msgbox Route7_Text_Meowth1
-	applymovement LOCAL_ID_JAMES, Route7_Movement_LooksUp
+	applymovement LOCALID_JAMES, Route7_Movement_LooksUp
 	waitmovement 0
 	delay 10
 	textcolor NPC_TEXT_COLOR_MALE
@@ -93,21 +93,21 @@ Route7_EventScript_TeamRocketArgues::
 	msgbox Route7_Text_Meowth2
 	applymovement LOCALID_CAMERA, Route7_Movement_CameraPanDown1
 	waitmovement 0
-	applymovement LOCAL_ID_JESSIE, Route7_Movement_LooksDown
+	applymovement LOCALID_JESSIE, Route7_Movement_LooksDown
 	waitmovement 0
 	playse SE_PIN
-	applymovement LOCAL_ID_JESSIE, Common_Movement_ExclamationMark
+	applymovement LOCALID_JESSIE, Common_Movement_ExclamationMark
 	waitmovement 0
 	delay 40
-	applymovement LOCAL_ID_JESSIE, Route7_Movement_LooksLeft
+	applymovement LOCALID_JESSIE, Route7_Movement_LooksLeft
 	waitmovement 0
 	textcolor NPC_TEXT_COLOR_FEMALE
 	msgbox Route7_Text_Jessie3
-	applymovement LOCAL_ID_JAMES, Route7_Movement_LooksRight
+	applymovement LOCALID_JAMES, Route7_Movement_LooksRight
 	waitmovement 0
 	msgbox Route7_Text_James3
-	applymovement LOCAL_ID_JAMES, Route7_Movement_LooksDown
-	applymovement LOCAL_ID_JESSIE, Route7_Movement_LooksDown
+	applymovement LOCALID_JAMES, Route7_Movement_LooksDown
+	applymovement LOCALID_JESSIE, Route7_Movement_LooksDown
 	waitmovement 0
 	textcolor NPC_TEXT_COLOR_MALE
 	msgbox Route7_Text_James4
@@ -115,19 +115,19 @@ Route7_EventScript_TeamRocketArgues::
 	waitmovement 0
 	textcolor NPC_TEXT_COLOR_NEUTRAL
 	msgbox Route7_Text_Meowth3
-	applymovement LOCAL_ID_JAMES, Route7_Movement_LooksUp
+	applymovement LOCALID_JAMES, Route7_Movement_LooksUp
 	textcolor NPC_TEXT_COLOR_MALE
 	msgbox Route7_Text_James5
-	applymovement LOCAL_ID_JESSIE, Route7_Movement_LooksLeft
+	applymovement LOCALID_JESSIE, Route7_Movement_LooksLeft
 	waitmovement 0
 	applymovement LOCALID_CAMERA, Route7_Movement_CameraPanDown1
-	applymovement LOCAL_ID_JAMES, Route7_Movement_LooksRight
+	applymovement LOCALID_JAMES, Route7_Movement_LooksRight
 	waitmovement 0
 	textcolor NPC_TEXT_COLOR_FEMALE
 	msgbox Route7_Text_Jessie4
-	applymovement LOCAL_ID_JESSIE, Route7_Movement_LooksDown
+	applymovement LOCALID_JESSIE, Route7_Movement_LooksDown
 	waitmovement 0
-	applymovement LOCAL_ID_JAMES, Route7_Movement_LooksDown
+	applymovement LOCALID_JAMES, Route7_Movement_LooksDown
 	waitmovement 0
 	msgbox Route7_Text_Jessie5
 	closemessage

@@ -1,3 +1,13 @@
+RockTunnel_B1F_Text_Machoke::
+    .string "MACHOKE: Grrr!$"
+
+RockTunnel_B1F_Text_MachokeIsHoldingSomething::
+    .string "MACHOKE is holding something…$"
+
+RockTunnel_B1F_Text_ObtainedHM06FromMachoke::
+    .string "{PLAYER} obtained HM06\n"
+    .string "ROCK SMASH from MACHOKE!$"
+
 RockTunnel_B1F_Text_SofiaIntro::
     .string "Do you know how you can avoid\n"
     .string "getting lost in the mountains?\p"

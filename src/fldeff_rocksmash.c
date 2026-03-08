@@ -13,6 +13,7 @@
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
 #include "constants/maps.h"
+#include "constants/species.h"
 
 static void Task_FieldEffectShowMon_Init(u8 taskId);
 static void Task_FieldEffectShowMon_WaitFldeff(u8 taskId);
@@ -20,6 +21,7 @@ static void Task_FieldEffectShowMon_WaitPlayerAnim(u8 taskId);
 static void Task_FieldEffectShowMon_Cleanup(u8 taskId);
 static void FieldCallback_UseRockSmash(void);
 static void StartRockSmashFieldEffect(void);
+static void Task_RockSmashWithMachoke(u8 taskId);
 
 EWRAM_DATA struct MapPosition gPlayerFacingPosition = {};
 
@@ -122,7 +124,13 @@ static void FieldCallback_UseRockSmash(void)
 
 bool8 FldEff_UseRockSmash(void)
 {
-    u8 taskId = CreateFieldEffectShowMon();
+    u8 taskId;
+
+    // If no party mon knows Rock Smash, show Machoke with fixed personality/trainer values.
+    if (gFieldEffectArguments[0] == PARTY_SIZE)
+        taskId = CreateTask(Task_RockSmashWithMachoke, 8);
+    else
+        taskId = CreateFieldEffectShowMon();
 
     FLDEFF_SET_FUNC_TO_DATA(StartRockSmashFieldEffect);
     IncrementGameStat(GAME_STAT_USED_ROCK_SMASH);
@@ -134,4 +142,52 @@ static void StartRockSmashFieldEffect(void)
     PlaySE(SE_M_ROCK_THROW);
     FieldEffectActiveListRemove(FLDEFF_USE_ROCK_SMASH);
     ScriptContext_Enable();
+}
+
+static void Task_RockSmashWithMachoke(u8 taskId)
+{
+    struct Task *task = &gTasks[taskId];
+    u8 mapObjId = gPlayerAvatar.objectEventId;
+
+    switch (task->data[0])
+    {
+    case 0:
+        LockPlayerFieldControls();
+        gPlayerAvatar.preventStep = TRUE;
+        if (!ObjectEventIsMovementOverridden(&gObjectEvents[mapObjId])
+         || ObjectEventClearHeldMovementIfFinished(&gObjectEvents[mapObjId]))
+        {
+            gFieldEffectArguments[0] = SPECIES_MACHOKE | 0x80000000; // Species + cry flag
+            gFieldEffectArguments[1] = 0x12345678;
+            gFieldEffectArguments[2] = 0x79ABCDEF;
+
+            StartPlayerAvatarSummonMonForFieldMoveAnim();
+            ObjectEventSetHeldMovement(&gObjectEvents[mapObjId], MOVEMENT_ACTION_START_ANIM_IN_DIRECTION);
+            FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON);
+            task->data[0]++;
+        }
+        break;
+    case 1:
+        if (!FieldEffectActiveListContains(FLDEFF_FIELD_MOVE_SHOW_MON))
+        {
+            gFieldEffectArguments[1] = GetPlayerFacingDirection();
+            if (gFieldEffectArguments[1] == DIR_SOUTH)
+                gFieldEffectArguments[2] = 0;
+            if (gFieldEffectArguments[1] == DIR_NORTH)
+                gFieldEffectArguments[2] = 1;
+            if (gFieldEffectArguments[1] == DIR_WEST)
+                gFieldEffectArguments[2] = 2;
+            if (gFieldEffectArguments[1] == DIR_EAST)
+                gFieldEffectArguments[2] = 3;
+
+            ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], GetPlayerAvatarGraphicsIdByCurrentState());
+            StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], gFieldEffectArguments[2]);
+            FieldEffectActiveListRemove(FLDEFF_FIELD_MOVE_SHOW_MON);
+
+            FLDEFF_CALL_FUNC_IN_DATA();
+            gPlayerAvatar.preventStep = FALSE;
+            DestroyTask(taskId);
+        }
+        break;
+    }
 }

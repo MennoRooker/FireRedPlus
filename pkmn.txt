@@ -186,6 +186,10 @@ spd:	30 -> 55
 spatk:	60 -> 75
 spd:	40 -> 105
 
+- LANTURN
+def:	58 -> 65
+spatk:	76 -> 86
+
 - AZURILL
 NORMAL -> WATER/NORMAL
 
