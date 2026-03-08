@@ -2128,12 +2128,14 @@ static void InitObjectEventsLocal(void)
     SetPlayerAvatarTransitionFlags(player->transitionFlags);
     ResetInitialPlayerAvatarState();
     TrySpawnObjectEvents(0, 0);
+    VsSeekerInitIconsOnMapLoad();
     TryRunOnWarpIntoMapScript();
 }
 
 static void ReloadObjectsAndRunReturnToFieldMapScript(void)
 {
     SpawnObjectEventsOnReturnToField(0, 0);
+    VsSeekerInitIconsOnMapLoad();
     RunOnReturnToFieldMapScript();
 }
 

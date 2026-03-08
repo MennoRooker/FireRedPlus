@@ -35,7 +35,7 @@ RockTunnel_B1F_EventScript_MachokeRockSmash::
 	applymovement LOCALID_MACHOKE, Common_Movement_ExclamationMark
 	waitmovement 0
 	delay 50
-	applymovement LOCALID_CAMERA, RockTunnel_B1F_Movement_CameraPanLeft1
+	applymovement LOCALID_CAMERA, RockTunnel_B1F_Movement_CameraPanLeft2
 	waitmovement 0
 	delay 20
 	applymovement LOCALID_MACHOKE, RockTunnel_B1F_Movement_WalksLeft
@@ -63,7 +63,8 @@ RockTunnel_B1F_Movement_CameraPanRight2::
 	walk_right
 	step_end
 
-RockTunnel_B1F_Movement_CameraPanLeft1::
+RockTunnel_B1F_Movement_CameraPanLeft2::
+	walk_left
 	walk_left
 	step_end
 

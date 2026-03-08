@@ -21,6 +21,7 @@
 #include "vs_seeker.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
+#include "constants/field_effects.h"
 #include "constants/maps.h"
 #include "constants/items.h"
 #include "constants/quest_log.h"
@@ -32,6 +33,17 @@
 // and that trainer id will be ignored.
 #define MAX_REMATCH_PARTIES 6
 #define SKIP 0xFFFF
+#define TAG_VSSEEKER_REMATCH_ICON_TILE_RED    0x2E10
+#define TAG_VSSEEKER_REMATCH_ICON_TILE_GREEN  0x2E11
+#define TAG_VSSEEKER_REMATCH_ICON_TILE_PINK   0x2E12
+#define TAG_VSSEEKER_REMATCH_ICON_TILE_PURPLE 0x2E13
+#define TAG_VSSEEKER_REMATCH_ICON_TILE_BLUE   0x2E14
+
+#define TAG_VSSEEKER_REMATCH_ICON_PAL_RED    0x2E10
+#define TAG_VSSEEKER_REMATCH_ICON_PAL_GREEN  0x2E11
+#define TAG_VSSEEKER_REMATCH_ICON_PAL_PINK   0x2E12
+#define TAG_VSSEEKER_REMATCH_ICON_PAL_PURPLE 0x2E13
+#define TAG_VSSEEKER_REMATCH_ICON_PAL_BLUE   0x2E14
 
 #define NO_REMATCH_LOCALID LOCALID_PLAYER
 
@@ -55,6 +67,17 @@ typedef enum
     VSSEEKER_RESPONSE_UNFOUGHT_TRAINERS,
     VSSEEKER_RESPONSE_FOUND_REMATCHES
 } VsSeekerResponseCode;
+
+enum
+{
+   REMATCH_ICON_COLOR_NONE,
+   REMATCH_ICON_COLOR_RED,
+   REMATCH_ICON_COLOR_GREEN,
+   REMATCH_ICON_COLOR_PINK,
+   REMATCH_ICON_COLOR_PURPLE,
+   REMATCH_ICON_COLOR_BLUE,
+   REMATCH_ICON_COLOR_COUNT
+};
 
 struct RematchData
 {
@@ -118,6 +141,24 @@ static u8 GetCurVsSeekerResponse(s32 vsSeekerIdx, u16 trainerIdx);
 static void StartAllRespondantIdleMovements(void);
 static bool8 ObjectEventIdIsSane(u8 objectEventId);
 static u8 GetRandomFaceDirectionMovementType();
+static void UpdatePersistentRematchIcons(void);
+static bool8 ShouldDisplayPersistentRematchIcons(void);
+static u8 GetRematchIconColorForObjectEvent(u8 objectEventId);
+static bool8 IsObjectEventWithinVsSeekerRange(const struct ObjectEvent *objectEvent);
+static bool8 IsAnyTrainerEmoteIconActive(void);
+static void EnsureRematchIconStateInitialized(void);
+static void DestroyRematchIconSprite(u8 objectEventId);
+static void DestroyAllRematchIconSprites(void);
+static void LoadRematchIconResources(const bool8 *neededColors);
+static void FreeRematchIconResourcesIfUnused(void);
+static bool8 AnyRematchIconSpritesActive(void);
+static bool8 AnyRematchIconSpritesActiveForColor(u8 rematchIconColor);
+static void FreeUnusedRematchIconResources(const bool8 *neededColors);
+static void SanitizeRematchIconSpriteIds(void);
+static void SpriteCB_VsSeekerRematchIcon(struct Sprite *sprite);
+static u8 CreateRematchIconSpriteForObjectEvent(u8 objectEventId, u8 rematchIconColor);
+static u8 GetRematchIconColorByRematchIdx(u8 rematchIdx);
+static u8 GetRematchIconColorForTrainer(u16 trainerIdx);
 
 static const struct RematchData sRematches[] = {
    { {TRAINER_YOUNGSTER_BEN, TRAINER_YOUNGSTER_BEN_2, SKIP, TRAINER_YOUNGSTER_BEN_3, TRAINER_YOUNGSTER_BEN_4}, MAP(MAP_ROUTE3) },
@@ -562,6 +603,146 @@ static const struct RematchData sRematches[] = {
       MAP(MAP_SEVEN_ISLAND_TANOBY_RUINS) },
 };
 
+   static EWRAM_DATA bool8 sRematchIconStateInitialized = FALSE;
+   static EWRAM_DATA u8 sRematchIconSpriteIds[OBJECT_EVENTS_COUNT] = {0};
+   static EWRAM_DATA u8 sRematchIconColors[OBJECT_EVENTS_COUNT] = {0};
+
+   static const u16 sGfx_RematchIconRed[] = INCBIN_U16("graphics/misc/rematch_icon_red.4bpp");
+   static const u16 sGfx_RematchIconGreen[] = INCBIN_U16("graphics/misc/rematch_icon_green.4bpp");
+   static const u16 sGfx_RematchIconPink[] = INCBIN_U16("graphics/misc/rematch_icon_pink.4bpp");
+   static const u16 sGfx_RematchIconPurple[] = INCBIN_U16("graphics/misc/rematch_icon_purple.4bpp");
+   static const u16 sGfx_RematchIconBlue[] = INCBIN_U16("graphics/misc/rematch_icon_blue.4bpp");
+
+   static const u16 sPal_RematchIconRed[] = INCBIN_U16("graphics/misc/rematch_icon_red.gbapal");
+   static const u16 sPal_RematchIconGreen[] = INCBIN_U16("graphics/misc/rematch_icon_green.gbapal");
+   static const u16 sPal_RematchIconPink[] = INCBIN_U16("graphics/misc/rematch_icon_pink.gbapal");
+   static const u16 sPal_RematchIconPurple[] = INCBIN_U16("graphics/misc/rematch_icon_purple.gbapal");
+   static const u16 sPal_RematchIconBlue[] = INCBIN_U16("graphics/misc/rematch_icon_blue.gbapal");
+
+   static const struct SpriteSheet sSpriteSheets_RematchIcons[] = {
+      {
+         .data = sGfx_RematchIconRed,
+         .size = 0x80,
+         .tag = TAG_VSSEEKER_REMATCH_ICON_TILE_RED,
+      },
+      {
+         .data = sGfx_RematchIconGreen,
+         .size = 0x80,
+         .tag = TAG_VSSEEKER_REMATCH_ICON_TILE_GREEN,
+      },
+      {
+         .data = sGfx_RematchIconPink,
+         .size = 0x80,
+         .tag = TAG_VSSEEKER_REMATCH_ICON_TILE_PINK,
+      },
+      {
+         .data = sGfx_RematchIconPurple,
+         .size = 0x80,
+         .tag = TAG_VSSEEKER_REMATCH_ICON_TILE_PURPLE,
+      },
+      {
+         .data = sGfx_RematchIconBlue,
+         .size = 0x80,
+         .tag = TAG_VSSEEKER_REMATCH_ICON_TILE_BLUE,
+      },
+   };
+
+   static const struct SpritePalette sSpritePalettes_RematchIcons[] = {
+      {
+         .data = sPal_RematchIconRed,
+         .tag = TAG_VSSEEKER_REMATCH_ICON_PAL_RED,
+      },
+      {
+         .data = sPal_RematchIconGreen,
+         .tag = TAG_VSSEEKER_REMATCH_ICON_PAL_GREEN,
+      },
+      {
+         .data = sPal_RematchIconPink,
+         .tag = TAG_VSSEEKER_REMATCH_ICON_PAL_PINK,
+      },
+      {
+         .data = sPal_RematchIconPurple,
+         .tag = TAG_VSSEEKER_REMATCH_ICON_PAL_PURPLE,
+      },
+      {
+         .data = sPal_RematchIconBlue,
+         .tag = TAG_VSSEEKER_REMATCH_ICON_PAL_BLUE,
+      },
+   };
+
+   static const struct OamData sOamData_RematchIcon = {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = FALSE,
+      .bpp = ST_OAM_4BPP,
+      .shape = SPRITE_SHAPE(16x16),
+      .x = 0,
+      .matrixNum = 0,
+      .size = SPRITE_SIZE(16x16),
+      .tileNum = 0,
+      .priority = 1,
+      .paletteNum = 0,
+      .affineParam = 0,
+   };
+
+   static const union AnimCmd sAnim_RematchIcon[] = {
+      ANIMCMD_FRAME(0, 1),
+      ANIMCMD_END,
+   };
+
+   static const union AnimCmd *const sAnims_RematchIcon[] = {
+      sAnim_RematchIcon,
+   };
+
+   static const struct SpriteTemplate sSpriteTemplates_RematchIcons[] = {
+      {
+         .tileTag = TAG_VSSEEKER_REMATCH_ICON_TILE_RED,
+         .paletteTag = TAG_VSSEEKER_REMATCH_ICON_PAL_RED,
+         .oam = &sOamData_RematchIcon,
+         .anims = sAnims_RematchIcon,
+         .images = NULL,
+         .affineAnims = gDummySpriteAffineAnimTable,
+         .callback = SpriteCB_VsSeekerRematchIcon,
+      },
+      {
+         .tileTag = TAG_VSSEEKER_REMATCH_ICON_TILE_GREEN,
+         .paletteTag = TAG_VSSEEKER_REMATCH_ICON_PAL_GREEN,
+         .oam = &sOamData_RematchIcon,
+         .anims = sAnims_RematchIcon,
+         .images = NULL,
+         .affineAnims = gDummySpriteAffineAnimTable,
+         .callback = SpriteCB_VsSeekerRematchIcon,
+      },
+      {
+         .tileTag = TAG_VSSEEKER_REMATCH_ICON_TILE_PINK,
+         .paletteTag = TAG_VSSEEKER_REMATCH_ICON_PAL_PINK,
+         .oam = &sOamData_RematchIcon,
+         .anims = sAnims_RematchIcon,
+         .images = NULL,
+         .affineAnims = gDummySpriteAffineAnimTable,
+         .callback = SpriteCB_VsSeekerRematchIcon,
+      },
+      {
+         .tileTag = TAG_VSSEEKER_REMATCH_ICON_TILE_PURPLE,
+         .paletteTag = TAG_VSSEEKER_REMATCH_ICON_PAL_PURPLE,
+         .oam = &sOamData_RematchIcon,
+         .anims = sAnims_RematchIcon,
+         .images = NULL,
+         .affineAnims = gDummySpriteAffineAnimTable,
+         .callback = SpriteCB_VsSeekerRematchIcon,
+      },
+      {
+         .tileTag = TAG_VSSEEKER_REMATCH_ICON_TILE_BLUE,
+         .paletteTag = TAG_VSSEEKER_REMATCH_ICON_PAL_BLUE,
+         .oam = &sOamData_RematchIcon,
+         .anims = sAnims_RematchIcon,
+         .images = NULL,
+         .affineAnims = gDummySpriteAffineAnimTable,
+         .callback = SpriteCB_VsSeekerRematchIcon,
+      },
+   };
+
 static const u8 sMovementScript_Wait48[] = {
     MOVEMENT_ACTION_DELAY_16,
     MOVEMENT_ACTION_DELAY_16,
@@ -683,9 +864,12 @@ bool8 UpdateVsSeekerStepCounter(void)
             FlagClear(FLAG_SYS_VS_SEEKER_CHARGING);
             VsSeekerResetChargingStepCounter();
             ClearAllTrainerRematchStates();
+         UpdatePersistentRematchIcons();
             return TRUE;
         }
     }
+
+   UpdatePersistentRematchIcons();
 
     return FALSE;
 }
@@ -696,6 +880,12 @@ void MapResetTrainerRematches(u16 mapGroup, u16 mapNum)
     VsSeekerResetChargingStepCounter();
     ClearAllTrainerRematchStates();
     ResetMovementOfRematchableTrainers();
+   DestroyAllRematchIconSprites();
+}
+
+void VsSeekerInitIconsOnMapLoad(void)
+{
+   UpdatePersistentRematchIcons();
 }
 
 static void ResetMovementOfRematchableTrainers(void)
@@ -798,6 +988,7 @@ static void Task_VsSeeker_2(u8 taskId)
         data[2] = 0;
         VsSeekerResetInBagStepCounter();
         sVsSeeker->responseCode = GetVsSeekerResponseInArea(sRematches);
+      UpdatePersistentRematchIcons();
         ScriptMovement_StartObjectMovementScript(0xFF, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, sMovementScript_Wait48);
         gTasks[taskId].func = Task_VsSeeker_3;
     }
@@ -846,6 +1037,7 @@ static void Task_VsSeeker_3(u8 taskId)
             DestroyTask(taskId);
         }
         Free(sVsSeeker);
+         UpdatePersistentRematchIcons();
     }
 }
 
@@ -901,8 +1093,8 @@ static u8 GetVsSeekerResponseInArea(const struct RematchData * vsSeekerData)
                     rval = 100; // Definitely yes
                 else if (response == VSSEEKER_SINGLE_RESP_NO)
                     rval = 0; // Definitely no
-                // Otherwise it's a 70% chance to want a rematch
-                if (rval < 30)
+                // Set rematch chance to 100%
+                if (rval < 1)
                 {
                     StartTrainerObjectMovementScript(&sVsSeeker->trainerInfo[vsSeekerIdx], sMovementScript_TrainerNoRematch);
                     sVsSeeker->trainerDoesNotWantRematch = 1;
@@ -1323,4 +1515,393 @@ static void StartAllRespondantIdleMovements(void)
             }
         }
     }
+}
+
+static void EnsureRematchIconStateInitialized(void)
+{
+   u8 i;
+
+   if (sRematchIconStateInitialized)
+      return;
+
+   for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
+   {
+      sRematchIconSpriteIds[i] = MAX_SPRITES;
+      sRematchIconColors[i] = REMATCH_ICON_COLOR_NONE;
+   }
+
+   sRematchIconStateInitialized = TRUE;
+}
+
+static bool8 IsObjectEventWithinVsSeekerRange(const struct ObjectEvent *objectEvent)
+{
+   s16 playerX;
+   s16 playerY;
+
+   PlayerGetDestCoords(&playerX, &playerY);
+
+   if (objectEvent->currentCoords.x < playerX - 7 || objectEvent->currentCoords.x > playerX + 7)
+      return FALSE;
+   if (objectEvent->currentCoords.y < playerY - 5 || objectEvent->currentCoords.y > playerY + 5)
+      return FALSE;
+
+   return TRUE;
+}
+
+static u8 GetRematchIconColorByRematchIdx(u8 rematchIdx)
+{
+   switch (rematchIdx)
+   {
+   case 0:
+   case 1:
+      return REMATCH_ICON_COLOR_RED;
+   case 2:
+      return REMATCH_ICON_COLOR_GREEN;
+   case 3:
+      return REMATCH_ICON_COLOR_PINK;
+   case 4:
+      return REMATCH_ICON_COLOR_PURPLE;
+   case 5:
+      return REMATCH_ICON_COLOR_BLUE;
+   default:
+      return REMATCH_ICON_COLOR_NONE;
+   }
+}
+
+static u8 GetRematchIconColorForTrainer(u16 trainerIdx)
+{
+   u8 rematchTableIdx;
+   u8 rematchIdx = GetNextAvailableRematchTrainer(sRematches, trainerIdx, &rematchTableIdx);
+
+   if (rematchIdx == 0)
+      return REMATCH_ICON_COLOR_NONE;
+
+   TryGetRematchTrainerIdGivenGameState(sRematches[rematchTableIdx].trainerIdxs, &rematchIdx);
+   return GetRematchIconColorByRematchIdx(rematchIdx);
+}
+
+static u8 GetRematchIconColorForObjectEvent(u8 objectEventId)
+{
+   struct ObjectEvent *objectEvent;
+   const u8 *script;
+   u16 trainerIdx;
+
+   if (!ObjectEventIdIsSane(objectEventId))
+      return REMATCH_ICON_COLOR_NONE;
+
+   objectEvent = &gObjectEvents[objectEventId];
+   if (objectEvent->trainerType != TRAINER_TYPE_NORMAL && objectEvent->trainerType != TRAINER_TYPE_BURIED)
+      return REMATCH_ICON_COLOR_NONE;
+   if (objectEvent->invisible)
+      return REMATCH_ICON_COLOR_NONE;
+   if (!IsObjectEventWithinVsSeekerRange(objectEvent))
+      return REMATCH_ICON_COLOR_NONE;
+
+   script = GetObjectEventScriptPointerByObjectEventId(objectEventId);
+   if (script == NULL)
+      return REMATCH_ICON_COLOR_NONE;
+
+   trainerIdx = GetTrainerFlagFromScript(script);
+   if (!HasTrainerBeenFought(trainerIdx))
+      return REMATCH_ICON_COLOR_NONE;
+
+   return GetRematchIconColorForTrainer(trainerIdx);
+}
+
+static bool8 ShouldDisplayPersistentRematchIcons(void)
+{
+   if (gSaveBlock2Ptr->optionsBattleStyle != OPTIONS_BATTLE_STYLE_SET)
+      return FALSE;
+
+   if (CheckBagHasItem(ITEM_VS_SEEKER, 1) != TRUE)
+      return FALSE;
+
+   if ((gSaveBlock1Ptr->trainerRematchStepCounter & 0xFF) < 100)
+      return FALSE;
+
+   if (FlagGet(FLAG_SYS_VS_SEEKER_CHARGING) == TRUE)
+      return FALSE;
+
+   return TRUE;
+}
+
+static bool8 IsAnyTrainerEmoteIconActive(void)
+{
+   if (FieldEffectActiveListContains(FLDEFF_EXCLAMATION_MARK_ICON))
+      return TRUE;
+   if (FieldEffectActiveListContains(FLDEFF_QUESTION_MARK_ICON))
+      return TRUE;
+   if (FieldEffectActiveListContains(FLDEFF_X_ICON))
+      return TRUE;
+   if (FieldEffectActiveListContains(FLDEFF_SMILEY_FACE_ICON))
+      return TRUE;
+   if (FieldEffectActiveListContains(FLDEFF_DOUBLE_EXCL_MARK_ICON))
+      return TRUE;
+
+   return FALSE;
+}
+
+static void LoadRematchIconResources(const bool8 *neededColors)
+{
+   u8 i;
+
+   for (i = 0; i < REMATCH_ICON_COLOR_COUNT - 1; i++)
+   {
+      if (!neededColors[i + 1])
+         continue;
+
+      if (GetSpriteTileStartByTag(sSpriteSheets_RematchIcons[i].tag) == 0xFFFF)
+         LoadSpriteSheet(&sSpriteSheets_RematchIcons[i]);
+      if (IndexOfSpritePaletteTag(sSpritePalettes_RematchIcons[i].tag) == 0xFF)
+         LoadSpritePalette(&sSpritePalettes_RematchIcons[i]);
+   }
+}
+
+static bool8 AnyRematchIconSpritesActive(void)
+{
+   u8 i;
+
+   SanitizeRematchIconSpriteIds();
+
+   for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
+   {
+      if (sRematchIconSpriteIds[i] != MAX_SPRITES)
+         return TRUE;
+   }
+
+   return FALSE;
+}
+
+static bool8 AnyRematchIconSpritesActiveForColor(u8 rematchIconColor)
+{
+   u8 i;
+
+   if (rematchIconColor <= REMATCH_ICON_COLOR_NONE || rematchIconColor >= REMATCH_ICON_COLOR_COUNT)
+      return FALSE;
+
+   SanitizeRematchIconSpriteIds();
+
+   for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
+   {
+      if (sRematchIconSpriteIds[i] != MAX_SPRITES && sRematchIconColors[i] == rematchIconColor)
+         return TRUE;
+   }
+
+   return FALSE;
+}
+
+static void FreeUnusedRematchIconResources(const bool8 *neededColors)
+{
+   u8 rematchIconColor;
+
+   for (rematchIconColor = REMATCH_ICON_COLOR_RED; rematchIconColor < REMATCH_ICON_COLOR_COUNT; rematchIconColor++)
+   {
+      u8 idx = rematchIconColor - 1;
+
+      if (neededColors[rematchIconColor])
+         continue;
+      if (AnyRematchIconSpritesActiveForColor(rematchIconColor))
+         continue;
+
+      FreeSpriteTilesByTag(sSpriteSheets_RematchIcons[idx].tag);
+      FreeSpritePaletteByTag(sSpritePalettes_RematchIcons[idx].tag);
+   }
+}
+
+static void FreeRematchIconResourcesIfUnused(void)
+{
+   u8 i;
+
+   if (AnyRematchIconSpritesActive())
+      return;
+
+   for (i = 0; i < REMATCH_ICON_COLOR_COUNT - 1; i++)
+   {
+      FreeSpriteTilesByTag(sSpriteSheets_RematchIcons[i].tag);
+      FreeSpritePaletteByTag(sSpritePalettes_RematchIcons[i].tag);
+   }
+}
+
+static void DestroyRematchIconSprite(u8 objectEventId)
+{
+   u8 spriteId;
+   struct Sprite *sprite;
+
+   if (objectEventId >= OBJECT_EVENTS_COUNT)
+      return;
+
+   spriteId = sRematchIconSpriteIds[objectEventId];
+   if (spriteId == MAX_SPRITES)
+   {
+      sRematchIconColors[objectEventId] = REMATCH_ICON_COLOR_NONE;
+      return;
+   }
+
+   if (spriteId >= MAX_SPRITES)
+   {
+      sRematchIconSpriteIds[objectEventId] = MAX_SPRITES;
+      sRematchIconColors[objectEventId] = REMATCH_ICON_COLOR_NONE;
+      return;
+   }
+
+   sprite = &gSprites[spriteId];
+   if (sprite->callback != SpriteCB_VsSeekerRematchIcon || sprite->data[0] != objectEventId)
+   {
+      sRematchIconSpriteIds[objectEventId] = MAX_SPRITES;
+      sRematchIconColors[objectEventId] = REMATCH_ICON_COLOR_NONE;
+      return;
+   }
+
+   DestroySprite(sprite);
+   sRematchIconSpriteIds[objectEventId] = MAX_SPRITES;
+   sRematchIconColors[objectEventId] = REMATCH_ICON_COLOR_NONE;
+}
+
+static void DestroyAllRematchIconSprites(void)
+{
+   u8 i;
+
+   EnsureRematchIconStateInitialized();
+
+   for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
+      DestroyRematchIconSprite(i);
+
+   FreeRematchIconResourcesIfUnused();
+}
+
+static u8 CreateRematchIconSpriteForObjectEvent(u8 objectEventId, u8 rematchIconColor)
+{
+   struct ObjectEvent *objectEvent = &gObjectEvents[objectEventId];
+   struct Sprite *objectEventSprite = &gSprites[objectEvent->spriteId];
+   u8 rematchIconIdx;
+   u8 spriteId;
+
+   if (rematchIconColor <= REMATCH_ICON_COLOR_NONE || rematchIconColor >= REMATCH_ICON_COLOR_COUNT)
+      return MAX_SPRITES;
+
+   rematchIconIdx = rematchIconColor - 1;
+
+   // Skip creation if this color's resources are unavailable (e.g. OBJ palette budget exhausted).
+   if (GetSpriteTileStartByTag(sSpriteSheets_RematchIcons[rematchIconIdx].tag) == 0xFFFF)
+      return MAX_SPRITES;
+   if (IndexOfSpritePaletteTag(sSpritePalettes_RematchIcons[rematchIconIdx].tag) == 0xFF)
+      return MAX_SPRITES;
+
+   spriteId = CreateSprite(&sSpriteTemplates_RematchIcons[rematchIconIdx], objectEventSprite->x, objectEventSprite->y - 14, objectEventSprite->subpriority + 1);
+   if (spriteId != MAX_SPRITES)
+   {
+      struct Sprite *sprite = &gSprites[spriteId];
+
+      sprite->coordOffsetEnabled = TRUE;
+      sprite->data[0] = objectEventId;
+      sRematchIconSpriteIds[objectEventId] = spriteId;
+      sRematchIconColors[objectEventId] = rematchIconColor;
+   }
+
+   return spriteId;
+}
+
+static void SanitizeRematchIconSpriteIds(void)
+{
+   u8 objectEventId;
+
+   for (objectEventId = 0; objectEventId < OBJECT_EVENTS_COUNT; objectEventId++)
+   {
+      u8 spriteId = sRematchIconSpriteIds[objectEventId];
+
+      if (spriteId == MAX_SPRITES)
+      {
+         sRematchIconColors[objectEventId] = REMATCH_ICON_COLOR_NONE;
+         continue;
+      }
+      if (spriteId >= MAX_SPRITES)
+      {
+         sRematchIconSpriteIds[objectEventId] = MAX_SPRITES;
+         sRematchIconColors[objectEventId] = REMATCH_ICON_COLOR_NONE;
+         continue;
+      }
+      if (gSprites[spriteId].callback != SpriteCB_VsSeekerRematchIcon || gSprites[spriteId].data[0] != objectEventId)
+      {
+         sRematchIconSpriteIds[objectEventId] = MAX_SPRITES;
+         sRematchIconColors[objectEventId] = REMATCH_ICON_COLOR_NONE;
+      }
+   }
+}
+
+static void SpriteCB_VsSeekerRematchIcon(struct Sprite *sprite)
+{
+   u8 objectEventId = sprite->data[0];
+   struct ObjectEvent *objectEvent;
+   struct Sprite *objectEventSprite;
+
+   if (objectEventId >= OBJECT_EVENTS_COUNT || !ObjectEventIdIsSane(objectEventId))
+   {
+      if (objectEventId < OBJECT_EVENTS_COUNT)
+      {
+         sRematchIconSpriteIds[objectEventId] = MAX_SPRITES;
+         sRematchIconColors[objectEventId] = REMATCH_ICON_COLOR_NONE;
+      }
+      DestroySprite(sprite);
+      FreeRematchIconResourcesIfUnused();
+      return;
+   }
+
+   objectEvent = &gObjectEvents[objectEventId];
+   objectEventSprite = &gSprites[objectEvent->spriteId];
+   sprite->x = objectEventSprite->x;
+   sprite->y = objectEventSprite->y - 14;
+   sprite->x2 = objectEventSprite->x2;
+   sprite->y2 = objectEventSprite->y2;
+   sprite->invisible = IsAnyTrainerEmoteIconActive();
+}
+
+static void UpdatePersistentRematchIcons(void)
+{
+   bool8 neededColors[REMATCH_ICON_COLOR_COUNT] = {FALSE};
+   u8 desiredColors[OBJECT_EVENTS_COUNT];
+   u8 objectEventId;
+
+   EnsureRematchIconStateInitialized();
+   SanitizeRematchIconSpriteIds();
+
+   if (!ShouldDisplayPersistentRematchIcons())
+   {
+      DestroyAllRematchIconSprites();
+      return;
+   }
+
+   for (objectEventId = 0; objectEventId < OBJECT_EVENTS_COUNT; objectEventId++)
+   {
+      desiredColors[objectEventId] = GetRematchIconColorForObjectEvent(objectEventId);
+      if (desiredColors[objectEventId] > REMATCH_ICON_COLOR_NONE && desiredColors[objectEventId] < REMATCH_ICON_COLOR_COUNT)
+         neededColors[desiredColors[objectEventId]] = TRUE;
+   }
+
+   LoadRematchIconResources(neededColors);
+
+   for (objectEventId = 0; objectEventId < OBJECT_EVENTS_COUNT; objectEventId++)
+   {
+      u8 rematchIconColor = desiredColors[objectEventId];
+
+      if (rematchIconColor == REMATCH_ICON_COLOR_NONE)
+      {
+         DestroyRematchIconSprite(objectEventId);
+         continue;
+      }
+
+      if (sRematchIconSpriteIds[objectEventId] == MAX_SPRITES)
+      {
+         CreateRematchIconSpriteForObjectEvent(objectEventId, rematchIconColor);
+         continue;
+      }
+
+      if (sRematchIconColors[objectEventId] != rematchIconColor)
+      {
+         DestroyRematchIconSprite(objectEventId);
+         CreateRematchIconSpriteForObjectEvent(objectEventId, rematchIconColor);
+      }
+   }
+
+   FreeUnusedRematchIconResources(neededColors);
+   FreeRematchIconResourcesIfUnused();
 }
