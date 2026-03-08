@@ -1,4 +1,5 @@
 EventScript_PkmnCenterNurse::
+	goto_if_unset FLAG_USED_PKMNCENTER_ONCE, EventScript_PkmnCenterNurseLong
 	incrementgamestat GAME_STAT_USED_POKECENTER
 	call EventScript_PkmnCenterNurse_TakeAndHealPkmn
 	end
@@ -10,7 +11,7 @@ EventScript_PkmnCenterNurseLong::
 	multichoice 19, 8, MULTICHOICE_YES_NO, FALSE | (TRUE << 1)
 	switch VAR_RESULT
 	case 0, EventScript_PkmnCenterNurse_HealPkmn
-	case 1 EventScript_PkmnCenterNurse_Goodbye
+	case 1, EventScript_PkmnCenterNurse_Goodbye
 	case SCR_MENU_CANCEL, EventScript_PkmnCenterNurse_Goodbye
 	end
 
@@ -19,6 +20,7 @@ EventScript_PkmnCenterNurse_HealPkmn::
 	message Text_TakeYourPkmnForFewSeconds
 	waitmessage
 	call EventScript_PkmnCenterNurse_TakeAndHealPkmn
+	setflag FLAG_USED_PKMNCENTER_ONCE
 	special SetUsedPkmnCenterQuestLogEvent
 	goto EventScript_PkmnCenterNurse_CheckTrainerTowerAndUnionRoom
 	end
@@ -35,7 +37,7 @@ EventScript_PkmnCenterNurse_TakeAndHealPkmn::
 
 EventScript_PkmnCenterNurse_CheckTrainerTowerAndUnionRoom::
 	specialvar VAR_RESULT, IsPlayerNotInTrainerTowerLobby
-	goto_if_eq VAR_RESULT, FALSE, EventScript_PkmnCenterNurse_ReturnPkmn
+	goto EventScript_PkmnCenterNurse_ReturnPkmn
 	specialvar VAR_RESULT, BufferUnionRoomPlayerName
 	copyvar VAR_0x8008, VAR_RESULT
 	goto_if_eq VAR_0x8008, 0, EventScript_PkmnCenterNurse_ReturnPkmn

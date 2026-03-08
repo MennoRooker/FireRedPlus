@@ -792,6 +792,7 @@ on where to add the following items:
 - Silk Scarf
 - Mental Herb
 - Light Ball
+- Magnet
 
 I already placed:
 x Hard Stone (Rock Tunnel)
@@ -800,6 +801,7 @@ x Charcoal (Mt. Ember)
 x Sharp Beak (Route 16)
 x Focus Sash (Silph Co 6F)
 x NeverMeltIce* (Icefall Cave)
+x Poison Barb (Route 2 East)
 
 *I might want to change this to Seafoam Caves instead.
 
@@ -911,6 +913,12 @@ completed the last rematch
 (Bulldoze selects the ally in a double battle but does not
 hit the ally)
 
+The pokecenter's long script that I have playing the first
+time a player heals their mons is crashing. I think it is 
+the mapwarp no longer initializing something with regards
+to the Union Room or smth. I will continue this work at my
+PC since my laptop's copilot is retarded.
+
 TO DO:
 x Add Bugsy
 x Force SET mode
@@ -944,6 +952,7 @@ x Dynamic items
 / VS Seeker
 / Linearizations
 / Balancing
+- Sleep turns (1-3)
 - HM mons sprites
 - Dynamic speed
 - Faster Bike
