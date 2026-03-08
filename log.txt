@@ -945,7 +945,7 @@ x Full restore PP
 x Exp Candies
 x Rename scripts
 x Dynamic items
-x VS Seeker
+/ VS Seeker
 / Linearizations
 / Balancing
 - HM mons sprites
@@ -954,7 +954,6 @@ x VS Seeker
 - Victory Road FLY checkpoint
 - Letters
 - Only a few red HP beeps
-- Increase BAG space
 - Clean up
 ---------------------------------------
 - Implement all abilites
