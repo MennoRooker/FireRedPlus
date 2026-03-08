@@ -551,7 +551,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_LassJanice[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_LassJanice2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_LassJaniceRematch[] = {
     {
         .iv = 2,
         .lvl = 20,
@@ -564,7 +564,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_LassJanice2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_LassJanice3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_LassJaniceRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 36,
@@ -595,7 +595,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColtonRematch[] = {
     {
         .iv = 2,
         .lvl = 20,
@@ -613,7 +613,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColtonRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 33,
@@ -631,7 +631,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColtonRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 51,
@@ -662,7 +662,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBen[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBen2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBenRematch[] = {
     {
         .iv = 2,
         .lvl = 21,
@@ -675,7 +675,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBen2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBen3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBenRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 33,
@@ -688,7 +688,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBen3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBen4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBenRematchAfterLeague[] = {
     {
         .iv = 12,
         .lvl = 58,
@@ -1079,7 +1079,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterTimmy[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterTimmy2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterTimmyRematch[] = {
     {
         .iv = 2,
         .lvl = 19,
@@ -1097,7 +1097,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterTimmy2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterTimmy3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterTimmyRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 27,
@@ -1115,7 +1115,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterTimmy3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterTimmy4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterTimmyRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 52,
@@ -1145,7 +1145,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_LassReli[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_LassReli2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_LassReliRematch[] = {
     {
         .iv = 2,
         .lvl = 20,
@@ -1158,7 +1158,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_LassReli2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_LassReli3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_LassReliRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 28,
@@ -1227,7 +1227,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_HikerFranklin[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_HikerFranklin2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_HikerFranklinRematchAfterCeladon[] = {
     {
         .iv = 8,
         .lvl = 31,
@@ -1282,7 +1282,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerKelsey[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerKelsey2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerKelseyRematch[] = {
     {
         .iv = 4,
         .lvl = 21,
@@ -1295,7 +1295,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerKelsey2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerKelsey3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerKelseyRematchAfterFuchsia[] = {
     {
         .iv = 12,
         .lvl = 37,
@@ -1308,7 +1308,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerKelsey3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerKelsey4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerKelseyRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -1370,7 +1370,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterChad[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterChad2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterChadRematch[] = {
     {
         .iv = 4,
         .lvl = 20,
@@ -1383,7 +1383,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterChad2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterChad3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterChadRematchAfterFuchsia[] = {
     {
         .iv = 12,
         .lvl = 36,
@@ -1396,7 +1396,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterChad3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterChad4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterChadRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 58,
@@ -1542,7 +1542,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CamperRicky[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CamperRicky2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CamperRickyRematch[] = {
     {
         .iv = 2,
         .lvl = 27,
@@ -1550,7 +1550,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CamperRicky2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CamperRicky3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CamperRickyRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 35,
@@ -1563,7 +1563,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CamperRicky3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CamperRicky4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CamperRickyRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 55,
@@ -1615,7 +1615,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerIsabelle[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerIsabelle2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerIsabelleRematch[] = {
     {
         .iv = 2,
         .lvl = 24,
@@ -1633,7 +1633,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerIsabelle2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerIsabelle3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerIsabelleRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 29,
@@ -1651,7 +1651,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerIsabelle3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerIsabelle4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerIsabelleRematchAfterLeague[] = {
     {
         .iv = 8,
         .lvl = 50,
@@ -1682,7 +1682,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CamperJeff[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CamperJeff2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CamperJeffRematch[] = {
     {
         .iv = 2,
         .lvl = 25,
@@ -1695,7 +1695,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CamperJeff2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CamperJeff3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CamperJeffRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 31,
@@ -1708,7 +1708,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CamperJeff3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CamperJeff4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CamperJeffRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 56,
@@ -1764,7 +1764,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_EngineerBernie[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_EngineerBernie2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_EngineerBernieRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 30,
@@ -1842,7 +1842,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GamerDarian[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_GamerDarian2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_GamerDarianRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 32,
@@ -1873,7 +1873,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterYasu[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterYasu2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterYasuRematchAfterCeladon[] = {
     {
         .iv = 4,
         .lvl = 28,
@@ -1891,7 +1891,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterYasu2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterYasu3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterYasuRematchAfterLeague[] = {
     {
         .iv = 8,
         .lvl = 57,
@@ -2294,7 +2294,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerAlicia[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerAlicia2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerAliciaRematchAfterCeladon[] = {
     {
         .iv = 4,
         .lvl = 25,
@@ -2317,7 +2317,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerAlicia2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerAlicia3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerAliciaRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 32,
@@ -2340,7 +2340,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerAlicia3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerAlicia4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerAliciaRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 52,
@@ -2376,7 +2376,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_HikerJeremy[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_HikerJeremy2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_HikerJeremyRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 33,
@@ -2402,7 +2402,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CamperChris[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CamperChris2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CamperChrisRematchAfterCeladon[] = {
     {
         .iv = 4,
         .lvl = 26,
@@ -2415,7 +2415,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CamperChris2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CamperChris3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CamperChrisRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 33,
@@ -2428,7 +2428,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CamperChris3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CamperChris4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CamperChrisRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 54,
@@ -2857,7 +2857,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GamerRich[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_GamerRich2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_GamerRichRematchAfterFuchsia[] = {
     {
         .iv = 12,
         .lvl = 34,
@@ -2883,7 +2883,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SuperNerdGlenn[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SuperNerdGlenn2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SuperNerdGlennRematchAfterFuchsia[] = {
     {
         .iv = 12,
         .lvl = 33,
@@ -2922,7 +2922,7 @@ static const struct TrainerMonItemCustomMovesNatureAbility sParty_TwinsEliAnne[]
     },
 };
 
-static const struct TrainerMonItemCustomMovesNatureAbility sParty_TwinsEliAnne2[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_TwinsEliAnneRematchAfterFuchsia[] = {
     {
         .iv = 12,
         .lvl = 35,
@@ -3011,7 +3011,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_LassMegan[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_LassMegan2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_LassMeganRematchAfterCeladon[] = {
     {
         .iv = 8,
         .lvl = 31,
@@ -3039,7 +3039,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_LassMegan2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_LassMegan3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_LassMeganRematchAfterLeague[] = {
     {
         .iv = 28,
         .lvl = 48,
@@ -3080,7 +3080,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BikerJaren[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BikerJaren2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BikerJarenRematchAfterFuchsia[] = {
     {
         .iv = 12,
         .lvl = 34,
@@ -3245,7 +3245,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_FishermanElliot[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_FishermanElliot2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_FishermanElliotRematchAfterFuchsia[] = {
     {
         .iv = 16,
         .lvl = 36,
@@ -3281,7 +3281,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungCoupleGiaJes[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungCoupleGiaJes2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungCoupleGiaJesRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 38,
@@ -3872,7 +3872,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt18[] = {
     },
 };
 
-static const struct TrainerMonItemCustomMoves sParty_BossGiovanni[] = {
+static const struct TrainerMonItemCustomMoves sParty_BossGiovanniRocketHideout[] = {
     {
         .iv = 8,
         .lvl = 34,
@@ -4257,7 +4257,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerSusie[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_PicnickerSusie2[] = {
+static const struct TrainerMonItemDefaultMoves sParty_PicnickerSusieRematchAfterFuchsia[] = {
     {
         .iv = 12,
         .lvl = 37,
@@ -4284,7 +4284,7 @@ static const struct TrainerMonItemDefaultMoves sParty_PicnickerSusie2[] = {
     },
 };
 
-static const struct TrainerMonItemCustomMoves sParty_PicnickerSusie3[] = {
+static const struct TrainerMonItemCustomMoves sParty_PicnickerSusieRematchAfterLeague[] = {
     {
         .iv = 16,
         .lvl = 52,
@@ -4315,7 +4315,7 @@ static const struct TrainerMonItemCustomMoves sParty_PicnickerSusie3[] = {
     },
 };
 
-static const struct TrainerMonItemCustomMoves sParty_PicnickerSusie4[] = {
+static const struct TrainerMonItemCustomMoves sParty_PicnickerSusieRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 58,
@@ -4372,7 +4372,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BeautySheila[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BeautySheila2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BeautySheilaRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 49,
@@ -4439,7 +4439,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperRobert[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperRobert2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperRobertRematchAfterFuchsia[] = {
     {
         .iv = 16,
         .lvl = 38,
@@ -4457,7 +4457,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperRobert2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperRobert3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperRobertRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 47,
@@ -4557,7 +4557,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperMarlon[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperMarlon2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperMarlonRematchAfterFuchsia[] = {
     {
         .iv = 13,
         .lvl = 38,
@@ -4575,7 +4575,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperMarlon2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperMarlon3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperMarlonRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 58,
@@ -4627,7 +4627,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperBenny[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperBenny2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperBennyRematchAfterFuchsia[] = {
     {
         .iv = 16,
         .lvl = 38,
@@ -4640,7 +4640,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperBenny2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperBenny3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperBennyRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -4738,7 +4738,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_BikerLukas[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_BikerLukas2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_BikerLukasRematchAfterLeague[] = {
     {
         .iv = 20,
         .lvl = 58,
@@ -4776,7 +4776,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerBecky[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerBecky2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerBeckyRematchAfterFuchsia[] = {
     {
         .iv = 16,
         .lvl = 40,
@@ -4789,7 +4789,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerBecky2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerBecky3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerBeckyRematchAfterLeague[] = {
     {
         .iv = 20,
         .lvl = 59,
@@ -4802,7 +4802,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerBecky3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerBecky4[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerBeckyRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 64,
@@ -4830,7 +4830,7 @@ static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMya[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMya2[] = {
+static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMyaRematchAfterFuchsia[] = {
     {
         .iv = 11,
         .lvl = 39,
@@ -4846,7 +4846,7 @@ static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMya2[] = {
 };
 
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMya3[] = {
+static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMyaRematchAfterLeague[] = {
     {
         .iv = 13,
         .lvl = 59,
@@ -4861,7 +4861,7 @@ static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMya3[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMya4[] = {
+static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMyaRematchAfterSapphire[] = {
     {
         .iv = 17,
         .lvl = 66,
@@ -4936,7 +4936,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BeautyGrace[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BeautyGrace2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BeautyGraceRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -4993,7 +4993,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperChester[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperChester2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperChesterRematchAfterFuchsia[] = {
     {
         .iv = 16,
         .lvl = 43,
@@ -5006,7 +5006,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperChester2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperChester3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperChesterRematchAfterLeague[] = {
     {
         .iv = 28,
         .lvl = 61,
@@ -5122,7 +5122,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_BikerRuben[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BikerRuben2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BikerRubenRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 58,
@@ -5148,7 +5148,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CueBallCamron[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CueBallCamron2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CueBallCamronRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -5178,7 +5178,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CueBallIsaiah[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CueBallIsaiah2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CueBallIsaiahRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -5287,7 +5287,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CueBallCorey[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_CueBallCorey2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_CueBallCoreyRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -5315,7 +5315,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_BikerJaxon[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BikerJaxon2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BikerJaxonRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -5377,7 +5377,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperJacob[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperJacob2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperJacobRematchAfterFuchsia[] = {
     {
         .iv = 16,
         .lvl = 38,
@@ -5395,7 +5395,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperJacob2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperJacob3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperJacobRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 57,
@@ -5638,7 +5638,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacMark[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacMark2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacMarkRematchAfterFuchsia[] = {
     {
         .iv = 19,
         .lvl = 43,
@@ -5651,7 +5651,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacMark2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacMark3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacMarkRematchAfterSapphire[] = {
     {
         .iv = 25,
         .lvl = 64,
@@ -6342,7 +6342,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGrunt41[] = {
     },
 };
 
-static const struct TrainerMonItemCustomMovesNatureAbility sParty_BossGiovanni2[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_BossGiovanniSilphCo[] = {
     {
         .iv = 16,
         .lvl = 47,
@@ -6578,7 +6578,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleTony[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleTony2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleTonyRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -6645,7 +6645,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleMatthew[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleMatthew2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleMatthewRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 61,
@@ -6712,7 +6712,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleAlice[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleAlice2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleAliceRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 61,
@@ -6811,7 +6811,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleDarrin[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleDarrin2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleDarrinRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 65,
@@ -6898,7 +6898,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_FishermanWade[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_FishermanWade2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_FishermanWadeRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 58,
@@ -6957,7 +6957,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SisAndBroLilIan[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SisAndBroLilIan2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SisAndBroLilIanRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 61,
@@ -6970,7 +6970,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SisAndBroLilIan2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SisAndBroLilIan3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SisAndBroLilIanRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 72,
@@ -7030,7 +7030,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleJack[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleJack2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleJackRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 64,
@@ -7086,7 +7086,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleMelissa[] =
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleMelissa2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleMelissaRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 61,
@@ -7112,7 +7112,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerMissy[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerMissy2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerMissyRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 61,
@@ -7125,7 +7125,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerMissy2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerMissy3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerMissyRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 70,
@@ -7544,7 +7544,7 @@ static const struct TrainerMonItemDefaultMoves sParty_CrushGirlTanya[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushGirlTanya2[] = {
+static const struct TrainerMonItemDefaultMoves sParty_CrushGirlTanyaRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -7559,7 +7559,7 @@ static const struct TrainerMonItemDefaultMoves sParty_CrushGirlTanya2[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushGirlTanya3[] = {
+static const struct TrainerMonItemDefaultMoves sParty_CrushGirlTanyaRematchAfterSapphire[] = {
     {
         .iv = 17,
         .lvl = 65,
@@ -7631,7 +7631,7 @@ static const struct TrainerMonItemDefaultMoves sParty_CrushKinMikKia[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushKinMikKia2[] = {
+static const struct TrainerMonItemDefaultMoves sParty_CrushKinMikKiaRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 61,
@@ -7646,7 +7646,7 @@ static const struct TrainerMonItemDefaultMoves sParty_CrushKinMikKia2[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushKinMikKia3[] = {
+static const struct TrainerMonItemDefaultMoves sParty_CrushKinMikKiaRematchAfterSapphire[] = {
     {
         .iv = 21,
         .lvl = 67,
@@ -7676,7 +7676,7 @@ static const struct TrainerMonItemDefaultMoves sParty_BlackBeltHugh[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_BlackBeltHugh2[] = {
+static const struct TrainerMonItemDefaultMoves sParty_BlackBeltHughRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -7691,7 +7691,7 @@ static const struct TrainerMonItemDefaultMoves sParty_BlackBeltHugh2[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_BlackBeltHugh3[] = {
+static const struct TrainerMonItemDefaultMoves sParty_BlackBeltHughRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 66,
@@ -7721,7 +7721,7 @@ static const struct TrainerMonItemDefaultMoves sParty_BlackBeltShea[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_BlackBeltShea2[] = {
+static const struct TrainerMonItemDefaultMoves sParty_BlackBeltSheaRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 60,
@@ -7736,7 +7736,7 @@ static const struct TrainerMonItemDefaultMoves sParty_BlackBeltShea2[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_BlackBeltShea3[] = {
+static const struct TrainerMonItemDefaultMoves sParty_BlackBeltSheaRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 68,
@@ -7766,7 +7766,7 @@ static const struct TrainerMonItemDefaultMoves sParty_CrushGirlSharon[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushGirlSharon2[] = {
+static const struct TrainerMonItemDefaultMoves sParty_CrushGirlSharonRematchAfterLeague[] = {
     {
         .iv = 13,
         .lvl = 59,
@@ -7781,7 +7781,7 @@ static const struct TrainerMonItemDefaultMoves sParty_CrushGirlSharon2[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushGirlSharon3[] = {
+static const struct TrainerMonItemDefaultMoves sParty_CrushGirlSharonRematchAfterSapphire[] = {
     {
         .iv = 17,
         .lvl = 66,
@@ -7804,7 +7804,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleFinn[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleFinn2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleFinnRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 63,
@@ -8024,7 +8024,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TwinsJoyMeg[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_TwinsJoyMeg2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_TwinsJoyMegRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 61,
@@ -8104,7 +8104,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TuberAmira[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_TuberAmira2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_TuberAmiraRematchAfterLeague[] = {
     {
         .iv = 18,
         .lvl = 59,
@@ -11343,7 +11343,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_RuinManiacLayton[] = {
 
 
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHerman2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHermanRematchAfterFuchsia[] = {
     {
         .iv = 9,
         .lvl = 29,
@@ -11356,7 +11356,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHerman2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHerman3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHermanRematchAfterSapphire[] = {
     {
         .iv = 15,
         .lvl = 54,
@@ -11369,7 +11369,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHerman3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_HikerTrent2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_HikerTrentRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 31,
@@ -11382,7 +11382,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_HikerTrent2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_RockerLuca2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_RockerLucaRematchAfterFuchsia[] = {
     {
         .iv = 6,
         .lvl = 33,
@@ -11395,7 +11395,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_RockerLuca2[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_PainterRayna2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_PainterRaynaRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 54,
@@ -11404,7 +11404,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_PainterRayna2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterDestin2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterDestinRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 53,
@@ -11417,7 +11417,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterDestin2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PkmnBreederAlize2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PkmnBreederAlizeRematchAfterSapphire[] = {
     {
         .iv = 15,
         .lvl = 53,
@@ -11435,7 +11435,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PkmnBreederAlize2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungCoupleGiaJes3[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungCoupleGiaJesRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 55,
@@ -11448,7 +11448,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungCoupleGiaJes3[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperMilo2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperMiloRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 53,
@@ -11461,7 +11461,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperMilo2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperChaz2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperChazRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 53,
@@ -11474,7 +11474,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperChaz2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperHarold2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperHaroldRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 53,
@@ -11487,7 +11487,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperHarold2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleNicole2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleNicoleRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 54,
@@ -11495,7 +11495,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleNicole2[] =
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_PsychicJaclyn2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_PsychicJaclynRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 52,
@@ -11516,7 +11516,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_PsychicJaclyn2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleSamir2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleSamirRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 55,
@@ -11524,7 +11524,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleSamir2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_HikerEarl2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_HikerEarlRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 54,
@@ -11537,7 +11537,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_HikerEarl2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_RuinManiacLarry2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_RuinManiacLarryRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 54,
@@ -11550,7 +11550,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_RuinManiacLarry2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHector2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHectorRematchAfterSapphire[] = {
     {
         .iv = 15,
         .lvl = 55,
@@ -11563,7 +11563,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHector2[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_PsychicDario2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_PsychicDarioRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 56,
@@ -11572,7 +11572,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_PsychicDario2[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_PsychicRodette2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_PsychicRodetteRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 53,
@@ -11593,7 +11593,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_PsychicRodette2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_JugglerMason2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_JugglerMasonRematchAfterSapphire[] = {
     {
         .iv = 12,
         .lvl = 52,
@@ -11616,7 +11616,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_JugglerMason2[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerNicolas2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerNicolasRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 55,
@@ -11631,7 +11631,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerNicolas2[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerMadeline2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerMadelineRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 55,
@@ -11646,7 +11646,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerMadeline2[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushGirlCyndy2[] = {
+static const struct TrainerMonItemDefaultMoves sParty_CrushGirlCyndyRematchAfterSapphire[] = {
     {
         .iv = 17,
         .lvl = 54,
@@ -11667,7 +11667,7 @@ static const struct TrainerMonItemDefaultMoves sParty_CrushGirlCyndy2[] = {
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_TamerEvan2[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_TamerEvanRematchAfterSapphire[] = {
     {
         .iv = 16,
         .lvl = 52,
@@ -11685,7 +11685,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TamerEvan2[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerJackson2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerJacksonRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 53,
@@ -11706,7 +11706,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerJackson2[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerKatelyn2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerKatelynRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 56,
@@ -11715,7 +11715,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerKatelyn2[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_CooltrainerLeroy2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_CooltrainerLeroyRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 52,
@@ -11748,7 +11748,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_CooltrainerLeroy2[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_CooltrainerMichelle2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_CooltrainerMichelleRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 53,
@@ -11781,7 +11781,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_CooltrainerMichelle2[] = 
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_CoolCoupleLexNya2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_CoolCoupleLexNyaRematchAfterSapphire[] = {
     {
         .iv = 22,
         .lvl = 57,

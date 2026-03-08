@@ -65,7 +65,7 @@ SilphCo_11F_EventScript_BattleGiovanni::
 	call_if_eq VAR_TEMP_1, 0, SilphCo_11F_EventScript_GiovanniApproachLeft
 	call_if_eq VAR_TEMP_1, 1, SilphCo_11F_EventScript_GiovanniApproachRight
 	setvar VAR_LAST_TALKED, LOCALID_SILPH_CO_GIOVANNI
-	trainerbattle_no_intro TRAINER_BOSS_GIOVANNI_2, SilphCo_11F_Text_GiovanniDefeat
+	trainerbattle_no_intro TRAINER_BOSS_GIOVANNI_SILPH_CO, SilphCo_11F_Text_GiovanniDefeat
 	msgbox SilphCo_11F_Text_GiovanniPostBattle
 	closemessage
 	fadescreen FADE_TO_BLACK

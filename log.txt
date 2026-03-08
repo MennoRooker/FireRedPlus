@@ -898,9 +898,22 @@ to keep the ITEMS + MEDICINE at 42, but I already have 14
 unique Medicine items in the pocket and no vitamins yet.
 I think I'll just continue playing until I've reached all
 my balancing goals and then restart with a bigger Medicine
-pocket (I'm thinking 34 and making ITEMS 36, because the
+pocket (I'm thinking 26 and making ITEMS 36, because the
 AI mentioned that the game expects items to be the bigger 
 pocket or smth.)
+
+I have settled on a definitive implementation of the VS 
+Seeker:
+- Guarantee that the player gets the VS Seeker
+- Only show icon when VS Seeker is usable (map + charge)
+- Show icon colors for which party they are ready to use
+- Toggle icons on/off in OPTIONS menu
+- Don't show 'empty' icons for when the player has already
+completed the last rematch
+- 100% chance to rematch against all eligible trainers
+
+(Bulldoze selects the ally in a double battle but does not
+hit the ally)
 
 TO DO:
 x Add Bugsy
@@ -932,9 +945,9 @@ x Full restore PP
 x Exp Candies
 x Rename scripts
 x Dynamic items
+x VS Seeker
 / Linearizations
 / Balancing
-- VS Seeker
 - HM mons sprites
 - Dynamic speed
 - Faster Bike
