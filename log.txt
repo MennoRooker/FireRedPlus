@@ -790,10 +790,6 @@ unique places.
 I've renamed all the scripts and flags and need to decide
 on where to add the following items:
 - Silk Scarf
-- Magnet
-- Mystic Water
-- Miracle Seed
-- Poison Barb
 - Mental Herb
 - Light Ball
 
