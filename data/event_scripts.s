@@ -858,6 +858,10 @@ Text_BagItemCanBeRegistered::
 	.string "An item in the BAG can be\n"
 	.string "registered to SELECT for easy use.$"
 
+Text_AskToRegisterNewKeyItem::
+	.string "Do you want to register the\n"
+	.string "{STR_VAR_1}?$"
+
 @ Unused (email from R/S Rivals computer)
 Text_TrainerSchoolEmail::
 	.string "パソコンに\n"
@@ -1133,6 +1137,18 @@ EventScript_BagItemCanBeRegistered::
 	msgbox Text_BagItemCanBeRegistered, MSGBOX_SIGN
 	end
 
+EventScript_AskToRegisterNewKeyItem::
+	copyvar VAR_PREV_TEXT_COLOR, VAR_TEXT_COLOR
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	signmsg
+	bufferitemname STR_VAR_1, VAR_0x8004
+	msgbox Text_AskToRegisterNewKeyItem, MSGBOX_YESNO
+	normalmsg
+	call EventScript_RestorePrevTextColor
+	goto_if_eq VAR_RESULT, NO, EventScript_Return
+	special SetRegisteredItemFromVar8004
+	return
+
 EventScript_Return::
 	return
 
@@ -1254,6 +1270,8 @@ VermilionCity_PokemonCenter_1F_EventScript_VSSeekerWoman::
 	setflag FLAG_GOT_VS_SEEKER
 	giveitem ITEM_VS_SEEKER
 	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setvar VAR_0x8004, ITEM_VS_SEEKER
+	call EventScript_AskToRegisterNewKeyItem
 	msgbox VermilionCity_PokemonCenter_1F_Text_UseDeviceForRematches
 	release
 	end

@@ -70,6 +70,8 @@ Route11_EastEntrance_2F_EventScript_Aide::
 	goto_if_eq VAR_RESULT, FALSE, Aide_EventScript_NoRoomForItem
 	giveitem_msg Route11_EastEntrance_2F_Text_ReceivedItemfinderFromAide, ITEM_ITEMFINDER
 	setflag FLAG_GOT_ITEMFINDER
+	setvar VAR_0x8004, ITEM_ITEMFINDER
+	call EventScript_AskToRegisterNewKeyItem
 	msgbox Route11_EastEntrance_2F_Text_ExplainItemfinder
 	release
 	end

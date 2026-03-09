@@ -511,56 +511,60 @@ ViridianCity_EventScript_DoTutorialBattle::
 # 256 "data/maps/ViridianCity/scripts.pory"
 	setflag FLAG_GOT_OLD_ROD
 # 257 "data/maps/ViridianCity/scripts.pory"
-	release
+	setvar VAR_0x8004, ITEM_OLD_ROD
 # 258 "data/maps/ViridianCity/scripts.pory"
-	return
+	call EventScript_AskToRegisterNewKeyItem
 # 259 "data/maps/ViridianCity/scripts.pory"
-
-# 260 "data/maps/ViridianCity/scripts.pory"
-ViridianCity_EventScript_Policeman::
-# 261 "data/maps/ViridianCity/scripts.pory"
-	lock
-# 262 "data/maps/ViridianCity/scripts.pory"
-	faceplayer
-# 263 "data/maps/ViridianCity/scripts.pory"
-	msgbox ViridianCity_Text_Route22IsBlocked, MSGBOX_DEFAULT
-# 264 "data/maps/ViridianCity/scripts.pory"
-	closemessage
-# 265 "data/maps/ViridianCity/scripts.pory"
-	applymovement VAR_LAST_TALKED, Common_Movement_FaceDown
-# 266 "data/maps/ViridianCity/scripts.pory"
-	waitmovement 0
-# 267 "data/maps/ViridianCity/scripts.pory"
 	release
+# 260 "data/maps/ViridianCity/scripts.pory"
+	return
+# 261 "data/maps/ViridianCity/scripts.pory"
+
+# 262 "data/maps/ViridianCity/scripts.pory"
+ViridianCity_EventScript_Policeman::
+# 263 "data/maps/ViridianCity/scripts.pory"
+	lock
+# 264 "data/maps/ViridianCity/scripts.pory"
+	faceplayer
+# 265 "data/maps/ViridianCity/scripts.pory"
+	msgbox ViridianCity_Text_Route22IsBlocked, MSGBOX_DEFAULT
+# 266 "data/maps/ViridianCity/scripts.pory"
+	closemessage
+# 267 "data/maps/ViridianCity/scripts.pory"
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceDown
 # 268 "data/maps/ViridianCity/scripts.pory"
+	waitmovement 0
+# 269 "data/maps/ViridianCity/scripts.pory"
+	release
+# 270 "data/maps/ViridianCity/scripts.pory"
 	end
 
 ViridianCity_EventScript_BlockRoute22::
-# 272 "data/maps/ViridianCity/scripts.pory"
-	lockall
-# 273 "data/maps/ViridianCity/scripts.pory"
-	textcolor NPC_TEXT_COLOR_MALE
 # 274 "data/maps/ViridianCity/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, FacePlayerUp
+	lockall
 # 275 "data/maps/ViridianCity/scripts.pory"
-	msgbox ViridianCity_Text_Route22IsBlocked, MSGBOX_DEFAULT
+	textcolor NPC_TEXT_COLOR_MALE
 # 276 "data/maps/ViridianCity/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, MovePlayerRight
+	applymovement OBJ_EVENT_ID_PLAYER, FacePlayerUp
 # 277 "data/maps/ViridianCity/scripts.pory"
-	waitmovement 0
+	msgbox ViridianCity_Text_Route22IsBlocked, MSGBOX_DEFAULT
 # 278 "data/maps/ViridianCity/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, MovePlayerRight
+# 279 "data/maps/ViridianCity/scripts.pory"
+	waitmovement 0
+# 280 "data/maps/ViridianCity/scripts.pory"
 	releaseall
 	return
 
 
-# 281 "data/maps/ViridianCity/scripts.pory"
+# 283 "data/maps/ViridianCity/scripts.pory"
 MovePlayerRight:
-# 282 "data/maps/ViridianCity/scripts.pory"
+# 284 "data/maps/ViridianCity/scripts.pory"
 	walk_right
 	step_end
 
-# 285 "data/maps/ViridianCity/scripts.pory"
+# 287 "data/maps/ViridianCity/scripts.pory"
 FacePlayerUp:
-# 286 "data/maps/ViridianCity/scripts.pory"
+# 288 "data/maps/ViridianCity/scripts.pory"
 	face_up
 	step_end

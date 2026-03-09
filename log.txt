@@ -924,6 +924,13 @@ receiving a new item with pocket = key_items, there should
 be a pop up that asks whether you want to register this 
 key item. That way you can quickly override whatever key
 item you currently have registered.
+A list of key items for which this may be useful:
+- Old Rod
+- Good Rod
+- Super Rod
+- Bicycle
+- Itemfinder
+- VS Seeker
 
 TO DO:
 x Add Bugsy

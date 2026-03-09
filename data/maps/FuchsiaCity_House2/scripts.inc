@@ -23,6 +23,8 @@ FuchsiaCity_House2_EventScript_GiveSuperRod::
 	giveitem_msg FuchsiaCity_House2_Text_ReceivedSuperRod, ITEM_SUPER_ROD
 	msgbox FuchsiaCity_House2_Text_GoodRodCanCatchBetterMons
 	setflag FLAG_GOT_SUPER_ROD
+	setvar VAR_0x8004, ITEM_SUPER_ROD
+	call EventScript_AskToRegisterNewKeyItem
 	release
 	end
 

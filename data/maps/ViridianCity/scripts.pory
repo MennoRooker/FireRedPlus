@@ -254,6 +254,8 @@ ViridianCity_EventScript_DoTutorialBattle::
 	msgbox ViridianCity_Text_NoNeedForOldRodAnymore
 	msgreceiveditem ViridianCity_Text_ReceivedOldRodFromOldMan, ITEM_OLD_ROD
 	setflag FLAG_GOT_OLD_ROD
+	setvar VAR_0x8004, ITEM_OLD_ROD
+	call EventScript_AskToRegisterNewKeyItem
 	release
 	return
 

@@ -23,6 +23,8 @@ VermilionCity_House1_EventScript_GiveGoodRod::
 	msgbox VermilionCity_House1_Text_TakeThisAndFish
 	msgreceiveditem VermilionCity_House1_Text_ReceivedGoodRodFromFishingGuru, ITEM_GOOD_ROD
 	setflag FLAG_GOT_GOOD_ROD
+	setvar VAR_0x8004, ITEM_GOOD_ROD
+	call EventScript_AskToRegisterNewKeyItem
 	msgbox VermilionCity_House1_Text_FishingIsAWayOfLife
 	release
 	end

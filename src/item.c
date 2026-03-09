@@ -470,6 +470,11 @@ void RegisteredItemHandleBikeSwap(void)
     }
 }
 
+void SetRegisteredItemFromVar8004(void)
+{
+    gSaveBlock1Ptr->registeredItem = gSpecialVar_0x8004;
+}
+
 void SwapItemSlots(struct ItemSlot * a, struct ItemSlot * b)
 {
     struct ItemSlot c;
