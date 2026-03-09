@@ -919,6 +919,12 @@ the mapwarp no longer initializing something with regards
 to the Union Room or smth. I will continue this work at my
 PC since my laptop's copilot is retarded.
 
+I have an idea of something I can do for Key Items. When
+receiving a new item with pocket = key_items, there should
+be a pop up that asks whether you want to register this 
+key item. That way you can quickly override whatever key
+item you currently have registered.
+
 TO DO:
 x Add Bugsy
 x Force SET mode
