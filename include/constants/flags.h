@@ -362,7 +362,7 @@
 #define FLAG_HIDE_ROUTE2_PARALYZE_HEAL                          0x155
 #define FLAG_HIDE_VIRIDIAN_FOREST_NET_BALL                      0x156
 #define FLAG_HIDE_VIRIDIAN_FOREST_ANTIDOTE                      0x157
-#define FLAG_HIDE_VIRIDIAN_FOREST_POTION                        0x158
+#define FLAG_HIDE_VIRIDIAN_FOREST_EXP_CANDY_S                        0x158
 #define FLAG_HIDE_MT_MOON_1F_PARALYZE_HEAL                      0x159
 #define FLAG_HIDE_MT_MOON_1F_TM09                               0x15A
 #define FLAG_HIDE_MT_MOON_1F_POTION                             0x15B
