@@ -131,7 +131,17 @@ struct PartyMenuInternal
     u8 actions[8];
     u8 numActions;
     u16 palBuffer[BG_PLTT_SIZE / sizeof(u16)];
+    u32 expCandyRemainingExp;
     s16 data[16];
+};
+
+struct ExpCandyEvolutionState
+{
+    MainCallback exitCallback;
+    u32 remainingExp;
+    u16 itemId;
+    u8 slotId;
+    bool8 active;
 };
 
 struct PartyMenuBox
@@ -313,6 +323,8 @@ static u16 GetFieldMoveMonSpecies(void);
 static u8 GetPartyLayoutFromBattleType(void);
 static void Task_SetSacredAshCB(u8 taskId);
 static void CB2_ReturnToBagMenu(void);
+static void CB2_ResumeExpCandyAfterEvolution(void);
+static void Task_ResumeExpCandyAfterEvolution(u8 taskId);
 static u8 GetPartyIdFromBattleSlot(u8 slot);
 static void Task_DisplayHPRestoredMessage(u8 taskId);
 static void SetSelectedMoveForPPItem(u8 taskId);
@@ -463,6 +475,8 @@ static EWRAM_DATA u16 *sSlot2TilemapBuffer = NULL;
 static EWRAM_DATA struct Pokemon *sSacredAshQuestLogMonBackup = NULL;
 EWRAM_DATA u8 gSelectedOrderFromParty[3] = {0};
 static EWRAM_DATA u16 sPartyMenuItemId = ITEM_NONE;
+static EWRAM_DATA struct ExpCandyEvolutionState sExpCandyEvolutionState = {0};
+static EWRAM_DATA u32 sExpCandyMoveLearnRemainingExp = 0;
 ALIGNED(4) EWRAM_DATA u8 gBattlePartyCurrentOrder[PARTY_SIZE / 2] = {0}; // bits 0-3 are the current pos of Slot 1, 4-7 are Slot 2, and so on
 
 COMMON_DATA void (*gItemUseCB)(u8, TaskFunc) = NULL;
@@ -491,6 +505,7 @@ void InitPartyMenu(u8 menuType, u8 layout, u8 partyAction, bool8 keepCursorPos, 
             sPartyMenuInternal->chooseMultiple = TRUE;
         else
             sPartyMenuInternal->chooseMultiple = FALSE;
+            sPartyMenuInternal->expCandyRemainingExp = 0;
         if (layout != KEEP_PARTY_LAYOUT)
             gPartyMenu.layout = layout;
         for (i = 0; i < ARRAY_COUNT(sPartyMenuInternal->data); ++i)
@@ -505,6 +520,79 @@ void InitPartyMenu(u8 menuType, u8 layout, u8 partyAction, bool8 keepCursorPos, 
         CalculatePlayerPartyCount();
         SetMainCallback2(CB2_InitPartyMenu);
     }
+}
+
+static bool8 IsExpCandyItem(u16 item)
+{
+    return (item >= ITEM_EXP_CANDY_S && item <= ITEM_EXP_CANDY_L);
+}
+
+static void ClearExpCandyEvolutionState(void)
+{
+    sExpCandyEvolutionState.active = FALSE;
+    sExpCandyEvolutionState.remainingExp = 0;
+    sExpCandyEvolutionState.itemId = ITEM_NONE;
+    sExpCandyEvolutionState.slotId = 0;
+    sExpCandyEvolutionState.exitCallback = NULL;
+}
+
+static void ClearExpCandyMoveLearnState(void)
+{
+    sExpCandyMoveLearnRemainingExp = 0;
+}
+
+static void CB2_ResumeExpCandyAfterEvolution(void)
+{
+    MainCallback exitCallback = sExpCandyEvolutionState.exitCallback;
+
+    if (!sExpCandyEvolutionState.active
+     || !IsExpCandyItem(sExpCandyEvolutionState.itemId)
+     || sExpCandyEvolutionState.remainingExp == 0
+     || sExpCandyEvolutionState.slotId >= PARTY_SIZE)
+    {
+        ClearExpCandyEvolutionState();
+        if (exitCallback != NULL)
+            SetMainCallback2(exitCallback);
+        else
+            SetMainCallback2(CB2_ReturnToField);
+        return;
+    }
+
+    gSpecialVar_ItemId = sExpCandyEvolutionState.itemId;
+    gPartyMenu.slotId = sExpCandyEvolutionState.slotId;
+    InitPartyMenu(PARTY_MENU_TYPE_FIELD, PARTY_LAYOUT_SINGLE, PARTY_ACTION_USE_ITEM, TRUE, PARTY_MSG_NONE, Task_ResumeExpCandyAfterEvolution, exitCallback);
+}
+
+static void Task_ResumeExpCandyAfterEvolution(u8 taskId)
+{
+    struct Pokemon *mon;
+
+    if (gPaletteFade.active)
+        return;
+
+    if (!sExpCandyEvolutionState.active
+     || !IsExpCandyItem(sExpCandyEvolutionState.itemId)
+     || sExpCandyEvolutionState.remainingExp == 0
+     || sExpCandyEvolutionState.slotId >= PARTY_SIZE)
+    {
+        ClearExpCandyEvolutionState();
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        return;
+    }
+
+    mon = &gPlayerParty[sExpCandyEvolutionState.slotId];
+    if (GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE || GetMonData(mon, MON_DATA_IS_EGG) == TRUE)
+    {
+        ClearExpCandyEvolutionState();
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        return;
+    }
+
+    gPartyMenu.slotId = sExpCandyEvolutionState.slotId;
+    gSpecialVar_ItemId = sExpCandyEvolutionState.itemId;
+    sPartyMenuInternal->expCandyRemainingExp = sExpCandyEvolutionState.remainingExp;
+    ClearExpCandyEvolutionState();
+    gTasks[taskId].func = Task_ExpCandyAddExpForNextLevel;
 }
 
 static void CB2_UpdatePartyMenu(void)
@@ -5177,6 +5265,8 @@ static void Task_ShowSummaryScreenToForgetMove(u8 taskId)
 {
     if (IsPartyMenuTextPrinterActive() != TRUE)
     {
+        if (gPartyMenu.learnMoveMethod == LEARN_VIA_LEVEL_UP && IsExpCandyItem(gSpecialVar_ItemId))
+            sExpCandyMoveLearnRemainingExp = sPartyMenuInternal->expCandyRemainingExp;
         sPartyMenuInternal->exitCallback = CB2_ShowSummaryScreenToForgetMove;
         Task_ClosePartyMenu(taskId);
     }
@@ -5201,7 +5291,12 @@ static void CB2_ReturnToPartyMenuWhileLearningMove(void)
         gPartyMenu.action = PARTY_ACTION_CHOOSE_MON;
     }
     else
+    {
         InitPartyMenu(PARTY_MENU_TYPE_FIELD, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_MON, TRUE, PARTY_MSG_NONE, Task_ReturnToPartyMenuWhileLearningMove, gPartyMenu.exitCallback);
+        if (learnMethod == LEARN_VIA_LEVEL_UP && IsExpCandyItem(gSpecialVar_ItemId))
+            sPartyMenuInternal->expCandyRemainingExp = sExpCandyMoveLearnRemainingExp;
+        ClearExpCandyMoveLearnState();
+    }
 }
 
 static void Task_ReturnToPartyMenuWhileLearningMove(u8 taskId)
@@ -5413,9 +5508,6 @@ void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
     }
 }
 
-// Uses sPartyMenuInternal->data[13] to store remaining exp to give
-#define tRemainingExp data[13]
-
 static void ItemUseCB_ExpCandyStep(u8 taskId, TaskFunc func)
 {
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
@@ -5432,8 +5524,10 @@ static void ItemUseCB_ExpCandyStep(u8 taskId, TaskFunc func)
     if (finalExp > maxExp)
         finalExp = maxExp;
 
-    // Store the total remaining exp to give
-    ptr->tRemainingExp = finalExp - curExp;
+    // Store the total remaining exp to give.
+    ptr->expCandyRemainingExp = finalExp - curExp;
+    ClearExpCandyEvolutionState();
+    ClearExpCandyMoveLearnState();
     
     // Remove the item and set quest log (only once at the start)
     gPartyMenuUseExitCallback = TRUE;
@@ -5459,11 +5553,12 @@ static void Task_ExpCandyAddExpForNextLevel(u8 taskId)
     u32 maxExp;
     u8 newLevel;
 
-    // If no more exp to give, we're done
-    if (ptr->tRemainingExp == 0)
+    // If no more exp to give, we're done.
+    if (ptr->expCandyRemainingExp == 0)
     {
-        // Clear the item ID to prevent further loops
+        // Clear the item ID to prevent further loops.
         gSpecialVar_ItemId = ITEM_NONE;
+        ClearExpCandyEvolutionState();
         Task_ClosePartyMenu(taskId);
         return;
     }
@@ -5472,15 +5567,16 @@ static void Task_ExpCandyAddExpForNextLevel(u8 taskId)
     if (curLevel >= MAX_LEVEL)
     {
         maxExp = gExperienceTables[growth][MAX_LEVEL];
-        newExp = curExp + ptr->tRemainingExp;
+        newExp = curExp + ptr->expCandyRemainingExp;
         if (newExp > maxExp)
             newExp = maxExp;
         SetMonData(mon, MON_DATA_EXP, &newExp);
-        ptr->tRemainingExp = 0;
+        ptr->expCandyRemainingExp = 0;
         UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
         
-        // Clear item ID and close menu
+        // Clear item ID and close menu.
         gSpecialVar_ItemId = ITEM_NONE;
+        ClearExpCandyEvolutionState();
         Task_ClosePartyMenu(taskId);
         return;
     }
@@ -5489,7 +5585,7 @@ static void Task_ExpCandyAddExpForNextLevel(u8 taskId)
     expForNextLevel = gExperienceTables[growth][curLevel + 1];
     
     // Give enough exp to reach next level, or all remaining exp if not enough to level up
-    if (curExp + ptr->tRemainingExp >= expForNextLevel)
+    if (curExp + ptr->expCandyRemainingExp >= expForNextLevel)
     {
         // Enough exp to level up - give just enough to reach next level
         expToGive = expForNextLevel - curExp;
@@ -5497,7 +5593,7 @@ static void Task_ExpCandyAddExpForNextLevel(u8 taskId)
     else
     {
         // Not enough to level up - give all remaining
-        expToGive = ptr->tRemainingExp;
+        expToGive = ptr->expCandyRemainingExp;
     }
 
     // Capture stats before leveling
@@ -5507,7 +5603,7 @@ static void Task_ExpCandyAddExpForNextLevel(u8 taskId)
     newExp = curExp + expToGive;
     SetMonData(mon, MON_DATA_EXP, &newExp);
     CalculateMonStats(mon);
-    ptr->tRemainingExp -= expToGive;
+    ptr->expCandyRemainingExp -= expToGive;
 
     UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
 
@@ -5528,7 +5624,7 @@ static void Task_ExpCandyAddExpForNextLevel(u8 taskId)
     else
     {
         // Didn't level up, but gained exp - continue to next iteration or finish
-        if (ptr->tRemainingExp > 0)
+        if (ptr->expCandyRemainingExp > 0)
         {
             // Still have exp to give, loop again
             gTasks[taskId].func = Task_ExpCandyAddExpForNextLevel;
@@ -5537,12 +5633,11 @@ static void Task_ExpCandyAddExpForNextLevel(u8 taskId)
         {
             // All exp given without leveling - clear item ID and exit
             gSpecialVar_ItemId = ITEM_NONE;
+            ClearExpCandyEvolutionState();
             Task_ClosePartyMenu(taskId);
         }
     }
 }
-
-#undef tRemainingExp
 
 static void UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon)
 {
@@ -5650,16 +5745,29 @@ static void PartyMenuTryEvolution(u8 taskId)
 
     if (targetSpecies != SPECIES_NONE)
     {
+        if (IsExpCandyItem(gSpecialVar_ItemId) && sPartyMenuInternal->expCandyRemainingExp > 0)
+        {
+            sExpCandyEvolutionState.active = TRUE;
+            sExpCandyEvolutionState.remainingExp = sPartyMenuInternal->expCandyRemainingExp;
+            sExpCandyEvolutionState.itemId = gSpecialVar_ItemId;
+            sExpCandyEvolutionState.slotId = gPartyMenu.slotId;
+            sExpCandyEvolutionState.exitCallback = gPartyMenu.exitCallback;
+            gCB2_AfterEvolution = CB2_ResumeExpCandyAfterEvolution;
+        }
+        else
+        {
+            ClearExpCandyEvolutionState();
+            gCB2_AfterEvolution = gPartyMenu.exitCallback;
+        }
+
         FreePartyPointers();
-        gCB2_AfterEvolution = gPartyMenu.exitCallback;
         BeginEvolutionScene(mon, targetSpecies, TRUE, gPartyMenu.slotId);
         DestroyTask(taskId);
     }
     else
     {
         // Check if using EXP Candy with remaining exp to give
-        if (gSpecialVar_ItemId >= ITEM_EXP_CANDY_S && gSpecialVar_ItemId <= ITEM_EXP_CANDY_L
-            && sPartyMenuInternal->data[13] > 0) // tRemainingExp
+        if (IsExpCandyItem(gSpecialVar_ItemId) && sPartyMenuInternal->expCandyRemainingExp > 0)
         {
             // Continue giving exp for next level
             gTasks[taskId].func = Task_ExpCandyAddExpForNextLevel;
