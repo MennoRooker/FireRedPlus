@@ -96,8 +96,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "ViridianForest_EventScript_ItemPokeBall",
-      "flag": "FLAG_HIDE_VIRIDIAN_FOREST_POKE_BALL"
+      "script": "ViridianForest_EventScript_ItemNetBall",
+      "flag": "FLAG_HIDE_VIRIDIAN_FOREST_NET_BALL"
     },
     {
       "type": "object",
@@ -124,8 +124,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "ViridianForest_EventScript_ItemPotion",
-      "flag": "FLAG_HIDE_VIRIDIAN_FOREST_POTION"
+      "script": "ViridianForest_EventScript_ItemLeafStone",
+      "flag": "FLAG_HIDE_VIRIDIAN_FOREST_LEAF_STONE"
     },
     {
       "type": "object",
@@ -166,8 +166,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "ViridianForest_EventScript_ItemLeafStone",
-      "flag": "FLAG_HIDE_VIRIDIAN_FOREST_LEAF_STONE"
+      "script": "ViridianForest_EventScript_ItemExpCandyS",
+      "flag": "FLAG_HIDE_VIRIDIAN_FOREST_EXP_CANDY_S"
     },
     {
       "local_id": "LOCALID_BUGSY_VIRIDIAN_FOREST",
@@ -284,8 +284,8 @@
       "x": 3,
       "y": 22,
       "elevation": 3,
-      "item": "ITEM_EXP_CANDY_S",
-      "flag": "FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_EXP_CANDY_S",
+      "item": "ITEM_TINY_MUSHROOM",
+      "flag": "FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_TINY_MUSHROOM",
       "quantity": 1,
       "underfoot": false
     },

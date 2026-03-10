@@ -360,7 +360,7 @@
 // Item ball hide/show
 #define FLAG_HIDE_ROUTE2_POISON_BARB                            0x154
 #define FLAG_HIDE_ROUTE2_PARALYZE_HEAL                          0x155
-#define FLAG_HIDE_VIRIDIAN_FOREST_POKE_BALL                     0x156
+#define FLAG_HIDE_VIRIDIAN_FOREST_NET_BALL                      0x156
 #define FLAG_HIDE_VIRIDIAN_FOREST_ANTIDOTE                      0x157
 #define FLAG_HIDE_VIRIDIAN_FOREST_POTION                        0x158
 #define FLAG_HIDE_MT_MOON_1F_PARALYZE_HEAL                      0x159
@@ -1032,7 +1032,7 @@
 
 #define FLAG_HIDDEN_ITEMS_START 1000 // 0x3E8
 
-#define FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_EXP_CANDY_S                       (FLAG_HIDDEN_ITEMS_START +   0)
+#define FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_TINY_MUSHROOM                     (FLAG_HIDDEN_ITEMS_START +   0)
 #define FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_ANTIDOTE                          (FLAG_HIDDEN_ITEMS_START +   1)
 #define FLAG_HIDDEN_ITEM_MT_MOON_B2F_FIRE_STONE                            (FLAG_HIDDEN_ITEMS_START +   2)
 #define FLAG_HIDDEN_ITEM_MT_MOON_B2F_ELIXIR                                (FLAG_HIDDEN_ITEMS_START +   3)

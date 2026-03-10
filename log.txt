@@ -337,10 +337,27 @@ Bugsy is fully implemented into the game with all the
 relevant logic and sprites etc.
 
 I changed the pickup table to trigger more often and
-give the player EV reducing berries. 10% chance for each
-different stat. 15% sitrus, 15% rare candy, 5% PP UP,
-3% lum, 2% King's Rock. With the updated pickup table
-there's no reason to make berries reusable.
+give the player EV reducing berries.
+static const struct PickupItem sPickupItems[] =
+{
+    { ITEM_RARE_CANDY, 15 },
+    { ITEM_POMEG_BERRY, 25 },
+    { ITEM_KELPSY_BERRY, 35 },
+    { ITEM_QUALOT_BERRY, 45 },
+    { ITEM_HONDEW_BERRY, 55 },
+    { ITEM_GREPA_BERRY, 65 },
+    { ITEM_TAMATO_BERRY, 75 },
+    { ITEM_PP_UP, 80 },
+    { ITEM_EXP_CANDY_S, 85 },
+    { ITEM_EXP_CANDY_M, 90 },
+    { ITEM_EXP_CANDY_L, 95 },
+    { ITEM_LUM_BERRY, 96 },
+    { ITEM_LUM_BERRY, 97 },
+    { ITEM_LUM_BERRY, 98 },
+    { ITEM_KINGS_ROCK, 99 },
+    { ITEM_KINGS_ROCK, 100 },
+
+};
 
 SET mode and FAST text are now default. I still want to 
 implement forced SET mode at some point but I want to
@@ -931,6 +948,10 @@ A list of key items for which this may be useful:
 - Bicycle
 - Itemfinder
 - VS Seeker
+
+A bug I found with the Exp Candies is that evolution is 
+not handled properly. When a mon evolves halfway through 
+the exp gained, it never continues.
 
 TO DO:
 x Add Bugsy

@@ -10,16 +10,16 @@ Route2_EventScript_ItemParalyzeHeal::
 	finditem ITEM_PARALYZE_HEAL
 	end
 
-ViridianForest_EventScript_ItemPokeBall::
-	finditem ITEM_POKE_BALL
+ViridianForest_EventScript_ItemNetBall::
+	finditem ITEM_NET_BALL
 	end
 
 ViridianForest_EventScript_ItemAntidote::
 	finditem ITEM_ANTIDOTE
 	end
 
-ViridianForest_EventScript_ItemPotion::
-	finditem ITEM_POTION
+ViridianForest_EventScript_ItemExpCandyS::
+	finditem ITEM_EXP_CANDY_S
 	end
 
 ViridianForest_EventScript_ItemLeafStone::
