@@ -230,8 +230,8 @@
       "x": 39,
       "y": 11,
       "elevation": 3,
-      "item": "ITEM_ELIXIR",
-      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B2F_ELIXIR",
+      "item": "ITEM_WATER_STONE",
+      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B2F_WATER_STONE",
       "quantity": 1,
       "underfoot": false
     }

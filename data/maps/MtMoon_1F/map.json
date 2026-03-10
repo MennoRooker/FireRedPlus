@@ -152,8 +152,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MtMoon_1F_EventScript_ItemPotion",
-      "flag": "FLAG_HIDE_MT_MOON_1F_POTION"
+      "script": "MtMoon_1F_EventScript_ItemNestBall",
+      "flag": "FLAG_HIDE_MT_MOON_1F_NEST_BALL"
     },
     {
       "type": "object",

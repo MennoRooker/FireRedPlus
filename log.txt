@@ -951,7 +951,36 @@ A list of key items for which this may be useful:
 
 A bug I found with the Exp Candies is that evolution is 
 not handled properly. When a mon evolves halfway through 
-the exp gained, it never continues.
+the exp gained, it never continues. Fixed!
+
+I will keep a comprehensive list of all items the player
+can possibly obtain as I go through the game and tally 
+them. As I go through I will update all of these items.
+This includes the PC storage, item balls, hidden items
+and gifted items. (Key items not included):
+- Potion 	|||
+- Antidote	||
+- Exp Candy S 	||
+- Leaf Stone	|
+- Net Ball	|
+- TinyMushroom	||||
+- Great Ball	||
+- TM39		|
+- Oran Berry	|
+- Persim Berry	|
+- TM09		|
+- Parlyz Heal	|
+- Nest Ball	|
+- Rare Candy	||
+- Escape Rope	|
+- BigMushroom	||
+- Star Piece	|
+- TM46		|
+- Water Stone	|
+- Revive	|
+- Fire Stone	|
+- TM05		|
+
 
 TO DO:
 x Add Bugsy
@@ -1063,6 +1092,7 @@ x Bulldoze
 
 
 Items to add:
+- Loaded Dice
 - Eviolite
 - Expert Belt
 - Wise Glasses

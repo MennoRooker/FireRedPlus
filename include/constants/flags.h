@@ -362,10 +362,10 @@
 #define FLAG_HIDE_ROUTE2_PARALYZE_HEAL                          0x155
 #define FLAG_HIDE_VIRIDIAN_FOREST_NET_BALL                      0x156
 #define FLAG_HIDE_VIRIDIAN_FOREST_ANTIDOTE                      0x157
-#define FLAG_HIDE_VIRIDIAN_FOREST_EXP_CANDY_S                        0x158
+#define FLAG_HIDE_VIRIDIAN_FOREST_EXP_CANDY_S                   0x158
 #define FLAG_HIDE_MT_MOON_1F_PARALYZE_HEAL                      0x159
 #define FLAG_HIDE_MT_MOON_1F_TM09                               0x15A
-#define FLAG_HIDE_MT_MOON_1F_POTION                             0x15B
+#define FLAG_HIDE_MT_MOON_1F_NEST_BALL                          0x15B
 #define FLAG_HIDE_MT_MOON_1F_RARE_CANDY                         0x15C
 #define FLAG_HIDE_MT_MOON_1F_ESCAPE_ROPE                        0x15D
 #define FLAG_HIDE_MT_MOON_1F_MOON_STONE                         0x15E
@@ -1035,7 +1035,7 @@
 #define FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_TINY_MUSHROOM                     (FLAG_HIDDEN_ITEMS_START +   0)
 #define FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_ANTIDOTE                          (FLAG_HIDDEN_ITEMS_START +   1)
 #define FLAG_HIDDEN_ITEM_MT_MOON_B2F_FIRE_STONE                            (FLAG_HIDDEN_ITEMS_START +   2)
-#define FLAG_HIDDEN_ITEM_MT_MOON_B2F_ELIXIR                                (FLAG_HIDDEN_ITEMS_START +   3)
+#define FLAG_HIDDEN_ITEM_MT_MOON_B2F_WATER_STONE                           (FLAG_HIDDEN_ITEMS_START +   3)
 #define FLAG_HIDDEN_ITEM_ROUTE25_TAMATO_BERRY                              (FLAG_HIDDEN_ITEMS_START +   4)
 #define FLAG_HIDDEN_ITEM_ROUTE25_ELIXIR                                    (FLAG_HIDDEN_ITEMS_START +   5)
 #define FLAG_HIDDEN_ITEM_ROUTE9_ELIXIR                                     (FLAG_HIDDEN_ITEMS_START +   6)
@@ -1144,7 +1144,7 @@
 #define FLAG_HIDDEN_ITEM_ONE_ISLAND_TREASURE_BEACH_STAR_PIECE              (FLAG_HIDDEN_ITEMS_START + 109)
 #define FLAG_HIDDEN_ITEM_ONE_ISLAND_TREASURE_BEACH_BIG_PEARL               (FLAG_HIDDEN_ITEMS_START + 110)
 #define FLAG_HIDDEN_ITEM_TWO_ISLAND_CAPE_BRINK_RARE_CANDY                  (FLAG_HIDDEN_ITEMS_START + 111)
-#define FLAG_HIDDEN_ITEM_PEWTER_CITY_POKE_BALL                             (FLAG_HIDDEN_ITEMS_START + 112)
+#define FLAG_HIDDEN_ITEM_PEWTER_CITY_GREAT_BALL                            (FLAG_HIDDEN_ITEMS_START + 112)
 #define FLAG_HIDDEN_ITEM_ROUTE3_ORAN_BERRY                                 (FLAG_HIDDEN_ITEMS_START + 113)
 #define FLAG_HIDDEN_ITEM_ROUTE4_PERSIM_BERRY                               (FLAG_HIDDEN_ITEMS_START + 114)
 #define FLAG_HIDDEN_ITEM_ROUTE24_PECHA_BERRY                               (FLAG_HIDDEN_ITEMS_START + 115)

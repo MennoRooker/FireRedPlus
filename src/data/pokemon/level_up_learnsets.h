@@ -403,7 +403,8 @@ static const u16 sSandslashLevelUpLearnset[] = {
 
 static const u16 sNidoranFLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_GROWL),
-    LEVEL_UP_MOVE(1, MOVE_SCRATCH),
+    LEVEL_UP_MOVE(1, MOVE_POISON_STING),
+    LEVEL_UP_MOVE(5, MOVE_SCRATCH),
     LEVEL_UP_MOVE(8, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE(12, MOVE_DOUBLE_KICK),
     LEVEL_UP_MOVE(17, MOVE_POISON_STING),
@@ -441,7 +442,8 @@ static const u16 sNidoqueenLevelUpLearnset[] = {
 
 static const u16 sNidoranMLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_LEER),
-    LEVEL_UP_MOVE(1, MOVE_PECK),
+    LEVEL_UP_MOVE(1, MOVE_POISON_STING),
+    LEVEL_UP_MOVE(5, MOVE_PECK),
     LEVEL_UP_MOVE(8, MOVE_FOCUS_ENERGY),
     LEVEL_UP_MOVE(12, MOVE_DOUBLE_KICK),
     LEVEL_UP_MOVE(17, MOVE_POISON_STING),

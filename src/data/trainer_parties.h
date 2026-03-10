@@ -956,7 +956,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_RivalCeruleanSquirtle[] =
         .iv = 10,
         .lvl = 16,
         .species = SPECIES_ABRA,
-        .moves = {MOVE_CONFUSION, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+        .moves = {MOVE_CONFUSION, MOVE_HIDDEN_POWER, MOVE_NONE, MOVE_NONE}, // Hidden Power FIGHTING
     },
     {
         .iv = 10,
@@ -983,7 +983,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_RivalCeruleanBulbasaur[] 
         .iv = 10,
         .lvl = 16,
         .species = SPECIES_ABRA,
-        .moves = {MOVE_CONFUSION, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+        .moves = {MOVE_CONFUSION, MOVE_HIDDEN_POWER, MOVE_NONE, MOVE_NONE}, // Hidden Power FIGHTING
     },
     {
         .iv = 10,
@@ -1010,7 +1010,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_RivalCeruleanCharmander[]
         .iv = 10,
         .lvl = 16,
         .species = SPECIES_ABRA,
-        .moves = {MOVE_CONFUSION, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+        .moves = {MOVE_CONFUSION, MOVE_HIDDEN_POWER, MOVE_NONE, MOVE_NONE}, // Hidden Power FIGHTING
     },
     {
         .iv = 10,

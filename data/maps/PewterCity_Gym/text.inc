@@ -16,7 +16,7 @@ PewterCity_Gym_Text_BrockIntro::
 
 @ NOTE: This defeat text actually causes a buffer overflow. It's too long for the gDisplayedStringBattle
 @ buffer that it's put into, and it stomps all over the gBattleTextBuffs after, as well as the otherwise
-@ unused array after that, sFlickerArray. Perhaps that's the reason why said array exists.
+@ unused array after that, sFlickerArray. Perhaps that is the reason why said array exists.
 PewterCity_Gym_Text_BrockDefeat::
     .string "I took you for granted, and so\n"
     .string "I lost.\p"
@@ -28,9 +28,7 @@ PewterCity_Gym_Text_BrockDefeat::
     .string "{FONT_MALE}Just having the BOULDERBADGE makes\n"
     .string "your POKéMON more powerful.\p"
     .string "It also enables the use of the\n"
-    .string "move FLASH outside of battle.\p"
-    .string "Of course, a POKéMON must know the\n"
-    .string "move FLASH to use it.$"
+    .string "move FLASH outside of battle.$"
 
 PewterCity_Gym_Text_TakeThisWithYou::
     .string "Wait!\n"
