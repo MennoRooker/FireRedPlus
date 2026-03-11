@@ -781,46 +781,38 @@ struct SaveBlock1
     /*0x0490*/ struct ItemSlot bagPocket_PokeBalls[BAG_POKEBALLS_COUNT];
     /*0x04C4*/ struct ItemSlot bagPocket_TMHM[BAG_TMHM_COUNT];
     /*0x05AC*/ struct ItemSlot bagPocket_Berries[BAG_BERRIES_COUNT];
-    /*0x0658*/ u8 seen1[DEX_FLAGS_NO];
-    /*0x068C*/ u16 berryBlenderRecords[3]; // unused
-    /*0x0692*/ u8 unused_632[6];
-    /*0x0698*/ u16 trainerRematchStepCounter;
-    /*0x069A*/ u8 ALIGNED(2) trainerRematches[MAX_REMATCH_ENTRIES];
-    /*0x0700*/ struct ObjectEvent objectEvents[OBJECT_EVENTS_COUNT];
-    /*0x0940*/ struct ObjectEventTemplate objectEventTemplates[OBJECT_EVENT_TEMPLATES_COUNT];
-    /*0x0F40*/ u8 flags[NUM_FLAG_BYTES];
-    /*0x1060*/ u16 vars[VARS_COUNT];
-    /*0x1260*/ u32 gameStats[NUM_GAME_STATS];
-    /*0x1360*/ struct QuestLogScene questLog[QUEST_LOG_SCENE_COUNT];
-    /*0x2D00*/ u16 easyChatProfile[EASY_CHAT_BATTLE_WORDS_COUNT];
-    /*0x2D0C*/ u16 easyChatBattleStart[EASY_CHAT_BATTLE_WORDS_COUNT];
-    /*0x2D18*/ u16 easyChatBattleWon[EASY_CHAT_BATTLE_WORDS_COUNT];
-    /*0x2D24*/ u16 easyChatBattleLost[EASY_CHAT_BATTLE_WORDS_COUNT];
-    /*0x2D30*/ struct Mail mail[MAIL_COUNT];
-    /*0x2F70*/ u8 additionalPhrases[NUM_ADDITIONAL_PHRASE_BYTES];
-    /*0x2F78*/ OldMan oldMan; // unused
-    /*0x2FB4*/ struct DewfordTrend dewfordTrends[5]; // unused
-    /*0x2FE0*/ struct DayCare daycare;
-    /*0x30FC*/ u8 giftRibbons[GIFT_RIBBONS_COUNT];
-    /*0x3107*/ struct ExternalEventData externalEventData;
-    /*0x311B*/ struct ExternalEventFlags externalEventFlags;
-    /*0x3130*/ struct Roamer roamer;
-    /*0x314C*/ struct EnigmaBerry enigmaBerry;
-    /*0x3180*/ struct MysteryGiftSave mysteryGift;
-    /*0x34EC*/ u8 unused_348C[400];
-    /*0x367C*/ struct RamScript ramScript;
-    /*0x3A68*/ struct RecordMixingGift recordMixingGift; // unused
-    /*0x3A78*/ u8 seen2[DEX_FLAGS_NO];
-    /*0x3AAC*/ u8 rivalName[PLAYER_NAME_LENGTH + 1];
-    /*0x3AB4*/ struct FameCheckerSaveData fameChecker[NUM_FAMECHECKER_PERSONS];
-    /*0x3AF4*/ u8 unused_3A94[64];
-    /*0x3B34*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
-    /*0x3C08*/ struct TrainerNameRecord trainerNameRecords[20];
-    /*0x3CF8*/ struct DaycareMon route5DayCareMon;
-    /*0x3D84*/ u8 unused_3D24[16];
-    /*0x3D94*/ u32 towerChallengeId;
-    /*0x3D98*/ struct TrainerTower trainerTower[NUM_TOWER_CHALLENGE_TYPES];
-}; // size: 0x3DC8
+    /*0x0668*/ u8 seen1[DEX_FLAGS_NO];
+    /*0x069C*/ u16 trainerRematchStepCounter;
+    /*0x069E*/ u8 ALIGNED(2) trainerRematches[MAX_REMATCH_ENTRIES];
+    /*0x0704*/ struct ObjectEvent objectEvents[OBJECT_EVENTS_COUNT];
+    /*0x0944*/ struct ObjectEventTemplate objectEventTemplates[OBJECT_EVENT_TEMPLATES_COUNT];
+    /*0x0F44*/ u8 flags[NUM_FLAG_BYTES];
+    /*0x1064*/ u16 vars[VARS_COUNT];
+    /*0x1264*/ u32 gameStats[NUM_GAME_STATS];
+    /*0x1364*/ struct QuestLogScene questLog[QUEST_LOG_SCENE_COUNT];
+    /*0x2D04*/ u16 easyChatProfile[EASY_CHAT_BATTLE_WORDS_COUNT];
+    /*0x2D10*/ u16 easyChatBattleStart[EASY_CHAT_BATTLE_WORDS_COUNT];
+    /*0x2D1C*/ u16 easyChatBattleWon[EASY_CHAT_BATTLE_WORDS_COUNT];
+    /*0x2D28*/ u16 easyChatBattleLost[EASY_CHAT_BATTLE_WORDS_COUNT];
+    /*0x2D34*/ struct Mail mail[MAIL_COUNT];
+    /*0x2F74*/ u8 additionalPhrases[NUM_ADDITIONAL_PHRASE_BYTES];
+    /*0x2F7C*/ struct DayCare daycare;
+    /*0x3098*/ u8 giftRibbons[GIFT_RIBBONS_COUNT];
+    /*0x30A3*/ struct ExternalEventData externalEventData;
+    /*0x30B7*/ struct ExternalEventFlags externalEventFlags;
+    /*0x30CC*/ struct Roamer roamer;
+    /*0x30E8*/ struct EnigmaBerry enigmaBerry;
+    /*0x311C*/ struct MysteryGiftSave mysteryGift;
+    /*0x3488*/ struct RamScript ramScript;
+    /*0x3874*/ u8 seen2[DEX_FLAGS_NO];
+    /*0x38A8*/ u8 rivalName[PLAYER_NAME_LENGTH + 1];
+    /*0x38B0*/ struct FameCheckerSaveData fameChecker[NUM_FAMECHECKER_PERSONS];
+    /*0x38F0*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
+    /*0x39C4*/ struct TrainerNameRecord trainerNameRecords[20];
+    /*0x3AB4*/ struct DaycareMon route5DayCareMon;
+    /*0x3B40*/ u32 towerChallengeId;
+    /*0x3B44*/ struct TrainerTower trainerTower[NUM_TOWER_CHALLENGE_TYPES];
+}; // size: 0x3B74
 
 struct MapPosition
 {

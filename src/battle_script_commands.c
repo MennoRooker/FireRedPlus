@@ -4589,6 +4589,12 @@ static void Cmd_getswitchedmondata(void)
 
     gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
 
+    // If a different party member is taking this battler slot, clear the slot-level
+    // consumed-item record so that the incoming Pokémon cannot inherit and Harvest
+    // (or Recycle) an item that was consumed by its predecessor.
+    if (gBattlerPartyIndexes[gActiveBattler] != *(gBattleStruct->monToSwitchIntoId + gActiveBattler))
+        gBattleStruct->usedHeldItems[gActiveBattler] = ITEM_NONE;
+
     gBattlerPartyIndexes[gActiveBattler] = *(gBattleStruct->monToSwitchIntoId + gActiveBattler);
 
     BtlController_EmitGetMonData(BUFFER_A, REQUEST_ALL_BATTLE, gBitTable[gBattlerPartyIndexes[gActiveBattler]]);
