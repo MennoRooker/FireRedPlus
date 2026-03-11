@@ -980,6 +980,40 @@ and gifted items. (Key items not included):
 - Revive	|
 - Fire Stone	|
 - TM05		|
+- Nugget	|
+
+
+I think I want the BERRY POUCH and TM CASE to default to
+the top of the Key Items pocket instead of the bottom.
+
+I accidentally created a duplication glitch...
+When a member of the team consumes a berry and a Harvest
+mon is switched in it may recover this berry and use it.
+Since I coded held items to be replenished you can get
+an infinite amount of berries this way.
+
+The Harvest glitch is fixed.
+
+I want to perhaps replace all the pokeblocks berries.
+There are 18 damage reducing berries. One for each type
+(including Fairy). There are 14 pokeblock berries, meaning
+we need only 4 more spaces in the berry pouch by the time 
+we've added the Fairy type. When I redistribute the berries
+I should make them very expensive since they function as
+regular held items now and can be very powerful.
+
+I'll also want to rework and resistribute the healing 
+berries that can confuse you. And also keep in mind which
+nature the berry checks since I've implemented the 
+nature changer which utilizes hidden natures. I must 
+make sure that the berries check for hidden nature and
+not the personality-based one.
+
+I increased the size of the berry pouch to 47 already
+since I'm at the early part of my final test run.
+
+I might just load up my current save, but my safest bet is
+to just start over again.
 
 
 TO DO:

@@ -1992,7 +1992,10 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     }
                     break;
                 case ABILITY_HARVEST:
-                    // Check if the berry was consumed and if battler doesn't have an item
+                    // Check if the berry was consumed and if battler doesn't have an item.
+                    // Invariant: usedHeldItems[battler] must belong to the current battler
+                    // occupant; it is cleared on switch-in when the party member changes
+                    // (see Cmd_getswitchedmondata) to prevent cross-Pokémon item transfer.
                     if (gBattleStruct->usedHeldItems[battler] != ITEM_NONE && gBattleMons[battler].item == ITEM_NONE)
                     {
                         // Check if the consumed item is a berry
