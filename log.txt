@@ -1002,7 +1002,7 @@ we've added the Fairy type. When I redistribute the berries
 I should make them very expensive since they function as
 regular held items now and can be very powerful.
 
-I'll also want to rework and resistribute the healing 
+I'll also want to rework and redistribute the healing 
 berries that can confuse you. And also keep in mind which
 nature the berry checks since I've implemented the 
 nature changer which utilizes hidden natures. I must 
@@ -1014,6 +1014,11 @@ since I'm at the early part of my final test run.
 
 I might just load up my current save, but my safest bet is
 to just start over again.
+
+Nearly all info on a mon should be available in the pokedex
+after seeing it, instead of after catching it. I might also
+want to add a summary-type screen for a pokemon's typing,
+stats and possible abilities.
 
 
 TO DO:

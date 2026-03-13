@@ -1553,8 +1553,9 @@ static void ItemPrintFunc_OrderedListMenu(u8 windowId, u32 itemId, u8 y)
     u8 type1;
     DexScreen_PrintMonDexNo(sPokedexScreenData->numericalOrderWindowId, FONT_SMALL, species, 12, y);
     if (caught)
-    {
         BlitMenuInfoIcon(sPokedexScreenData->numericalOrderWindowId, MENU_INFO_ICON_CAUGHT, 0x28, y);
+    if (seen)
+    {
         type1 = gSpeciesInfo[species].types[0];
         BlitMenuInfoIcon(sPokedexScreenData->numericalOrderWindowId, type1 + 1, 0x78, y);
         if (type1 != gSpeciesInfo[species].types[1])
@@ -2675,7 +2676,7 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
 
     categoryName = (u8 *)gPokedexEntries[species].categoryName;
     index = 0;
-    if (DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, FALSE))
+    if (DexScreen_GetSetPokedexFlag(species, FLAG_GET_SEEN, FALSE))
     {
 #if REVISION == 0
         while ((categoryName[index] != CHAR_SPACE) && (index < 11))
@@ -2721,7 +2722,7 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
     buffer[i++] = 5;
     buffer[i++] = CHAR_SPACE;
 
-    if (DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, FALSE))
+    if (DexScreen_GetSetPokedexFlag(species, FLAG_GET_SEEN, FALSE))
     {
         inches = 10000 * height / 254; // actually tenths of inches here
         if (inches % 10 >= 5)
@@ -2781,7 +2782,7 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
     buffer[i++] = EXT_CTRL_CODE_MIN_LETTER_SPACING;
     buffer[i++] = 5;
 
-    if (DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, FALSE))
+    if (DexScreen_GetSetPokedexFlag(species, FLAG_GET_SEEN, FALSE))
     {
         lbs = (weight * 100000) / 4536; // Convert to hundredths of lb
 
@@ -2860,7 +2861,7 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
 
     species = SpeciesToNationalPokedexNum(species);
 
-    if (DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, FALSE))
+    if (DexScreen_GetSetPokedexFlag(species, FLAG_GET_SEEN, FALSE))
     {
         printerTemplate.currentChar = gPokedexEntries[species].description;
         printerTemplate.windowId = windowId;
@@ -2896,7 +2897,7 @@ void DexScreen_DrawMonFootprint(u8 windowId, u16 species, u8 x, u8 y)
     u8 * buffer;
     u8 * footprint;
 
-    if (!(DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE)))
+    if (!(DexScreen_GetSetPokedexFlag(species, FLAG_GET_SEEN, TRUE)))
         return;
     footprint = (u8 *)(gMonFootprintTable[species]);
     buffer = gDecompressionBuffer;
@@ -2991,7 +2992,7 @@ u8 DexScreen_DrawMonAreaPage(void)
 
     species = sPokedexScreenData->dexSpecies;
     speciesId = SpeciesToNationalPokedexNum(species);
-    monIsCaught = DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE);
+    monIsCaught = DexScreen_GetSetPokedexFlag(species, FLAG_GET_SEEN, TRUE);
     width = 28;
     height = 14;
     left = 0;

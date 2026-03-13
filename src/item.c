@@ -10,6 +10,7 @@
 #include "constants/hold_effects.h"
 #include "constants/items.h"
 #include "constants/maps.h"
+#include "item_menu.h"
 
 EWRAM_DATA struct BagPocket gBagPockets[NUM_BAG_POCKETS] = {};
 
@@ -239,6 +240,7 @@ bool8 AddBagItem(u16 itemId, u16 count)
             return FALSE;
         gBagPockets[POCKET_KEY_ITEMS - 1].itemSlots[idx].itemId = ITEM_TM_CASE;
         SetBagItemQuantity(&gBagPockets[POCKET_KEY_ITEMS - 1].itemSlots[idx].quantity, 1);
+        MoveItemSlotInList(gBagPockets[POCKET_KEY_ITEMS - 1].itemSlots, idx, 0);
     }
 
     if (pocket == POCKET_BERRY_POUCH - 1 && !CheckBagHasItem(ITEM_BERRY_POUCH, 1))
@@ -248,6 +250,7 @@ bool8 AddBagItem(u16 itemId, u16 count)
             return FALSE;
         gBagPockets[POCKET_KEY_ITEMS - 1].itemSlots[idx].itemId = ITEM_BERRY_POUCH;
         SetBagItemQuantity(&gBagPockets[POCKET_KEY_ITEMS - 1].itemSlots[idx].quantity, 1);
+        MoveItemSlotInList(gBagPockets[POCKET_KEY_ITEMS - 1].itemSlots, idx, 0);
         FlagSet(FLAG_SYS_GOT_BERRY_POUCH);
     }
 
