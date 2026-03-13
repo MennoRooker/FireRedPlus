@@ -1020,6 +1020,23 @@ after seeing it, instead of after catching it. I might also
 want to add a summary-type screen for a pokemon's typing,
 stats and possible abilities.
 
+Ingredient berries:
+- Razz
+- Bluk
+- Nanab
+- Wepear
+- Pinap
+- Cornn
+- Magost
+- Rabuta
+- Nomel
+- Spelon
+- Pamtre
+- Watmel
+- Durin
+- Belue
+
+
 
 TO DO:
 x Add Bugsy

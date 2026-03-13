@@ -4480,6 +4480,13 @@ BattleScript_HarvestedBerry::
 	waitmessage B_WAIT_TIME_LONG
 	end3
 
+BattleScript_TypeResistBerryHalveDamage::
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT
+	printstring STRINGID_PKMNSITEMWEAKENEDTYPEMOVE
+	waitmessage B_WAIT_TIME_LONG
+	removeitem BS_SCRIPTING
+	return
+
 BattleScript_ItemHealHP_RemoveItem::
 	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
 	printstring STRINGID_PKMNSITEMRESTOREDHEALTH

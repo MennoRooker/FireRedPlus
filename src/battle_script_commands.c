@@ -65,6 +65,31 @@ static bool8 sDrainPoisonPending;
 static u8 sDrainPoisonSourceBattler;
 static bool8 sDrainPoisonDisplayPending;
 static u8 sDrainPoisonDisplayBattler;
+static const struct TypeResistBerry
+{
+    u16 item;
+    u8 type;
+} sTypeResistBerries[] =
+{
+    { ITEM_CHILAN_BERRY, TYPE_NORMAL },
+    { ITEM_OCCA_BERRY, TYPE_FIRE },
+    { ITEM_PASSHO_BERRY, TYPE_WATER },
+    { ITEM_WACAN_BERRY, TYPE_ELECTRIC },
+    { ITEM_RINDO_BERRY, TYPE_GRASS },
+    { ITEM_YACHE_BERRY, TYPE_ICE },
+    { ITEM_CHOPLE_BERRY, TYPE_FIGHTING },
+    { ITEM_KEBIA_BERRY, TYPE_POISON },
+    { ITEM_SHUCA_BERRY, TYPE_GROUND },
+    { ITEM_COBA_BERRY, TYPE_FLYING },
+    { ITEM_PAYAPA_BERRY, TYPE_PSYCHIC },
+    { ITEM_TANGA_BERRY, TYPE_BUG },
+    { ITEM_CHARTI_BERRY, TYPE_ROCK },
+    { ITEM_KASIB_BERRY, TYPE_GHOST },
+    { ITEM_HABAN_BERRY, TYPE_DRAGON },
+    { ITEM_COLBUR_BERRY, TYPE_DARK },
+    { ITEM_BABIRI_BERRY, TYPE_STEEL },
+    // Roseli Berry is intentionally omitted until TYPE_FAIRY exists in this project.
+};
 
 static void Cmd_attackcanceler(void);
 static void Cmd_accuracycheck(void);
@@ -175,6 +200,7 @@ static void Cmd_adjustsetdamage(void);
 static void Cmd_removeitem(void);
 static void Cmd_atknameinbuff1(void);
 static void Cmd_drawlvlupbox(void);
+static bool8 TryActivateTypeResistBerry(void);
 static void Cmd_resetsentmonsvalue(void);
 static void Cmd_setatktoplayer0(void);
 static void Cmd_makevisible(void);
@@ -1603,12 +1629,53 @@ static void Unused_ApplyRandomDmgMultiplier(void)
 {
     ApplyRandomDmgMultiplier();
 }
+static bool8 TryActivateTypeResistBerry(void)
+{
+    u8 i;
+    u8 moveType;
+    u16 heldItem;
 
+    if (gBattleMoveDamage <= 0
+     || gBattleMoves[gCurrentMove].power == 0
+     || (gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE))
+        return FALSE;
+
+    heldItem = gBattleMons[gBattlerTarget].item;
+    if (heldItem == ITEM_NONE || heldItem == ITEM_ENIGMA_BERRY)
+        return FALSE;
+
+    GET_MOVE_TYPE(gCurrentMove, moveType);
+    for (i = 0; i < ARRAY_COUNT(sTypeResistBerries); i++)
+    {
+        if (heldItem == sTypeResistBerries[i].item
+         && moveType == sTypeResistBerries[i].type)
+        {
+            gBattleMoveDamage /= 2;
+            if (gBattleMoveDamage == 0)
+                gBattleMoveDamage = 1;
+
+            PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
+            gLastUsedItem = heldItem;
+            gPotentialItemEffectBattler = gBattlerTarget;
+            gBattleScripting.battler = gBattlerTarget;
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
 static void Cmd_adjustnormaldamage(void)
 {
     u8 holdEffect, param;
 
     ApplyRandomDmgMultiplier();
+    if (TryActivateTypeResistBerry())
+    {
+        gBattlescriptCurrInstr++;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_TypeResistBerryHalveDamage;
+        return;
+    }
 
     if (gBattleMons[gBattlerTarget].item == ITEM_ENIGMA_BERRY)
     {
@@ -1664,6 +1731,13 @@ static void Cmd_adjustnormaldamage2(void)
     u8 holdEffect, param;
 
     ApplyRandomDmgMultiplier();
+    if (TryActivateTypeResistBerry())
+    {
+        gBattlescriptCurrInstr++;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_TypeResistBerryHalveDamage;
+        return;
+    }
 
     if (gBattleMons[gBattlerTarget].item == ITEM_ENIGMA_BERRY)
     {

@@ -259,7 +259,7 @@
       "x": 31,
       "y": 25,
       "elevation": 3,
-      "item": "ITEM_RAZZ_BERRY",
+      "item": "ITEM_CHILAN_BERRY",
       "flag": "FLAG_HIDDEN_ITEM_THREE_ISLAND_BERRY_FOREST_RAZZ_BERRY",
       "quantity": 1,
       "underfoot": false
@@ -269,7 +269,7 @@
       "x": 15,
       "y": 15,
       "elevation": 3,
-      "item": "ITEM_BLUK_BERRY",
+      "item": "ITEM_OCCA_BERRY",
       "flag": "FLAG_HIDDEN_ITEM_THREE_ISLAND_BERRY_FOREST_BLUK_BERRY",
       "quantity": 1,
       "underfoot": false
@@ -279,7 +279,7 @@
       "x": 25,
       "y": 24,
       "elevation": 3,
-      "item": "ITEM_NANAB_BERRY",
+      "item": "ITEM_PASSHO_BERRY",
       "flag": "FLAG_HIDDEN_ITEM_THREE_ISLAND_BERRY_FOREST_NANAB_BERRY",
       "quantity": 1,
       "underfoot": false
@@ -289,7 +289,7 @@
       "x": 11,
       "y": 24,
       "elevation": 3,
-      "item": "ITEM_WEPEAR_BERRY",
+      "item": "ITEM_WACAN_BERRY",
       "flag": "FLAG_HIDDEN_ITEM_THREE_ISLAND_BERRY_FOREST_WEPEAR_BERRY",
       "quantity": 1,
       "underfoot": false
@@ -369,7 +369,7 @@
       "x": 43,
       "y": 16,
       "elevation": 3,
-      "item": "ITEM_PINAP_BERRY",
+      "item": "ITEM_RINDO_BERRY",
       "flag": "FLAG_HIDDEN_ITEM_THREE_ISLAND_BERRY_FOREST_PINAP_BERRY",
       "quantity": 1,
       "underfoot": false

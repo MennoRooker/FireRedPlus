@@ -520,6 +520,7 @@ const u8 gText_OakNoRunningFromATrainer[] = _("OAK: No! There's no running away\
 const u8 gText_WinEarnsPrizeMoney[] = _("OAK: Hm! Excellent!\pIf you win, you earn prize money,\nand your POKéMON will grow!\pBattle other TRAINERS and make\nyour POKéMON strong!\p");
 const u8 gText_HowDissapointing[] = _("OAK: Hm…\nHow disappointing…\pIf you win, you earn prize money,\nand your POKéMON grow.\pBut if you lose, {B_PLAYER_NAME}, you end\nup paying prize money…\pHowever, since you had no warning\nthis time, I'll pay for you.\pBut things won't be this way once\nyou step outside these doors.\pThat's why you must strengthen your\nPOKéMON by battling wild POKéMON.\p");
 static const u8 sText_PkmnHungOnWithSturdy[] = _("{B_DEF_NAME_WITH_PREFIX} hung on\nwith STURDY!");
+static const u8 sText_PkmnsItemWeakenedTypeMove[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_LAST_ITEM}\nweakened the {B_BUFF1}-type move!");
 
 const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_START] = {
     [STRINGID_TRAINER1LOSETEXT - BATTLESTRINGS_TABLE_START]              = sText_Trainer1LoseText,
@@ -902,6 +903,7 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_PKMNHUNGONWITHSTURDY - BATTLESTRINGS_TABLE_START]          = sText_PkmnHungOnWithSturdy,
     [STRINGID_PKMNHURTBYSOLARPOWER - BATTLESTRINGS_TABLE_START]          = sText_PkmnHurtBySolarPower,
     [STRINGID_PKMNHARVESTEDBERRY - BATTLESTRINGS_TABLE_START]            = sText_PkmnHarvestedBerry,
+    [STRINGID_PKMNSITEMWEAKENEDTYPEMOVE - BATTLESTRINGS_TABLE_START]     = sText_PkmnsItemWeakenedTypeMove,
 };
 
 const u16 gMissStringIds[] =
