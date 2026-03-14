@@ -77,7 +77,7 @@ u16 GetKantoPokedexCount(u8 caseID)
     u16 count = 0;
     u16 i;
 
-    for (i = 0; i < KANTO_DEX_COUNT; i++)
+    for (i = 0; i < NATIONAL_DEX_COUNT; i++)
     {
         switch (caseID)
         {
@@ -112,7 +112,7 @@ bool16 HasAllKantoMons(void)
     u16 i;
 
     // -1 excludes Mew
-    for (i = 0; i < KANTO_DEX_COUNT - 1; i++)
+    for (i = 0; i < NATIONAL_DEX_COUNT - 1; i++)
     {
         if (!GetSetPokedexFlag(i + 1, FLAG_GET_CAUGHT))
             return FALSE;
@@ -125,14 +125,14 @@ bool16 HasAllMons(void)
     u16 i;
 
     // -1 excludes Mew
-    for (i = 0; i < KANTO_DEX_COUNT - 1; i++)
+    for (i = 0; i < NATIONAL_DEX_COUNT - 1; i++)
     {
         if (!GetSetPokedexFlag(i + 1, FLAG_GET_CAUGHT))
             return FALSE;
     }
 
     // -3 excludes Lugia, Ho-Oh, and Celebi
-    for (i = KANTO_DEX_COUNT; i < JOHTO_DEX_COUNT - 3; i++)
+    for (i = NATIONAL_DEX_COUNT; i < JOHTO_DEX_COUNT - 3; i++)
     {
         if (!GetSetPokedexFlag(i + 1, FLAG_GET_CAUGHT))
             return FALSE;

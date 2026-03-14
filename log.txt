@@ -1036,6 +1036,21 @@ abundance of normal/flying types.
 I'm probably going to make move tutors use shards. The two
 karate guys should accept a red shard for the mega moves so
 that you can find the hidden red shard at Bill's house.
+Also I can change some of the Mt. Moon mushrooms to be
+different colored shards.
+Red -> Physical: Mega Punch, Mega Kick, Double-Edge,
+	Rock Slide, Explosion, Body Slam
+Yellow: Status: Thunder Wave, Seismic Toss, Counter
+Blue: Special: Dream Eater, Frenzy Plant, Blast Burn,
+	Hydro Cannon
+Green: Set-up/Healing: Soft-Boiled, Substitute, Swords
+	Dance
+
+I want to change the recharge moves to allow usage of
+other moves in the off-turns. This is like Bloodmoon
+from Ursaluna. It should work like the Truant implemen-
+tation, allowing the player to click the move, but then
+the recharge message appears.
 
 I'll change the confuse/heal berries to be a little more
 powerful, but still not ideal to use. Probably healing 33% 

@@ -5261,8 +5261,8 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                 {
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;
                     
-                    // Prevent cross-generational evolutions like Scizor and Steelix until the National Pokedex is obtained
-                    if (IsNationalPokedexEnabled() || targetSpecies <= KANTO_SPECIES_END)
+                    // Prevent evolutions beyond the configured dex max until the National Pokedex is obtained
+                    if (IsNationalPokedexEnabled() || targetSpecies <= NATIONAL_DEX_COUNT)
                     {
                         heldItem = ITEM_NONE;
                         SetMonData(mon, MON_DATA_HELD_ITEM, &heldItem);
@@ -5972,7 +5972,7 @@ u16 SpeciesToPokedexNum(u16 species)
 {
     species = SpeciesToNationalPokedexNum(species);
 
-    if (!IsNationalPokedexEnabled() && species > KANTO_SPECIES_END)
+    if (!IsNationalPokedexEnabled() && species > NATIONAL_DEX_COUNT)
         return 0xFFFF;
     return species;
 }

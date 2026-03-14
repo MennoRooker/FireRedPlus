@@ -2761,7 +2761,7 @@ static u32 CanTradeSelectedMon(struct Pokemon * playerParty, int partyCount, int
             if (species2[monIdx] == SPECIES_EGG)
                 return CANT_TRADE_PARTNER_EGG_YET;
 
-            if (species2[monIdx] > KANTO_SPECIES_END)
+            if (species2[monIdx] > NATIONAL_DEX_COUNT)
                 return CANT_TRADE_INVALID_MON;
         }
     }
@@ -2908,7 +2908,7 @@ int CanRegisterMonForTradingBoard(struct RfuGameCompatibilityData player, u16 sp
     if (species2 == SPECIES_EGG)
         return CANT_REGISTER_EGG;
 
-    if (species2 > KANTO_SPECIES_END && species2 != SPECIES_EGG)
+    if (species2 > NATIONAL_DEX_COUNT && species2 != SPECIES_EGG)
         return CANT_REGISTER_MON;
 
     return CAN_REGISTER_MON;

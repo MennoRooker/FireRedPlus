@@ -1370,7 +1370,7 @@ static void DexScreen_CreateCharacteristicListMenu(void)
 
 static u16 DexScreen_CountMonsInOrderedList(u8 orderIdx)
 {
-    s32 max_n = IsNationalPokedexEnabled() ? NATIONAL_DEX_COUNT : KANTO_DEX_COUNT;
+    s32 max_n = IsNationalPokedexEnabled() ? NATIONAL_DEX_COUNT : NATIONAL_DEX_COUNT;
     u16 ndex_num;
     u16 ret = NATIONAL_DEX_NONE;
     s32 i;
@@ -1381,7 +1381,7 @@ static u16 DexScreen_CountMonsInOrderedList(u8 orderIdx)
     {
     default:
     case DEX_ORDER_NUMERICAL_KANTO:
-        for (i = 0; i < KANTO_DEX_COUNT; i++)
+        for (i = 0; i < NATIONAL_DEX_COUNT; i++)
         {
             ndex_num = i + 1;
             seen = DexScreen_GetSetPokedexFlag(ndex_num, FLAG_GET_SEEN, FALSE);
@@ -2277,7 +2277,7 @@ static u16 DexScreen_GetDexCount(u8 caseId, bool8 whichDex)
     switch (whichDex)
     {
     case 0: // Kanto
-        for (i = 0; i < KANTO_DEX_COUNT; i++)
+        for (i = 0; i < NATIONAL_DEX_COUNT; i++)
         {
             if (DexScreen_GetSetPokedexFlag(i + 1, caseId, FALSE))
                 count++;
@@ -3169,7 +3169,7 @@ static int DexScreen_CanShowMonInDex(u16 species)
 {
     if (IsNationalPokedexEnabled() == TRUE)
         return TRUE;
-    if (SpeciesToNationalPokedexNum(species) <= KANTO_DEX_COUNT)
+    if (SpeciesToNationalPokedexNum(species) <= NATIONAL_DEX_COUNT)
         return TRUE;
     return FALSE;
 }
@@ -3309,7 +3309,7 @@ u8 DexScreen_RegisterMonToPokedex(u16 species)
     DexScreen_GetSetPokedexFlag(species, FLAG_SET_SEEN, TRUE);
     DexScreen_GetSetPokedexFlag(species, FLAG_SET_CAUGHT, TRUE);
 
-    if (!IsNationalPokedexEnabled() && SpeciesToNationalPokedexNum(species) > KANTO_DEX_COUNT)
+    if (!IsNationalPokedexEnabled() && SpeciesToNationalPokedexNum(species) > NATIONAL_DEX_COUNT)
         return CreateTask(Task_DexScreen_RegisterNonKantoMonBeforeNationalDex, 0);
 
     DexScreen_LoadResources();

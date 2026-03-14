@@ -26,6 +26,19 @@ Macho brace has no speed drop
 Held items are replenished after battle
 Reusable move tutors
 No HMs required
+Truant
+Recharge moves
+Bad poisoning always
+Paralysis is 1/2 speed
+1-3 sleep turns
+Early Bird 1 turn sleep
+Damage reducing berries
+Instant national dex, info on seen, stats screen
+Items redistribution
+Running everywhere
+Unique held items
+New abilities
+Replenishing held items
 
 
 
