@@ -238,8 +238,8 @@
       "x": 58,
       "y": 6,
       "elevation": 3,
-      "item": "ITEM_TAMATO_BERRY",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE25_TAMATO_BERRY",
+      "item": "ITEM_RED_SHARD",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE25_RED_SHARD",
       "quantity": 1,
       "underfoot": false
     },
@@ -248,8 +248,8 @@
       "x": 33,
       "y": 8,
       "elevation": 3,
-      "item": "ITEM_ORAN_BERRY",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE25_ORAN_BERRY",
+      "item": "ITEM_AGUAV_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE25_AGUAV_BERRY",
       "quantity": 1,
       "underfoot": false
     },
@@ -258,8 +258,8 @@
       "x": 40,
       "y": 3,
       "elevation": 3,
-      "item": "ITEM_OCCA_BERRY",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE25_BLUK_BERRY",
+      "item": "ITEM_HONDEW_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE25_HONDEW_BERRY",
       "quantity": 1,
       "underfoot": false
     }

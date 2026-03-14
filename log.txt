@@ -981,6 +981,12 @@ and gifted items. (Key items not included):
 - Fire Stone	|
 - TM05		|
 - Nugget	|
+- TM46		|
+- Pecha Berry	|
+- Elixir	|
+- Aguav Berry	|
+- Hondew Berry	|
+- Red Shard	|
 
 
 I think I want the BERRY POUCH and TM CASE to default to
@@ -1020,23 +1026,22 @@ after seeing it, instead of after catching it. I might also
 want to add a summary-type screen for a pokemon's typing,
 stats and possible abilities.
 
-Ingredient berries:
-- Razz
-- Bluk
-- Nanab
-- Wepear
-- Pinap
-- Cornn
-- Magost
-- Rabuta
-- Nomel
-- Spelon
-- Pamtre
-- Watmel
-- Durin
-- Belue
+The damage-reducing berries are implemented. A short test
+seems to work properly.
 
+I changed Spearow and Fearow to pure flying types and 
+Hoot-Hoot and Noctowl to psychic/flying to mitigate the
+abundance of normal/flying types.
 
+I'm probably going to make move tutors use shards. The two
+karate guys should accept a red shard for the mega moves so
+that you can find the hidden red shard at Bill's house.
+
+I'll change the confuse/heal berries to be a little more
+powerful, but still not ideal to use. Probably healing 33% 
+at 1/4 HP.
+
+Also up the difficulty of the gym trainers in Cerulean.
 
 TO DO:
 x Add Bugsy
@@ -1072,11 +1077,13 @@ x Dynamic items
 / Linearizations
 / Balancing
 - Sleep turns (1-3)
+- Tutors require shards
 - HM mons sprites
 - Dynamic speed
 - Faster Bike
 - Victory Road FLY checkpoint
 - Letters
+- Fix exp candy sprites
 - Only a few red HP beeps
 - Clean up
 ---------------------------------------

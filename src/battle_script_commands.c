@@ -2527,7 +2527,12 @@ void SetMoveEffect(bool8 primary, u8 certain)
             BattleScriptPush(gBattlescriptCurrInstr + 1);
 
             if (sStatusFlagsForMoveEffects[gBattleCommunication[MOVE_EFFECT_BYTE]] == STATUS1_SLEEP)
-                gBattleMons[gEffectBattler].status1 |= STATUS1_SLEEP_TURN((Random() & 3) + 2); // 2-5 turns
+            {
+                if (gBattleMons[gEffectBattler].ability == ABILITY_EARLY_BIRD)
+                    gBattleMons[gEffectBattler].status1 |= STATUS1_SLEEP_TURN(3); // Always 1 unable-to-move turn for Early Bird
+                else
+                    gBattleMons[gEffectBattler].status1 |= STATUS1_SLEEP_TURN((Random() % 3) + 2); // 1-3 turns
+            }
             else
                 gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleCommunication[MOVE_EFFECT_BYTE]];
 

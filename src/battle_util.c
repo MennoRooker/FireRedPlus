@@ -1138,7 +1138,10 @@ u8 DoBattlerEndTurnEffects(void)
                      && gBattleMons[gActiveBattler].ability != ABILITY_INSOMNIA && !UproarWakeUpCheck(gActiveBattler))
                     {
                         CancelMultiTurnMoves(gActiveBattler);
-                        gBattleMons[gActiveBattler].status1 |= STATUS1_SLEEP_TURN((Random() & 3) + 2); // 2-5 turns of sleep
+                        if (gBattleMons[gActiveBattler].ability == ABILITY_EARLY_BIRD)
+                            gBattleMons[gActiveBattler].status1 |= STATUS1_SLEEP_TURN(3); // Always 1 unable-to-move turn for Early Bird
+                        else
+                            gBattleMons[gActiveBattler].status1 |= STATUS1_SLEEP_TURN((Random() % 3) + 2); // 1-3 turns of sleep
                         BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
                         MarkBattlerForControllerExec(gActiveBattler);
                         gEffectBattler = gActiveBattler;
@@ -2620,7 +2623,7 @@ enum
 };
 
 #define TRY_EAT_CONFUSE_BERRY(flavor)                                                       \
-    if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / 2 && !moveTurn)         \
+    if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / 4 && !moveTurn)         \
     {                                                                                       \
         PREPARE_FLAVOR_BUFFER(gBattleTextBuff1, flavor);                                    \
         gBattleMoveDamage = gBattleMons[battlerId].maxHP / battlerHoldEffectParam;          \
@@ -3069,7 +3072,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
             case HOLD_EFFECT_CONFUSE_BITTER:
             case HOLD_EFFECT_CONFUSE_SOUR:
                 if (gBattleMons[battlerId].hp != 0
-                    && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam)
+                    && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / 4)
                 {
                     u8 flavor;
 
