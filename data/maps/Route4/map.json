@@ -186,7 +186,7 @@
       "y": 17,
       "elevation": 3,
       "item": "ITEM_CHILAN_BERRY",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE4_RAZZ_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE4_CHILAN_BERRY",
       "quantity": 1,
       "underfoot": false
     }

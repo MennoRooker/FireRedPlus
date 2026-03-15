@@ -959,7 +959,7 @@ them. As I go through I will update all of these items.
 This includes the PC storage, item balls, hidden items
 and gifted items. (Key items not included):
 - Potion 	||||
-- Antidote	|||
+- Antidote	||
 - Exp Candy S 	||
 - Leaf Stone	|
 - Net Ball	|
@@ -969,7 +969,7 @@ and gifted items. (Key items not included):
 - Oran Berry	|
 - Persim Berry	|
 - TM09		|
-- Parlyz Heal	||
+- Parlyz Heal	|
 - Nest Ball	|
 - Rare Candy	|||
 - Escape Rope	|
@@ -981,6 +981,8 @@ and gifted items. (Key items not included):
 - Water Stone	|
 - Revive	|
 - Fire Stone	|
+- Fossil	|
+- Chilan Berry	|
 - TM05		|
 - Nugget	|
 - TM46		|
@@ -990,6 +992,8 @@ and gifted items. (Key items not included):
 - Hondew Berry	|
 - TM03		|
 - TM28		|
+- Green Shard	|
+- Yellow Shard	|
 - Awakening	|
 - Heart Scale	|
 - Ice Heal	|

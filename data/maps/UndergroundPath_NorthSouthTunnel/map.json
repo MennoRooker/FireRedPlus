@@ -48,8 +48,8 @@
       "x": 5,
       "y": 6,
       "elevation": 3,
-      "item": "ITEM_ANTIDOTE",
-      "flag": "FLAG_HIDDEN_ITEM_UNDERGROUND_PATH_NORTH_SOUTH_TUNNEL_ANTIDOTE",
+      "item": "ITEM_GREEN_SHARD",
+      "flag": "FLAG_HIDDEN_ITEM_UNDERGROUND_PATH_NORTH_SOUTH_TUNNEL_GREEN_SHARD",
       "quantity": 1,
       "underfoot": false
     },
@@ -88,8 +88,8 @@
       "x": 3,
       "y": 15,
       "elevation": 3,
-      "item": "ITEM_PARALYZE_HEAL",
-      "flag": "FLAG_HIDDEN_ITEM_UNDERGROUND_PATH_NORTH_SOUTH_TUNNEL_PARALYZE_HEAL",
+      "item": "ITEM_YELLOW_SHARD",
+      "flag": "FLAG_HIDDEN_ITEM_UNDERGROUND_PATH_NORTH_SOUTH_TUNNEL_YELLOW_SHARD",
       "quantity": 1,
       "underfoot": false
     },

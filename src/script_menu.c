@@ -15,6 +15,17 @@
 #include "constants/menu.h"
 
 #define GFXTAG_FOSSIL 7000
+#define GFXTAG_REMATCH_ICON_RED    7001
+#define GFXTAG_REMATCH_ICON_GREEN  7002
+#define GFXTAG_REMATCH_ICON_PINK   7003
+#define GFXTAG_REMATCH_ICON_PURPLE 7004
+#define GFXTAG_REMATCH_ICON_BLUE   7005
+
+#define PALTAG_REMATCH_ICON_RED    7101
+#define PALTAG_REMATCH_ICON_GREEN  7102
+#define PALTAG_REMATCH_ICON_PINK   7103
+#define PALTAG_REMATCH_ICON_PURPLE 7104
+#define PALTAG_REMATCH_ICON_BLUE   7105
 
 #define MULTICHOICE(name) {.list = name, .count = ARRAY_COUNT(name)}
 
@@ -22,6 +33,16 @@ struct MultichoiceListStruct
 {
     const struct MenuAction * list;
     u8 count;
+};
+
+enum
+{
+    REMATCH_ICON_RED,
+    REMATCH_ICON_GREEN,
+    REMATCH_ICON_PINK,
+    REMATCH_ICON_PURPLE,
+    REMATCH_ICON_BLUE,
+    REMATCH_ICON_COUNT
 };
 
 static EWRAM_DATA u8 sDelay = 0;
@@ -656,6 +677,96 @@ static const struct SpriteSheet sMuseumAerodactylSprSheets[] = {
     {}
 };
 
+static const union AnimCmd sAnim_RematchIcon[] = {
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_END
+};
+
+static const union AnimCmd *const sAnims_RematchIcon[] = {
+    sAnim_RematchIcon,
+};
+
+static const struct OamData sOamData_RematchIcon = {
+    .shape = SPRITE_SHAPE(16x16),
+    .size = SPRITE_SIZE(16x16),
+};
+
+static const u16 sGfx_RematchIconRed[] = INCBIN_U16("graphics/misc/rematch_icon_red.4bpp");
+static const u16 sGfx_RematchIconGreen[] = INCBIN_U16("graphics/misc/rematch_icon_green.4bpp");
+static const u16 sGfx_RematchIconPink[] = INCBIN_U16("graphics/misc/rematch_icon_pink.4bpp");
+static const u16 sGfx_RematchIconPurple[] = INCBIN_U16("graphics/misc/rematch_icon_purple.4bpp");
+static const u16 sGfx_RematchIconBlue[] = INCBIN_U16("graphics/misc/rematch_icon_blue.4bpp");
+
+static const u16 sPal_RematchIconRed[] = INCBIN_U16("graphics/misc/rematch_icon_red.gbapal");
+static const u16 sPal_RematchIconGreen[] = INCBIN_U16("graphics/misc/rematch_icon_green.gbapal");
+static const u16 sPal_RematchIconPink[] = INCBIN_U16("graphics/misc/rematch_icon_pink.gbapal");
+static const u16 sPal_RematchIconPurple[] = INCBIN_U16("graphics/misc/rematch_icon_purple.gbapal");
+static const u16 sPal_RematchIconBlue[] = INCBIN_U16("graphics/misc/rematch_icon_blue.gbapal");
+
+static const struct SpriteSheet sSpriteSheets_RematchIcons[] = {
+    {sGfx_RematchIconRed, sizeof(sGfx_RematchIconRed), GFXTAG_REMATCH_ICON_RED},
+    {sGfx_RematchIconGreen, sizeof(sGfx_RematchIconGreen), GFXTAG_REMATCH_ICON_GREEN},
+    {sGfx_RematchIconPink, sizeof(sGfx_RematchIconPink), GFXTAG_REMATCH_ICON_PINK},
+    {sGfx_RematchIconPurple, sizeof(sGfx_RematchIconPurple), GFXTAG_REMATCH_ICON_PURPLE},
+    {sGfx_RematchIconBlue, sizeof(sGfx_RematchIconBlue), GFXTAG_REMATCH_ICON_BLUE},
+};
+
+static const struct SpritePalette sSpritePalettes_RematchIcons[] = {
+    {sPal_RematchIconRed, PALTAG_REMATCH_ICON_RED},
+    {sPal_RematchIconGreen, PALTAG_REMATCH_ICON_GREEN},
+    {sPal_RematchIconPink, PALTAG_REMATCH_ICON_PINK},
+    {sPal_RematchIconPurple, PALTAG_REMATCH_ICON_PURPLE},
+    {sPal_RematchIconBlue, PALTAG_REMATCH_ICON_BLUE},
+};
+
+static const struct SpriteTemplate sSpriteTemplates_RematchIcons[] = {
+    {
+        .tileTag = GFXTAG_REMATCH_ICON_RED,
+        .paletteTag = PALTAG_REMATCH_ICON_RED,
+        .oam = &sOamData_RematchIcon,
+        .anims = sAnims_RematchIcon,
+        .images = NULL,
+        .affineAnims = gDummySpriteAffineAnimTable,
+        .callback = SpriteCallbackDummy,
+    },
+    {
+        .tileTag = GFXTAG_REMATCH_ICON_GREEN,
+        .paletteTag = PALTAG_REMATCH_ICON_GREEN,
+        .oam = &sOamData_RematchIcon,
+        .anims = sAnims_RematchIcon,
+        .images = NULL,
+        .affineAnims = gDummySpriteAffineAnimTable,
+        .callback = SpriteCallbackDummy,
+    },
+    {
+        .tileTag = GFXTAG_REMATCH_ICON_PINK,
+        .paletteTag = PALTAG_REMATCH_ICON_PINK,
+        .oam = &sOamData_RematchIcon,
+        .anims = sAnims_RematchIcon,
+        .images = NULL,
+        .affineAnims = gDummySpriteAffineAnimTable,
+        .callback = SpriteCallbackDummy,
+    },
+    {
+        .tileTag = GFXTAG_REMATCH_ICON_PURPLE,
+        .paletteTag = PALTAG_REMATCH_ICON_PURPLE,
+        .oam = &sOamData_RematchIcon,
+        .anims = sAnims_RematchIcon,
+        .images = NULL,
+        .affineAnims = gDummySpriteAffineAnimTable,
+        .callback = SpriteCallbackDummy,
+    },
+    {
+        .tileTag = GFXTAG_REMATCH_ICON_BLUE,
+        .paletteTag = PALTAG_REMATCH_ICON_BLUE,
+        .oam = &sOamData_RematchIcon,
+        .anims = sAnims_RematchIcon,
+        .images = NULL,
+        .affineAnims = gDummySpriteAffineAnimTable,
+        .callback = SpriteCallbackDummy,
+    },
+};
+
 
 static const u8 *const sSeagallopDestStrings[] = {
     [SEAGALLOP_VERMILION_CITY] = gText_Vermilion,
@@ -1142,6 +1253,29 @@ void Task_WaitMuseumFossilPic(u8 taskId)
     }
 }
 
+static void Task_WaitRematchIconPic(u8 taskId)
+{
+    struct Task *task = &gTasks[taskId];
+    switch (task->tState)
+    {
+    case 0:
+        task->tState++;
+        break;
+    case 1:
+        break;
+    case 2:
+        DestroySprite(&gSprites[task->tSpriteId]);
+        FreeSpriteTilesByTag(sSpriteSheets_RematchIcons[task->tSpecies].tag);
+        FreeSpritePaletteByTag(sSpritePalettes_RematchIcons[task->tSpecies].tag);
+        task->tState++;
+        break;
+    case 3:
+        DestroyScriptMenuWindow(task->tWindowId);
+        DestroyTask(taskId);
+        break;
+    }
+}
+
 #define FOSSIL_PIC_PAL_NUM  13
 
 bool8 OpenMuseumFossilPic(void)
@@ -1186,6 +1320,72 @@ bool8 CloseMuseumFossilPic(void)
     return TRUE;
 }
 
+bool8 OpenRematchIconPic(void)
+{
+    u8 iconId;
+    u8 spriteId;
+    u8 taskId;
+
+    if (QL_AvoidDisplay(QL_DestroyAbortedDisplay) == TRUE)
+        return TRUE;
+
+    if (FindTaskIdByFunc(Task_WaitRematchIconPic) != TASK_NONE)
+        return FALSE;
+
+    iconId = gSpecialVar_0x8004;
+    if (iconId >= REMATCH_ICON_COUNT)
+        return FALSE;
+
+    if (GetSpriteTileStartByTag(sSpriteSheets_RematchIcons[iconId].tag) == 0xFFFF)
+        LoadSpriteSheet(&sSpriteSheets_RematchIcons[iconId]);
+    if (IndexOfSpritePaletteTag(sSpritePalettes_RematchIcons[iconId].tag) == 0xFF)
+        LoadSpritePalette(&sSpritePalettes_RematchIcons[iconId]);
+
+    spriteId = CreateSprite(&sSpriteTemplates_RematchIcons[iconId], gSpecialVar_0x8005 * 8 + 40, gSpecialVar_0x8006 * 8 + 40, 0);
+    if (spriteId == MAX_SPRITES)
+    {
+        FreeSpriteTilesByTag(sSpriteSheets_RematchIcons[iconId].tag);
+        FreeSpritePaletteByTag(sSpritePalettes_RematchIcons[iconId].tag);
+        return FALSE;
+    }
+
+    taskId = CreateTask(Task_WaitRematchIconPic, 80);
+    gTasks[taskId].tWindowId = CreateWindowFromRect(gSpecialVar_0x8005, gSpecialVar_0x8006, 8, 8);
+    gTasks[taskId].tState = 0;
+    gTasks[taskId].tSpecies = iconId;
+    gTasks[taskId].tSpriteId = spriteId;
+    SetStdWindowBorderStyle(gTasks[taskId].tWindowId, TRUE);
+    ScheduleBgCopyTilemapToVram(0);
+    return TRUE;
+}
+
+bool8 CloseRematchIconPic(void)
+{
+    struct Task *task;
+    u8 iconId;
+    u8 spriteId;
+    u8 taskId = FindTaskIdByFunc(Task_WaitRematchIconPic);
+
+    if (taskId == TASK_NONE)
+        return FALSE;
+
+    task = &gTasks[taskId];
+    iconId = task->tSpecies;
+    spriteId = task->tSpriteId;
+
+    if (spriteId < MAX_SPRITES)
+        DestroySprite(&gSprites[spriteId]);
+    if (iconId < REMATCH_ICON_COUNT)
+    {
+        FreeSpriteTilesByTag(sSpriteSheets_RematchIcons[iconId].tag);
+        FreeSpritePaletteByTag(sSpritePalettes_RematchIcons[iconId].tag);
+    }
+
+    DestroyScriptMenuWindow(task->tWindowId);
+    DestroyTask(taskId);
+    return TRUE;
+}
+
 static u8 CreateWindowFromRect(u8 left, u8 top, u8 width, u8 height)
 {
     struct WindowTemplate template = SetWindowTemplateFields(0, left + 1, top + 1, width, height, 15, 0x038);
@@ -1223,6 +1423,18 @@ void QL_DestroyAbortedDisplay(void)
         {
             DestroySprite(&gSprites[tSpriteId]);
             FreeSpriteTilesByTag(GFXTAG_FOSSIL);
+        }
+    }
+
+    taskId = FindTaskIdByFunc(Task_WaitRematchIconPic);
+    if (taskId != TASK_NONE)
+    {
+        data = gTasks[taskId].data;
+        if (tState < 2)
+        {
+            DestroySprite(&gSprites[tSpriteId]);
+            FreeSpriteTilesByTag(sSpriteSheets_RematchIcons[tSpecies].tag);
+            FreeSpritePaletteByTag(sSpritePalettes_RematchIcons[tSpecies].tag);
         }
     }
 }

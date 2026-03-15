@@ -417,6 +417,8 @@ gSpecials::
 	def_special GetPCBoxToSendMon
 	def_special OpenMuseumFossilPic
 	def_special CloseMuseumFossilPic
+	def_special OpenRematchIconPic
+	def_special CloseRematchIconPic
 	def_special ChooseMonForMoveTutor
 	def_special ChooseMonForWirelessMinigame
 	def_special SetBattledTrainerFlag

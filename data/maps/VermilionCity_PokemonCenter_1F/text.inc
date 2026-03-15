@@ -22,23 +22,54 @@ VermilionCity_PokemonCenter_1F_Text_UrgeToBattleSomeoneAgain::
     .string "you've tangled with before…\p"
     .string "Have you ever had that urge?\n"
     .string "I'm sure you have.\p"
-    .string "I wanted to battle certain people\n"
-    .string "again over and over, too.\p"
-    .string "So, I've been giving these away.\n"
-    .string "Please, take one!$"
+    .string "Please, take this!$"
 
 VermilionCity_PokemonCenter_1F_Text_UseDeviceForRematches::
-    .string "Use that device and you'll find\n"
-    .string "TRAINERS looking for a rematch.\p"
-    .string "You have to charge its battery to\n"
-    .string "use it, though.$"
+    .string "When TRAINERS are ready for a\n"
+    .string "rematch they will appear with a\l"
+    .string "REMATCH ICON above their head.\p"
+    .string "The COLOR of the ICON indicates\n"
+    .string "how experienced you have to be\l"
+    .string "to rebattle them.$"
+
+VermilionCity_PokemonCenter_1F_Text_ExplainRedRematchIcon::
+    .string "A RED REMATCH ICON indicates a\n"
+    .string "REGULAR REMATCH.$"
+
+VermilionCity_PokemonCenter_1F_Text_ExplainGreenRematchIcon::
+    .string "A GREEN REMATCH ICON indicates a\n"
+    .string "REMATCH AFTER REACHING CELADON\l"
+    .string "CITY.$"
+
+VermilionCity_PokemonCenter_1F_Text_ExplainPinkRematchIcon::
+    .string "A PINK REMATCH ICON indicates a\n"
+    .string "REMATCH AFTER REACHING FUCHSIA\l"
+    .string "CITY.$"
+
+VermilionCity_PokemonCenter_1F_Text_ExplainPurpleRematchIcon::
+    .string "A PURPLE REMATCH ICON indicates a\n"
+    .string "REMATCH AFTER OVERCOMING A GREAT\l"
+    .string "CHALLENGE.$"
+
+VermilionCity_PokemonCenter_1F_Text_ExplainBlueRematchIcon::
+    .string "A BLUE REMATCH ICON indicates a\n"
+    .string "REMATCH OF THE HIGHEST LEVEL.$"
+
+VermilionCity_PokemonCenter_1F_Text_TurnOffRematchIconsInOptionMenu::
+    .string "To turn off the icons go into\n"
+    .string "the OPTION MENU and set REMATCH\l"
+    .string "ICONS to OFF.$"
+
+VermilionCity_PokemonCenter_1F_Text_ChargeTheVsSeekerByWalking::
+    .string "The VS SEEKER charges automatically\n"
+    .string "by walking around.\p"
+    .string "Take 100 steps to fully charge it.$"
 
 VermilionCity_PokemonCenter_1F_Text_ExplainVSSeeker::
     .string "How do you use the VS SEEKER?\n"
     .string "There's nothing to it.\p"
-    .string "Use it like beep-beep-beep, and\n"
-    .string "TRAINERS around you will notice.\p"
-    .string "If any TRAINER wants a rematch,\n"
-    .string "it will let you know immediately.\p"
-    .string "Charge its battery and use it\n"
-    .string "while you're on a road.$"
+    .string "TRAINERS will appear with different\n"
+    .string "COLORED REMATCH ICONS if the\l"
+    .string "VS SEEKER is sufficiently charged.\p"
+    .string "Simply USE the VS SEEKER in range\n"
+    .string "of them and initiate the rematch.$"

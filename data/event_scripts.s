@@ -1262,6 +1262,12 @@ Common_EventScript_DirectCornerAttendant::
 	call CableClub_EventScript_DirectCornerAttendant
 	end
 
+	.set REMATCH_ICON_RED,    0
+	.set REMATCH_ICON_GREEN,  1
+	.set REMATCH_ICON_PINK,   2
+	.set REMATCH_ICON_PURPLE, 3
+	.set REMATCH_ICON_BLUE,   4
+
 VermilionCity_PokemonCenter_1F_EventScript_VSSeekerWoman::
 	lock
 	faceplayer
@@ -1273,6 +1279,32 @@ VermilionCity_PokemonCenter_1F_EventScript_VSSeekerWoman::
 	setvar VAR_0x8004, ITEM_VS_SEEKER
 	call EventScript_AskToRegisterNewKeyItem
 	msgbox VermilionCity_PokemonCenter_1F_Text_UseDeviceForRematches
+	setvar VAR_0x8005, 10
+	setvar VAR_0x8006, 3
+	setvar VAR_0x8004, REMATCH_ICON_RED
+	special OpenRematchIconPic
+	msgbox VermilionCity_PokemonCenter_1F_Text_ExplainRedRematchIcon
+	special CloseRematchIconPic
+	setvar VAR_0x8004, REMATCH_ICON_GREEN
+	special OpenRematchIconPic
+	msgbox VermilionCity_PokemonCenter_1F_Text_ExplainGreenRematchIcon
+	special CloseRematchIconPic
+	setvar VAR_0x8004, REMATCH_ICON_PINK
+	special OpenRematchIconPic
+	msgbox VermilionCity_PokemonCenter_1F_Text_ExplainPinkRematchIcon
+	special CloseRematchIconPic
+	setvar VAR_0x8004, REMATCH_ICON_PURPLE
+	special OpenRematchIconPic
+	msgbox VermilionCity_PokemonCenter_1F_Text_ExplainPurpleRematchIcon
+	special CloseRematchIconPic
+	setvar VAR_0x8004, REMATCH_ICON_BLUE
+	special OpenRematchIconPic
+	msgbox VermilionCity_PokemonCenter_1F_Text_ExplainBlueRematchIcon
+	special CloseRematchIconPic
+	msgbox VermilionCity_PokemonCenter_1F_Text_ChargeTheVsSeekerByWalking
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	signmsg
+	msgbox VermilionCity_PokemonCenter_1F_Text_TurnOffRematchIconsInOptionMenu
 	release
 	end
 
