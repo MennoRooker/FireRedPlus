@@ -86,8 +86,8 @@ Route5_PokemonDayCare_Text_CantAcceptMonWithHM::
 
 Route5_PokemonDayCare_Text_NatureWillBeChanged::
 	.string "{STR_VAR_1}'s NATURE will be\n"
-	.string "changed from {STR_VAR_2} to {STR_VAR_3}.\l"
-	.string "Is this OK?$"
+	.string "changed from {STR_VAR_2} to {STR_VAR_3}\l"
+	.string "for ¥2000. Is this OK?$"
 
 Route5_PokemonDayCare_Text_AlreadyNeutralNature::
 	.string "This POKéMON already has a\n"

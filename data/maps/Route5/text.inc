@@ -3,7 +3,7 @@ Route5_Text_UndergroundPathSign::
     .string "CERULEAN CITY - VERMILION CITY$"
 
 Route5_Text_ThomasIntro::
-    .string "I've been runningn up and down\n"
+    .string "I've been running up and down\n"
     .string "for 5 hours.$"
 
 Route5_Text_ThomasDefeat::

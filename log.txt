@@ -958,22 +958,24 @@ can possibly obtain as I go through the game and tally
 them. As I go through I will update all of these items.
 This includes the PC storage, item balls, hidden items
 and gifted items. (Key items not included):
-- Potion 	|||
-- Antidote	||
+- Potion 	||||
+- Antidote	|||
 - Exp Candy S 	||
 - Leaf Stone	|
 - Net Ball	|
-- TinyMushroom	||||
+- TinyMushroom	|||
 - Great Ball	||
 - TM39		|
 - Oran Berry	|
 - Persim Berry	|
 - TM09		|
-- Parlyz Heal	|
+- Parlyz Heal	||
 - Nest Ball	|
-- Rare Candy	||
+- Rare Candy	|||
 - Escape Rope	|
-- BigMushroom	||
+- BigMushroom	|
+- Blue Shard	|
+- Red Shard	||
 - Star Piece	|
 - TM46		|
 - Water Stone	|
@@ -986,7 +988,14 @@ and gifted items. (Key items not included):
 - Elixir	|
 - Aguav Berry	|
 - Hondew Berry	|
-- Red Shard	|
+- TM03		|
+- TM28		|
+- Awakening	|
+- Heart Scale	|
+- Ice Heal	|
+- Burn Heal	|
+- Cheri Berry	|
+
 
 
 I think I want the BERRY POUCH and TM CASE to default to
@@ -1058,6 +1067,13 @@ at 1/4 HP.
 
 Also up the difficulty of the gym trainers in Cerulean.
 
+I need to keep verifying that any usage of a mon's 
+nature is based on the hidden nature if it is set.
+This inlcludes:
+- Synchronise
+- Breeding
+- Confusion (berries & damage)
+
 TO DO:
 x Add Bugsy
 x Force SET mode
@@ -1088,11 +1104,11 @@ x Full restore PP
 x Exp Candies
 x Rename scripts
 x Dynamic items
+x Sleep turns
+x Tutors require shards
 / VS Seeker
 / Linearizations
 / Balancing
-- Sleep turns (1-3)
-- Tutors require shards
 - HM mons sprites
 - Dynamic speed
 - Faster Bike

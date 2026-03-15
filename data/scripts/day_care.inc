@@ -34,6 +34,7 @@ Route5_PokemonDayCare_EventScript_TryGiveMonAlt::
 	special BufferNatureChangeInfo
 	msgbox Route5_PokemonDayCare_Text_NatureWillBeChanged, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Route5_PokemonDayCare_EventScript_ComeAgain
+	call Route5_PokemonDayCare_EventScript_TryChargeFlatFee
 	fadescreen FADE_TO_BLACK
 	delay 60
 	fadescreen FADE_FROM_BLACK
@@ -48,6 +49,7 @@ Route5_PokemonDayCare_EventScript_MonHasHiddenNature::
 	special BufferNatureReversionInfo
 	msgbox Route5_PokemonDayCare_Text_MonHasModifiedNature, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Route5_PokemonDayCare_EventScript_ComeAgain
+	call Route5_PokemonDayCare_EventScript_TryChargeFlatFee
 	fadescreen FADE_TO_BLACK
 	delay 60
 	fadescreen FADE_FROM_BLACK
@@ -88,6 +90,7 @@ Route5_PokemonDayCare_EventScript_TryGiveMon::
 	goto_if_ge VAR_0x8004, PARTY_SIZE, Route5_PokemonDayCare_EventScript_ComeAgain
 	specialvar VAR_RESULT, CountPartyAliveNonEggMons_IgnoreVar0x8004Slot
 	goto_if_eq VAR_RESULT, 0, Route5_PokemonDayCare_EventScript_OnlyOneAliveMonInParty
+	call Route5_PokemonDayCare_EventScript_TryChargeFlatFee
 	specialvar VAR_0x8005, GetSelectedMonNicknameAndSpecies
 	msgbox Route5_PokemonDayCare_Text_LookAfterMonForAWhile
 	waitse
@@ -119,7 +122,7 @@ Route5_PokemonDayCare_EventScript_CheckOnMon::
 	specialvar VAR_RESULT, GetNumLevelsGainedForRoute5DaycareMon
 	call_if_ne VAR_RESULT, 0, Route5_PokemonDayCare_EventScript_MonHasGrownByXLevels
 	call_if_eq VAR_RESULT, 0, Route5_PokemonDayCare_EventScript_NotEnoughTime
-	special GetCostToWithdrawRoute5DaycareMon
+	setvar VAR_0x8005, 2000
 	msgbox Route5_PokemonDayCare_Text_OweMeXForMonsReturn, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, Route5_PokemonDayCare_EventScript_TryRetrieveMon
 	goto Route5_PokemonDayCare_EventScript_ComeAgain
@@ -164,6 +167,20 @@ Route5_PokemonDayCare_EventScript_RetrieveMon::
 
 Route5_PokemonDayCare_EventScript_NoRoomInParty::
 	msgbox Route5_PokemonDayCare_Text_YouveGotNoRoomForIt
+	goto Route5_PokemonDayCare_EventScript_CloseMoneyBox
+	end
+
+Route5_PokemonDayCare_EventScript_TryChargeFlatFee::
+	checkmoney 2000
+	goto_if_eq VAR_RESULT, FALSE, Route5_PokemonDayCare_EventScript_NotEnoughMoney
+	playse SE_SHOP
+	removemoney 2000
+	updatemoneybox
+	waitse
+	return
+
+Route5_PokemonDayCare_EventScript_NotEnoughMoney::
+	msgbox Route5_PokemonDayCare_Text_DontHaveEnoughMoney
 	goto Route5_PokemonDayCare_EventScript_CloseMoneyBox
 	end
 
