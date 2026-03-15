@@ -1088,7 +1088,7 @@ x LR buttons
 x Perma repel
 x L = map before getting fly
 x TM redistribution
-x Ethers -> Elixirs
+x Remove Ethers
 x Remove X items
 x Instant Running Shoes
 x Instant National Dex
@@ -1109,15 +1109,14 @@ x Rename scripts
 x Dynamic items
 x Sleep turns
 x Tutors require shards
-/ VS Seeker
+x VS Seeker
 / Linearizations
 / Balancing
-- HM mons sprites
+/ HM mons sprites
 - Dynamic speed
 - Faster Bike
 - Victory Road FLY checkpoint
 - Letters
-- Fix exp candy sprites
 - Only a few red HP beeps
 - Clean up
 ---------------------------------------

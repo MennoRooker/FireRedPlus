@@ -119,6 +119,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Chansey;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Omanyte;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Kangaskhan;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pikachu;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Farfetchd;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Psyduck;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_NidoranF;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_NidoranM;
@@ -275,6 +276,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_OMANYTE]                  = &gObjectEventGraphicsInfo_Omanyte,
     [OBJ_EVENT_GFX_KANGASKHAN]               = &gObjectEventGraphicsInfo_Kangaskhan,
     [OBJ_EVENT_GFX_PIKACHU]                  = &gObjectEventGraphicsInfo_Pikachu,
+    [OBJ_EVENT_GFX_FARFETCHD]                = &gObjectEventGraphicsInfo_Farfetchd,
     [OBJ_EVENT_GFX_PSYDUCK]                  = &gObjectEventGraphicsInfo_Psyduck,
     [OBJ_EVENT_GFX_NIDORAN_F]                = &gObjectEventGraphicsInfo_NidoranF,
     [OBJ_EVENT_GFX_NIDORAN_M]                = &gObjectEventGraphicsInfo_NidoranM,

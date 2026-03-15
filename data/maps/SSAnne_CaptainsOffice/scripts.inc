@@ -45,3 +45,13 @@ SSAnne_CaptainsOffice_EventScript_TrashCan::
 SSAnne_CaptainsOffice_EventScript_Book::
 	msgbox SSAnne_CaptainsOffice_Text_HowToConquerSeasickness, MSGBOX_SIGN
 	end
+
+SSAnne_CaptainsOffice_EventScript_Farfetchd::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_FARFETCHD, CRY_MODE_NORMAL
+	msgbox SSAnne_CaptainsOffice_Text_Farfetchd
+	waitmoncry
+	release
+	end

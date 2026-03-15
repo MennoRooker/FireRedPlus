@@ -51,3 +51,5 @@ SSAnne_CaptainsOffice_Text_HowToConquerSeasickness::
     .string "How to Conquer Seasickness…\n"
     .string "The CAPTAIN's reading this!$"
 
+SSAnne_CaptainsOffice_Text_Farfetchd::
+    .string "FARFETCH'D: Ch-ding!$"
