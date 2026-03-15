@@ -1047,13 +1047,12 @@ karate guys should accept a red shard for the mega moves so
 that you can find the hidden red shard at Bill's house.
 Also I can change some of the Mt. Moon mushrooms to be
 different colored shards.
-Red -> Physical: Mega Punch, Mega Kick, Double-Edge,
-	Rock Slide, Explosion, Body Slam
-Yellow: Status: Thunder Wave, Seismic Toss, Counter
-Blue: Special: Dream Eater, Frenzy Plant, Blast Burn,
-	Hydro Cannon
-Green: Set-up/Healing: Soft-Boiled, Substitute, Swords
-	Dance
+Red -> 	Mega Punch, Mega Kick, Double-Edge,
+	Rock Slide, Explosion, Body Slam, Blast Burn
+Blu ->	Dream Eater, Hydro Cannon
+Ylw -> 	Thunder Wave, Seismic Toss, Counter
+Grn -> 	Soft-Boiled, Substitute, Swords
+	Dance, Frenzy Plant
 
 I want to change the recharge moves to allow usage of
 other moves in the off-turns. This is like Bloodmoon

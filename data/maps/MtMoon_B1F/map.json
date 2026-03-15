@@ -100,8 +100,8 @@
       "x": 39,
       "y": 34,
       "elevation": 0,
-      "item": "ITEM_TINY_MUSHROOM",
-      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B1F_TINY_MUSHROOM_3",
+      "item": "ITEM_RED_SHARD",
+      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B1F_RED_SHARD",
       "quantity": 1,
       "underfoot": false
     },
@@ -130,8 +130,8 @@
       "x": 25,
       "y": 34,
       "elevation": 0,
-      "item": "ITEM_BIG_MUSHROOM",
-      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B1F_BIG_MUSHROOM_3",
+      "item": "ITEM_BLUE_SHARD",
+      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B1F_BLUE_SHARD",
       "quantity": 1,
       "underfoot": false
     }

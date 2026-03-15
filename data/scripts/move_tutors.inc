@@ -1,13 +1,18 @@
 VictoryRoad_2F_EventScript_DoubleEdgeTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_DOUBLE_EDGE, EventScript_DoubleEdgeTaught
 	msgbox Text_DoubleEdgeTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_DoubleEdgeDeclined
-	msgbox Text_DoubleEdgeWhichMon
 	setvar VAR_0x8005, MOVETUTOR_DOUBLE_EDGE
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_DoubleEdgeDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_DoubleEdgeWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_DoubleEdgeDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_DoubleEdgeTaught
 	end
 
@@ -24,13 +29,18 @@ EventScript_DoubleEdgeTaught::
 EventScript_ThunderWaveTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_THUNDER_WAVE, EventScript_ThunderWaveTaught
 	msgbox Text_ThunderWaveTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_ThunderWaveDeclined
-	msgbox Text_ThunderWaveWhichMon
 	setvar VAR_0x8005, MOVETUTOR_THUNDER_WAVE
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_ThunderWaveDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_ThunderWaveWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_ThunderWaveDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_ThunderWaveTaught
 	end
 
@@ -47,13 +57,18 @@ EventScript_ThunderWaveTaught::
 RockTunnel_B1F_EventScript_RockSlideTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_ROCK_SLIDE, EventScript_RockSlideTaught
 	msgbox Text_RockSlideTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_RockSlideDeclined
-	msgbox Text_RockSlideWhichMon
 	setvar VAR_0x8005, MOVETUTOR_ROCK_SLIDE
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_RockSlideDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_RockSlideWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_RockSlideDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_RockSlideTaught
 	end
 
@@ -70,13 +85,18 @@ EventScript_RockSlideTaught::
 MtEmber_Exterior_EventScript_ExplosionTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_EXPLOSION, EventScript_ExplosionTaught
 	msgbox Text_ExplosionTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_ExplosionDeclined
-	msgbox Text_ExplosionWhichMon
 	setvar VAR_0x8005, MOVETUTOR_EXPLOSION
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_ExplosionDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_ExplosionWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_ExplosionDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_ExplosionTaught
 	end
 
@@ -93,13 +113,18 @@ EventScript_ExplosionTaught::
 Route4_EventScript_MegaPunchTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_MEGA_PUNCH, EventScript_MegaPunchTaught
 	msgbox Text_MegaPunchTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_MegaPunchDeclined
-	msgbox Text_MegaPunchWhichMon
 	setvar VAR_0x8005, MOVETUTOR_MEGA_PUNCH
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_MegaPunchDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_MegaPunchWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_MegaPunchDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_MegaPunchTaught
 	end
 
@@ -116,13 +141,18 @@ EventScript_MegaPunchTaught::
 Route4_EventScript_MegaKickTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_MEGA_KICK, EventScript_MegaKickTaught
 	msgbox Text_MegaKickTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_MegaKickDeclined
-	msgbox Text_MegaKickWhichMon
 	setvar VAR_0x8005, MOVETUTOR_MEGA_KICK
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_MegaKickDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_MegaKickWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_MegaKickDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_MegaKickTaught
 	end
 
@@ -139,13 +169,18 @@ EventScript_MegaKickTaught::
 EventScript_DreamEaterTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_DREAM_EATER, EventScript_DreamEaterTaught
 	msgbox Text_DreamEaterTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_DreamEaterDeclined
-	msgbox Text_DreamEaterWhichMon
 	setvar VAR_0x8005, MOVETUTOR_DREAM_EATER
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_DreamEaterDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_DreamEaterWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_DreamEaterDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_DreamEaterTaught
 	end
 
@@ -162,13 +197,18 @@ EventScript_DreamEaterTaught::
 EventScript_SoftboiledTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_SOFT_BOILED, EventScript_SoftboiledTaught
 	msgbox Text_SoftboiledTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_SoftboiledDeclined
-	msgbox Text_SoftboiledWhichMon
 	setvar VAR_0x8005, MOVETUTOR_SOFT_BOILED
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_SoftboiledDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_SoftboiledWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_SoftboiledDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_SoftboiledTaught
 	end
 
@@ -185,13 +225,18 @@ EventScript_SoftboiledTaught::
 FuchsiaCity_EventScript_SubstituteTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_SUBSTITUTE, EventScript_SubstituteTaught
 	msgbox Text_SubstituteTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_SubstituteDeclined
-	msgbox Text_SubstituteWhichMon
 	setvar VAR_0x8005, MOVETUTOR_SUBSTITUTE
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_SubstituteDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_SubstituteWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_SubstituteDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_SubstituteTaught
 	end
 
@@ -208,13 +253,18 @@ EventScript_SubstituteTaught::
 SevenIsland_EventScript_SwordsDanceTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_SWORDS_DANCE, EventScript_SwordsDanceTaught
 	msgbox Text_SwordsDanceTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_SwordsDanceDeclined
-	msgbox Text_SwordsDanceWhichMon
 	setvar VAR_0x8005, MOVETUTOR_SWORDS_DANCE
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_SwordsDanceDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_SwordsDanceWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_SwordsDanceDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_SwordsDanceTaught
 	end
 
@@ -231,13 +281,18 @@ EventScript_SwordsDanceTaught::
 PewterCity_Museum_1F_EventScript_SeismicTossTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_SEISMIC_TOSS, EventScript_SeismicTossTaught
 	msgbox Text_SeismicTossTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_SeismicTossDeclined
-	msgbox Text_SeismicTossWhichMon
 	setvar VAR_0x8005, MOVETUTOR_SEISMIC_TOSS
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_SeismicTossDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_SeismicTossWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_SeismicTossDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_SeismicTossTaught
 	end
 
@@ -254,13 +309,18 @@ EventScript_SeismicTossTaught::
 EventScript_CounterTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_COUNTER, EventScript_CounterTaught
 	msgbox Text_CounterTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_CounterDeclined
-	msgbox Text_CounterWhichMon
 	setvar VAR_0x8005, MOVETUTOR_COUNTER
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_CounterDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_CounterWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_CounterDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_CounterTaught
 	end
 
@@ -277,13 +337,18 @@ EventScript_CounterTaught::
 EventScript_MetronomeTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_METRONOME, EventScript_MetronomeTaught
 	msgbox Text_MetronomeTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_MetronomeDeclined
-	msgbox Text_MetronomeWhichMon
 	setvar VAR_0x8005, MOVETUTOR_METRONOME
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_MetronomeDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_MetronomeWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_MetronomeDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_MetronomeTaught
 	end
 
@@ -334,13 +399,18 @@ EventScript_MimicTaughtFemale::
 FourIsland_House1_EventScript_BodySlamTutor::
 	lock
 	faceplayer
-	goto_if_set FLAG_TUTOR_BODY_SLAM, EventScript_BodySlamTaught
 	msgbox Text_BodySlamTeach, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_BodySlamDeclined
-	msgbox Text_BodySlamWhichMon
 	setvar VAR_0x8005, MOVETUTOR_BODY_SLAM
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
+	goto_if_eq VAR_RESULT, NO, EventScript_BodySlamDeclined
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
+	msgbox Text_BodySlamWhichMon
 	call EventScript_ChooseMoveTutorMon
 	goto_if_eq VAR_RESULT, FALSE, EventScript_BodySlamDeclined
+	call EventScript_RemoveMoveTutorShard
 	goto EventScript_BodySlamTaught
 	end
 
@@ -359,21 +429,21 @@ TwoIsland_CapeBrink_House_EventScript_StarterTutor::
 	special QuestLog_CutRecording
 	lock
 	faceplayer
-	goto_if_set FLAG_LEARNED_ALL_MOVES_AT_CAPE_BRINK, CapeBrinkTutor_EventScript_TaughtAllMoves
-	goto_if_set FLAG_TEMP_2, CapeBrinkTutor_EventScript_MoveJustTaught
 	bufferleadmonspeciesname STR_VAR_1
 	msgbox Text_UltimateMoveThatMon
 	specialvar VAR_RESULT, CapeBrinkGetMoveToTeachLeadPokemon
 	goto_if_eq VAR_RESULT, FALSE, CapeBrinkTutor_EventScript_NoLeadStarter
-	copyvar VAR_0x8009, VAR_0x8005
 	call_if_eq VAR_FACING, DIR_NORTH, CapeBrinkTutor_EventScript_JumpInPlaceDown
 	call_if_eq VAR_FACING, DIR_SOUTH, CapeBrinkTutor_EventScript_JumpInPlaceUp
 	call_if_eq VAR_FACING, DIR_EAST, CapeBrinkTutor_EventScript_JumpInPlaceLeft
 	call_if_eq VAR_FACING, DIR_WEST, CapeBrinkTutor_EventScript_JumpInPlaceRight
 	msgbox Text_AllowMeToTeachMonUltimateMove, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, CapeBrinkTutor_EventScript_DeclineMove
-	call EventScript_CanOnlyBeLearnedOnce
+	call EventScript_PrepareMoveTutorShard
+	call EventScript_ConfirmMoveTutorShard
 	goto_if_eq VAR_RESULT, NO, CapeBrinkTutor_EventScript_DeclineMove
+	call EventScript_CheckMoveTutorShard
+	goto_if_eq VAR_RESULT, FALSE, EventScript_MoveTutorNoShard
 	msgbox Text_LetMeConferUltimateMove
 	closemessage
 	fadescreen FADE_TO_BLACK
@@ -385,28 +455,9 @@ CapeBrinkTutor_EventScript_FadeTaughtMove::
 	goto CapeBrinkTutor_EventScript_TaughtMove
 	end
 
-CapeBrinkTutor_EventScript_MoveJustTaught::
-	msgbox Text_MakeBestUseOfMove
-	release
-	end
-
-CapeBrinkTutor_EventScript_TaughtAllMoves::
-	msgbox Text_FeelRejuvenated
-	release
-	end
-
 CapeBrinkTutor_EventScript_TaughtMove::
-	copyvar VAR_0x8005, VAR_0x8009
-	specialvar VAR_RESULT, HasLearnedAllMovesFromCapeBrinkTutor
-	goto_if_eq VAR_RESULT, TRUE, CapeBrinkTutor_EventScript_LearnedAllMoves
+	call EventScript_RemoveMoveTutorShard
 	msgbox Text_TaughtMove
-	setflag FLAG_TEMP_2
-	release
-	end
-
-CapeBrinkTutor_EventScript_LearnedAllMoves::
-	msgbox Text_PassedOnEverythingIKnow
-	setflag FLAG_LEARNED_ALL_MOVES_AT_CAPE_BRINK
 	release
 	end
 
@@ -453,6 +504,66 @@ EventScript_ChooseMoveTutorMon::
 	faceplayer
 	return
 
+EventScript_PrepareMoveTutorShard::
+	call EventScript_SetMoveTutorShard
+	bufferitemname STR_VAR_3, VAR_0x800A
+	return
+
+EventScript_ConfirmMoveTutorShard::
+	msgbox Text_MoveTutorTeachForShard, MSGBOX_YESNO
+	return
+
+EventScript_CheckMoveTutorShard::
+	checkitem VAR_0x800A
+	return
+
+EventScript_RemoveMoveTutorShard::
+	removeitem VAR_0x800A
+	return
+
+EventScript_SetMoveTutorShard::
+	switch VAR_0x8005
+	case MOVETUTOR_DOUBLE_EDGE, EventScript_SetRedShard
+	case MOVETUTOR_ROCK_SLIDE, EventScript_SetRedShard
+	case MOVETUTOR_EXPLOSION, EventScript_SetRedShard
+	case MOVETUTOR_MEGA_PUNCH, EventScript_SetRedShard
+	case MOVETUTOR_MEGA_KICK, EventScript_SetRedShard
+	case MOVETUTOR_BODY_SLAM, EventScript_SetRedShard
+	case MOVETUTOR_BLAST_BURN, EventScript_SetRedShard
+	case MOVETUTOR_DREAM_EATER, EventScript_SetBlueShard
+	case MOVETUTOR_HYDRO_CANNON, EventScript_SetBlueShard
+	case MOVETUTOR_THUNDER_WAVE, EventScript_SetYellowShard
+	case MOVETUTOR_SEISMIC_TOSS, EventScript_SetYellowShard
+	case MOVETUTOR_COUNTER, EventScript_SetYellowShard
+	case MOVETUTOR_METRONOME, EventScript_SetYellowShard
+	case MOVETUTOR_SOFT_BOILED, EventScript_SetGreenShard
+	case MOVETUTOR_SUBSTITUTE, EventScript_SetGreenShard
+	case MOVETUTOR_SWORDS_DANCE, EventScript_SetGreenShard
+	case MOVETUTOR_FRENZY_PLANT, EventScript_SetGreenShard
+	setvar VAR_0x800A, ITEM_NONE
+	return
+
+EventScript_SetRedShard::
+	setvar VAR_0x800A, ITEM_RED_SHARD
+	return
+
+EventScript_SetBlueShard::
+	setvar VAR_0x800A, ITEM_BLUE_SHARD
+	return
+
+EventScript_SetYellowShard::
+	setvar VAR_0x800A, ITEM_YELLOW_SHARD
+	return
+
+EventScript_SetGreenShard::
+	setvar VAR_0x800A, ITEM_GREEN_SHARD
+	return
+
+EventScript_MoveTutorNoShard::
+	msgbox Text_MoveTutorNeedShard
+	release
+	end
+
 EventScript_CanOnlyBeLearnedOnce::
 	textcolor NPC_TEXT_COLOR_NEUTRAL
 	special DisableMsgBoxWalkaway
@@ -477,3 +588,10 @@ Movement_JumpInPlaceLeft:
 Movement_JumpInPlaceRight:
 	jump_in_place_right
 	step_end
+
+Text_MoveTutorTeachForShard::
+	.string "I'll teach it to your POKéMON for a\n"
+	.string "{STR_VAR_3}. Is that okay?$"
+
+Text_MoveTutorNeedShard::
+	.string "You don't have a {STR_VAR_3}.$"
