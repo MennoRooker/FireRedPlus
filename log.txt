@@ -958,13 +958,14 @@ can possibly obtain as I go through the game and tally
 them. As I go through I will update all of these items.
 This includes the PC storage, item balls, hidden items
 and gifted items. (Key items not included):
+
 - Potion 	||||
 - Antidote	||
 - Exp Candy S 	||
 - Leaf Stone	|
 - Net Ball	|
 - TinyMushroom	|||
-- Great Ball	||
+- Great Ball	|||
 - TM39		|
 - Oran Berry	|
 - Persim Berry	|
@@ -992,14 +993,14 @@ and gifted items. (Key items not included):
 - Hondew Berry	|
 - TM03		|
 - TM28		|
-- Green Shard	|
+- Green Shard	||
 - Yellow Shard	|
 - Awakening	|
 - Heart Scale	|
 - Ice Heal	|
 - Burn Heal	|
 - Cheri Berry	|
-
+- Super Potion	|
 
 
 I think I want the BERRY POUCH and TM CASE to default to
@@ -1077,6 +1078,17 @@ This inlcludes:
 - Breeding
 - Confusion (berries & damage)
 
+I saw that I could instantly rematch a trainer after
+beating him. I want to add a condition that you need to
+fist leave a route or take 100 steps after beating a 
+trainer to be able to rematch them. Also, I probably
+want to limit the rematches you can do so that rematches
+are limited to when you've beaten all of their teams
+once. That will limit your options for Exp Farminf, but
+I can just add something for that later.
+
+Show Hidden Power type and 70 BP.
+
 TO DO:
 x Add Bugsy
 x Force SET mode
@@ -1107,6 +1119,7 @@ x Full restore PP
 x Exp Candies
 x Rename scripts
 x Dynamic items
+x Bottle Caps
 x Sleep turns
 x Tutors require shards
 x VS Seeker
@@ -1119,17 +1132,14 @@ x VS Seeker
 - Letters
 - Only a few red HP beeps
 - Clean up
+- Documentation
 ---------------------------------------
 - Implement all abilites
-- Increase IVs through bottle caps
-- Complete documentation
 - Add gen 4 evos after dex upgrade
 - Determine opponent EVs
 - Add Fairy type
-- Held berries reusable
 - Physical/special split
 - Gym leaders rematches
-- Simultaneous wild and own pkmn anim
 - Improved AI
 - Roamers
 - Events

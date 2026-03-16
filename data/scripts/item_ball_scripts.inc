@@ -482,8 +482,8 @@ Route11_EventScript_ItemGreatBall::
 	finditem ITEM_GREAT_BALL
 	end
 
-Route11_EventScript_ItemAwakening::
-	finditem ITEM_AWAKENING
+Route11_EventScript_ItemSuperPotion::
+	finditem ITEM_SUPER_POTION
 	end
 
 PokemonTower_5F_EventScript_ItemCleanseTag::
