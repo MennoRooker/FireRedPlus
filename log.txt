@@ -970,7 +970,7 @@ and gifted items. (Key items not included):
 - Oran Berry	|
 - Persim Berry	|
 - TM09		|
-- Parlyz Heal	|
+- Parlyz Heal	||
 - Nest Ball	|
 - Rare Candy	|||
 - Escape Rope	||
