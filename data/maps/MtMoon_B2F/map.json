@@ -220,8 +220,8 @@
       "x": 20,
       "y": 16,
       "elevation": 3,
-      "item": "ITEM_FIRE_STONE",
-      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B2F_FIRE_STONE",
+      "item": "ITEM_NUGGET",
+      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B2F_NUGGET",
       "quantity": 1,
       "underfoot": false
     },
@@ -230,8 +230,8 @@
       "x": 39,
       "y": 11,
       "elevation": 3,
-      "item": "ITEM_WATER_STONE",
-      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B2F_WATER_STONE",
+      "item": "ITEM_YELLOW_SHARD",
+      "flag": "FLAG_HIDDEN_ITEM_MT_MOON_B2F_YELLOW_SHARD",
       "quantity": 1,
       "underfoot": false
     }

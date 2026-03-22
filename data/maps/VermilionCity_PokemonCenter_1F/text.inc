@@ -55,15 +55,18 @@ VermilionCity_PokemonCenter_1F_Text_ExplainBlueRematchIcon::
     .string "A BLUE REMATCH ICON indicates a\n"
     .string "REMATCH OF THE HIGHEST LEVEL.$"
 
+VermilionCity_PokemonCenter_1F_Text_ChargeTheVsSeekerByWalking::
+    .string "The VS SEEKER charges automatically\n"
+    .string "by walking around.\p"
+    .string "Take 100 steps to fully charge it.\p"
+    .string "After defeating an opponent they\n"
+    .string "may take a while to accept a\l"
+    .string "rematch, though.$"
+
 VermilionCity_PokemonCenter_1F_Text_TurnOffRematchIconsInOptionMenu::
     .string "To turn off the icons go into\n"
     .string "the OPTION MENU and set REMATCH\l"
     .string "ICONS to OFF.$"
-
-VermilionCity_PokemonCenter_1F_Text_ChargeTheVsSeekerByWalking::
-    .string "The VS SEEKER charges automatically\n"
-    .string "by walking around.\p"
-    .string "Take 100 steps to fully charge it.$"
 
 VermilionCity_PokemonCenter_1F_Text_ExplainVSSeeker::
     .string "How do you use the VS SEEKER?\n"

@@ -22,8 +22,8 @@ ViridianForest_EventScript_ItemExpCandyS::
 	finditem ITEM_EXP_CANDY_S
 	end
 
-ViridianForest_EventScript_ItemLeafStone::
-	finditem ITEM_LEAF_STONE
+ViridianForest_EventScript_ItemSilverPowder::
+	finditem ITEM_SILVER_POWDER
 	end
 
 MtMoon_1F_EventScript_ItemParalyzeHeal::

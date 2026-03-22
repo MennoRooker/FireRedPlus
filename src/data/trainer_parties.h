@@ -666,7 +666,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBenRematch[] = 
     {
         .iv = 2,
         .lvl = 21,
-        .species = SPECIES_RATTATA,
+        .species = SPECIES_RATICATE,
     },
     {
         .iv = 2,
