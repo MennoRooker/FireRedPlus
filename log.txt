@@ -962,30 +962,29 @@ and gifted items. (Key items not included):
 - Potion 	||||
 - Antidote	||
 - Exp Candy S 	||
-- Leaf Stone	|
+- Silver Powder	|
 - Net Ball	|
 - TinyMushroom	|||
-- Great Ball	|||
+- Great Ball	||||
 - TM39		|
 - Oran Berry	|
 - Persim Berry	|
 - TM09		|
-- Parlyz Heal	|
+- Parlyz Heal	||
 - Nest Ball	|
 - Rare Candy	|||
-- Escape Rope	|
+- Escape Rope	||
 - BigMushroom	|
 - Blue Shard	|
 - Red Shard	||
 - Star Piece	|
 - TM46		|
-- Water Stone	|
+- Yellow Shard	||
 - Revive	|
-- Fire Stone	|
+- Nugget	||
 - Fossil	|
 - Chilan Berry	|
 - TM05		|
-- Nugget	|
 - TM46		|
 - Pecha Berry	|
 - Elixir	|
@@ -993,14 +992,15 @@ and gifted items. (Key items not included):
 - Hondew Berry	|
 - TM03		|
 - TM28		|
-- Green Shard	||
-- Yellow Shard	|
+- Green Shard	|
 - Awakening	|
 - Heart Scale	|
 - Ice Heal	|
 - Burn Heal	|
 - Cheri Berry	|
 - Super Potion	|
+- Water Stone	|
+- Poison barb	|
 
 
 I think I want the BERRY POUCH and TM CASE to default to
@@ -1084,7 +1084,7 @@ fist leave a route or take 100 steps after beating a
 trainer to be able to rematch them. Also, I probably
 want to limit the rematches you can do so that rematches
 are limited to when you've beaten all of their teams
-once. That will limit your options for Exp Farminf, but
+once. That will limit your options for Exp Farming, but
 I can just add something for that later.
 
 Show Hidden Power type and 70 BP.
@@ -1123,9 +1123,9 @@ x Bottle Caps
 x Sleep turns
 x Tutors require shards
 x VS Seeker
+/ HM mons sprites
 / Linearizations
 / Balancing
-/ HM mons sprites
 - Dynamic speed
 - Faster Bike
 - Victory Road FLY checkpoint

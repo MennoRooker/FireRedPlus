@@ -464,7 +464,7 @@
 #define FLAG_HIDE_THREE_ISLAND_ZINC                             0x1BB
 #define FLAG_0x1BC                                              0x1BC
 #define FLAG_0x1BD                                              0x1BD
-#define FLAG_HIDE_VIRIDIAN_FOREST_LEAF_STONE                    0x1BE
+#define FLAG_HIDE_VIRIDIAN_FOREST_SILVER_POWDER                 0x1BE
 #define FLAG_HIDE_MT_MOON_B2F_REVIVE                            0x1BF
 #define FLAG_HIDE_MT_MOON_B2F_EXP_CANDY_S                       0x1C0
 #define FLAG_HIDE_ROUTE11_ESCAPE_ROPE                           0x1C1
@@ -1034,8 +1034,8 @@
 
 #define FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_TINY_MUSHROOM                     (FLAG_HIDDEN_ITEMS_START +   0)
 #define FLAG_HIDDEN_ITEM_VIRIDIAN_FOREST_ANTIDOTE                          (FLAG_HIDDEN_ITEMS_START +   1)
-#define FLAG_HIDDEN_ITEM_MT_MOON_B2F_FIRE_STONE                            (FLAG_HIDDEN_ITEMS_START +   2)
-#define FLAG_HIDDEN_ITEM_MT_MOON_B2F_WATER_STONE                           (FLAG_HIDDEN_ITEMS_START +   3)
+#define FLAG_HIDDEN_ITEM_MT_MOON_B2F_NUGGET                                (FLAG_HIDDEN_ITEMS_START +   2)
+#define FLAG_HIDDEN_ITEM_MT_MOON_B2F_YELLOW_SHARD                          (FLAG_HIDDEN_ITEMS_START +   3)
 #define FLAG_HIDDEN_ITEM_ROUTE25_RED_SHARD                                 (FLAG_HIDDEN_ITEMS_START +   4)
 #define FLAG_HIDDEN_ITEM_ROUTE25_ELIXIR                                    (FLAG_HIDDEN_ITEMS_START +   5)
 #define FLAG_HIDDEN_ITEM_ROUTE9_ELIXIR                                     (FLAG_HIDDEN_ITEMS_START +   6)
@@ -1073,7 +1073,7 @@
 #define FLAG_HIDDEN_ITEM_VICTORY_ROAD_1F_FULL_RESTORE                      (FLAG_HIDDEN_ITEMS_START +  38)
 #define FLAG_HIDDEN_ITEM_CERULEAN_CAVE_1F_ULTRA_BALL                       (FLAG_HIDDEN_ITEMS_START +  39)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x28                                       (FLAG_HIDDEN_ITEMS_START +  40)
-#define FLAG_HIDDEN_ITEM_ROUTE11_GREEN_SHARD                               (FLAG_HIDDEN_ITEMS_START +  41)
+#define FLAG_HIDDEN_ITEM_ROUTE11_WATER_STONE                               (FLAG_HIDDEN_ITEMS_START +  41)
 #define FLAG_HIDDEN_ITEM_ROUTE12_HYPER_POTION                              (FLAG_HIDDEN_ITEMS_START +  42)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x2B                                       (FLAG_HIDDEN_ITEMS_START +  43)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x2C                                       (FLAG_HIDDEN_ITEMS_START +  44)

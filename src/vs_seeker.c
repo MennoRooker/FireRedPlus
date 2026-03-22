@@ -46,6 +46,8 @@
 #define TAG_VSSEEKER_REMATCH_ICON_PAL_BLUE   0x2E14
 
 #define NO_REMATCH_LOCALID LOCALID_PLAYER
+#define VS_SEEKER_REMATCH_COOLDOWN_STEPS 1500
+#define VS_SEEKER_REMATCH_SAVE_MAGIC 0x5653524D
 
 enum
 {
@@ -123,7 +125,6 @@ static void GatherNearbyTrainerInfo(void);
 static void Task_VsSeeker_3(u8 taskId);
 static bool8 CanUseVsSeeker(void);
 static u8 GetVsSeekerResponseInArea(const struct RematchData * vsSeekerData);
-static u8 GetRematchTrainerIdGivenGameState(const u16 *trainerIdxs, u8 rematchIdx);
 static u8 ShouldTryRematchBattleInternal(const struct RematchData * vsSeekerData, u16 trainerBattleOpponent);
 static u8 HasRematchTrainerAlreadyBeenFought(const struct RematchData * vsSeekerData, u16 trainerBattleOpponent);
 static int LookupVsSeekerOpponentInArray(const struct RematchData * array, u16 trainerId);
@@ -134,7 +135,14 @@ static int GetRematchIdx(const struct RematchData * vsSeekerData, u16 trainerFla
 static bool32 IsThisTrainerRematchable(u32 localId);
 static void ClearAllTrainerRematchStates(void);
 static bool8 IsTrainerVisibleOnScreen(struct VsSeekerTrainerInfo * trainerInfo);
-static u8 GetNextAvailableRematchTrainer(const struct RematchData * vsSeekerData, u16 trainerFlagNo, u8 * idxPtr);
+static void EnsureVsSeekerRematchSaveData(void);
+static bool8 IsRematchStageUnlocked(u8 rematchIdx);
+static bool8 IsTrainerEntryOnCooldown(u16 rematchTableIdx);
+static u8 GetNextRemainingRematchTrainerByTableIdx(const struct RematchData *vsSeekerData, u16 rematchTableIdx, u16 defeatedTrainerId);
+static u8 GetNextRemainingRematchTrainer(const struct RematchData *vsSeekerData, u16 trainerFlagNo, u8 *idxPtr, u16 defeatedTrainerId);
+static u8 GetNextEligibleRematchTrainer(const struct RematchData *vsSeekerData, u16 trainerFlagNo, u8 *idxPtr);
+static void StartTrainerRematchCooldown(u16 trainerId);
+static void UpdateTrainerRematchCooldowns(void);
 static u8 GetRematchableTrainerLocalId(void);
 static void StartTrainerObjectMovementScript(struct VsSeekerTrainerInfo * trainerInfo, const u8 * script);
 static u8 GetCurVsSeekerResponse(s32 vsSeekerIdx, u16 trainerIdx);
@@ -603,6 +611,8 @@ static const struct RematchData sRematches[] = {
       MAP(MAP_SEVEN_ISLAND_TANOBY_RUINS) },
 };
 
+STATIC_ASSERT(NELEMS(sRematches) == MAX_VS_SEEKER_REMATCHES, RematchTableSizeMismatch);
+
    static EWRAM_DATA bool8 sRematchIconStateInitialized = FALSE;
    static EWRAM_DATA u8 sRematchIconSpriteIds[OBJECT_EVENTS_COUNT] = {0};
    static EWRAM_DATA u8 sRematchIconColors[OBJECT_EVENTS_COUNT] = {0};
@@ -846,11 +856,15 @@ bool8 UpdateVsSeekerStepCounter(void)
 {
     u8 x = 0;
 
+   EnsureVsSeekerRematchSaveData();
+
     if (CheckBagHasItem(ITEM_VS_SEEKER, 1) == TRUE)
     {
         if ((gSaveBlock1Ptr->trainerRematchStepCounter & 0xFF) < 100)
             gSaveBlock1Ptr->trainerRematchStepCounter++;
     }
+
+   UpdateTrainerRematchCooldowns();
 
     if (FlagGet(FLAG_SYS_VS_SEEKER_CHARGING) == TRUE)
     {
@@ -876,6 +890,7 @@ bool8 UpdateVsSeekerStepCounter(void)
 
 void MapResetTrainerRematches(u16 mapGroup, u16 mapNum)
 {
+   EnsureVsSeekerRematchSaveData();
     FlagClear(FLAG_SYS_VS_SEEKER_CHARGING);
     VsSeekerResetChargingStepCounter();
     ClearAllTrainerRematchStates();
@@ -885,6 +900,7 @@ void MapResetTrainerRematches(u16 mapGroup, u16 mapNum)
 
 void VsSeekerInitIconsOnMapLoad(void)
 {
+   EnsureVsSeekerRematchSaveData();
    UpdatePersistentRematchIcons();
 }
 
@@ -1079,7 +1095,7 @@ static u8 GetVsSeekerResponseInArea(const struct RematchData * vsSeekerData)
                 vsSeekerIdx++;
                 continue;
             }
-            rematchTrainerIdx = GetNextAvailableRematchTrainer(vsSeekerData, trainerIdx, &unusedIdx);
+            rematchTrainerIdx = GetNextEligibleRematchTrainer(vsSeekerData, trainerIdx, &unusedIdx);
             if (rematchTrainerIdx == 0)
             {
                 StartTrainerObjectMovementScript(&sVsSeeker->trainerInfo[vsSeekerIdx], sMovementScript_TrainerNoRematch);
@@ -1132,6 +1148,9 @@ void ClearRematchStateByTrainerId(void)
     struct ObjectEventTemplate *objectEventTemplates = gSaveBlock1Ptr->objectEventTemplates;
     int vsSeekerDataIdx = LookupVsSeekerOpponentInArray(sRematches, gTrainerBattleOpponent_A);
 
+   EnsureVsSeekerRematchSaveData();
+   StartTrainerRematchCooldown(gTrainerBattleOpponent_A);
+
     if (vsSeekerDataIdx != -1)
     {
         int i;
@@ -1162,48 +1181,42 @@ void ClearRematchStateByTrainerId(void)
     }
 }
 
-static void TryGetRematchTrainerIdGivenGameState(const u16 * trainerIdxs, u8 * rematchIdx_p)
+static void EnsureVsSeekerRematchSaveData(void)
 {
-    switch (*rematchIdx_p)
-    {
-     case 0:
-         break;
-     case 1:
-         if (!FlagGet(FLAG_GOT_VS_SEEKER))
-             *rematchIdx_p = GetRematchTrainerIdGivenGameState(trainerIdxs, *rematchIdx_p);
-         break;
-     case 2:
-         if (!FlagGet(FLAG_WORLD_MAP_CELADON_CITY))
-             *rematchIdx_p = GetRematchTrainerIdGivenGameState(trainerIdxs, *rematchIdx_p);
-         break;
-     case 3:
-         if (!FlagGet(FLAG_WORLD_MAP_FUCHSIA_CITY))
-             *rematchIdx_p = GetRematchTrainerIdGivenGameState(trainerIdxs, *rematchIdx_p);
-         break;
-     case 4:
-         if (!FlagGet(FLAG_SYS_GAME_CLEAR))
-             *rematchIdx_p = GetRematchTrainerIdGivenGameState(trainerIdxs, *rematchIdx_p);
-         break;
-     case 5:
-         if (!FlagGet(FLAG_SYS_CAN_LINK_WITH_RS))
-             *rematchIdx_p = GetRematchTrainerIdGivenGameState(trainerIdxs, *rematchIdx_p);
-         break;
-    }
+   u16 i;
+
+   if (gSaveBlock1Ptr->vsSeekerRematchSaveMagic == VS_SEEKER_REMATCH_SAVE_MAGIC)
+      return;
+
+   for (i = 0; i < MAX_VS_SEEKER_REMATCHES; i++)
+      gSaveBlock1Ptr->vsSeekerRematchCooldowns[i] = 0;
+
+   gSaveBlock1Ptr->vsSeekerRematchSaveMagic = VS_SEEKER_REMATCH_SAVE_MAGIC;
 }
 
-static u8 GetRematchTrainerIdGivenGameState(const u16 *trainerIdxs, u8 rematchIdx)
+static bool8 IsRematchStageUnlocked(u8 rematchIdx)
 {
-    while (--rematchIdx != 0)
+   switch (rematchIdx)
     {
-        const u16 *rematch_p = trainerIdxs + rematchIdx;
-        if (*rematch_p != SKIP)
-            return rematchIdx;
+   case 1:
+      return FlagGet(FLAG_GOT_VS_SEEKER);
+   case 2:
+      return FlagGet(FLAG_WORLD_MAP_CELADON_CITY);
+   case 3:
+      return FlagGet(FLAG_WORLD_MAP_FUCHSIA_CITY);
+   case 4:
+      return FlagGet(FLAG_SYS_GAME_CLEAR);
+   case 5:
+      return FlagGet(FLAG_SYS_CAN_LINK_WITH_RS);
+   default:
+      return FALSE;
     }
-    return 0;
 }
 
 bool8 ShouldTryRematchBattle(void)
 {
+   EnsureVsSeekerRematchSaveData();
+
     if (ShouldTryRematchBattleInternal(sRematches, gTrainerBattleOpponent_A))
     {
         return TRUE;
@@ -1238,8 +1251,11 @@ static bool8 HasRematchTrainerAlreadyBeenFought(const struct RematchData *vsSeek
 
 void ClearRematchStateOfLastTalked(void)
 {
+   EnsureVsSeekerRematchSaveData();
+   StartTrainerRematchCooldown(gTrainerBattleOpponent_A);
     gSaveBlock1Ptr->trainerRematches[gSpecialVar_LastTalked] = 0;
     SetBattledTrainerFlag();
+   UpdatePersistentRematchIcons();
 }
 
 static int LookupVsSeekerOpponentInArray(const struct RematchData * array, u16 trainerId)
@@ -1268,10 +1284,11 @@ int GetRematchTrainerId(u16 trainerId)
 {
     u8 i;
     u8 j;
-    j = GetNextAvailableRematchTrainer(sRematches, trainerId, &i);
+
+   EnsureVsSeekerRematchSaveData();
+   j = GetNextEligibleRematchTrainer(sRematches, trainerId, &i);
     if (!j)
         return 0;
-    TryGetRematchTrainerIdGivenGameState(sRematches[i].trainerIdxs, &j);
     return sRematches[i].trainerIdxs[j];
 }
 
@@ -1283,6 +1300,7 @@ u8 IsTrainerReadyForRematch(void)
 static bool8 IsTrainerReadyForRematchInternal(const struct RematchData * array, u16 trainerId)
 {
     int rematchTrainerIdx = LookupVsSeekerOpponentInArray(array, trainerId);
+   u8 rematchIdx;
 
     if (rematchTrainerIdx == -1)
         return FALSE;
@@ -1290,6 +1308,9 @@ static bool8 IsTrainerReadyForRematchInternal(const struct RematchData * array, 
         return FALSE;
     if (!IsThisTrainerRematchable(gSpecialVar_LastTalked))
         return FALSE;
+   rematchIdx = GetNextEligibleRematchTrainer(array, array[rematchTrainerIdx].trainerIdxs[0], NULL);
+   if (rematchIdx == 0)
+      return FALSE;
     return TRUE;
 }
 
@@ -1391,6 +1412,12 @@ static int GetRematchIdx(const struct RematchData * vsSeekerData, u16 trainerFla
     return -1;
 }
 
+static bool8 IsTrainerEntryOnCooldown(u16 rematchTableIdx)
+{
+   EnsureVsSeekerRematchSaveData();
+   return gSaveBlock1Ptr->vsSeekerRematchCooldowns[rematchTableIdx] != 0;
+}
+
 static bool32 IsThisTrainerRematchable(u32 localId)
 {
     if (!gSaveBlock1Ptr->trainerRematches[localId])
@@ -1421,34 +1448,94 @@ static bool8 IsTrainerVisibleOnScreen(struct VsSeekerTrainerInfo * trainerInfo)
         && y + 5 >= trainerInfo->yCoord
         && ObjectEventIdIsSane(trainerInfo->objectEventId) == 1)
         return TRUE;
-    return FALSE;
+   return FALSE;
 }
 
-static u8 GetNextAvailableRematchTrainer(const struct RematchData * vsSeekerData, u16 trainerFlagNo, u8 * idxPtr)
+static u8 GetNextRemainingRematchTrainerByTableIdx(const struct RematchData *vsSeekerData, u16 rematchTableIdx, u16 defeatedTrainerId)
 {
-    int i, j;
+   u8 j;
 
-    for (i = 0; i < NELEMS(sRematches); i++)
+   for (j = 1; j < MAX_REMATCH_PARTIES; j++)
     {
-        if (vsSeekerData[i].trainerIdxs[0] == trainerFlagNo)
-        {
-            *idxPtr = i;
-            for (j = 1; j < MAX_REMATCH_PARTIES; j++)
-            {
-                if (vsSeekerData[i].trainerIdxs[j] == TRAINER_NONE)
-                    return j - 1;
-                if (vsSeekerData[i].trainerIdxs[j] == SKIP)
-                    continue;
-                if (HasTrainerBeenFought(vsSeekerData[i].trainerIdxs[j]))
-                    continue;
-                return j;
-            }
-            return j - 1;
-        }
+      u16 trainerId = vsSeekerData[rematchTableIdx].trainerIdxs[j];
+
+      if (trainerId == TRAINER_NONE)
+         break;
+      if (trainerId == SKIP)
+         continue;
+      if (trainerId == defeatedTrainerId || HasTrainerBeenFought(trainerId))
+         continue;
+      return j;
     }
 
-    *idxPtr = 0;
-    return 0;
+   return 0;
+}
+
+static u8 GetNextRemainingRematchTrainer(const struct RematchData *vsSeekerData, u16 trainerFlagNo, u8 *idxPtr, u16 defeatedTrainerId)
+{
+   int rematchTableIdx = GetRematchIdx(vsSeekerData, trainerFlagNo);
+
+   if (rematchTableIdx == -1)
+   {
+      if (idxPtr != NULL)
+         *idxPtr = 0;
+      return 0;
+   }
+
+   if (idxPtr != NULL)
+      *idxPtr = rematchTableIdx;
+
+   return GetNextRemainingRematchTrainerByTableIdx(vsSeekerData, rematchTableIdx, defeatedTrainerId);
+}
+
+static u8 GetNextEligibleRematchTrainer(const struct RematchData *vsSeekerData, u16 trainerFlagNo, u8 *idxPtr)
+{
+   u8 rematchTableIdx = 0;
+   u8 rematchIdx = GetNextRemainingRematchTrainer(vsSeekerData, trainerFlagNo, &rematchTableIdx, TRAINER_NONE);
+
+   if (idxPtr != NULL)
+      *idxPtr = rematchTableIdx;
+
+   if (rematchIdx == 0)
+      return 0;
+   if (!IsRematchStageUnlocked(rematchIdx))
+      return 0;
+   if (IsTrainerEntryOnCooldown(rematchTableIdx))
+      return 0;
+
+   return rematchIdx;
+}
+
+static void StartTrainerRematchCooldown(u16 trainerId)
+{
+   int rematchTableIdx = LookupVsSeekerOpponentInArray(sRematches, trainerId);
+
+   if (rematchTableIdx < 0 || rematchTableIdx >= NELEMS(sRematches))
+      return;
+
+   if (GetNextRemainingRematchTrainerByTableIdx(sRematches, rematchTableIdx, trainerId) == 0)
+      gSaveBlock1Ptr->vsSeekerRematchCooldowns[rematchTableIdx] = 0;
+   else
+      gSaveBlock1Ptr->vsSeekerRematchCooldowns[rematchTableIdx] = VS_SEEKER_REMATCH_COOLDOWN_STEPS;
+}
+
+static void UpdateTrainerRematchCooldowns(void)
+{
+   u16 i;
+
+   for (i = 0; i < NELEMS(sRematches); i++)
+   {
+      if (gSaveBlock1Ptr->vsSeekerRematchCooldowns[i] == 0)
+         continue;
+
+      if (GetNextRemainingRematchTrainerByTableIdx(sRematches, i, TRAINER_NONE) == 0)
+      {
+         gSaveBlock1Ptr->vsSeekerRematchCooldowns[i] = 0;
+         continue;
+      }
+
+      gSaveBlock1Ptr->vsSeekerRematchCooldowns[i]--;
+   }
 }
 
 static u8 GetRematchableTrainerLocalId(void)
@@ -1460,7 +1547,7 @@ static u8 GetRematchableTrainerLocalId(void)
     {
         if (IsTrainerVisibleOnScreen(&sVsSeeker->trainerInfo[i]) == 1)
         {
-            if (HasTrainerBeenFought(sVsSeeker->trainerInfo[i].trainerIdx) != 1 || GetNextAvailableRematchTrainer(sRematches, sVsSeeker->trainerInfo[i].trainerIdx, &idx))
+            if (HasTrainerBeenFought(sVsSeeker->trainerInfo[i].trainerIdx) != 1 || GetNextEligibleRematchTrainer(sRematches, sVsSeeker->trainerInfo[i].trainerIdx, &idx))
                 return sVsSeeker->trainerInfo[i].localId;
         }
     }
@@ -1511,7 +1598,7 @@ static void StartAllRespondantIdleMovements(void)
                 if (ObjectEventIdIsSane(sVsSeeker->trainerInfo[j].objectEventId) == 1)
                     SetTrainerMovementType(objectEvent, sVsSeeker->runningBehaviourEtcArray[i]);
                 OverrideMovementTypeForObjectEvent(objectEvent, sVsSeeker->runningBehaviourEtcArray[i]);
-                gSaveBlock1Ptr->trainerRematches[sVsSeeker->trainerInfo[j].localId] = GetNextAvailableRematchTrainer(sRematches, sVsSeeker->trainerInfo[j].trainerIdx, &dummy);
+               gSaveBlock1Ptr->trainerRematches[sVsSeeker->trainerInfo[j].localId] = GetNextEligibleRematchTrainer(sRematches, sVsSeeker->trainerInfo[j].trainerIdx, &dummy);
             }
         }
     }
@@ -1571,12 +1658,11 @@ static u8 GetRematchIconColorByRematchIdx(u8 rematchIdx)
 static u8 GetRematchIconColorForTrainer(u16 trainerIdx)
 {
    u8 rematchTableIdx;
-   u8 rematchIdx = GetNextAvailableRematchTrainer(sRematches, trainerIdx, &rematchTableIdx);
+   u8 rematchIdx = GetNextEligibleRematchTrainer(sRematches, trainerIdx, &rematchTableIdx);
 
    if (rematchIdx == 0)
       return REMATCH_ICON_COLOR_NONE;
 
-   TryGetRematchTrainerIdGivenGameState(sRematches[rematchTableIdx].trainerIdxs, &rematchIdx);
    return GetRematchIconColorByRematchIdx(rematchIdx);
 }
 

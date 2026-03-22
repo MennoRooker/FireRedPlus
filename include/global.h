@@ -812,7 +812,9 @@ struct SaveBlock1
     /*0x3AB4*/ struct DaycareMon route5DayCareMon;
     /*0x3B40*/ u32 towerChallengeId;
     /*0x3B44*/ struct TrainerTower trainerTower[NUM_TOWER_CHALLENGE_TYPES];
-}; // size: 0x3B74
+    /*0x3B74*/ u32 vsSeekerRematchSaveMagic;
+    /*0x3B78*/ u16 vsSeekerRematchCooldowns[MAX_VS_SEEKER_REMATCHES];
+}; // size: 0x3D34
 
 struct MapPosition
 {

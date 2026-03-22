@@ -124,8 +124,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "ViridianForest_EventScript_ItemLeafStone",
-      "flag": "FLAG_HIDE_VIRIDIAN_FOREST_LEAF_STONE"
+      "script": "ViridianForest_EventScript_ItemSilverPowder",
+      "flag": "FLAG_HIDE_VIRIDIAN_FOREST_SILVER_POWDER"
     },
     {
       "type": "object",
