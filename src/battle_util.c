@@ -3060,7 +3060,6 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
 
                     gBattleScripting.battler = battlerId;
                     gPotentialItemEffectBattler = battlerId;
-                    gActiveBattler = gBattlerAttacker = battlerId;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_ItemHealHP_RemoveItemRet;
                     effect = ITEM_HP_CHANGE;
@@ -3097,7 +3096,6 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
 
                     gBattleScripting.battler = battlerId;
                     gPotentialItemEffectBattler = battlerId;
-                    gActiveBattler = gBattlerAttacker = battlerId;
                     BattleScriptPushCursor();
                     if (GetFlavorRelationByPersonality(gBattleMons[battlerId].personality, flavor) < 0)
                         gBattlescriptCurrInstr = BattleScript_BerryConfuseHealRet;
@@ -3119,7 +3117,6 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                     gBattleScripting.animArg2 = 0;
                     gBattleScripting.battler = battlerId;
                     gPotentialItemEffectBattler = battlerId;
-                    gActiveBattler = gBattlerAttacker = battlerId;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_BerryStatRaiseRet;
                     effect = ITEM_STATS_CHANGE;
@@ -3152,7 +3149,6 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                         gBattleScripting.animArg2 = 0;
                         gBattleScripting.battler = battlerId;
                         gPotentialItemEffectBattler = battlerId;
-                        gActiveBattler = gBattlerAttacker = battlerId;
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_BerryStatRaiseRet;
                         effect = ITEM_STATS_CHANGE;
@@ -3167,7 +3163,6 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                     gBattleMons[battlerId].status2 |= STATUS2_FOCUS_ENERGY;
                     gBattleScripting.battler = battlerId;
                     gPotentialItemEffectBattler = battlerId;
-                    gActiveBattler = gBattlerAttacker = battlerId;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_BerryFocusEnergyRet;
                     effect = ITEM_EFFECT_OTHER;
@@ -3206,7 +3201,6 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                         gBattleScripting.animArg2 = 0;
                         gBattleScripting.battler = battlerId;
                         gPotentialItemEffectBattler = battlerId;
-                        gActiveBattler = gBattlerAttacker = battlerId;
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_BerryStatRaiseRet;
                         effect = ITEM_STATS_CHANGE;
