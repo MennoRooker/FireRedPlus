@@ -25,10 +25,24 @@ CeruleanCity_Gym_EventScript_GiveTM03::
 	giveitem_msg CeruleanCity_Gym_Text_ReceivedTM03FromMisty, ITEM_TM03
 	setflag FLAG_GOT_TM03_FROM_MISTY
 	msgbox CeruleanCity_Gym_Text_ExplainTM03
+	goto CeruleanCity_Gym_EventScript_GiveWaterStone
+	end
+
+CeruleanCity_Gym_EventScript_GiveWaterStone::
+	msgbox CeruleanCity_Gym_Text_HaveThisToo
+	checkitemspace ITEM_WATER_STONE
+	goto_if_eq VAR_RESULT, FALSE, CeruleanCity_Gym_EventScript_NoRoomForWaterStone
+	giveitem_msg CeruleanCity_Gym_Text_ReceivedWaterStoneFromMisty, ITEM_WATER_STONE
+	msgbox CeruleanCity_Gym_Text_WaterStone
 	release
 	end
 
 CeruleanCity_Gym_EventScript_NoRoomForTM03::
+	msgbox CeruleanCity_Gym_Text_BetterMakeRoomForThis
+	release
+	end
+
+CeruleanCity_Gym_EventScript_NoRoomForWaterStone::
 	msgbox CeruleanCity_Gym_Text_BetterMakeRoomForThis
 	release
 	end

@@ -375,12 +375,12 @@
 #define FLAG_HIDE_ROUTE24_TM45                                  0x162
 #define FLAG_HIDE_ROUTE25_TM43                                  0x163
 #define FLAG_HIDE_SSANNE_1F_ROOM2_TM31                          0x164
-#define FLAG_HIDE_SSANNE_2F_ROOM2_STARDUST                      0x165
+#define FLAG_HIDE_SSANNE_2F_ROOM2_DEEP_SEA_SCALE                0x165
 #define FLAG_HIDE_SSANNE_2F_ROOM4_DEEP_SEA_TOOTH                0x166
 #define FLAG_HIDE_SSANNE_B1F_ROOM2_TM44                         0x167
 #define FLAG_HIDE_SSANNE_B1F_ROOM3_LUCKY_EGG                    0x168
 #define FLAG_HIDE_SSANNE_B1F_ROOM5_SUPER_POTION                 0x169
-#define FLAG_HIDE_SSANNE_KITCHEN_GREAT_BALL                     0x16A
+#define FLAG_HIDE_SSANNE_KITCHEN_RARE_CANDY                     0x16A
 #define FLAG_HIDE_ROUTE9_TM40                                   0x16B
 #define FLAG_HIDE_ROCKET_HIDEOUT_B1F_ESCAPE_ROPE                0x16C
 #define FLAG_HIDE_ROCKET_HIDEOUT_B1F_HYPER_POTION               0x16D
@@ -1073,7 +1073,7 @@
 #define FLAG_HIDDEN_ITEM_VICTORY_ROAD_1F_FULL_RESTORE                      (FLAG_HIDDEN_ITEMS_START +  38)
 #define FLAG_HIDDEN_ITEM_CERULEAN_CAVE_1F_ULTRA_BALL                       (FLAG_HIDDEN_ITEMS_START +  39)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x28                                       (FLAG_HIDDEN_ITEMS_START +  40)
-#define FLAG_HIDDEN_ITEM_ROUTE11_WATER_STONE                               (FLAG_HIDDEN_ITEMS_START +  41)
+#define FLAG_HIDDEN_ITEM_ROUTE11_LEAF_STONE                                (FLAG_HIDDEN_ITEMS_START +  41)
 #define FLAG_HIDDEN_ITEM_ROUTE12_HYPER_POTION                              (FLAG_HIDDEN_ITEMS_START +  42)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x2B                                       (FLAG_HIDDEN_ITEMS_START +  43)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x2C                                       (FLAG_HIDDEN_ITEMS_START +  44)
@@ -1152,9 +1152,9 @@
 #define FLAG_HIDDEN_ITEM_ROUTE25_HONDEW_BERRY                              (FLAG_HIDDEN_ITEMS_START + 117)
 #define FLAG_HIDDEN_ITEM_ROUTE6_CHERI_BERRY                                (FLAG_HIDDEN_ITEMS_START + 118)
 #define FLAG_HIDDEN_ITEM_ROUTE6_RARE_CANDY                                 (FLAG_HIDDEN_ITEMS_START + 119)
-#define FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_PECHA_BERRY                        (FLAG_HIDDEN_ITEMS_START + 120)
-#define FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_CHERI_BERRY                        (FLAG_HIDDEN_ITEMS_START + 121)
-#define FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_CHESTO_BERRY                       (FLAG_HIDDEN_ITEMS_START + 122)
+#define FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_KELPSY_BERRY                       (FLAG_HIDDEN_ITEMS_START + 120)
+#define FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_HONDEW_BERRY                       (FLAG_HIDDEN_ITEMS_START + 121)
+#define FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_TAMATO_BERRY                       (FLAG_HIDDEN_ITEMS_START + 122)
 #define FLAG_HIDDEN_ITEM_ROUTE9_RARE_CANDY                                 (FLAG_HIDDEN_ITEMS_START + 123)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x7C                                       (FLAG_HIDDEN_ITEMS_START + 124)
 #define FLAG_HIDDEN_ITEM_ROUTE10_PERSIM_BERRY                              (FLAG_HIDDEN_ITEMS_START + 125)

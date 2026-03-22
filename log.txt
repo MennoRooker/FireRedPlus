@@ -970,7 +970,7 @@ and gifted items. (Key items not included):
 - Oran Berry	|
 - Persim Berry	|
 - TM09		|
-- Parlyz Heal	||
+- Parlyz Heal	|
 - Nest Ball	|
 - Rare Candy	|||
 - Escape Rope	||
@@ -991,6 +991,7 @@ and gifted items. (Key items not included):
 - Aguav Berry	|
 - Hondew Berry	|
 - TM03		|
+- Water Stone	|
 - TM28		|
 - Green Shard	|
 - Awakening	|
@@ -999,8 +1000,8 @@ and gifted items. (Key items not included):
 - Burn Heal	|
 - Cheri Berry	|
 - Super Potion	|
-- Water Stone	|
-- Poison barb	|
+- Leaf Stone	|
+- TM31		|
 
 
 I think I want the BERRY POUCH and TM CASE to default to

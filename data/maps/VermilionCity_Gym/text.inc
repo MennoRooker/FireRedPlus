@@ -18,8 +18,8 @@ VermilionCity_Gym_Text_LtSurgePostBattle::
 VermilionCity_Gym_Text_ExplainThunderBadgeTakeThis::
     .string "The THUNDERBADGE cranks up your\n"
     .string "POKéMON's SPEED!\p"
-    .string "It also lets your POKéMON FLY\n"
-    .string "lightning-quick anytime, kid!\p"
+    .string "It also lets your POKéMON use\n"
+    .string "ROCK SMASH anytime, kid!\p"
     .string "You're special, kid!\n"
     .string "Take this!$"
 
@@ -31,8 +31,22 @@ VermilionCity_Gym_Text_ExplainTM34::
     .string "TM34 contains SHOCK WAVE!\p"
     .string "Teach it to an ELECTRIC POKéMON!$"
 
+VermilionCity_Gym_Text_HaveThisToo::
+    .string "And you can have this too, kid!$"
+
+VermilionCity_Gym_Text_ReceivedThunderStoneFromLtSurge::
+    .string "{PLAYER} received a THUNDER\n"
+    .string "STONE from LT. SURGE.$"
+
+VermilionCity_Gym_Text_ThunderStone::
+    .string "This stone to evolves some\n"
+    .string "ELECTRIC-type POKéMON.$"
+
 VermilionCity_Gym_Text_MakeRoomInYourBag::
     .string "Yo, kid, make room in your BAG!$"
+
+VermilionCity_Gym_Text_BetterMakeRoomForThis::
+    .string "You better make room for this, kid!$"
 
 VermilionCity_Gym_Text_LtSurgeDefeat::
     .string "Now that's a shocker!\p"

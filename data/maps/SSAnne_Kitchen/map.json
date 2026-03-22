@@ -124,8 +124,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "SSAnne_Kitchen_EventScript_ItemGreatBall",
-      "flag": "FLAG_HIDE_SSANNE_KITCHEN_GREAT_BALL"
+      "script": "SSAnne_Kitchen_EventScript_ItemRareCandy",
+      "flag": "FLAG_HIDE_SSANNE_KITCHEN_RARE_CANDY"
     }
   ],
   "warp_events": [
@@ -144,8 +144,8 @@
       "x": 14,
       "y": 8,
       "elevation": 0,
-      "item": "ITEM_CHESTO_BERRY",
-      "flag": "FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_CHESTO_BERRY",
+      "item": "ITEM_TAMATO_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_TAMATO_BERRY",
       "quantity": 1,
       "underfoot": false
     },
@@ -154,8 +154,8 @@
       "x": 14,
       "y": 4,
       "elevation": 0,
-      "item": "ITEM_PECHA_BERRY",
-      "flag": "FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_PECHA_BERRY",
+      "item": "ITEM_KELPSY_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_KELPSY_BERRY",
       "quantity": 1,
       "underfoot": false
     },
@@ -164,8 +164,8 @@
       "x": 14,
       "y": 6,
       "elevation": 0,
-      "item": "ITEM_CHERI_BERRY",
-      "flag": "FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_CHERI_BERRY",
+      "item": "ITEM_HONDEW_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_HONDEW_BERRY",
       "quantity": 1,
       "underfoot": false
     }

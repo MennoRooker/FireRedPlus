@@ -232,11 +232,25 @@ VermilionCity_Gym_EventScript_GiveTM34::
 	giveitem_msg VermilionCity_Gym_Text_ReceivedTM34FromLtSurge, ITEM_TM34
 	setflag FLAG_GOT_TM34_FROM_SURGE
 	msgbox VermilionCity_Gym_Text_ExplainTM34
+	goto VermilionCity_Gym_EventScript_GiveThunderStone
+	end
+
+VermilionCity_Gym_EventScript_GiveThunderStone::
+	msgbox VermilionCity_Gym_Text_HaveThisToo
+	checkitemspace ITEM_THUNDER_STONE
+	goto_if_eq VAR_RESULT, FALSE, VermilionCity_Gym_EventScript_NoRoomForThunderStone
+	giveitem_msg VermilionCity_Gym_Text_ReceivedThunderStoneFromLtSurge, ITEM_THUNDER_STONE
+	msgbox VermilionCity_Gym_Text_ThunderStone
 	release
 	end
 
 VermilionCity_Gym_EventScript_NoRoomForTM34::
 	msgbox VermilionCity_Gym_Text_MakeRoomInYourBag
+	release
+	end
+
+VermilionCity_Gym_EventScript_NoRoomForThunderStone::
+	msgbox VermilionCity_Gym_Text_BetterMakeRoomForThis
 	release
 	end
 

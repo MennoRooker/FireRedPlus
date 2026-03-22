@@ -74,8 +74,8 @@ SSAnne_1F_Room2_EventScript_ItemTM31::
 	finditem ITEM_TM31
 	end
 
-SSAnne_2F_Room2_EventScript_ItemStardust::
-	finditem ITEM_STARDUST
+SSAnne_2F_Room2_EventScript_ItemDeepSeaScale::
+	finditem ITEM_DEEP_SEA_SCALE
 	end
 
 SSAnne_2F_Room4_EventScript_ItemDeepSeaTooth::
@@ -94,8 +94,8 @@ SSAnne_B1F_Room5_EventScript_ItemSuperPotion::
 	finditem ITEM_SUPER_POTION
 	end
 
-SSAnne_Kitchen_EventScript_ItemGreatBall::
-	finditem ITEM_GREAT_BALL
+SSAnne_Kitchen_EventScript_ItemRareCandy::
+	finditem ITEM_RARE_CANDY
 	end
 
 Route9_EventScript_ItemTM40::
