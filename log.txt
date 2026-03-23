@@ -1144,11 +1144,11 @@ x VS Seeker
 / Linearizations
 / Balancing
 - Dynamic speed
+- Only a few red HP beeps
+- Letters
 - Faster Bike
 - Victory Road FLY checkpoint
-- Letters
 - Agatha's Misdreavus -> Flutter Mane
-- Only a few red HP beeps
 - Clean up
 - Documentation
 ---------------------------------------
