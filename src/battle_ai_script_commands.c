@@ -1,5 +1,6 @@
 #include "global.h"
 #include "battle.h"
+#include "pokemon.h"
 #include "battle_anim.h"
 #include "util.h"
 #include "item.h"
@@ -979,7 +980,10 @@ static void Cmd_get_type(void)
         AI_THINKING_STRUCT->funcResult = gBattleMons[gBattlerTarget].type2;
         break;
     case AI_TYPE_MOVE:
-        AI_THINKING_STRUCT->funcResult = gBattleMoves[AI_THINKING_STRUCT->moveConsidered].type;
+        if (AI_THINKING_STRUCT->moveConsidered == MOVE_HIDDEN_POWER)
+            AI_THINKING_STRUCT->funcResult = GetHiddenPowerTypeFromBattleMon(&gBattleMons[gBattlerAttacker]);
+        else
+            AI_THINKING_STRUCT->funcResult = gBattleMoves[AI_THINKING_STRUCT->moveConsidered].type;
         break;
     }
     sAIScriptPtr += 2;
@@ -1853,7 +1857,10 @@ static void Cmd_get_used_held_item(void)
 
 static void Cmd_get_move_type_from_result(void)
 {
-    AI_THINKING_STRUCT->funcResult = gBattleMoves[AI_THINKING_STRUCT->funcResult].type;
+    if (AI_THINKING_STRUCT->funcResult == MOVE_HIDDEN_POWER)
+        AI_THINKING_STRUCT->funcResult = GetHiddenPowerTypeFromBattleMon(&gBattleMons[gBattlerAttacker]);
+    else
+        AI_THINKING_STRUCT->funcResult = gBattleMoves[AI_THINKING_STRUCT->funcResult].type;
 
     sAIScriptPtr += 1;
 }

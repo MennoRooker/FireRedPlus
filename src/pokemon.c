@@ -78,8 +78,51 @@ static void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon);
 static u16 GiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move);
 static u8 GetLevelFromMonExp(struct Pokemon *mon);
 static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon);
+static u8 CalcHiddenPowerTypeFromIVs(u8 hpIv, u8 attackIv, u8 defenseIv, u8 speedIv, u8 spAttackIv, u8 spDefenseIv);
 
 #include "data/battle_moves.h"
+
+static u8 CalcHiddenPowerTypeFromIVs(u8 hpIv, u8 attackIv, u8 defenseIv, u8 speedIv, u8 spAttackIv, u8 spDefenseIv)
+{
+    s32 typeBits;
+    u8 type;
+
+    typeBits = ((hpIv & 1) << 0)
+             | ((attackIv & 1) << 1)
+             | ((defenseIv & 1) << 2)
+             | ((speedIv & 1) << 3)
+             | ((spAttackIv & 1) << 4)
+             | ((spDefenseIv & 1) << 5);
+
+    // Keep vanilla Hidden Power typing behavior: skip TYPE_NORMAL and TYPE_MYSTERY.
+    type = ((NUMBER_OF_MON_TYPES - 3) * typeBits) / 63 + 1;
+    if (type >= TYPE_MYSTERY)
+        type++;
+
+    return type;
+}
+
+u8 GetHiddenPowerTypeFromMon(struct Pokemon *mon)
+{
+    return CalcHiddenPowerTypeFromIVs(
+        GetMonData(mon, MON_DATA_HP_IV),
+        GetMonData(mon, MON_DATA_ATK_IV),
+        GetMonData(mon, MON_DATA_DEF_IV),
+        GetMonData(mon, MON_DATA_SPEED_IV),
+        GetMonData(mon, MON_DATA_SPATK_IV),
+        GetMonData(mon, MON_DATA_SPDEF_IV));
+}
+
+u8 GetHiddenPowerTypeFromBattleMon(struct BattlePokemon *battleMon)
+{
+    return CalcHiddenPowerTypeFromIVs(
+        battleMon->hpIV,
+        battleMon->attackIV,
+        battleMon->defenseIV,
+        battleMon->speedIV,
+        battleMon->spAttackIV,
+        battleMon->spDefenseIV);
+}
 
 // Used in an unreferenced function in RS.
 // Unreferenced here and in Emerald.

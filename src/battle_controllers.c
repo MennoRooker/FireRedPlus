@@ -1,5 +1,6 @@
 #include "global.h"
 #include "battle.h"
+#include "pokemon.h"
 #include "battle_ai_script_commands.h"
 #include "battle_anim.h"
 #include "battle_controllers.h"
@@ -11,6 +12,7 @@
 #include "task.h"
 #include "util.h"
 #include "constants/abilities.h"
+#include "constants/moves.h"
 
 static EWRAM_DATA u8 sLinkSendTaskId = 0;
 static EWRAM_DATA u8 sLinkReceiveTaskId = 0;
@@ -789,7 +791,17 @@ void BtlController_EmitPrintString(u8 bufferId, u16 stringID)
     stringInfo->bakScriptPartyIdx = gBattleStruct->scriptPartyIdx;
     stringInfo->hpScale = gBattleStruct->hpScale;
     stringInfo->itemEffectBattler = gPotentialItemEffectBattler;
-    stringInfo->moveType = gBattleMoves[gCurrentMove].type;
+    if (gCurrentMove == MOVE_HIDDEN_POWER)
+    {
+        if (gBattleStruct->dynamicMoveType == 0)
+            stringInfo->moveType = GetHiddenPowerTypeFromBattleMon(&gBattleMons[gBattlerAttacker]);
+        else
+            stringInfo->moveType = gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;
+    }
+    else
+    {
+        stringInfo->moveType = gBattleMoves[gCurrentMove].type;
+    }
 
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
         stringInfo->abilities[i] = gBattleMons[i].ability;
