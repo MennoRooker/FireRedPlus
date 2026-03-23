@@ -972,7 +972,7 @@ and gifted items. (Key items not included):
 - TM09		|
 - Parlyz Heal	||
 - Nest Ball	|
-- Rare Candy	|||
+- Rare Candy	||||
 - Escape Rope	||
 - BigMushroom	|
 - Blue Shard	|
@@ -999,10 +999,17 @@ and gifted items. (Key items not included):
 - Ice Heal	|
 - Burn Heal	|
 - Cheri Berry	|
-- Super Potion	|
+- Super Potion	||
 - Leaf Stone	|
 - TM31		|
-
+- Kelpsy Berry	|
+- Hondew Berry	|
+- Tamato Berry	|
+- Deepseascale	|
+- Deepseatooth	|
+- Hyper Potion	|
+- TM44		|
+- Lucky Egg	|
 
 I think I want the BERRY POUCH and TM CASE to default to
 the top of the Key Items pocket instead of the bottom.
@@ -1088,7 +1095,16 @@ are limited to when you've beaten all of their teams
 once. That will limit your options for Exp Farming, but
 I can just add something for that later.
 
-Show Hidden Power type and 70 BP.
+Show Hidden Power type and 70 BP. Should take on the
+special/physical characteristic of the type.
+
+I just thought of something that may or may not be
+really cool to implement. Since the Ghost-types in this
+gen are very underwhelming I simply cannot make Agatha
+a difficult fight unless I drastically change something
+about her mons. I want to give Misdreavus an item that
+changes it to its ancient forme: Flutter Mane.
+This way she has an insane ace and I can make her good.
 
 TO DO:
 x Add Bugsy
@@ -1131,6 +1147,7 @@ x VS Seeker
 - Faster Bike
 - Victory Road FLY checkpoint
 - Letters
+- Agatha's Misdreavus -> Flutter Mane
 - Only a few red HP beeps
 - Clean up
 - Documentation
@@ -1148,11 +1165,12 @@ x VS Seeker
 - Custom move animations
 
 
+
 Abilities to add:
 x Snow Warning
 x Dragon's Maw
-/ Solar Power
-/ Strong Jaw
+x Solar Power
+x Strong Jaw
 - Technician (Breloom & Hitmontop)
 - Harvest (Bulbasaur & Exeggutor)
 - Regenerator

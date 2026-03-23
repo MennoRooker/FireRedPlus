@@ -2632,7 +2632,7 @@ enum
         if (gBattleMons[battlerId].hp + gBattleMoveDamage > gBattleMons[battlerId].maxHP)   \
             gBattleMoveDamage = gBattleMons[battlerId].maxHP - gBattleMons[battlerId].hp;   \
         gBattleMoveDamage *= -1;                                                            \
-        if (GetFlavorRelationByPersonality(gBattleMons[battlerId].personality, flavor) < 0) \
+        if (GetBattleMonFlavorRelation(battlerId, flavor) < 0)                              \
             BattleScriptExecute(BattleScript_BerryConfuseHealEnd2);                         \
         else                                                                                \
             BattleScriptExecute(BattleScript_ItemHealHP_RemoveItem);                        \
@@ -2816,18 +2816,33 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 }
                 break;
             case HOLD_EFFECT_CONFUSE_SPICY:
+                gBattleScripting.battler = battlerId;
+                gPotentialItemEffectBattler = battlerId;
+                gActiveBattler = gBattlerAttacker = battlerId;
                 TRY_EAT_CONFUSE_BERRY(FLAVOR_SPICY);
                 break;
             case HOLD_EFFECT_CONFUSE_DRY:
+                gBattleScripting.battler = battlerId;
+                gPotentialItemEffectBattler = battlerId;
+                gActiveBattler = gBattlerAttacker = battlerId;
                 TRY_EAT_CONFUSE_BERRY(FLAVOR_DRY);
                 break;
             case HOLD_EFFECT_CONFUSE_SWEET:
+                gBattleScripting.battler = battlerId;
+                gPotentialItemEffectBattler = battlerId;
+                gActiveBattler = gBattlerAttacker = battlerId;
                 TRY_EAT_CONFUSE_BERRY(FLAVOR_SWEET);
                 break;
             case HOLD_EFFECT_CONFUSE_BITTER:
+                gBattleScripting.battler = battlerId;
+                gPotentialItemEffectBattler = battlerId;
+                gActiveBattler = gBattlerAttacker = battlerId;
                 TRY_EAT_CONFUSE_BERRY(FLAVOR_BITTER);
                 break;
             case HOLD_EFFECT_CONFUSE_SOUR:
+                gBattleScripting.battler = battlerId;
+                gPotentialItemEffectBattler = battlerId;
+                gActiveBattler = gBattlerAttacker = battlerId;
                 TRY_EAT_CONFUSE_BERRY(FLAVOR_SOUR);
                 break;
             case HOLD_EFFECT_ATTACK_UP:
@@ -3096,8 +3111,9 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
 
                     gBattleScripting.battler = battlerId;
                     gPotentialItemEffectBattler = battlerId;
+                    gActiveBattler = gBattlerAttacker = battlerId;
                     BattleScriptPushCursor();
-                    if (GetFlavorRelationByPersonality(gBattleMons[battlerId].personality, flavor) < 0)
+                    if (GetBattleMonFlavorRelation(battlerId, flavor) < 0)
                         gBattlescriptCurrInstr = BattleScript_BerryConfuseHealRet;
                     else
                         gBattlescriptCurrInstr = BattleScript_ItemHealHP_RemoveItemRet;

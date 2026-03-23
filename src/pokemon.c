@@ -6099,6 +6099,16 @@ s8 GetFlavorRelationByPersonality(u32 personality, u8 flavor)
     return sPokeblockFlavorCompatibilityTable[nature * FLAVOR_COUNT + flavor];
 }
 
+s8 GetBattleMonFlavorRelation(u8 battlerId, u8 flavor)
+{
+    struct Pokemon *mon;
+    if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
+        mon = &gPlayerParty[gBattlerPartyIndexes[battlerId]];
+    else
+        mon = &gEnemyParty[gBattlerPartyIndexes[battlerId]];
+    return sPokeblockFlavorCompatibilityTable[GetNature(mon) * FLAVOR_COUNT + flavor];
+}
+
 bool8 IsTradedMon(struct Pokemon *mon)
 {
     u8 otName[PLAYER_NAME_LENGTH + 1];

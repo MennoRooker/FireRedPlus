@@ -227,10 +227,18 @@ static void GenerateWildMon(u16 species, u8 level, u8 slot)
 {
     u32 personality;
     s8 chamber;
+    u8 nature;
     ZeroEnemyPartyMons();
     if (species != SPECIES_UNOWN)
     {
-        CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, Random() % NUM_NATURES);
+        nature = Random() % NUM_NATURES;
+        if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG)
+            && GetMonAbility(&gPlayerParty[0]) == ABILITY_SYNCHRONIZE
+            && Random() % 2 == 0)
+        {
+            nature = GetNature(&gPlayerParty[0]);
+        }
+        CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, nature);
     }
     else
     {
