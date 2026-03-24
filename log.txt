@@ -1010,6 +1010,10 @@ and gifted items. (Key items not included):
 - Hyper Potion	|
 - TM44		|
 - Lucky Egg	|
+- TM24		|
+- TM34		|
+- Thunder Stone	|
+- Poison Barb	|
 
 I think I want the BERRY POUCH and TM CASE to default to
 the top of the Key Items pocket instead of the bottom.
@@ -1105,6 +1109,16 @@ a difficult fight unless I drastically change something
 about her mons. I want to give Misdreavus an item that
 changes it to its ancient forme: Flutter Mane.
 This way she has an insane ace and I can make her good.
+
+I got FireRed+ to run on the Everdrive-GBA.
+
+Max's script does not make the player face him, I need
+to fix this rq.
+
+I gave Lt Surge's Voltorb TM24 Thunderbolt. If the 
+player is alert and pays attention to the docuemntation
+they can see this and thief it so that they don't need
+to spend a fortune at the game corner.
 
 TO DO:
 x Add Bugsy

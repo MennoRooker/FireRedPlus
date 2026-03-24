@@ -1942,12 +1942,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GentlemanArthur[] = {
     {
         .iv = 3,
         .lvl = 19,
-        .species = SPECIES_NIDORINO,
+        .species = SPECIES_BAGON,
     },
     {
         .iv = 3,
         .lvl = 19,
-        .species = SPECIES_NIDORINA,
+        .species = SPECIES_LILEEP,
     },
 };
 
@@ -2284,12 +2284,12 @@ static const struct TrainerMonItemCustomMovesNatureAbility sParty_RivalSsAnneCha
 static const struct TrainerMonNoItemDefaultMoves sParty_SailorDwayne[] = {
     {
         .iv = 3,
-        .lvl = 22,
+        .lvl = 24,
         .species = SPECIES_ELECTRIKE,
     },
     {
         .iv = 3,
-        .lvl = 22,
+        .lvl = 24,
         .species = SPECIES_ELEKID,
     },
 };
@@ -2297,12 +2297,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SailorDwayne[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_EngineerBaily[] = {
     {
         .iv = 3,
-        .lvl = 22,
+        .lvl = 24,
         .species = SPECIES_VOLTORB,
     },
     {
         .iv = 3,
-        .lvl = 22,
+        .lvl = 24,
         .species = SPECIES_MAGNEMITE,
     },
 };
@@ -2310,35 +2310,56 @@ static const struct TrainerMonNoItemDefaultMoves sParty_EngineerBaily[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_GentlemanTucker[] = {
     {
         .iv = 3,
-        .lvl = 24,
+        .lvl = 27,
         .species = SPECIES_JOLTEON,
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_LeaderLtSurge[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_LeaderLtSurge[] = {
     {
         .iv = 9,
-        .lvl = 23,
+        .lvl = 24,
         .species = SPECIES_VOLTORB,
+        .heldItem = ITEM_TM24,
         .moves = {MOVE_SONIC_BOOM, MOVE_TACKLE, MOVE_SCREECH, MOVE_SHOCK_WAVE},
+        .nature = NATURE_HARDY,
+        .abilitySlot = 0,
     },
     {
         .iv = 9,
         .lvl = 24,
-        .species = SPECIES_MAGNETON,
-        .moves = {MOVE_SUPERSONIC, MOVE_THUNDER_WAVE, MOVE_METAL_SOUND, MOVE_SHOCK_WAVE},
+        .species = SPECIES_PIKACHU,
+        .heldItem = ITEM_LIGHT_BALL,
+        .moves = {MOVE_THUNDERBOLT, MOVE_HIDDEN_POWER, MOVE_QUICK_ATTACK, MOVE_SURF},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 0,
     },
     {
         .iv = 9,
-        .lvl = 24,
+        .lvl = 26,
         .species = SPECIES_RAICHU,
+        .heldItem = ITEM_SITRUS_BERRY,
         .moves = {MOVE_QUICK_ATTACK, MOVE_THUNDER_WAVE, MOVE_DOUBLE_TEAM, MOVE_SHOCK_WAVE},
+        .nature = NATURE_LONELY,
+        .abilitySlot = 0,
     },
     {
         .iv = 9,
         .lvl = 26,
         .species = SPECIES_MANECTRIC,
-        .moves = {MOVE_SHOCK_WAVE, MOVE_FLAMETHROWER, MOVE_QUICK_ATTACK, MOVE_ROAR},
+        .heldItem = ITEM_LEFTOVERS,
+        .moves = {MOVE_SHOCK_WAVE, MOVE_FLAMETHROWER, MOVE_BITE, MOVE_ROAR},
+        .nature = NATURE_MILD,
+        .abilitySlot = 0,
+    },
+    {
+        .iv = 9,
+        .lvl = 30,
+        .species = SPECIES_MAGNETON,
+        .heldItem = ITEM_MAGNET,
+        .moves = {MOVE_TRI_ATTACK, MOVE_THUNDER_WAVE, MOVE_METAL_SOUND, MOVE_SHOCK_WAVE},
+        .nature = NATURE_GENTLE,
+        .abilitySlot = 0,    
     },
 };
 
