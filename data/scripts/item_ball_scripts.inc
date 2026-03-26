@@ -454,8 +454,8 @@ RockTunnel_B1F_EventScript_ItemRevive::
 	finditem ITEM_REVIVE
 	end
 
-RockTunnel_B1F_EventScript_ItemMaxElixir::
-	finditem ITEM_MAX_ELIXIR
+RockTunnel_B1F_EventScript_ItemStarPiece::
+	finditem ITEM_STAR_PIECE
 	end
 
 SilphCo_8F_EventScript_ItemIron::
