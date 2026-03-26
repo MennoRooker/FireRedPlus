@@ -1709,6 +1709,17 @@ static void Cmd_adjustnormaldamage(void)
         gSpecialStatuses[gBattlerTarget].sturdyActivated = 1;
     }
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
+     && holdEffect == HOLD_EFFECT_FOCUS_SASH
+     && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP
+     && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage
+     && gBattleMoves[gCurrentMove].power)
+    {
+        RecordItemEffectBattle(gBattlerTarget, holdEffect);
+        gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
+        gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
+        gLastUsedItem = gBattleMons[gBattlerTarget].item;
+    }
+    if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
      && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage)
     {
@@ -1769,6 +1780,17 @@ static void Cmd_adjustnormaldamage2(void)
         gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
         gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
         gSpecialStatuses[gBattlerTarget].sturdyActivated = 1;
+    }
+    if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
+     && holdEffect == HOLD_EFFECT_FOCUS_SASH
+     && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP
+     && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage
+     && gBattleMoves[gCurrentMove].power)
+    {
+        RecordItemEffectBattle(gBattlerTarget, holdEffect);
+        gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
+        gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
+        gLastUsedItem = gBattleMons[gBattlerTarget].item;
     }
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
@@ -2134,6 +2156,12 @@ static void Cmd_resultmessage(void)
             {
                 gSpecialStatuses[gBattlerTarget].sturdyActivated = 0;
                 gBattlescriptCurrInstr = BattleScript_SturdyActivates;
+            }
+            else if (ItemId_GetHoldEffect(gLastUsedItem) == HOLD_EFFECT_FOCUS_SASH)
+            {
+                gPotentialItemEffectBattler = gBattlerTarget;
+                gBattleScripting.battler = gBattlerTarget;
+                gBattlescriptCurrInstr = BattleScript_FocusSashActivates;
             }
             else
             {
@@ -7396,6 +7424,15 @@ static void Cmd_tryKO(void)
         gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
         gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
         gSpecialStatuses[gBattlerTarget].sturdyActivated = 1;
+        gBattlescriptCurrInstr += 5;
+    }
+    else if (holdEffect == HOLD_EFFECT_FOCUS_SASH
+             && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
+    {
+        RecordItemEffectBattle(gBattlerTarget, holdEffect);
+        gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
+        gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
+        gLastUsedItem = gBattleMons[gBattlerTarget].item;
         gBattlescriptCurrInstr += 5;
     }
     else

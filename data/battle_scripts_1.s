@@ -4537,6 +4537,13 @@ BattleScript_FocusBandActivates::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+BattleScript_FocusSashActivates::
+	playanimation BS_TARGET, B_ANIM_FOCUS_BAND
+	printstring STRINGID_PKMNHUNGONWITHX
+	waitmessage B_WAIT_TIME_LONG
+	removeitem BS_TARGET
+	return
+
 BattleScript_SturdyActivates::
 	playanimation BS_TARGET, B_ANIM_FOCUS_BAND
 	printstring STRINGID_PKMNHUNGONWITHSTURDY

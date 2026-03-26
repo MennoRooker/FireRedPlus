@@ -456,6 +456,9 @@ const u32 gItemIconPalette_Everstone[] = INCBIN_U32("graphics/items/icon_palette
 const u32 gItemIcon_FocusBand[] = INCBIN_U32("graphics/items/icons/focus_band.4bpp.lz");
 const u32 gItemIconPalette_FocusBand[] = INCBIN_U32("graphics/items/icon_palettes/focus_band.gbapal.lz");
 
+const u32 gItemIcon_FocusSash[] = INCBIN_U32("graphics/items/icons/focus_sash.4bpp.lz");
+const u32 gItemIconPalette_FocusSash[] = INCBIN_U32("graphics/items/icon_palettes/focus_sash.gbapal.lz");
+
 const u32 gItemIcon_LuckyEgg[] = INCBIN_U32("graphics/items/icons/lucky_egg.4bpp.lz");
 const u32 gItemIconPalette_LuckyEgg[] = INCBIN_U32("graphics/items/icon_palettes/lucky_egg.gbapal.lz");
 
