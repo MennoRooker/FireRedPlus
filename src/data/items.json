@@ -6185,6 +6185,22 @@
       "battleUsage": 1,
       "battleUseFunc": "ItemUseInBattle_EnigmaBerry",
       "secondaryId": 0
+    },
+    {
+      "english": "LOADED DICE",
+      "itemId": "ITEM_LOADED_DICE",
+      "price": 4800,
+      "holdEffect": "HOLD_EFFECT_LOADED_DICE",
+      "holdEffectParam": 0,
+      "description_english": "Causes multi-strike moves to\\nalways hit 4-5 times.",
+      "importance": 0,
+      "registrability": 0,
+      "pocket": "POCKET_ITEMS",
+      "type": "ITEM_TYPE_BAG_MENU",
+      "fieldUseFunc": "FieldUseFunc_OakStopsYou",
+      "battleUsage": 0,
+      "battleUseFunc": "NULL",
+      "secondaryId": 0
     }
   ]
 }

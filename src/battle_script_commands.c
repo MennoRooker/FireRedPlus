@@ -7148,17 +7148,28 @@ static void Cmd_confuseifrepeatingattackends(void)
 
 static void Cmd_setmultihitcounter(void)
 {
+    u8 holdEffect;
+
     if (gBattlescriptCurrInstr[1])
     {
         gMultiHitCounter = gBattlescriptCurrInstr[1];
     }
     else
     {
-        gMultiHitCounter = Random() & 3;
-        if (gMultiHitCounter > 1)
-            gMultiHitCounter = (Random() & 3) + 2;
+        holdEffect = ItemId_GetHoldEffect(gBattleMons[gBattlerAttacker].item);
+
+        if (holdEffect == HOLD_EFFECT_LOADED_DICE)
+        {
+            gMultiHitCounter = (Random() & 1) + 4;
+        }
         else
-            gMultiHitCounter += 2;
+        {
+            gMultiHitCounter = Random() & 3;
+            if (gMultiHitCounter > 1)
+                gMultiHitCounter = (Random() & 3) + 2;
+            else
+                gMultiHitCounter += 2;
+        }
     }
 
     gBattlescriptCurrInstr += 2;

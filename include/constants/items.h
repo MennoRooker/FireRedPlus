@@ -450,8 +450,9 @@
 #define ITEM_FOCUS_SASH 380
 #define ITEM_BOTTLE_CAP 381
 #define ITEM_ENIGMA_BERRY 382
+#define ITEM_LOADED_DICE 383
 
-#define ITEMS_COUNT 383
+#define ITEMS_COUNT 384
 
 #define ITEM_TO_BERRY(itemId)(((itemId - FIRST_BERRY_INDEX) + 1))
 #define MAIL_NONE 0xFF

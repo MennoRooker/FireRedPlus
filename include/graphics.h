@@ -2910,6 +2910,8 @@ extern const u32 gItemIcon_ExpCandyL[];
 extern const u32 gItemIconPalette_ExpCandyL[];
 extern const u32 gItemIcon_BottleCap[];
 extern const u32 gItemIconPalette_BottleCap[];
+extern const u32 gItemIcon_LoadedDice[];
+extern const u32 gItemIconPalette_LoadedDice[];
 extern const u32 gItemIcon_PPUp[];
 extern const u32 gItemIconPalette_PPUp[];
 extern const u32 gItemIconPalette_Zinc[];

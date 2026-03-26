@@ -70,5 +70,6 @@
 #define HOLD_EFFECT_STICK          66
 #define HOLD_EFFECT_SOUL_ORB       67
 #define HOLD_EFFECT_FOCUS_SASH     68
+#define HOLD_EFFECT_LOADED_DICE    69
 
 #endif // GUARD_HOLD_EFFECTS_H

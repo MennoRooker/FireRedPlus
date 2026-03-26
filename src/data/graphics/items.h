@@ -741,3 +741,6 @@ const u32 gItemIconPalette_ExpCandyL[] = INCBIN_U32("graphics/items/icon_palette
 
 const u32 gItemIcon_BottleCap[] = INCBIN_U32("graphics/items/icons/bottle_cap.4bpp.lz");
 const u32 gItemIconPalette_BottleCap[] = INCBIN_U32("graphics/items/icon_palettes/bottle_cap.gbapal.lz");
+
+const u32 gItemIcon_LoadedDice[] = INCBIN_U32("graphics/items/icons/loaded_dice.4bpp.lz");
+const u32 gItemIconPalette_LoadedDice[] = INCBIN_U32("graphics/items/icon_palettes/loaded_dice.gbapal.lz");
