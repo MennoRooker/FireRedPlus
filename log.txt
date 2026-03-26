@@ -987,7 +987,7 @@ and gifted items. (Key items not included):
 - TM05		|
 - TM46		|
 - Pecha Berry	|
-- Elixir	|
+- Elixir	||
 - Aguav Berry	|
 - Hondew Berry	|
 - TM03		|
@@ -997,7 +997,7 @@ and gifted items. (Key items not included):
 - Awakening	|
 - Heart Scale	|
 - Ice Heal	|
-- Burn Heal	|
+- Burn Heal	||
 - Cheri Berry	|
 - Super Potion	||
 - Leaf Stone	|
@@ -1014,6 +1014,7 @@ and gifted items. (Key items not included):
 - TM34		|
 - Thunder Stone	|
 - Poison Barb	|
+- Chesto Berry	|
 
 I think I want the BERRY POUCH and TM CASE to default to
 the top of the Key Items pocket instead of the bottom.
@@ -1120,6 +1121,14 @@ player is alert and pays attention to the docuemntation
 they can see this and thief it so that they don't need
 to spend a fortune at the game corner.
 
+I want to add the Loaded Dice to the Rocket Hideout
+because it makes sense thematically and it's a really
+good item that is not too useful for mid-game but 
+still pretty good. Replace the Max Elixir with it.
+
+Grunt 1 should say before battling: "We're hoarding
+all the good items here."
+
 TO DO:
 x Add Bugsy
 x Force SET mode
@@ -1158,11 +1167,12 @@ x VS Seeker
 / Linearizations
 / Balancing
 - Dynamic speed
+- ITEM-MOVE option
 - Only a few red HP beeps
 - Letters
 - Faster Bike
 - Victory Road FLY checkpoint
-- Agatha's Misdreavus -> Flutter Mane
+- Agatha's Flutter Mane
 - Clean up
 - Documentation
 ---------------------------------------
@@ -1185,8 +1195,10 @@ x Snow Warning
 x Dragon's Maw
 x Solar Power
 x Strong Jaw
-- Technician (Breloom & Hitmontop)
-- Harvest (Bulbasaur & Exeggutor)
+x Harvest
+x Truant
+- Wind Rider (Jumpluff & Shiftry)
+- Technician (Breloom, Hitmontop, Scyther)
 - Regenerator
 - Sheer force (Nidoking)
 - Magic Bounce (Espeon)
@@ -1198,8 +1210,6 @@ x Strong Jaw
 - Adaptability
 - Iron Fist (Ledian & Hitmonchan)
 - Poison Heal
-- Truant(change)
-- Wind Rider (Jumpluff & Shiftry)
 - Super Luck
 - Transform (Ditto)
 - Sniper
@@ -1231,22 +1241,23 @@ x Bulldoze
 
 
 Items to add:
+x Soul Orb
+x Exp Candies
+x Bottle Caps
+/ Focus Sash
 - Loaded Dice
 - Eviolite
 - Expert Belt
 - Wise Glasses
 - Muscle Band
-- Focus Sash
 - Wide Lens
-- Exp candies
-- IV raising item
 - Air Balloon
 - Damp Rock
 - Heat Rock
 - Smooth Rock
 - Icy Rock
 - Light Clay
-- Soul Orb (Gen VII Soul Dew)
+
 
 
 LR BUTTONS:

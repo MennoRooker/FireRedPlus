@@ -473,7 +473,7 @@
 #define FLAG_HIDE_ROCK_TUNNEL_1F_PEARL                          0x1C4
 #define FLAG_HIDE_ROCK_TUNNEL_1F_ESCAPE_ROPE                    0x1C5
 #define FLAG_HIDE_ROCK_TUNNEL_B1F_REVIVE                        0x1C6
-#define FLAG_HIDE_ROCK_TUNNEL_B1F_MAX_ELIXIR                    0x1C7
+#define FLAG_HIDE_ROCK_TUNNEL_B1F_STAR_PIECE                    0x1C7
 #define FLAG_HIDE_SILPH_CO_8F_IRON                              0x1C8
 #define FLAG_HIDE_SILPH_CO_11F_ZINC                             0x1C9
 #define FLAG_HIDE_POKEMON_MANSION_1F_PROTEIN                    0x1CA
@@ -1157,8 +1157,8 @@
 #define FLAG_HIDDEN_ITEM_SSANNE_KITCHEN_TAMATO_BERRY                       (FLAG_HIDDEN_ITEMS_START + 122)
 #define FLAG_HIDDEN_ITEM_ROUTE9_RARE_CANDY                                 (FLAG_HIDDEN_ITEMS_START + 123)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x7C                                       (FLAG_HIDDEN_ITEMS_START + 124)
-#define FLAG_HIDDEN_ITEM_ROUTE10_PERSIM_BERRY                              (FLAG_HIDDEN_ITEMS_START + 125)
-#define FLAG_HIDDEN_ITEM_ROUTE10_CHERI_BERRY                               (FLAG_HIDDEN_ITEMS_START + 126)
+#define FLAG_HIDDEN_ITEM_ROUTE10_CHARTI_BERRY                              (FLAG_HIDDEN_ITEMS_START + 125)
+#define FLAG_HIDDEN_ITEM_ROUTE10_COLBUR_BERRY                              (FLAG_HIDDEN_ITEMS_START + 126)
 #define FLAG_HIDDEN_ITEM_ROUTE8_RAWST_BERRY                                (FLAG_HIDDEN_ITEMS_START + 127)
 #define FLAG_HIDDEN_ITEM_ROUTE8_LUM_BERRY                                  (FLAG_HIDDEN_ITEMS_START + 128)
 #define FLAG_HIDDEN_ITEM_ROUTE8_EXP_CANDY_M                                (FLAG_HIDDEN_ITEMS_START + 129)
@@ -1183,7 +1183,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE23_LEPPA_BERRY                               (FLAG_HIDDEN_ITEMS_START + 148)
 #define FLAG_HIDDEN_ITEM_ROUTE14_ZINC                                      (FLAG_HIDDEN_ITEMS_START + 149)
 #define FLAG_HIDDEN_ITEM_ROUTE9_CHESTO_BERRY                               (FLAG_HIDDEN_ITEMS_START + 150)
-#define FLAG_HIDDEN_ITEM_ROUTE10_NANAB_BERRY                               (FLAG_HIDDEN_ITEMS_START + 151)
+#define FLAG_HIDDEN_ITEM_ROUTE10_PASSHO_BERRY                              (FLAG_HIDDEN_ITEMS_START + 151)
 #define FLAG_HIDDEN_ITEM_ROUTE7_WEPEAR_BERRY                               (FLAG_HIDDEN_ITEMS_START + 152)
 #define FLAG_HIDDEN_ITEM_ROUTE20_STARDUST                                  (FLAG_HIDDEN_ITEMS_START + 153)
 #define FLAG_HIDDEN_ITEM_ROUTE21_NORTH_PEARL                               (FLAG_HIDDEN_ITEMS_START + 154)

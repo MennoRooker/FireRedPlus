@@ -255,8 +255,8 @@
       "x": 6,
       "y": 26,
       "elevation": 3,
-      "item": "ITEM_CHERI_BERRY",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE10_CHERI_BERRY",
+      "item": "ITEM_CHARTI_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE10_CHARTI_BERRY",
       "quantity": 1,
       "underfoot": false
     },
@@ -265,8 +265,8 @@
       "x": 17,
       "y": 29,
       "elevation": 3,
-      "item": "ITEM_PERSIM_BERRY",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE10_PERSIM_BERRY",
+      "item": "ITEM_COLBUR_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE10_COLBUR_BERRY",
       "quantity": 1,
       "underfoot": false
     },
@@ -276,7 +276,7 @@
       "y": 57,
       "elevation": 3,
       "item": "ITEM_PASSHO_BERRY",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE10_NANAB_BERRY",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE10_PASSHO_BERRY",
       "quantity": 1,
       "underfoot": false
     }
