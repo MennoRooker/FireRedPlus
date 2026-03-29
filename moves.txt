@@ -135,6 +135,10 @@ NORMAL -> ELECTRIC
 - Mud-Slap
 20 -> 25
 
+- Octazooka
+65 -> 85
+85% -> 90%
+
 - Outrage
 90 -> 120
 

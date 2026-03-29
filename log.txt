@@ -641,7 +641,7 @@ Medicine pocket the indexing of the scene's bag menu was off.
 Bag was fixed. The other tip I got was to redistribute some
 of the early-game items. I added a Leaf Stone to Viridian
 Forest and the hidden Moon Stone in Mt. Moon is replaced by
-a Fire Stone.
+a Fire Stone. (Not anymore)
 
 I'm going to be implementing the Exp. Candies. I got sprites
 from Bulbapedia that should work if I remember how. Need to 
@@ -1015,6 +1015,11 @@ and gifted items. (Key items not included):
 - Thunder Stone	|
 - Poison Barb	|
 - Chesto Berry	|
+- Lum Berry	|
+- Rawst Berry	|
+- Exp Candy M	|
+- Wacan Berry	|
+CELADON REACHED!
 
 I think I want the BERRY POUCH and TM CASE to default to
 the top of the Key Items pocket instead of the bottom.
@@ -1129,6 +1134,31 @@ still pretty good. Replace the Max Elixir with it.
 Grunt 1 should say before battling: "We're hoarding
 all the good items here."
 
+Max wanted a better team, I said no. But come to think
+of it I can give him like an insane rematch team after
+becoming champion or completing Celio's quests. Maybe 
+even have him approach the player after they have 
+become Champion and just give him insane legendaries.
+(If I give the player the international dex I can make
+those legendaries gen IV or gen V legends)
+
+I just reached Celadon, where you can get most items
+in the stores. I want to make bottle caps expensive 
+and probably lower the vitamins even more. I want to
+make bottle caps 9800, which is the old price of
+vitamins. I need 9bottle caps to make my current team
+as solid as possible, that would be ~88K, which is 
+slightly more than I have rn, but I can sell some 
+stuff.
+
+I should also get a berry salesman somewhere. I think
+having the EV berries in the dept store is good, but 
+the battle barries need a seperate parlor.
+
+I also made the evo stones 8000 a pop. Some held items
+were also increased in price.
+
+
 TO DO:
 x Add Bugsy
 x Force SET mode
@@ -1173,6 +1203,7 @@ x VS Seeker
 - Faster Bike
 - Victory Road FLY checkpoint
 - Agatha's Flutter Mane
+- Max rematch
 - Clean up
 - Documentation
 ---------------------------------------

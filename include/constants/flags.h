@@ -391,7 +391,7 @@
 #define FLAG_HIDE_ROCKET_HIDEOUT_B3F_RARE_CANDY                 0x172
 #define FLAG_HIDE_ROCKET_HIDEOUT_B3F_TM21                       0x173
 #define FLAG_HIDE_ROCKET_HIDEOUT_B4F_TM49                       0x174
-#define FLAG_HIDE_ROCKET_HIDEOUT_B4F_MAX_ELIXIR                 0x175
+#define FLAG_HIDE_ROCKET_HIDEOUT_B4F_LOADED_DICE                0x175
 #define FLAG_HIDE_ROCKET_HIDEOUT_B4F_CALCIUM                    0x176
 #define FLAG_HIDE_POKEMON_TOWER_3F_ESCAPE_ROPE                  0x177
 #define FLAG_HIDE_POKEMON_TOWER_4F_SPELL_TAG                    0x178

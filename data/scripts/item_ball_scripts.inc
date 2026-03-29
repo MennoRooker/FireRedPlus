@@ -138,8 +138,8 @@ RocketHideout_B4F_EventScript_ItemTM49::
 	finditem ITEM_TM49
 	end
 
-RocketHideout_B4F_EventScript_ItemMaxElixir::
-	finditem ITEM_MAX_ELIXIR
+RocketHideout_B4F_EventScript_ItemLoadedDice::
+	finditem ITEM_LOADED_DICE
 	end
 
 RocketHideout_B4F_EventScript_ItemCalcium::

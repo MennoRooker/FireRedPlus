@@ -34,7 +34,7 @@ CeruleanCity_BikeShop_EventScript_ExchangeBikeVoucher::
 	setflag FLAG_GOT_BICYCLE
 	additem ITEM_BICYCLE
 	removeitem ITEM_BIKE_VOUCHER
-	setvar VAR_0x8004, ITEM_GOOD_ROD
+	setvar VAR_0x8004, ITEM_BICYCLE
 	call EventScript_AskToRegisterNewKeyItem
 	msgbox CeruleanCity_BikeShop_Text_ThankYouComeAgain
 	release

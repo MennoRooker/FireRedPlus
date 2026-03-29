@@ -1011,7 +1011,7 @@
     {
       "english": "HP UP",
       "itemId": "ITEM_HP_UP",
-      "price": 7200,
+      "price": 4200,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A nutritious drink for POKéMON.\\nIt adds 10 HP EVs to one\\nPOKéMON.",
@@ -1027,7 +1027,7 @@
     {
       "english": "PROTEIN",
       "itemId": "ITEM_PROTEIN",
-      "price": 7200,
+      "price": 4200,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A nutritious drink for POKéMON.\\nIt adds 10 ATTACK EVs to\\none POKéMON.",
@@ -1043,7 +1043,7 @@
     {
       "english": "IRON",
       "itemId": "ITEM_IRON",
-      "price": 7200,
+      "price": 4200,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A nutritious drink for POKéMON.\\nIt adds 10 DEFENSE EVs to\\none POKéMON.",
@@ -1059,7 +1059,7 @@
     {
       "english": "CARBOS",
       "itemId": "ITEM_CARBOS",
-      "price": 7200,
+      "price": 4200,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A nutritious drink for POKéMON.\\nIt adds 10 SPEED EVs to\\none POKéMON.",
@@ -1075,7 +1075,7 @@
     {
       "english": "CALCIUM",
       "itemId": "ITEM_CALCIUM",
-      "price": 7200,
+      "price": 4200,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A nutritious drink for POKéMON.\\nIt adds 10 SP. ATK EVs to\\none POKéMON.",
@@ -1123,7 +1123,7 @@
     {
       "english": "ZINC",
       "itemId": "ITEM_ZINC",
-      "price": 7200,
+      "price": 4200,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A nutritious drink for POKéMON.\\nIt adds 10 SP. DEF EVs to\\none POKéMON.",
@@ -1139,7 +1139,7 @@
     {
       "english": "PP MAX",
       "itemId": "ITEM_PP_MAX",
-      "price": 7200,
+      "price": 9000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "Raises the PP of a selected move\\nto its maximum level for one\\nPOKéMON.",
@@ -1491,7 +1491,7 @@
     {
       "english": "SUN STONE",
       "itemId": "ITEM_SUN_STONE",
-      "price": 2100,
+      "price": 8000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A peculiar stone that makes certain\\nspecies of POKéMON evolve.\\nIt is as red as the sun.",
@@ -1507,7 +1507,7 @@
     {
       "english": "MOON STONE",
       "itemId": "ITEM_MOON_STONE",
-      "price": 0,
+      "price": 8000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A peculiar stone that makes certain\\nspecies of POKéMON evolve.\\nIt is as black as the night sky.",
@@ -1523,7 +1523,7 @@
     {
       "english": "FIRE STONE",
       "itemId": "ITEM_FIRE_STONE",
-      "price": 2100,
+      "price": 8000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A peculiar stone that makes certain\\nspecies of POKéMON evolve.\\nIt is colored orange.",
@@ -1539,7 +1539,7 @@
     {
       "english": "THUNDERSTONE",
       "itemId": "ITEM_THUNDER_STONE",
-      "price": 2100,
+      "price": 8000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A peculiar stone that makes certain\\nspecies of POKéMON evolve.\\nIt has a thunderbolt pattern.",
@@ -1555,7 +1555,7 @@
     {
       "english": "WATER STONE",
       "itemId": "ITEM_WATER_STONE",
-      "price": 2100,
+      "price": 8000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A peculiar stone that makes certain\\nspecies of POKéMON evolve.\\nIt is a clear light blue.",
@@ -1571,7 +1571,7 @@
     {
       "english": "LEAF STONE",
       "itemId": "ITEM_LEAF_STONE",
-      "price": 2100,
+      "price": 8000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "A peculiar stone that makes certain\\nspecies of POKéMON evolve.\\nIt has a leaf pattern.",
@@ -3251,7 +3251,7 @@
     {
       "english": "SOFT SAND",
       "itemId": "ITEM_SOFT_SAND",
-      "price": 100,
+      "price": 4200,
       "holdEffect": "HOLD_EFFECT_GROUND_POWER",
       "holdEffectParam": 10,
       "description_english": "An item to be held by a POKéMON.\\nA loose, silky sand that boosts the\\npower of GROUND-type moves.",
@@ -3267,7 +3267,7 @@
     {
       "english": "HARD STONE",
       "itemId": "ITEM_HARD_STONE",
-      "price": 100,
+      "price": 4200,
       "holdEffect": "HOLD_EFFECT_ROCK_POWER",
       "holdEffectParam": 10,
       "description_english": "An item to be held by a POKéMON.\\nAn unbreakable stone that boosts\\nthe power of ROCK-type moves.",
@@ -6157,7 +6157,7 @@
     {
       "english": "BOTTLE CAP",
       "itemId": "ITEM_BOTTLE_CAP",
-      "price": 4800,
+      "price": 9800,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "An item that is used to maximize\\nthe IV of one of the stats of\\na POKéMON.",

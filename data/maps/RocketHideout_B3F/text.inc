@@ -1,6 +1,6 @@
 RocketHideout_B3F_Text_Grunt1Intro::
-    .string "Stop meddling in TEAM ROCKET's\n"
-    .string "affairs or else!$"
+    .string "We're hoarding all the good\n"
+    .string "items here.$"
 
 RocketHideout_B3F_Text_Grunt1Defeat::
     .string "Oof!\n"
