@@ -11,8 +11,8 @@ CeladonCity_Gym_Text_ErikaIntro::
     .string "I am the LEADER of CELADON GYM.\p"
     .string "I am a student of the art of\n"
     .string "flower arranging.\p"
-    .string "My POKéMON are solely of the\n"
-    .string "GRASS type.\p"
+    .string "I specialize in using POKéMON\n"
+    .string "with the GRASS type.\p"
     .string "…Oh, I'm sorry, I had no idea that\n"
     .string "you wished to challenge me.\p"
     .string "Very well, but I shall not lose.{PLAY_BGM MUS_ENCOUNTER_GYM_LEADER}$"
@@ -51,7 +51,7 @@ CeladonCity_Gym_Text_ExplainRainbowBadgeTakeThis::
     .string "The RAINBOWBADGE will make\n"
     .string "POKéMON up to Lv. 50 obey.\p"
     .string "It also allows POKéMON to use\n"
-    .string "STRENGTH in and out of battle.\p"
+    .string "FLY in and out of battle.\p"
     .string "Please also take this with you.$"
 
 CeladonCity_Gym_Text_ReceivedTM19FromErika::

@@ -18,6 +18,10 @@ High crit rate
 70 -> 90
 95% -> 100%
 
+- Bind
+15 -> 35
+70% -> 85%
+
 - Slam
 75% -> 90%
 
@@ -37,6 +41,10 @@ High crit rate
 - Tackle
 35 -> 45
 95% -> 100%
+
+- Wrap
+15 -> 35
+85% -> 95%
 
 - Thrash
 90 -> 120
@@ -76,8 +84,9 @@ Raises both atk and spatk
 70 -> 120
 
 - Fire Spin
-12 -> 25
+12 -> 70
 70% -> 85%
+15PP -> 10PP
 
 - Thunder
 70% -> 75%
@@ -95,6 +104,7 @@ Raises both atk and spatk
 Now has a 20% chance to flinch
 
 - Clamp
+35 -> 70
 75% -> 85%
 
 - Skull Bash
@@ -173,6 +183,11 @@ NORMAL -> ELECTRIC
 - Rock Smash
 20 -> 60
 
+- Whirlpool
+15 -> 70
+70% -> 85%
+15PP -> 10PP
+
 - Will-o-Wisp
 75% -> 85%
 
@@ -199,7 +214,9 @@ NORMAL -> ELECTRIC
 90% -> 95%
 
 - Sand Tomb
+15 -> 70
 70% -> 80%
+15PP -> 10PP
 
 - Bullet Seed
 10 -> 25

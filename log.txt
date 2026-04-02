@@ -1158,6 +1158,18 @@ the battle barries need a seperate parlor.
 I also made the evo stones 8000 a pop. Some held items
 were also increased in price.
 
+I am now at the pokemon tower. I want to reduce the 
+amount of channelers significantly, because they often
+just carry 1 mon and I want them to be more challenging
+than they are now.
+
+I could add an Ancient Power tutor that makes mons that
+have a past paradox form evolve into that form. I can
+tease this with Agatha and then make it available after
+the League with Heart Scales.
+
+Buff Sand Tomb/Fire Spin moves.
+
 
 TO DO:
 x Add Bugsy
@@ -1207,11 +1219,11 @@ x VS Seeker
 - Clean up
 - Documentation
 ---------------------------------------
+- Add Fairy type
+- Physical/special split
 - Implement all abilites
 - Add gen 4 evos after dex upgrade
 - Determine opponent EVs
-- Add Fairy type
-- Physical/special split
 - Gym leaders rematches
 - Improved AI
 - Roamers
@@ -1246,6 +1258,7 @@ x Truant
 - Sniper
 - Tinted Lens
 - Multiscale
+- Solid Rock (Corsola & Magcargo)
 
 
 Moves to add:

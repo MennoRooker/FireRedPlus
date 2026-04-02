@@ -4430,7 +4430,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_ChannelerHope),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_ChannelerHope),
     },
     [TRAINER_CHANNELER_PAULA] = {
         .trainerClass = TRAINER_CLASS_CHANNELER,
@@ -4450,7 +4450,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_ChannelerLaurel),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_ChannelerLaurel),
     },
     [TRAINER_CHANNELER_JODY] = {
         .trainerClass = TRAINER_CLASS_CHANNELER,
@@ -4460,7 +4460,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_ChannelerJody),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_ChannelerJody),
     },
     [TRAINER_CHANNELER_TAMMY] = {
         .trainerClass = TRAINER_CLASS_CHANNELER,
@@ -4480,7 +4480,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_ChannelerRuth),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_ChannelerRuth),
     },
     [TRAINER_CHANNELER_KARINA] = {
         .trainerClass = TRAINER_CLASS_CHANNELER,
@@ -4510,7 +4510,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_ChannelerAngelica),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_ChannelerAngelica),
     },
     [TRAINER_CHANNELER_EMILIA] = {
         .trainerClass = TRAINER_CLASS_CHANNELER,
@@ -4520,7 +4520,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_ChannelerEmilia),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_ChannelerEmilia),
     },
     [TRAINER_CHANNELER_JENNIFER] = {
         .trainerClass = TRAINER_CLASS_CHANNELER,
@@ -4530,7 +4530,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_ChannelerJennifer),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_ChannelerJennifer),
     },
     [TRAINER_CHANNELER_1] = {
         .trainerClass = TRAINER_CLASS_CHANNELER,

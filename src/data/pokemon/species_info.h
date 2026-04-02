@@ -4794,7 +4794,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_LEDYBA] =
     {
         .baseHP = 40,
-        .baseAttack = 20,
+        .baseAttack = 35,
         .baseDefense = 30,
         .baseSpeed = 55,
         .baseSpAttack = 40,
@@ -4828,7 +4828,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .baseSpeed = 85,
         .baseSpAttack = 55,
         .baseSpDefense = 110,
-        .types = {TYPE_BUG, TYPE_FLYING},
+        .types = {TYPE_BUG, TYPE_FIGHTING},
         .catchRate = 90,
         .expYield = 134,
         .evYield_HP = 0,
