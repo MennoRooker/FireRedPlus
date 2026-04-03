@@ -87,6 +87,10 @@ SaffronCity_Dojo_Text_ReceivedMonFromKarateMaster2::
 SaffronCity_Dojo_Text_BetterNotGetGreedy::
     .string "Better not get greedy…$"
 
+SaffronCity_Dojo_Text_ActuallyWhyNot::
+    .string "Actually…\p"
+    .string "What's he gonna do about it?$"
+
 SaffronCity_Dojo_Text_EnemiesOnEverySide::
     .string "Enemies on every side!$"
 
