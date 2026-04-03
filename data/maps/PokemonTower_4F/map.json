@@ -68,8 +68,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "PokemonTower_4F_EventScript_ItemAwakening",
-      "flag": "FLAG_HIDE_POKEMON_TOWER_4F_AWAKENING"
+      "script": "PokemonTower_4F_EventScript_ItemKasibBerry",
+      "flag": "FLAG_HIDE_POKEMON_TOWER_4F_KASIB_BERRY"
     },
     {
       "type": "object",
@@ -82,8 +82,8 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "PokemonTower_4F_EventScript_ItemGreatBall",
-      "flag": "FLAG_HIDE_POKEMON_TOWER_4F_GREAT_BALL"
+      "script": "PokemonTower_4F_EventScript_ItemUltraBall",
+      "flag": "FLAG_HIDE_POKEMON_TOWER_4F_ULTRA_BALL"
     }
   ],
   "warp_events": [

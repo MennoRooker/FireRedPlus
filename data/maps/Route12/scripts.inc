@@ -25,6 +25,7 @@ Route12_EventScript_Snorlax::
 	delay 40
 	waitmoncry
 	setflag FLAG_HIDE_ROUTE_12_SNORLAX
+	setflag FLAG_HIDE_ROUTE_16_SNORLAX
 	setflag FLAG_SYS_SPECIAL_WILD_BATTLE
 	setflag FLAG_WOKE_UP_ROUTE_12_SNORLAX
 	dowildbattle

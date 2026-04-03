@@ -154,12 +154,12 @@ PokemonTower_4F_EventScript_ItemSpellTag::
 	finditem ITEM_SPELL_TAG
 	end
 
-PokemonTower_4F_EventScript_ItemAwakening::
-	finditem ITEM_AWAKENING
+PokemonTower_4F_EventScript_ItemKasibBerry::
+	finditem ITEM_KASIB_BERRY
 	end
 
-PokemonTower_4F_EventScript_ItemGreatBall::
-	finditem ITEM_GREAT_BALL
+PokemonTower_4F_EventScript_ItemUltraBall::
+	finditem ITEM_ULTRA_BALL
 	end
 
 PokemonTower_5F_EventScript_ItemNugget::
