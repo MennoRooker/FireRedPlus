@@ -395,8 +395,8 @@
 #define FLAG_HIDE_ROCKET_HIDEOUT_B4F_CALCIUM                    0x176
 #define FLAG_HIDE_POKEMON_TOWER_3F_ESCAPE_ROPE                  0x177
 #define FLAG_HIDE_POKEMON_TOWER_4F_SPELL_TAG                    0x178
-#define FLAG_HIDE_POKEMON_TOWER_4F_AWAKENING                    0x179
-#define FLAG_HIDE_POKEMON_TOWER_4F_GREAT_BALL                   0x17A
+#define FLAG_HIDE_POKEMON_TOWER_4F_KASIB_BERRY                  0x179
+#define FLAG_HIDE_POKEMON_TOWER_4F_ULTRA_BALL                   0x17A
 #define FLAG_HIDE_POKEMON_TOWER_5F_NUGGET                       0x17B
 #define FLAG_HIDE_POKEMON_TOWER_6F_RARE_CANDY                   0x17C
 #define FLAG_HIDE_POKEMON_TOWER_6F_SCOPE_LENS                   0x17D

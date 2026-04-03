@@ -1205,7 +1205,7 @@ x Bottle Caps
 x Sleep turns
 x Tutors require shards
 x VS Seeker
-/ HM mons sprites
+/ HMs rework
 / Linearizations
 / Balancing
 - Dynamic speed
@@ -1288,8 +1288,8 @@ Items to add:
 x Soul Orb
 x Exp Candies
 x Bottle Caps
-/ Focus Sash
-- Loaded Dice
+x Focus Sash
+x Loaded Dice
 - Eviolite
 - Expert Belt
 - Wise Glasses
