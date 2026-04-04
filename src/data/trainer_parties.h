@@ -5245,7 +5245,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerYazmin[] = {
 static const struct TrainerMonNoItemCustomMoves sParty_BikerLao[] = {
     {
         .iv = 10,
-        .lvl = 34,
+        .lvl = 35,
         .species = SPECIES_NOSEPASS,
         .moves = {MOVE_ROCK_TOMB, MOVE_THUNDER_WAVE, MOVE_MAGNITUDE, MOVE_SHOCK_WAVE},
     },
@@ -5260,17 +5260,17 @@ static const struct TrainerMonNoItemCustomMoves sParty_BikerLao[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_CueBallKoji[] = {
     {
         .iv = 10,
-        .lvl = 33,
+        .lvl = 35,
         .species = SPECIES_LOUDRED,
     },
     {
         .iv = 10,
-        .lvl = 33,
+        .lvl = 35,
         .species = SPECIES_METANG,
     },
     {
         .iv = 10,
-        .lvl = 33,
+        .lvl = 35,
         .species = SPECIES_URSARING,
     },
 };
@@ -5278,12 +5278,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CueBallKoji[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_CueBallLuke[] = {
     {
         .iv = 10,
-        .lvl = 34,
+        .lvl = 36,
         .species = SPECIES_MACHOKE,
     },
     {
         .iv = 10,
-        .lvl = 34,
+        .lvl = 36,
         .species = SPECIES_POLIWRATH,
     },
 };
@@ -5291,7 +5291,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CueBallLuke[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_BikerHideo[] = {
     {
         .iv = 10,
-        .lvl = 35,
+        .lvl = 39,
         .species = SPECIES_WEEZING,
     },
 };
@@ -5305,7 +5305,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_BikerRuben[] = {
     },
     {
         .iv = 10,
-        .lvl = 34,
+        .lvl = 37,
         .species = SPECIES_GRIMER,
         .moves = {MOVE_SMOKESCREEN, MOVE_SLUDGE, MOVE_SMOG, MOVE_TACKLE},
     },
@@ -5327,12 +5327,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BikerRubenRematchAfterLe
 static const struct TrainerMonNoItemDefaultMoves sParty_CueBallCamron[] = {
     {
         .iv = 10,
-        .lvl = 33,
+        .lvl = 36,
         .species = SPECIES_PRIMEAPE,
     },
     {
         .iv = 10,
-        .lvl = 33,
+        .lvl = 36,
         .species = SPECIES_MACHOKE,
     },
 };
@@ -5357,12 +5357,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CueBallCamronRematchAfte
 static const struct TrainerMonNoItemDefaultMoves sParty_CueBallIsaiah[] = {
     {
         .iv = 10,
-        .lvl = 33,
+        .lvl = 35,
         .species = SPECIES_TAUROS,
     },
     {
         .iv = 10,
-        .lvl = 33,
+        .lvl = 35,
         .species = SPECIES_MACHAMP,
     },
 };

@@ -240,7 +240,7 @@ NORMAL -> ELECTRIC
 20PP -> 10PP
 
 - Rock Blast
-80% -> 90%
+80% -> 100%
 
 - Water Pulse
 60 -> 80
