@@ -17,10 +17,11 @@ SafariZone_SecretHouse_Text_ExplainSurf::
     .string "HM03 is SURF.\p"
     .string "POKéMON will be able to ferry you\n"
     .string "across water using it.\p"
-    .string "And, this HM isn't disposable, so\n"
-    .string "you can use it over and over.\p"
-    .string "You're super lucky for winning this\n"
-    .string "fabulous prize!$"
+    .string "What's that?\p"
+    .string "You don't want to use HMs on your\n"
+    .string "own POKéMON?\p"
+    .string "Okay well, maybe someone will gift\n"
+    .string "you a LAPRAS or something, I dunno.$"
 
 SafariZone_SecretHouse_Text_DontHaveRoomForPrize::
     .string "You don't have room for this\n"

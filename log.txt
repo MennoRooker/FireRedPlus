@@ -1290,6 +1290,7 @@ x Exp Candies
 x Bottle Caps
 x Focus Sash
 x Loaded Dice
+/ Choice Items
 - Eviolite
 - Expert Belt
 - Wise Glasses

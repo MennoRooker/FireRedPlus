@@ -412,7 +412,7 @@
 #define FLAG_HIDE_SAFARI_ZONE_NORTH_TM47                        0x187
 #define FLAG_HIDE_SAFARI_ZONE_WEST_TM32                         0x188
 #define FLAG_HIDE_SAFARI_ZONE_WEST_GOLD_TEETH                   0x189
-#define FLAG_HIDE_SAFARI_ZONE_WEST_MAX_POTION                   0x18A
+#define FLAG_HIDE_SAFARI_ZONE_WEST_CHOICE_BAND                  0x18A
 #define FLAG_HIDE_SAFARI_ZONE_WEST_MAX_REVIVE                   0x18B
 #define FLAG_HIDE_SILPH_CO_3F_HYPER_POTION                      0x18C
 #define FLAG_HIDE_SILPH_CO_4F_MAX_REVIVE                        0x18D
