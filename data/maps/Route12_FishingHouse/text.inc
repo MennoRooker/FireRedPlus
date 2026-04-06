@@ -3,7 +3,7 @@ Route12_FishingHouse_Text_DoesPlayerHaveProperFishingGear::
     .string "brother.\p"
     .string "I specialize in MAGIKARP. I'm looking\n"
     .string "somebody who has the biggest one.\p"
-    .string "Do you have proper fishing gear?\p"
+    .string "Do you have proper fishing gear?$"
 
 Route12_FishingHouse_Text_UsingGoodRod::
     .string "Hmm, it looks like you're still using\n"

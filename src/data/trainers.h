@@ -4180,7 +4180,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
-        .party = ITEM_CUSTOM_MOVES(sParty_LeaderKoga),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_LeaderKoga),
     },
     [TRAINER_LEADER_BLAINE] = {
         .trainerClass = TRAINER_CLASS_LEADER,

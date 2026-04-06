@@ -1216,6 +1216,7 @@ x VS Seeker
 - Victory Road FLY checkpoint
 - Agatha's Flutter Mane
 - Max rematch
+- Title screen
 - Clean up
 - Documentation
 ---------------------------------------

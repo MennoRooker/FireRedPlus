@@ -5,16 +5,11 @@ Route12_FishingHouse_EventScript_FishingGuruBrother::
 	lock
 	faceplayer
 	goto_if_set FLAG_SHOWED_SUPER_ROD_TO_GURU, Route12_FishingHouse_EventScript_CheckMagikarpRecord
-	msgbox Route12_FishingHouse_Text_DoesPlayerHaveProperFishingGear, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, Route12_FishingHouse_EventScript_CheckWhichRodPlayerHas
-	msgbox Route12_FishingHouse_Text_VisitMyOldestBrother
-	release
-	end
-
-Route12_FishingHouse_EventScript_CheckWhichRodPlayerHas::
+	msgbox Route12_FishingHouse_Text_DoesPlayerHaveProperFishingGear
 	goto_if_set FLAG_GOT_SUPER_ROD, Route12_FishingHouse_EventScript_ShowSuperRod
-	goto_if_set FLAG_GOT_GOOD_ROD, Route12_FishingHouse_EventScript_ShowOldRod
-	goto Route12_FishingHouse_EventScript_VisitOldestBrother
+	goto_if_set FLAG_GOT_GOOD_ROD, Route12_FishingHouse_EventScript_ShowGoodRod
+	goto_if_set FLAG_GOT_OLD_ROD, Route12_FishingHouse_EventScript_ShowOldRod
+	msgbox Route12_FishingHouse_Text_VisitMyOldestBrother
 	release
 	end
 
@@ -31,11 +26,13 @@ Route12_FishingHouse_EventScript_ShowSuperRod::
 
 Route12_FishingHouse_EventScript_ShowGoodRod::
 	msgbox Route12_FishingHouse_Text_UsingGoodRod
+	goto Route12_FishingHouse_EventScript_VisitOldestBrother
 	release
 	end
 
 Route12_FishingHouse_EventScript_ShowOldRod::
 	msgbox Route12_FishingHouse_Text_UsingOldRod
+    goto Route12_FishingHouse_EventScript_VisitOldestBrother
 	release
 	end
 

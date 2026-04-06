@@ -657,7 +657,7 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 {
     if (MetatileBehavior_IsFastWater(metatileBehavior) == TRUE && PartyHasMonWithSurf() == TRUE)
         return EventScript_CurrentTooFast;
-    if (FlagGet(FLAG_BADGE06_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+    if (IsPlayerFacingSurfableFishableWater() == TRUE)
         return EventScript_UseSurf;
 
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE)

@@ -19187,8 +19187,8 @@
             "encounter_rate": 21,
             "mons": [
               {
-                "min_level": 20,
-                "max_level": 20,
+                "min_level": 21,
+                "max_level": 21,
                 "species": "SPECIES_SANDSHREW"
               },
               {
@@ -19197,8 +19197,8 @@
                 "species": "SPECIES_DODUO"
               },
               {
-                "min_level": 22,
-                "max_level": 22,
+                "min_level": 23,
+                "max_level": 23,
                 "species": "SPECIES_TORKOAL"
               },
               {
@@ -19224,7 +19224,7 @@
               {
                 "min_level": 29,
                 "max_level": 29,
-                "species": "SPECIES_RATICATE"
+                "species": "SPECIES_MACHOKE"
               },
               {
                 "min_level": 22,

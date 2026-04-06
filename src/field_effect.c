@@ -3025,8 +3025,18 @@ static void UseSurfEffect_3(struct Task *task)
     objectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
     if (ObjectEventCheckHeldMovementStatus(objectEvent))
     {
-        gFieldEffectArguments[0] = task->data[15] | 0x80000000;
-        FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON_INIT);
+        if (task->data[15] == PARTY_SIZE)
+        {
+            gFieldEffectArguments[0] = SPECIES_LAPRAS | 0x80000000;
+            gFieldEffectArguments[1] = 0x12345678;
+            gFieldEffectArguments[2] = 0x79ABCDEF;
+            FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON);
+        }
+        else
+        {
+            gFieldEffectArguments[0] = task->data[15] | 0x80000000;
+            FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON_INIT);
+        }
         task->data[0]++;
     }
 }

@@ -5750,20 +5750,24 @@ static const struct TrainerMonNoItemDefaultMoves sParty_JugglerShawn[] = {
     },
 };
 
-static const struct TrainerMonItemCustomMoves sParty_LeaderKoga[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_LeaderKoga[] = {
     {
         .iv = 15,
         .lvl = 43,
         .species = SPECIES_ARIADOS,
-        .heldItem = ITEM_POISON_BARB,
+        .heldItem = ITEM_FOCUS_SASH,
         .moves = {MOVE_POISON_FANG, MOVE_LEECH_LIFE, MOVE_PURSUIT, MOVE_SPIDER_WEB},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 0,
     },
     {
         .iv = 15,
         .lvl = 44,
         .species = SPECIES_MUK,
-        .heldItem = ITEM_LEFTOVERS,
+        .heldItem = ITEM_POISON_BARB,
         .moves = {MOVE_MINIMIZE, MOVE_SLUDGE_BOMB, MOVE_FLAMETHROWER, MOVE_TOXIC},
+        .nature = NATURE_SERIOUS,
+        .abilitySlot = 0,
     },
     {
         .iv = 15,
@@ -5771,6 +5775,8 @@ static const struct TrainerMonItemCustomMoves sParty_LeaderKoga[] = {
         .species = SPECIES_CROBAT,
         .heldItem = ITEM_SHARP_BEAK,
         .moves = {MOVE_POISON_FANG, MOVE_AERIAL_ACE, MOVE_LEECH_LIFE, MOVE_CONFUSE_RAY},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 0,
     },
     {
         .iv = 15,
@@ -5778,6 +5784,17 @@ static const struct TrainerMonItemCustomMoves sParty_LeaderKoga[] = {
         .species = SPECIES_WEEZING,
         .heldItem = ITEM_SITRUS_BERRY,
         .moves = {MOVE_FIRE_BLAST, MOVE_SLUDGE_BOMB, MOVE_THUNDER, MOVE_WILL_O_WISP},
+        .nature = NATURE_MODEST,
+        .abilitySlot = 0,
+    },
+    {
+        .iv = 15,
+        .lvl = 43,
+        .species = SPECIES_TENTACRUEL,
+        .heldItem = ITEM_LEFTOVERS,
+        .moves = {MOVE_SURF, MOVE_ICE_BEAM, MOVE_MIRROR_COAT, MOVE_GIGA_DRAIN},
+        .nature = NATURE_BOLD,
+        .abilitySlot = 0,
     },
     {
         .iv = 15,
@@ -5785,6 +5802,8 @@ static const struct TrainerMonItemCustomMoves sParty_LeaderKoga[] = {
         .species = SPECIES_ARBOK,
         .heldItem = ITEM_BLACK_GLASSES,
         .moves = {MOVE_CRUNCH, MOVE_POISON_FANG, MOVE_GLARE, MOVE_EARTHQUAKE},
+        .nature = NATURE_IMPISH,
+        .abilitySlot = 1,
     },
 }; 
 

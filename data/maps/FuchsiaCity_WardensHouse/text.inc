@@ -47,6 +47,9 @@ FuchsiaCity_WardensHouse_Text_ExplainStrength::
     .string "STRENGTH.\p"
     .string "It lets POKéMON move boulders when\n"
     .string "you're outside of battle.\p"
+    .string "Either teach it to one of your\n"
+    .string "POKéMON or let my TAUROS move\l"
+    .string "the heavy boulders for you.\p"
     .string "Oh yes, did you find the SECRET\n"
     .string "HOUSE in the SAFARI ZONE?$"
 
