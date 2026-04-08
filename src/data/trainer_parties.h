@@ -5789,7 +5789,7 @@ static const struct TrainerMonItemCustomMovesNatureAbility sParty_LeaderKoga[] =
     },
     {
         .iv = 15,
-        .lvl = 43,
+        .lvl = 45,
         .species = SPECIES_TENTACRUEL,
         .heldItem = ITEM_LEFTOVERS,
         .moves = {MOVE_SURF, MOVE_ICE_BEAM, MOVE_MIRROR_COAT, MOVE_GIGA_DRAIN},

@@ -377,6 +377,7 @@ gBattleAnims_Moves::
 	.4byte Move_PSYCHO_BOOST
 	.4byte Move_DRAGON_DANCE @ MOVE_QUIVER_DANCE (355) - uses Dragon Dance animation (stat boost)
 	.4byte Move_MAGNITUDE @ MOVE_BULLDOZE (356) - uses Magnitude 7 animation
+	.4byte Move_NIGHT_SLASH @ MOVE_NIGHT_SLASH (357)
 
 	.align 2
 gBattleAnims_StatusConditions::
@@ -3100,6 +3101,17 @@ Move_SLASH:
 	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
 	delay 4
 	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 1, 8, 0
+	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 4, 0, 18, 1
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	end
+
+Move_NIGHT_SLASH:
+	loadspritegfx ANIM_TAG_NIGHT_SLASH
+	createsprite gNightSlashSliceSpriteTemplate, ANIM_TARGET, 2, 1, -8, 0
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	delay 4
+	createsprite gNightSlashSliceSpriteTemplate, ANIM_TARGET, 2, 1, 8, 0
 	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 4, 0, 18, 1
 	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
 	waitforvisualfinish

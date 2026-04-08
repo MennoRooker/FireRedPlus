@@ -2887,7 +2887,15 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 break;
             case MOVE_EFFECT_PREVENT_ESCAPE:
                 gBattleMons[gBattlerTarget].status2 |= STATUS2_ESCAPE_PREVENTION;
-                gDisableStructs[gBattlerTarget].battlerPreventingEscape = gBattlerAttacker;
+                if (gCurrentMove == MOVE_SPIDER_WEB)
+                {
+                    gDisableStructs[gBattlerTarget].spiderWebTrapTimer = 4;
+                }
+                else
+                {
+                    gDisableStructs[gBattlerTarget].battlerPreventingEscape = gBattlerAttacker;
+                    gDisableStructs[gBattlerTarget].isEscapePreventionUserDependent = TRUE;
+                }
                 gBattlescriptCurrInstr++;
                 break;
             case MOVE_EFFECT_NIGHTMARE:

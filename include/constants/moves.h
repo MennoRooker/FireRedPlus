@@ -358,8 +358,9 @@
 #define MOVE_PSYCHO_BOOST 354
 #define MOVE_QUIVER_DANCE 355
 #define MOVE_BULLDOZE 356
+#define MOVE_NIGHT_SLASH 357
 
-#define MOVES_COUNT 357
+#define MOVES_COUNT 358
 
 // Used for checks for moves affected by Disable, Mimic, etc.
 #define MOVE_UNAVAILABLE 0xFFFF

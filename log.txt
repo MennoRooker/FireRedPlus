@@ -1170,6 +1170,14 @@ the League with Heart Scales.
 
 Buff Sand Tomb/Fire Spin moves.
 
+I have an insane Absol that I want to use and I want to
+implement Super Luck as soon as I can. Super Luck and 
+Night Slash were both introduced in gen IV and I want 
+to add them both. I need to make sure that I implement
+everything in such way that Super Luck + Night Slash +
+Scope Lens + 1 Focus Energy = guaranteed crit...
+I've added Focus Energy to its learnset.
+
 
 TO DO:
 x Add Bugsy
@@ -1208,6 +1216,7 @@ x VS Seeker
 / HMs rework
 / Linearizations
 / Balancing
+- Cerulean relearner
 - Dynamic speed
 - ITEM-MOVE option
 - Only a few red HP beeps
@@ -1241,6 +1250,7 @@ x Solar Power
 x Strong Jaw
 x Harvest
 x Truant
+- Super Luck
 - Wind Rider (Jumpluff & Shiftry)
 - Technician (Breloom, Hitmontop, Scyther)
 - Regenerator
@@ -1254,7 +1264,6 @@ x Truant
 - Adaptability
 - Iron Fist (Ledian & Hitmonchan)
 - Poison Heal
-- Super Luck
 - Transform (Ditto)
 - Sniper
 - Tinted Lens

@@ -2854,13 +2854,10 @@ BattleScript_EffectSpiderWeb::
 	ppreduce
 	attackanimation
 	waitanimation
-	@ Apply trap (Mean Look effect) if not already trapped
-	jumpifstatus2 BS_TARGET, STATUS2_ESCAPE_PREVENTION, BattleScript_SpiderWebSpeedDown
 	setmoveeffect MOVE_EFFECT_PREVENT_ESCAPE
 	seteffectprimary
-	printstring STRINGID_TARGETCANTESCAPENOW
+	printstring STRINGID_TARGETTRAPPEDBYSPIDERWEB
 	waitmessage B_WAIT_TIME_LONG
-BattleScript_SpiderWebSpeedDown:
 	setstatchanger STAT_SPEED, 1, TRUE
 	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_SpiderWebEnd
 	jumpifbyte CMP_LESS_THAN, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_SpiderWebDoStatAnim
@@ -3924,6 +3921,11 @@ BattleScript_WrapTurnDmg::
 
 BattleScript_WrapEnds::
 	printstring STRINGID_PKMNFREEDFROM
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_SpiderWebEnds::
+	printstring STRINGID_TARGETNOLONGERTRAPPEDBYSPIDERWEB
 	waitmessage B_WAIT_TIME_LONG
 	end2
 

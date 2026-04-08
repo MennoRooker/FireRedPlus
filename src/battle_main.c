@@ -2395,8 +2395,14 @@ void SwitchInClearSetData(void)
             gBattleMons[gActiveBattler].statStages[i] = DEFAULT_STAT_STAGE;
         for (i = 0; i < gBattlersCount; i++)
         {
-            if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == gActiveBattler)
-                gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
+            if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION)
+             && gDisableStructs[i].isEscapePreventionUserDependent
+             && gDisableStructs[i].battlerPreventingEscape == gActiveBattler)
+            {
+                gDisableStructs[i].isEscapePreventionUserDependent = FALSE;
+                if (gDisableStructs[i].spiderWebTrapTimer == 0)
+                    gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
+            }
             if ((gStatuses3[i] & STATUS3_ALWAYS_HITS) && gDisableStructs[i].battlerWithSureHit == gActiveBattler)
             {
                 gStatuses3[i] &= ~STATUS3_ALWAYS_HITS;
@@ -2447,6 +2453,8 @@ void SwitchInClearSetData(void)
         gDisableStructs[gActiveBattler].perishSongTimer = disableStructCopy.perishSongTimer;
         gDisableStructs[gActiveBattler].perishSongTimerStartValue = disableStructCopy.perishSongTimerStartValue;
         gDisableStructs[gActiveBattler].battlerPreventingEscape = disableStructCopy.battlerPreventingEscape;
+        gDisableStructs[gActiveBattler].spiderWebTrapTimer = disableStructCopy.spiderWebTrapTimer;
+        gDisableStructs[gActiveBattler].isEscapePreventionUserDependent = disableStructCopy.isEscapePreventionUserDependent;
     }
 
     gMoveResultFlags = 0;
@@ -2500,8 +2508,14 @@ void FaintClearSetData(void)
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == gActiveBattler)
-            gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
+        if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION)
+         && gDisableStructs[i].isEscapePreventionUserDependent
+         && gDisableStructs[i].battlerPreventingEscape == gActiveBattler)
+        {
+            gDisableStructs[i].isEscapePreventionUserDependent = FALSE;
+            if (gDisableStructs[i].spiderWebTrapTimer == 0)
+                gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
+        }
         if (gBattleMons[i].status2 & STATUS2_INFATUATED_WITH(gActiveBattler))
             gBattleMons[i].status2 &= ~STATUS2_INFATUATED_WITH(gActiveBattler);
         if ((gBattleMons[i].status2 & STATUS2_WRAPPED) && *(gBattleStruct->wrappedBy + i) == gActiveBattler)

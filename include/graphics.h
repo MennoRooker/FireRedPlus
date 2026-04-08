@@ -3848,6 +3848,7 @@ extern const u32 gBattleAnimSpritePal_WeatherBall[];
 extern const u32 gBattleAnimSpritePal_Bird[];
 extern const u32 gBattleAnimSpritePal_CrossImpact[];
 extern const u32 gBattleAnimSpritePal_Slash2[];
+extern const u32 gBattleAnimSpritePal_NightSlash[];
 extern const u32 gBattleAnimSpritePal_WhipHit[];
 extern const u32 gBattleAnimSpritePal_BlueRing2[];
 

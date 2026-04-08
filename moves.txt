@@ -169,6 +169,9 @@ NORMAL -> ELECTRIC
 - Baton Pass
 40PP -> 10PP
 
+- Pursuit
+40 -> 50
+
 - Rapid Spin
 20 -> 50
 40PP -> 15PP

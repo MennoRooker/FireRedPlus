@@ -219,7 +219,8 @@ struct DisableStruct
     /*0x18*/ u8 unk18_a_2 : 2;
     /*0x18*/ u8 mimickedMoves : 4;
     /*0x19*/ u8 rechargeTimer;
-    /*0x1A*/ u8 unk1A[2];
+    /*0x1A*/ u8 spiderWebTrapTimer;
+    /*0x1B*/ u8 isEscapePreventionUserDependent;
 };
 
 extern struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT];

@@ -752,6 +752,7 @@ enum
     ENDTURN_NIGHTMARES,
     ENDTURN_CURSE,
     ENDTURN_WRAP,
+    ENDTURN_SPIDER_WEB,
     ENDTURN_UPROAR,
     ENDTURN_THRASH,
     ENDTURN_DISABLE,
@@ -998,6 +999,21 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                     BattleScriptExecute(gBattlescriptCurrInstr);
                     effect++;
+                }
+                gBattleStruct->turnEffectsTracker++;
+                break;
+            case ENDTURN_SPIDER_WEB:
+                if (gDisableStructs[gActiveBattler].spiderWebTrapTimer != 0
+                 && gBattleMons[gActiveBattler].hp != 0)
+                {
+                    gDisableStructs[gActiveBattler].spiderWebTrapTimer--;
+                    if (gDisableStructs[gActiveBattler].spiderWebTrapTimer == 0)
+                    {
+                        if (!gDisableStructs[gActiveBattler].isEscapePreventionUserDependent)
+                            gBattleMons[gActiveBattler].status2 &= ~STATUS2_ESCAPE_PREVENTION;
+                        BattleScriptExecute(BattleScript_SpiderWebEnds);
+                        effect++;
+                    }
                 }
                 gBattleStruct->turnEffectsTracker++;
                 break;

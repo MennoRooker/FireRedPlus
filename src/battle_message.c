@@ -197,6 +197,8 @@ static const u8 sText_PkmnTookFoe[] = _("{B_DEF_NAME_WITH_PREFIX} took\n{B_ATK_N
 static const u8 sText_PkmnReducedPP[] = _("Reduced {B_DEF_NAME_WITH_PREFIX}'s\n{B_BUFF1} by {B_BUFF2}!");
 static const u8 sText_PkmnStoleItem[] = _("{B_ATK_NAME_WITH_PREFIX} stole\n{B_DEF_NAME_WITH_PREFIX}'s {B_LAST_ITEM}!");
 static const u8 sText_TargetCantEscapeNow[] = _("{B_DEF_NAME_WITH_PREFIX} can't\nescape now!");
+static const u8 sText_TargetTrappedBySpiderWeb[] = _("{B_DEF_NAME_WITH_PREFIX} is trapped\nby SPIDER WEB!");
+static const u8 sText_TargetNoLongerTrappedBySpiderWeb[] = _("{B_ATK_NAME_WITH_PREFIX} is no\nlonger trapped by SPIDER WEB!");
 static const u8 sText_PkmnFellIntoNightmare[] = _("{B_DEF_NAME_WITH_PREFIX} fell into\na NIGHTMARE!");
 static const u8 sText_PkmnLockedInNightmare[] = _("{B_ATK_NAME_WITH_PREFIX} is locked\nin a NIGHTMARE!");
 static const u8 sText_PkmnLaidCurse[] = _("{B_ATK_NAME_WITH_PREFIX} cut its own HP and\nlaid a CURSE on {B_DEF_NAME_WITH_PREFIX}!");
@@ -904,6 +906,8 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_PKMNHURTBYSOLARPOWER - BATTLESTRINGS_TABLE_START]          = sText_PkmnHurtBySolarPower,
     [STRINGID_PKMNHARVESTEDBERRY - BATTLESTRINGS_TABLE_START]            = sText_PkmnHarvestedBerry,
     [STRINGID_PKMNSITEMWEAKENEDTYPEMOVE - BATTLESTRINGS_TABLE_START]     = sText_PkmnsItemWeakenedTypeMove,
+    [STRINGID_TARGETTRAPPEDBYSPIDERWEB - BATTLESTRINGS_TABLE_START]      = sText_TargetTrappedBySpiderWeb,
+    [STRINGID_TARGETNOLONGERTRAPPEDBYSPIDERWEB - BATTLESTRINGS_TABLE_START] = sText_TargetNoLongerTrappedBySpiderWeb,
 };
 
 const u16 gMissStringIds[] =
