@@ -82,6 +82,10 @@ static const u8 sSnowWarningDescription[] = _("Summons hail in battle.");
 static const u8 sDragonsMawDescription[] = _("Ups damage of DRAGON-type moves.");
 static const u8 sHarvestDescription[] = _("May harvest another berry after use.");
 static const u8 sVenomousDescription[] = _("Biting moves may cause poisoning.");
+static const u8 sTechnicianDescription[] = _("Ups moves with a power of 60 or lower.");
+static const u8 sSuperLuckDescription[] = _("Critical-hit ratio is doubled.");
+static const u8 sWindRiderDescription[] = _("Wind moves raise ATK and don't hurt.");
+
 
 const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 {
@@ -169,6 +173,9 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_DRAGONS_MAW] = sDragonsMawDescription,
     [ABILITY_HARVEST] = sHarvestDescription,
     [ABILITY_VENOMOUS] = sVenomousDescription,
+    [ABILITY_TECHNICIAN] = sTechnicianDescription,
+    [ABILITY_SUPER_LUCK] = sSuperLuckDescription,
+    [ABILITY_WIND_RIDER] = sWindRiderDescription
 };
 
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -257,4 +264,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_DRAGONS_MAW] = _("DRAGON'S MAW"),
     [ABILITY_HARVEST] = _("HARVEST"),
     [ABILITY_VENOMOUS] = _("VENOMOUS"),
+    [ABILITY_TECHNICIAN] = _("TECHICIAN"),
+    [ABILITY_SUPER_LUCK] = _("SUPER LUCK"),
+    [ABILITY_WIND_RIDER] = _("WIND RIDER")
 };

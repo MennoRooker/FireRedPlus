@@ -276,6 +276,7 @@ static const u8 sText_PkmnWithObliviousIsNotAffected[] = _("{B_DEF_NAME_WITH_PRE
 static const u8 sText_PkmnPreventsPoisoningWith[] = _("{B_EFF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nprevents poisoning!");
 static const u8 sText_PkmnPreventsConfusionWith[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nprevents confusion!");
 static const u8 sText_PkmnRaisedFirePowerWith[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nraised its FIRE power!");
+static const u8 sText_PkmnRaisedAttackWith[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nraised its ATTACK!");
 static const u8 sText_PkmnAnchorsItselfWith[] = _("{B_DEF_NAME_WITH_PREFIX} anchors\nitself with {B_DEF_ABILITY}!");
 static const u8 sText_PkmnCutsAttackWith[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\ncuts {B_DEF_NAME_WITH_PREFIX}'s ATTACK!");
 static const u8 sText_PkmnPreventsStatLossWith[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nprevents stat loss!");
@@ -908,6 +909,7 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_PKMNSITEMWEAKENEDTYPEMOVE - BATTLESTRINGS_TABLE_START]     = sText_PkmnsItemWeakenedTypeMove,
     [STRINGID_TARGETTRAPPEDBYSPIDERWEB - BATTLESTRINGS_TABLE_START]      = sText_TargetTrappedBySpiderWeb,
     [STRINGID_TARGETNOLONGERTRAPPEDBYSPIDERWEB - BATTLESTRINGS_TABLE_START] = sText_TargetNoLongerTrappedBySpiderWeb,
+    [STRINGID_PKMNRAISEDATTACKWITH - BATTLESTRINGS_TABLE_START]          = sText_PkmnRaisedAttackWith,
 };
 
 const u16 gMissStringIds[] =

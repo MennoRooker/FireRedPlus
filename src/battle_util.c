@@ -38,10 +38,18 @@ static const u16 sSoundMovesTable[] =
 
 static const u16 sBitingMovesTable[] = 
 {
-    MOVE_BITE, MOVE_CRUNCH, MOVE_POISON_FANG,
-    MOVE_ICE_FANG, MOVE_THUNDER_FANG, MOVE_FIRE_FANG, 
-    MOVE_HYPER_FANG, MOVE_SUPER_FANG,
+    MOVE_BITE, MOVE_CRUNCH, MOVE_POISON_FANG, MOVE_ICE_FANG, MOVE_THUNDER_FANG, 
+    MOVE_FIRE_FANG, MOVE_HYPER_FANG, MOVE_SUPER_FANG,
     BITING_MOVES_END
+};
+
+#define WIND_MOVES_END 0xFFFF
+
+static const u16 sWindMovesTable[] = 
+{
+    MOVE_AEROBLAST, MOVE_AIR_CUTTER, MOVE_BLIZZARD, MOVE_GUST, MOVE_HEAT_WAVE,
+    MOVE_ICY_WIND, MOVE_TWISTER, MOVE_WHIRLWIND,
+    WIND_MOVES_END
 };
 
 static bool8 sLeechSeedPoisonTickPending;
@@ -88,6 +96,19 @@ u8 GetBattlerForBattleScript(u8 caseId)
     return ret;
 }
 
+bool8 IsSoundMove(u16 move)
+{
+    u8 i;
+
+    for (i = 0; sSoundMovesTable[i] != SOUND_MOVES_END; i++)
+    {
+        if (sSoundMovesTable[i] == move)
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
 bool8 IsBitingMove(u16 move)
 {
     u8 i;
@@ -96,6 +117,19 @@ bool8 IsBitingMove(u16 move)
         if (sBitingMovesTable[i] == move)
             return TRUE;
     }
+    return FALSE;
+}
+
+bool8 IsWindMove(u16 move)
+{
+    u8 i;
+
+    for (i = 0; sWindMovesTable[i] != WIND_MOVES_END; i++)
+    {
+        if (sWindMovesTable[i] == move)
+            return TRUE;
+    }
+
     return FALSE;
 }
 
@@ -2056,18 +2090,20 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
         case ABILITYEFFECT_MOVES_BLOCK: // 2
             if (gLastUsedAbility == ABILITY_SOUNDPROOF)
             {
-                for (i = 0; sSoundMovesTable[i] != SOUND_MOVES_END; i++)
-                {
-                    if (sSoundMovesTable[i] == move)
-                        break;
-                }
-                if (sSoundMovesTable[i] != SOUND_MOVES_END)
+                if (IsSoundMove(move))
                 {
                     if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
                         gHitMarker |= HITMARKER_NO_PPDEDUCT;
                     gBattlescriptCurrInstr = BattleScript_SoundproofProtected;
                     effect = 1;
                 }
+            }
+            else if (gLastUsedAbility == ABILITY_WIND_RIDER
+                  && gBattleMoves[move].power == 0
+                  && IsWindMove(move))
+            {
+                gBattlescriptCurrInstr = BattleScript_WindRiderActivates_PPLoss;
+                effect = 1;
             }
             break;
         case ABILITYEFFECT_ABSORBING: // 3
@@ -2123,10 +2159,25 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                         }
                     }
                     break;
+                case ABILITY_WIND_RIDER:
+                    if (IsWindMove(move))
+                    {
+                        if (gProtectStructs[gBattlerAttacker].notFirstStrike)
+                            gBattlescriptCurrInstr = BattleScript_WindRiderActivates;
+                        else
+                            gBattlescriptCurrInstr = BattleScript_WindRiderActivates_PPLoss;
+
+                        effect = 1;
+                    }
+                    break;
                 }
                 if (effect == 1)
                 {
-                    if (gBattleMons[battler].maxHP == gBattleMons[battler].hp)
+                    if (gLastUsedAbility == ABILITY_WIND_RIDER)
+                    {
+                        // Wind Rider's script handles both the stat boost and the immunity message.
+                    }
+                    else if (gBattleMons[battler].maxHP == gBattleMons[battler].hp)
                     {
                         if ((gProtectStructs[gBattlerAttacker].notFirstStrike))
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless;

@@ -59,7 +59,9 @@
 #define BS_GET_OPPONENT2                14
 
 u8 GetBattlerForBattleScript(u8 caseId);
+bool8 IsSoundMove(u16 move);
 bool8 IsBitingMove(u16 move);
+bool8 IsWindMove(u16 move);
 void PressurePPLose(u8 target, u8 attacker, u16 move);
 void PressurePPLoseOnUsingImprison(u8 attacker);
 void PressurePPLoseOnUsingPerishSong(u8 attacker);

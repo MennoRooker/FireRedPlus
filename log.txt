@@ -1225,6 +1225,12 @@ I need to also make it so that Electric-type mons cannot
 be paralyzed by any Electric-type moves. Thunder Wave
 should have no effect.
 
+I gave Breloom Technician instead of Effect Spore. I
+want to make it so that Shroomish can only have Effect
+Spore and eventually it turns into either Technician
+or Poison Heal, but for now I will only implement 
+Technician.
+
 
 TO DO:
 x Add Bugsy

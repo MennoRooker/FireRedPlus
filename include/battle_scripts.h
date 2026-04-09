@@ -159,6 +159,8 @@ extern const u8 BattleScript_MonMadeMoveUseless_PPLoss[];
 extern const u8 BattleScript_MonMadeMoveUseless[];
 extern const u8 BattleScript_FlashFireBoost_PPLoss[];
 extern const u8 BattleScript_FlashFireBoost[];
+extern const u8 BattleScript_WindRiderActivates_PPLoss[];
+extern const u8 BattleScript_WindRiderActivates[];
 extern const u8 BattleScript_AbilityNoStatLoss[];
 extern const u8 BattleScript_BRNPrevention[];
 extern const u8 BattleScript_PRLZPrevention[];
