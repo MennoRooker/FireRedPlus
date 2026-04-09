@@ -2481,6 +2481,20 @@ void SetMoveEffect(bool8 primary, u8 certain)
             statusChanged = TRUE;
             break;
         case STATUS1_PARALYSIS:
+            if (!(gHitMarker & HITMARKER_STATUS_ABILITY_EFFECT)
+             && IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_ELECTRIC)
+             && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
+            {
+                if (gBattleMoves[gCurrentMove].power == 0
+                 && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
+                {
+                    BattleScriptPush(gBattlescriptCurrInstr + 1);
+                    gBattlescriptCurrInstr = BattleScript_PRLZPrevention;
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STATUS_HAD_NO_EFFECT;
+                    return;
+                }
+                break;
+            }
             if (gBattleMons[gEffectBattler].ability == ABILITY_LIMBER)
             {
                 if (primary == TRUE || certain == MOVE_EFFECT_CERTAIN)

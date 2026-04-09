@@ -1266,10 +1266,10 @@ x Bottle Caps
 x Sleep turns
 x Tutors require shards
 x VS Seeker
+x Recharge Moves
 / HMs rework
 / Linearizations
 / Balancing
-- Recharge Moves
 - Cerulean relearner
 - Dynamic speed
 - ITEM-MOVE option
@@ -1304,9 +1304,9 @@ x Solar Power
 x Strong Jaw
 x Harvest
 x Truant
-- Super Luck
-- Wind Rider (Jumpluff & Shiftry)
-- Technician (Breloom, Hitmontop, Scyther)
+x Super Luck
+x Wind Rider 
+x Technician 
 - Regenerator
 - Sheer force (Nidoking)
 - Magic Bounce (Espeon)

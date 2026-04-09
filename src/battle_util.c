@@ -1505,12 +1505,22 @@ u8 AtkCanceller_UnableToUseMove(void)
         case CANCELLER_RECHARGE: // recharge
             if (gBattleMons[gBattlerAttacker].status2 & STATUS2_RECHARGE)
             {
-                gBattleMons[gBattlerAttacker].status2 &= ~STATUS2_RECHARGE;
-                gDisableStructs[gBattlerAttacker].rechargeTimer = 0;
-                CancelMultiTurnMoves(gBattlerAttacker);
-                gBattlescriptCurrInstr = BattleScript_MoveUsedMustRecharge;
-                gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
-                effect = 1;
+                if (gCurrentMove == gLockedMoves[gBattlerAttacker])
+                {
+                    gBattleMons[gBattlerAttacker].status2 &= ~STATUS2_RECHARGE;
+                    gDisableStructs[gBattlerAttacker].rechargeTimer = 0;
+                    gLockedMoves[gBattlerAttacker] = MOVE_NONE;
+                    CancelMultiTurnMoves(gBattlerAttacker);
+                    gBattlescriptCurrInstr = BattleScript_MoveUsedMustRecharge;
+                    gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+                    effect = 1;
+                }
+                else
+                {
+                    gBattleMons[gBattlerAttacker].status2 &= ~STATUS2_RECHARGE;
+                    gDisableStructs[gBattlerAttacker].rechargeTimer = 0;
+                    gLockedMoves[gBattlerAttacker] = MOVE_NONE;
+                }
             }
             gBattleStruct->atkCancellerTracker++;
             break;
