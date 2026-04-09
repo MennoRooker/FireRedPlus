@@ -358,6 +358,9 @@ const u8 gMoveDescription_PsychoBoost[] = _("An intense attack\nthat also sharpl
 const u8 gMoveDescription_QuiverDance[] = _("The user performs\na mystic dance that\nraises SP. ATK,\nSP. DEF and SPD.");
 const u8 gMoveDescription_Bulldoze[] = _("The user stomps the\nground hard. It\nlowers the SPEED\nof all nearby foes.");
 const u8 gMoveDescription_NightSlash[] = _("The user slashes\nwith dark claws.\nIt has a high\ncritical-hit ratio.");
+const u8 gMoveDescription_FireFang[] = _("The user bites\nwith scorching\nfangs. May burn\nthe foe.");
+const u8 gMoveDescription_ThunderFang[] = _("The user bites\nwith electric\nfangs. May also\nparalyze the foe.");
+const u8 gMoveDescription_IceFang[] = _("The user bites\nwith icy fangs.\nMay freeze the\nfoe.");
 
 
 const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] = {
@@ -718,4 +721,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] = {
     [MOVE_QUIVER_DANCE  - 1] = gMoveDescription_QuiverDance,
     [MOVE_BULLDOZE      - 1] = gMoveDescription_Bulldoze,
     [MOVE_NIGHT_SLASH   - 1] = gMoveDescription_NightSlash,
+    [MOVE_FIRE_FANG     - 1] = gMoveDescription_FireFang,
+    [MOVE_THUNDER_FANG  - 1] = gMoveDescription_ThunderFang,
+    [MOVE_ICE_FANG      - 1] = gMoveDescription_IceFang,
 };

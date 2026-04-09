@@ -39,7 +39,8 @@ static const u16 sSoundMovesTable[] =
 static const u16 sBitingMovesTable[] = 
 {
     MOVE_BITE, MOVE_CRUNCH, MOVE_POISON_FANG,
-    // MOVE_ICE_FANG, MOVE_THUNDER_FANG, MOVE_FIRE_FANG, 
+    MOVE_ICE_FANG, MOVE_THUNDER_FANG, MOVE_FIRE_FANG, 
+    MOVE_HYPER_FANG, MOVE_SUPER_FANG,
     BITING_MOVES_END
 };
 

@@ -378,6 +378,9 @@ gBattleAnims_Moves::
 	.4byte Move_DRAGON_DANCE @ MOVE_QUIVER_DANCE (355) - uses Dragon Dance animation (stat boost)
 	.4byte Move_MAGNITUDE @ MOVE_BULLDOZE (356) - uses Magnitude 7 animation
 	.4byte Move_NIGHT_SLASH @ MOVE_NIGHT_SLASH (357)
+	.4byte Move_FIRE_FANG @ MOVE_FIRE_FANG (358)
+	.4byte Move_THUNDER_FANG @ MOVE_THUNDER_FANG (359)
+	.4byte Move_ICE_FANG @ MOVE_ICE_FANG (360)
 
 	.align 2
 gBattleAnims_StatusConditions::
@@ -8938,6 +8941,55 @@ Move_POISON_FANG:
 	waitforvisualfinish
 	createvisualtask AnimTask_BlendColorCycle, 2, F_PAL_TARGET, 0, 4, 0, 12, RGB(26, 0, 26)
 	call PoisonBubblesEffect
+	waitforvisualfinish
+	end
+
+Move_FIRE_FANG:
+	loadspritegfx ANIM_TAG_FANG_ATTACK
+	loadspritegfx ANIM_TAG_SMALL_EMBER
+	playsewithpan SE_M_BITE, SOUND_PAN_TARGET
+	createsprite gFangSpriteTemplate, ANIM_TARGET, 2
+	delay 10
+	createvisualtask AnimTask_ShakeMon, 3, ANIM_TARGET, 3, 0, 10, 1
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_TARGET, 2, 0, 9, RGB_RED
+	playsewithpan SE_M_FIRE_PUNCH, SOUND_PAN_TARGET
+	call FireSpreadEffect
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_TARGET, 2, 9, 0, RGB_RED
+	waitforvisualfinish
+	end
+
+Move_THUNDER_FANG:
+	loadspritegfx ANIM_TAG_FANG_ATTACK
+	loadspritegfx ANIM_TAG_SPARK_2
+	playsewithpan SE_M_BITE, SOUND_PAN_TARGET
+	createsprite gFangSpriteTemplate, ANIM_TARGET, 2
+	delay 10
+	createvisualtask AnimTask_ShakeMon, 3, ANIM_TARGET, 3, 0, 10, 1
+	waitforvisualfinish
+	createvisualtask AnimTask_InvertScreenColor, 2, 257, 257, 257
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_TARGET, 2, 0, 8, RGB(31, 31, 0)
+	call ElectricityEffect
+	delay 2
+	createvisualtask AnimTask_InvertScreenColor, 2, 257, 257, 257
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_TARGET, 2, 8, 0, RGB(31, 31, 0)
+	waitforvisualfinish
+	end
+
+Move_ICE_FANG:
+	loadspritegfx ANIM_TAG_FANG_ATTACK
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS
+	playsewithpan SE_M_BITE, SOUND_PAN_TARGET
+	createsprite gFangSpriteTemplate, ANIM_TARGET, 2
+	delay 10
+	createvisualtask AnimTask_ShakeMon, 3, ANIM_TARGET, 3, 0, 10, 1
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_TARGET, 2, 0, 9, RGB(12, 26, 31)
+	call IceCrystalEffectShort
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_TARGET, 2, 9, 0, RGB(12, 26, 31)
 	waitforvisualfinish
 	end
 

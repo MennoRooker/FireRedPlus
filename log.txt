@@ -1221,6 +1221,9 @@ I want to move the move relearner to Cerulean. This is
 also where Radical Red placed its relearner. I can make
 him accept Mushrooms as payment.
 
+I need to also make it so that Electric-type mons cannot
+be paralyzed by any Electric-type moves. Thunder Wave
+should have no effect.
 
 
 TO DO:
@@ -1319,9 +1322,9 @@ x Truant
 Moves to add:
 x Quiver Dance
 x Bulldoze
-- Ice Fang
-- Thunder Fang
-- Fire Fang
+x Ice Fang
+x Thunder Fang
+x Fire Fang
 - Iron Head
 - Air Slash
 - Close Combat

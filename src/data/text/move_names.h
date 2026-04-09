@@ -357,4 +357,7 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] = {
     [MOVE_QUIVER_DANCE]  = _("QUIVER DANCE"),
     [MOVE_BULLDOZE]      = _("BULLDOZE"),
     [MOVE_NIGHT_SLASH]   = _("NIGHT SLASH"),
+    [MOVE_FIRE_FANG]     = _("FIRE FANG"),
+    [MOVE_THUNDER_FANG]  = _("THUNDER FANG"),
+    [MOVE_ICE_FANG]      = _("ICE FANG"),
 };

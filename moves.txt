@@ -142,6 +142,9 @@ NORMAL -> ELECTRIC
 - Bonemerang
 90% -> 100%
 
+- Hyper Fang
+90% -> 95%
+
 - Mud-Slap
 20 -> 25
 
