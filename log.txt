@@ -1178,6 +1178,50 @@ everything in such way that Super Luck + Night Slash +
 Scope Lens + 1 Focus Energy = guaranteed crit...
 I've added Focus Energy to its learnset.
 
+I added Night Slash and got the palette to work. I just
+reused Slash, which also has the same animation as 
+False Swipe, but with a different palette for that as
+well. I now want to do the same thing, but for the 
+elemental fang moves: Thunder, Fire and Ice. 
+The problem is that the only existing elemental fang is
+Poison Fang and it looks quite different from the moves
+Bite and Crunch. Bite and Crunch show the entire set of
+teeth and where Bite is quite simple, Crunch actually
+changes the entire background and bites from several
+angles. Poison Fang seems to borrow its initial anim-
+ation from Hyper Fang and then adds some purple bubbles.
+What I think I want to do is see if I can get some 
+generic static/icy/flamey effects from other moves and 
+overlay them into the same template as Poison Fang. If 
+that proves to be too difficult for now I can just make 
+the Bite animation different colors for the different 
+moves.
+
+I noticed the other fang moves all have 65BP and 95%
+accuracy. They have 10% chance to apply status AND 10%
+chance to flinch. I think, in turn for the flinching,
+I want to just make the moves 100% accurate. This would
+make Poison Fang the odd one out with 30% chance to 
+badly poison, but that is okay since PSN isn't that bad
+in a regular playthrough anyway.
+
+I want to make recharge moves function like Blood Moon
+by Ursaluna: the moves simply cannot be used twice in
+a row. If the player presses Hyper Beam a second time
+the recharge message should display, but if another
+move is selected the move works fine. AI needs to be
+adapted to this as well.
+The recharge moves in FRLG include:
+- Hyper Beam
+- Blast Burn
+- Frenzy Plant
+- Hydro Cannon
+
+I want to move the move relearner to Cerulean. This is
+also where Radical Red placed its relearner. I can make
+him accept Mushrooms as payment.
+
+
 
 TO DO:
 x Add Bugsy
@@ -1216,6 +1260,7 @@ x VS Seeker
 / HMs rework
 / Linearizations
 / Balancing
+- Recharge Moves
 - Cerulean relearner
 - Dynamic speed
 - ITEM-MOVE option
@@ -1274,14 +1319,14 @@ x Truant
 Moves to add:
 x Quiver Dance
 x Bulldoze
-- Air Slash
-- Close Combat
-- Brave Bird/Dragon Ascent
-- Aurora Veil
 - Ice Fang
 - Thunder Fang
 - Fire Fang
 - Iron Head
+- Air Slash
+- Close Combat
+- Brave Bird/Dragon Ascent
+- Aurora Veil
 - Poison Jab
 - Rock Polish (Erika's sudowoodo)
 - Freeze Dry
@@ -1301,24 +1346,24 @@ x Bottle Caps
 x Focus Sash
 x Loaded Dice
 / Choice Items
-- Eviolite
-- Expert Belt
 - Wise Glasses
 - Muscle Band
 - Wide Lens
-- Air Balloon
+- Expert Belt
 - Damp Rock
 - Heat Rock
 - Smooth Rock
 - Icy Rock
 - Light Clay
+- Eviolite
+- Air Balloon
+
 
 
 
 LR BUTTONS:
 x LR Fly/Repel in overworld
 x LR+arrow keys switch pockets in bag
-x Press A to switch between stats/IVs/EVs
 x LR Left switches mon with lead and vice versa
 
 
