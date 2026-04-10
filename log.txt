@@ -1233,6 +1233,14 @@ Spore and eventually it turns into either Technician
 or Poison Heal, but for now I will only implement 
 Technician.
 
+I watched a video by Magpie Labs that describes a bug 
+that was found in Emerald after 20+ years. The same bugs
+he describes in the video appear to be in all gen 3 
+games, including FRLG. I am fixing 2 bugs based on the
+video:
+- Protect +2 score for !LOCK-ON
+- No variable for WEATHER_NONE
+
 
 TO DO:
 x Add Bugsy
@@ -1310,7 +1318,7 @@ x Super Luck
 x Wind Rider 
 x Technician 
 - Regenerator
-- Sheer force (Nidoking)
+- Sheer force (Nidoking, ...)
 - Magic Bounce (Espeon)
 - Overcoat
 - Prankster(maybe)

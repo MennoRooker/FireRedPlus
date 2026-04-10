@@ -2030,7 +2030,7 @@ AI_CV_Protect::
 	if_status3 AI_TARGET, STATUS3_YAWN, AI_CV_Protect_ScoreUp2
 	get_last_used_move AI_TARGET
 	get_move_effect_from_result
-	if_not_equal EFFECT_LOCK_ON, AI_CV_Protect_ScoreUp2
+	if_equal EFFECT_LOCK_ON, AI_CV_Protect_ScoreUp2
 	goto AI_CV_Protect2
 
 AI_CV_Protect_ScoreUp2::

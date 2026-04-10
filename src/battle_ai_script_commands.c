@@ -1404,26 +1404,20 @@ static void Cmd_if_status_not_in_party(void)
     sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 6);
 }
 
-enum
-{
-    WEATHER_TYPE_SUNNY,
-    WEATHER_TYPE_RAIN,
-    WEATHER_TYPE_SANDSTORM,
-    WEATHER_TYPE_HAIL,
-};
-
 extern u16 gBattleWeather;
 
 static void Cmd_get_weather(void)
 {
+    AI_THINKING_STRUCT->funcResult = AI_WEATHER_NONE;
+
     if (gBattleWeather & B_WEATHER_RAIN)
-        AI_THINKING_STRUCT->funcResult = WEATHER_TYPE_RAIN;
-    if (gBattleWeather & B_WEATHER_SANDSTORM)
-        AI_THINKING_STRUCT->funcResult = WEATHER_TYPE_SANDSTORM;
-    if (gBattleWeather & B_WEATHER_SUN)
-        AI_THINKING_STRUCT->funcResult = WEATHER_TYPE_SUNNY;
-    if (gBattleWeather & B_WEATHER_HAIL_TEMPORARY)
-        AI_THINKING_STRUCT->funcResult = WEATHER_TYPE_HAIL;
+        AI_THINKING_STRUCT->funcResult = AI_WEATHER_RAIN;
+    else if (gBattleWeather & B_WEATHER_SANDSTORM)
+        AI_THINKING_STRUCT->funcResult = AI_WEATHER_SANDSTORM;
+    else if (gBattleWeather & B_WEATHER_SUN)
+        AI_THINKING_STRUCT->funcResult = AI_WEATHER_SUN;
+    else if (gBattleWeather & B_WEATHER_HAIL_TEMPORARY)
+        AI_THINKING_STRUCT->funcResult = AI_WEATHER_HAIL;
 
     sAIScriptPtr += 1;
 }
