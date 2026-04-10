@@ -1,79 +1,43 @@
 - MAX (Camper):
 loc:	Route 2
 party:	ZIGZAGOON (5)
-text:	"I've never won a battle before."
-	"You're not even that strong..."
-	"My ZIGZAGOON picks up useful items for
-	me."
+
 
 - KELVIN (Burglar)
 loc:	Outside Pewter's museum
 party:	POOCHYENA (11)
-text:	"Huh?!
-	I'm not stealing from the museum.
-	Mind your own business.
-	POOCHYENA get him!"
-	"My wife's gonna kill me..."
-	"I'm only stealing to pay of my 
-	gambling debt."
+
 
 - ARON (Super Nerd)
 loc:	Mt. Moon
 party:	ARON (13), JIGGLYPUFF (14)
-text:	"This cave is full of young trainers!"
-	"The levels of my POKéMON are also the
-	ages I'm into."
-	"Don't tell my parole officer you saw
-	me here, please."
+
 
 - THOMAS (Youngster)
 loc:	Route 5
 party:	GROWLITHE (18), TEDDIURSA (18)
-text:	"I've been running up and down
-	for  5 hours."
-	"My cousin has much cooler POKéMON
-	than you."
-	"Did you know you can trade POKéMON?"
+
 
 - ABE (Pokemaniac)
 loc:	Rock Tunnel
 party:	DONPHAN (25)
-text:	"If you battle me I can tell you how
-	good you are in football terms."
-	"You know ball."
-	"Ketamine!"
+
 
 - LUC (Fisherman)
 loc:	Route 12
 party:	MAGIKARP (30), WHISCASH (30)
-text:	"You wanna bet on who can catch the
-	biggest fish? There's no way I lose!"
-	"Now I can't pay my rent."
-	"As soon as I get my next paycheck
-	we can battle again!"
+
 
 - YOURI (Black Belt):
 loc:	Saffron City Dojo
 party:	MACHOKE (37), HARIYAMA (37)
-text:	"How much can you bench?"
-	"I can still bench more than you."
-	"-grr-"
+
 
 - MIKE (Black Belt)
 loc:	Saffron City Dojo
 party:	MEDITITE (31), HITMONTOP (31), PRIMEAPE (31)
-text:	"Do you know what calisthenics is?"
-	"I should have focused on my breathing."
-	"Breathe in, breathe out.
-	Breathe in, breathe out."
+
 
 - JASON (Tamer)
 loc:	Viridian City Gym
 party:	ABSOL (54), UMBREON (54)
-text:	"I'm gonna make you obey me."
-	"DILANO!"
-	"People need discipline, I just happen
-	to enjoy teaching them that."
-
-
-	

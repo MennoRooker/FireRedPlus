@@ -1219,7 +1219,9 @@ The recharge moves in FRLG include:
 
 I want to move the move relearner to Cerulean. This is
 also where Radical Red placed its relearner. I can make
-him accept Mushrooms as payment.
+him accept Mushrooms as payment. I'll have either a
+seperate or the same relearner for egg moves in exchange
+for Heart Scales.
 
 I need to also make it so that Electric-type mons cannot
 be paralyzed by any Electric-type moves. Thunder Wave

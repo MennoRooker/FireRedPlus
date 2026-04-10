@@ -150,12 +150,15 @@ WATER -> WATER/DRAGON
 WATER -> WATER/PSYCHIC
 
 - ARTICUNO
+spd:	85 -> 105
 Pressure -> Pressure/Snow Warning
 
 - ZAPDOS
+spd:	100 -> 120
 Pressure -> Pressure/Drizzle
 
 - MOLTRES
+spd:	90 -> 110
 Pressure -> Pressure/Drought
 
 - CHIKORITA
