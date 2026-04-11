@@ -1241,6 +1241,10 @@ video:
 - Protect +2 score for !LOCK-ON
 - No variable for WEATHER_NONE
 
+I am at Silph Co and I probably want to add the Muscle
+Band and Wise Glasses now so that I don't have to worry
+about those and where to place them in later versions.
+
 
 TO DO:
 x Add Bugsy
@@ -1279,8 +1283,8 @@ x VS Seeker
 x Recharge Moves
 x AI fixes
 x Cerulean relearner
+x Linearizations
 / HMs rework
-/ Linearizations
 / Balancing
 - Dynamic speed
 - ITEM-MOVE option
