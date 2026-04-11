@@ -1277,13 +1277,14 @@ x Sleep turns
 x Tutors require shards
 x VS Seeker
 x Recharge Moves
+x AI fixes
+x Cerulean relearner
 / HMs rework
 / Linearizations
 / Balancing
-- Cerulean relearner
 - Dynamic speed
 - ITEM-MOVE option
-- Only a few red HP beeps
+- HP beeping
 - Letters
 - Faster Bike
 - Victory Road FLY checkpoint
@@ -1317,6 +1318,7 @@ x Truant
 x Super Luck
 x Wind Rider 
 x Technician 
+- Solid Rock (Corsola & Magcargo)
 - Regenerator
 - Sheer force (Nidoking, ...)
 - Magic Bounce (Espeon)
@@ -1332,7 +1334,6 @@ x Technician
 - Sniper
 - Tinted Lens
 - Multiscale
-- Solid Rock (Corsola & Magcargo)
 
 
 Moves to add:

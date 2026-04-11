@@ -66,6 +66,9 @@ High crit rate
 - Blizzard
 70% -> 75%
 
+- Hyper Beam
+No global recharge
+
 - Strength
 NORMAL -> ROCK
 
@@ -203,8 +206,14 @@ NORMAL -> ELECTRIC
 - Dive
 60 -> 80
 
-- Posion Fang
+- Poison Fang
 50 -> 65
+
+- Blast Burn
+No global recharge
+
+- Hydro Cannon
+No global recharge
 
 - Meteor Mash
 85% -> 90%
@@ -229,6 +238,9 @@ NORMAL -> ELECTRIC
 
 - Icicle Spear
 10 -> 25
+
+- Frenzy Plant
+No global recharge
 
 - Bounce
 85% -> 95%

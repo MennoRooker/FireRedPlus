@@ -60,3 +60,49 @@ CeruleanCity_House4_Text_YourBerryPouchIsFull::
     .string "Hm? Your BERRY POUCH is full.\n"
     .string "My gift remains ungiven, then.$"
 
+CeruleanCity_House4_Text_TeachMonMoveForMushroom::
+    .string "I'm the POKéMON MOVE MANIAC.\p"
+    .string "I know every single move that\n"
+    .string "POKéMON learn growing up.\p"
+    .string "I'm also a mushroom maniac.\p"
+    .string "Bring me two TINYMUSHROOMS,\n"
+    .string "or one BIG MUSHROOM.\p"
+    .string "If you do that for me, I'll teach\n"
+    .string "a move to one POKéMON.$"
+
+CeruleanCity_House4_Text_WantMeToTeachMove::
+    .string "Sniff, sniff…\n"
+    .string "Hm! You smell of MUSHROOMS!\p"
+    .string "Do you want me to teach a move\n"
+    .string "to a POKéMON of yours?$"
+
+CeruleanCity_House4_Text_TutorWhichMon::
+    .string "Which POKéMON needs tutoring?$"
+
+CeruleanCity_House4_Text_TeachWhichMove::
+    .string "Which move should I teach?$"
+
+CeruleanCity_House4_Text_NoMoveICanTeachThatMon::
+    .string "Sorry…\p"
+    .string "It doesn't appear as if I have a\n"
+    .string "move I can teach that POKéMON.$"
+
+CeruleanCity_House4_Text_IllNeedMushroomOrTwo::
+    .string "Then, I'll need a MUSHROOM or two.\n"
+    .string "What are you going to give me?$"
+
+CeruleanCity_House4_Text_HandedOverTwoTinyMushrooms::
+    .string "{PLAYER} handed over two\n"
+    .string "TINYMUSHROOMS in exchange.$"
+
+CeruleanCity_House4_Text_HandedOverOneBigMushroom::
+    .string "{PLAYER} handed over one\n"
+    .string "BIG MUSHROOM in exchange.$"
+
+CeruleanCity_House4_Text_NeedMushroomOrTwoToLearnMove::
+    .string "If your POKéMON need to learn a\n"
+    .string "move, I need a MUSHROOM or two.$"
+
+CeruleanCity_House4_Text_CantTeachAnEgg::
+    .string "Hunh? There isn't a single move\n"
+    .string "that I can teach an EGG.$"

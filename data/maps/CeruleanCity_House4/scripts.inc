@@ -1,5 +1,9 @@
 .set REWARD_TYPE, VAR_0x8004
 .set REWARD_ITEM, VAR_0x8008
+.equ CHECKED_MUSHROOMS,  FLAG_TEMP_1
+.equ HAS_BIG_MUSHROOM,   FLAG_TEMP_2
+.equ HAS_TINY_MUSHROOMS, FLAG_TEMP_3
+.equ HAS_BOTH_MUSHROOMS, FLAG_TEMP_4
 
 CeruleanCity_House4_MapScripts::
 	.byte 0
@@ -91,3 +95,117 @@ CeruleanCity_House4_EventScript_NoRoomForBerries::
 	msgbox CeruleanCity_House4_Text_YourBerryPouchIsFull
 	release
 	end
+
+
+CeruleanCity_House4_EventScript_MoveManiac::
+	goto_if_questlog EventScript_ReleaseEnd
+	special QuestLog_CutRecording
+	lock
+	faceplayer
+	clearflag HAS_BIG_MUSHROOM
+	clearflag HAS_TINY_MUSHROOMS
+	clearflag HAS_BOTH_MUSHROOMS
+	goto_if_set CHECKED_MUSHROOMS, CeruleanCity_House4_EventScript_CheckPlayerHasMushrooms
+	msgbox CeruleanCity_House4_Text_TeachMonMoveForMushroom
+	setflag CHECKED_MUSHROOMS
+	goto CeruleanCity_House4_EventScript_CheckPlayerHasMushrooms
+	end
+
+CeruleanCity_House4_EventScript_CheckPlayerHasMushrooms::
+	checkitem ITEM_BIG_MUSHROOM
+	call_if_eq VAR_RESULT, TRUE, CeruleanCity_House4_EventScript_SetHasBigMushroom
+	checkitem ITEM_TINY_MUSHROOM, 2
+	call_if_eq VAR_RESULT, TRUE, CeruleanCity_House4_EventScript_SetHasTinyMushrooms
+	goto_if_set HAS_BIG_MUSHROOM, CeruleanCity_House4_EventScript_CheckAlsoHasTinyMushrooms
+	goto_if_set HAS_TINY_MUSHROOMS, CeruleanCity_House4_EventScript_CheckAlsoHasBigMushroom
+	goto CeruleanCity_House4_EventScript_EndTutorMove
+	end
+
+CeruleanCity_House4_EventScript_CheckAlsoHasTinyMushrooms::
+	call_if_set HAS_TINY_MUSHROOMS, CeruleanCity_House4_EventScript_SetHasBothMushrooms
+	goto CeruleanCity_House4_EventScript_AskTutorMon
+	end
+
+CeruleanCity_House4_EventScript_CheckAlsoHasBigMushroom::
+	call_if_set HAS_BIG_MUSHROOM, CeruleanCity_House4_EventScript_SetHasBothMushrooms
+	goto CeruleanCity_House4_EventScript_AskTutorMon
+	end
+
+CeruleanCity_House4_EventScript_AskTutorMon::
+	msgbox CeruleanCity_House4_Text_WantMeToTeachMove, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, CeruleanCity_House4_EventScript_EndTutorMove
+	goto CeruleanCity_House4_EventScript_ChooseMonToTutor
+	end
+
+CeruleanCity_House4_EventScript_ChooseMonToTutor::
+	msgbox CeruleanCity_House4_Text_TutorWhichMon
+	special ChooseMonForMoveRelearner
+	waitstate
+	goto_if_ge VAR_0x8004, PARTY_SIZE, CeruleanCity_House4_EventScript_EndTutorMove
+	special IsSelectedMonEgg
+	goto_if_eq VAR_RESULT, TRUE, CeruleanCity_House4_EventScript_CantTutorEgg
+	goto_if_eq VAR_0x8005, 0, CeruleanCity_House4_EventScript_NoMoveToTutorMon
+	goto CeruleanCity_House4_EventScript_ChooseMoveToTeach
+	end
+
+CeruleanCity_House4_EventScript_ChooseMoveToTeach::
+	msgbox CeruleanCity_House4_Text_TeachWhichMove
+	special TeachMoveRelearnerMove
+	waitstate
+	goto_if_eq VAR_0x8004, 0, CeruleanCity_House4_EventScript_ChooseMonToTutor
+	goto_if_set HAS_BOTH_MUSHROOMS, CeruleanCity_House4_EventScript_ChooseMushroom
+	goto_if_set HAS_BIG_MUSHROOM, CeruleanCity_House4_EventScript_GiveBigMushroom
+	goto_if_set HAS_TINY_MUSHROOMS, CeruleanCity_House4_EventScript_GiveTinyMushrooms
+	end
+
+CeruleanCity_House4_EventScript_GiveBigMushroom::
+	removeitem ITEM_BIG_MUSHROOM
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	msgbox CeruleanCity_House4_Text_HandedOverOneBigMushroom
+	call EventScript_RestorePrevTextColor
+	goto CeruleanCity_House4_EventScript_EndTutorMove
+	end
+
+CeruleanCity_House4_EventScript_GiveTinyMushrooms::
+	removeitem ITEM_TINY_MUSHROOM, 2
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	msgbox CeruleanCity_House4_Text_HandedOverTwoTinyMushrooms
+	call EventScript_RestorePrevTextColor
+	goto CeruleanCity_House4_EventScript_EndTutorMove
+	end
+
+CeruleanCity_House4_EventScript_ChooseMushroom::
+	message CeruleanCity_House4_Text_IllNeedMushroomOrTwo
+	waitmessage
+	multichoice 0, 0, MULTICHOICE_MUSHROOMS, TRUE
+	switch VAR_RESULT
+	case 0, CeruleanCity_House4_EventScript_GiveTinyMushrooms
+	case 1, CeruleanCity_House4_EventScript_GiveBigMushroom
+	end
+
+CeruleanCity_House4_EventScript_NoMoveToTutorMon::
+	msgbox CeruleanCity_House4_Text_NoMoveICanTeachThatMon
+	goto CeruleanCity_House4_EventScript_ChooseMonToTutor
+	end
+
+CeruleanCity_House4_EventScript_CantTutorEgg::
+	msgbox CeruleanCity_House4_Text_CantTeachAnEgg
+	goto CeruleanCity_House4_EventScript_ChooseMonToTutor
+	end
+
+CeruleanCity_House4_EventScript_EndTutorMove::
+	msgbox CeruleanCity_House4_Text_NeedMushroomOrTwoToLearnMove
+	release
+	end
+
+CeruleanCity_House4_EventScript_SetHasBigMushroom::
+	setflag HAS_BIG_MUSHROOM
+	return
+
+CeruleanCity_House4_EventScript_SetHasTinyMushrooms::
+	setflag HAS_TINY_MUSHROOMS
+	return
+
+CeruleanCity_House4_EventScript_SetHasBothMushrooms::
+	setflag HAS_BOTH_MUSHROOMS
+	return
