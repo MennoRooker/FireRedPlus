@@ -1103,9 +1103,9 @@ static void Cmd_accuracycheck(void)
         if (gBattleMons[gBattlerAttacker].ability == ABILITY_COMPOUND_EYES || gBattleMons[gBattlerAttacker].ability == ABILITY_ILLUMINATE)
             calc = (calc * 130) / 100; // 1.3 compound eyes/illuminate boost
         if (WEATHER_HAS_EFFECT && gBattleMons[gBattlerTarget].ability == ABILITY_SAND_VEIL && gBattleWeather & B_WEATHER_SANDSTORM)
-            calc = (calc * 80) / 100; // 1.2 sand veil loss
+            calc = (calc * 80) / 100; // 20% sand veil loss
         if (gBattleMons[gBattlerAttacker].ability == ABILITY_HUSTLE && IS_TYPE_PHYSICAL(type))
-            calc = (calc * 80) / 100; // 1.2 hustle loss
+            calc = (calc * 85) / 100; // 15% hustle loss
 
         if (gBattleMons[gBattlerTarget].item == ITEM_ENIGMA_BERRY)
         {
@@ -1398,7 +1398,19 @@ static void Cmd_typecalc(void)
     }
 
     gBattlescriptCurrInstr++;
-}
+
+        if (gBattleMons[gBattlerTarget].ability == ABILITY_SOLID_ROCK
+         && gTypeEffectivenessMultiplier >= 20
+         && gBattleMoves[gCurrentMove].power != 0
+         && !(gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE))
+        {
+            gLastUsedAbility = ABILITY_SOLID_ROCK;
+            RecordAbilityBattle(gBattlerTarget, ABILITY_SOLID_ROCK);
+            gBattleMoveDamage /= 2;
+            if (gBattleMoveDamage == 0)
+                gBattleMoveDamage = 1;
+        }
+    }
 
 static void CheckWonderGuardAndLevitate(void)
 {

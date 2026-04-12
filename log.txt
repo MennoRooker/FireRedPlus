@@ -1346,7 +1346,7 @@ x Truant
 x Super Luck
 x Wind Rider 
 x Technician 
-- Solid Rock (Corsola & Magcargo)
+x Solid Rock
 - Regenerator
 - Sheer force (Nidoking, ...)
 - Magic Bounce (Espeon)
