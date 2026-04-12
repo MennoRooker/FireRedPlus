@@ -52,3 +52,73 @@ FuchsiaCity_House3_EventScript_CancelForgetMove::
 	msgbox FuchsiaCity_House3_Text_ComeAgainToForgetOtherMoves
 	release
 	end
+
+FuchsiaCity_House3_EventScript_EggMoveTutor::
+	lock
+	faceplayer
+	goto_if_set FLAG_MET_FUCHSIA_CITY_EGG_MOVE_TUTOR, FuchsiaCity_House3_EventScript_EggMoveTutorAsk
+	msgbox FuchsiaCity_House3_Text_EggMoveTutorIntro
+	setflag FLAG_MET_FUCHSIA_CITY_EGG_MOVE_TUTOR
+	goto FuchsiaCity_House3_EventScript_EggMoveTutorAsk
+	end
+
+FuchsiaCity_House3_EventScript_EggMoveTutorAsk::
+	msgbox FuchsiaCity_House3_Text_EggMoveTutorAskTeach, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, FuchsiaCity_House3_EventScript_EggMoveTutorEnd
+	checkitem ITEM_HEART_SCALE
+	goto_if_eq VAR_RESULT, FALSE, FuchsiaCity_House3_EventScript_EggMoveTutorNoHeartScale
+	goto FuchsiaCity_House3_EventScript_EggMoveTutorChooseMon
+	end
+
+FuchsiaCity_House3_EventScript_EggMoveTutorChooseMon::
+	setvar VAR_0x8006, TRUE
+	msgbox FuchsiaCity_House3_Text_EggMoveTutorChooseMon
+	special ChooseMonForMoveRelearner
+	waitstate
+	goto_if_ge VAR_0x8004, PARTY_SIZE, FuchsiaCity_House3_EventScript_EggMoveTutorCancel
+	special IsSelectedMonEgg
+	goto_if_eq VAR_RESULT, TRUE, FuchsiaCity_House3_EventScript_EggMoveTutorCantTeachEgg
+	goto_if_eq VAR_0x8005, 0, FuchsiaCity_House3_EventScript_EggMoveTutorNoMovesForMon
+	goto FuchsiaCity_House3_EventScript_EggMoveTutorChooseMove
+	end
+
+FuchsiaCity_House3_EventScript_EggMoveTutorChooseMove::
+	msgbox FuchsiaCity_House3_Text_EggMoveTutorChooseMove
+	special TeachMoveRelearnerMove
+	waitstate
+	goto_if_eq VAR_0x8004, FALSE, FuchsiaCity_House3_EventScript_EggMoveTutorChooseMon
+	removeitem ITEM_HEART_SCALE
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	msgbox FuchsiaCity_House3_Text_EggMoveTutorHandedHeartScale
+	call EventScript_RestorePrevTextColor
+	setvar VAR_0x8006, FALSE
+	msgbox FuchsiaCity_House3_Text_EggMoveTutorComeAgain
+	release
+	end
+
+FuchsiaCity_House3_EventScript_EggMoveTutorNoHeartScale::
+	setvar VAR_0x8006, FALSE
+	msgbox FuchsiaCity_House3_Text_EggMoveTutorNeedHeartScale
+	release
+	end
+
+FuchsiaCity_House3_EventScript_EggMoveTutorNoMovesForMon::
+	msgbox FuchsiaCity_House3_Text_EggMoveTutorNoMoves
+	goto FuchsiaCity_House3_EventScript_EggMoveTutorChooseMon
+	end
+
+FuchsiaCity_House3_EventScript_EggMoveTutorCantTeachEgg::
+	msgbox FuchsiaCity_House3_Text_EggMoveTutorCantTeachEgg
+	goto FuchsiaCity_House3_EventScript_EggMoveTutorChooseMon
+	end
+
+FuchsiaCity_House3_EventScript_EggMoveTutorCancel::
+	setvar VAR_0x8006, FALSE
+	goto FuchsiaCity_House3_EventScript_EggMoveTutorEnd
+	end
+
+FuchsiaCity_House3_EventScript_EggMoveTutorEnd::
+	setvar VAR_0x8006, FALSE
+	msgbox FuchsiaCity_House3_Text_EggMoveTutorComeAgain
+	release
+	end

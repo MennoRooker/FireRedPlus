@@ -749,18 +749,20 @@ static void SpawnListMenuScrollIndicatorSprites(void)
 static void MoveRelearnerInitListMenuBuffersEtc(void)
 {
     int i;
-    s32 count;
     u8 nickname[11];
 
-    sMoveRelearner->numLearnableMoves = GetMoveRelearnerMoves(&gPlayerParty[sMoveRelearner->selectedPartyMember], sMoveRelearner->learnableMoves);
-    count = GetMoveRelearnerMoves(&gPlayerParty[sMoveRelearner->selectedPartyMember], sMoveRelearner->learnableMoves);
+    if (gSpecialVar_0x8006 == TRUE)
+        sMoveRelearner->numLearnableMoves = GetEggTutorMoves(&gPlayerParty[sMoveRelearner->selectedPartyMember], sMoveRelearner->learnableMoves);
+    else
+        sMoveRelearner->numLearnableMoves = GetMoveRelearnerMoves(&gPlayerParty[sMoveRelearner->selectedPartyMember], sMoveRelearner->learnableMoves);
+
     for (i = 0; i < sMoveRelearner->numLearnableMoves; i++)
         StringCopy(sMoveRelearner->listMenuStrbufs[i], gMoveNames[sMoveRelearner->learnableMoves[i]]);
     GetMonData(&gPlayerParty[sMoveRelearner->selectedPartyMember], MON_DATA_NICKNAME, nickname);
     StringCopy_Nickname(gStringVar1, nickname);
     StringCopy(sMoveRelearner->listMenuStrbufs[sMoveRelearner->numLearnableMoves], gFameCheckerText_Cancel);
     sMoveRelearner->numLearnableMoves++;
-    for (i = 0; i < count; i++)
+    for (i = 0; i < sMoveRelearner->numLearnableMoves - 1; i++)
     {
         sMoveRelearner->listMenuItems[i].label = sMoveRelearner->listMenuStrbufs[i];
         sMoveRelearner->listMenuItems[i].index = i;
@@ -769,7 +771,7 @@ static void MoveRelearnerInitListMenuBuffersEtc(void)
     sMoveRelearner->listMenuItems[i].index = 0xFE;
     gMultiuseListMenuTemplate = sMoveRelearnerListMenuTemplate;
     gMultiuseListMenuTemplate.items = sMoveRelearner->listMenuItems;
-    gMultiuseListMenuTemplate.totalItems = count + 1;
+    gMultiuseListMenuTemplate.totalItems = sMoveRelearner->numLearnableMoves;
 }
 
 static void MoveRelearnerMenuHandleInput(void)

@@ -36,6 +36,7 @@
 #include "constants/hold_effects.h"
 #include "constants/battle_move_effects.h"
 #include "constants/union_room.h"
+#include "constants/daycare.h"
 
 #define SPECIES_TO_HOENN(name)      [SPECIES_##name - 1] = HOENN_DEX_##name
 #define SPECIES_TO_NATIONAL(name)   [SPECIES_##name - 1] = NATIONAL_DEX_##name
@@ -62,6 +63,13 @@ EWRAM_DATA struct Pokemon gEnemyParty[PARTY_SIZE] = {};
 EWRAM_DATA struct Pokemon gPlayerParty[PARTY_SIZE] = {};
 EWRAM_DATA struct SpriteTemplate gMultiuseSpriteTemplate = {0};
 static EWRAM_DATA struct MonSpritesGfxManager *sMonSpritesGfxManager = NULL;
+
+extern const struct Evolution gEvolutionTable[][EVOS_PER_MON];
+extern const u16 gEggMoves[];
+
+#define EGG_MOVES_SPECIES_OFFSET 20000
+#define EGG_MOVES_TERMINATOR 0xFFFF
+#define EGG_TUTOR_MAX_LIST_SIZE 25
 
 static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, u8 substructType);
 static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId);
@@ -5926,6 +5934,137 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u8 tm)
     }
 }
 
+static u8 GetEggMovesForSpecies(u16 species, u16 *eggMoves)
+{
+    u16 eggMoveIdx = 0;
+    u8 numEggMoves = 0;
+    u16 i;
+
+    for (i = 0; gEggMoves[i] != EGG_MOVES_TERMINATOR; i++)
+    {
+        if (gEggMoves[i] == species + EGG_MOVES_SPECIES_OFFSET)
+        {
+            eggMoveIdx = i + 1;
+            break;
+        }
+    }
+
+    if (gEggMoves[i] == EGG_MOVES_TERMINATOR)
+        return 0;
+
+    for (i = 0; i < EGG_MOVES_ARRAY_COUNT; i++)
+    {
+        u16 move = gEggMoves[eggMoveIdx + i];
+
+        if (move > EGG_MOVES_SPECIES_OFFSET)
+            break;
+
+        eggMoves[numEggMoves++] = move;
+    }
+
+    return numEggMoves;
+}
+
+static u8 GetSpeciesPreEvolutionLine(u16 species, u16 *speciesLine)
+{
+    u8 speciesCount = 0;
+    u8 lineIdx;
+    u16 speciesIdx;
+    u8 evoIdx;
+
+    while (speciesCount < EVOS_PER_MON + 1)
+    {
+        bool8 found = FALSE;
+
+        speciesLine[speciesCount++] = species;
+        for (speciesIdx = 1; speciesIdx < NUM_SPECIES; speciesIdx++)
+        {
+            for (evoIdx = 0; evoIdx < EVOS_PER_MON; evoIdx++)
+            {
+                if (gEvolutionTable[speciesIdx][evoIdx].targetSpecies == species)
+                {
+                    species = speciesIdx;
+                    found = TRUE;
+                    break;
+                }
+            }
+
+            if (found)
+                break;
+        }
+
+        if (!found)
+            break;
+    }
+
+    for (lineIdx = 0; lineIdx < speciesCount / 2; lineIdx++)
+    {
+        u16 temp = speciesLine[lineIdx];
+        speciesLine[lineIdx] = speciesLine[speciesCount - 1 - lineIdx];
+        speciesLine[speciesCount - 1 - lineIdx] = temp;
+    }
+
+    return speciesCount;
+}
+
+u8 GetEggTutorMoves(struct Pokemon *mon, u16 *moves)
+{
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL);
+    u16 learnedMoves[MAX_MON_MOVES];
+    u16 speciesLine[EVOS_PER_MON + 1];
+    u16 speciesEggMoves[EGG_MOVES_ARRAY_COUNT];
+    u8 speciesCount;
+    u8 numMoves = 0;
+    u8 i;
+
+    if (species == SPECIES_EGG)
+        return 0;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+        learnedMoves[i] = GetMonData(mon, MON_DATA_MOVE1 + i, NULL);
+
+    speciesCount = GetSpeciesPreEvolutionLine(species, speciesLine);
+    for (i = 0; i < speciesCount && numMoves < EGG_TUTOR_MAX_LIST_SIZE; i++)
+    {
+        u8 speciesEggMoveCount;
+        u8 j;
+
+        speciesEggMoveCount = GetEggMovesForSpecies(speciesLine[i], speciesEggMoves);
+        for (j = 0; j < speciesEggMoveCount && numMoves < EGG_TUTOR_MAX_LIST_SIZE; j++)
+        {
+            u8 k;
+            bool8 alreadyKnown = FALSE;
+            bool8 alreadyAdded = FALSE;
+
+            for (k = 0; k < MAX_MON_MOVES; k++)
+            {
+                if (learnedMoves[k] == speciesEggMoves[j])
+                {
+                    alreadyKnown = TRUE;
+                    break;
+                }
+            }
+
+            if (alreadyKnown)
+                continue;
+
+            for (k = 0; k < numMoves; k++)
+            {
+                if (moves[k] == speciesEggMoves[j])
+                {
+                    alreadyAdded = TRUE;
+                    break;
+                }
+            }
+
+            if (!alreadyAdded)
+                moves[numMoves++] = speciesEggMoves[j];
+        }
+    }
+
+    return numMoves;
+}
+
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
 {
     u16 learnedMoves[MAX_MON_MOVES];
@@ -6017,6 +6156,13 @@ u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
     }
 
     return numMoves;
+}
+
+u8 GetNumberOfEggTutorMoves(struct Pokemon *mon)
+{
+    u16 moves[EGG_TUTOR_MAX_LIST_SIZE];
+
+    return GetEggTutorMoves(mon, moves);
 }
 
 u16 SpeciesToPokedexNum(u16 species)

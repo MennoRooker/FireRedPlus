@@ -796,10 +796,10 @@
 #define FLAG_OAKS_RATING_IS_VIA_PC                       0x2FF
 #define FLAG_GOT_SHELL_BELL_FROM_OAKS_AIDE               0x300
 #define FLAG_SHOWED_SUPER_ROD_TO_GURU                    0x301
+#define FLAG_MET_FUCHSIA_CITY_EGG_MOVE_TUTOR             0x302
 
 
 // Unused
-#define FLAG_0x302               0x302
 #define FLAG_0x303               0x303
 #define FLAG_0x304               0x304
 #define FLAG_0x305               0x305

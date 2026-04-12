@@ -237,7 +237,7 @@ atk:	85 -> 100
 
 - MAGCARGO
 hp:	50 -> 60
-atk:	50 -> 76
+atk:	50 -> 60
 
 - CORSOLA
 hp:	55 -> 65

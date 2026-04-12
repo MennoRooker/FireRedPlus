@@ -1251,6 +1251,22 @@ removable the Move Deleter is much less essential during
 a playthrough so having the Egg Move tutor there may
 actually make the house a bit more relevant again.
 
+After implementing the Egg Move tutor I need to focus
+on Solid Rock and Hustle. Hustle should reduce accuracy
+by only 10%-15% instead of 20%. Then we give it to Ratatta
+and Raticate instead of Run Away. We give Solid Rock to
+Corsola and Magcargo. I see that Camerupt has both Magma
+Armor and Solid Rock in later generations. Currently
+Magma Armor sucks and it could use a rework. Idk if 
+Solid Rock makes a lot of sense on Camerupt since it is
+not a Rock type, so idk what I want to do with that.
+I need to decide whether to get rid of Magma Armor or
+Flame Body on Magcargo though. I think if I rework 
+Magma Armor into its current state + no crits it could 
+work as an exclusive ability for the Magcargo line.
+I will probably have to come up with something for 
+Camerupt then. Maybe just keep Oblivious from Numel.
+
 
 TO DO:
 x Add Bugsy
@@ -1289,6 +1305,7 @@ x VS Seeker
 x Recharge Moves
 x AI fixes
 x Cerulean relearner
+x Egg Move tutor
 x Linearizations
 / HMs rework
 / Balancing
