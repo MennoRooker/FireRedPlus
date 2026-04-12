@@ -415,7 +415,7 @@
 #define FLAG_HIDE_SAFARI_ZONE_WEST_CHOICE_BAND                  0x18A
 #define FLAG_HIDE_SAFARI_ZONE_WEST_MAX_REVIVE                   0x18B
 #define FLAG_HIDE_SILPH_CO_3F_HYPER_POTION                      0x18C
-#define FLAG_HIDE_SILPH_CO_4F_MAX_REVIVE                        0x18D
+#define FLAG_HIDE_SILPH_CO_4F_MUSCLE_BAND                       0x18D
 #define FLAG_HIDE_SILPH_CO_4F_ESCAPE_ROPE                       0x18E
 #define FLAG_HIDE_SILPH_CO_4F_FULL_HEAL                         0x18F
 #define FLAG_HIDE_SILPH_CO_5F_PROTEIN                           0x190
@@ -426,7 +426,7 @@
 #define FLAG_HIDE_SILPH_CO_7F_CALCIUM                           0x195
 #define FLAG_HIDE_SILPH_CO_7F_TM08                              0x196
 #define FLAG_HIDE_SILPH_CO_10F_CARBOS                           0x197
-#define FLAG_HIDE_SILPH_CO_10F_ULTRA_BALL                       0x198
+#define FLAG_HIDE_SILPH_CO_10F_WISE_GLASSES                     0x198
 #define FLAG_HIDE_SILPH_CO_10F_RARE_CANDY                       0x199
 #define FLAG_HIDE_POWER_PLANT_MAX_POTION                        0x19A
 #define FLAG_HIDE_POWER_PLANT_TM17                              0x19B
@@ -447,7 +447,7 @@
 #define FLAG_HIDE_VICTORY_ROAD_1F_TM02                          0x1AA
 #define FLAG_HIDE_VICTORY_ROAD_2F_FULL_RESTORE                  0x1AB
 #define FLAG_HIDE_VICTORY_ROAD_2F_TM07                          0x1AC
-#define FLAG_HIDE_VICTORY_ROAD_2F_FULL_HEAL                     0x1AD
+#define FLAG_HIDE_VICTORY_ROAD_2F_CHOICE_SCARF                  0x1AD
 #define FLAG_HIDE_VICTORY_ROAD_2F_TM37                          0x1AE
 #define FLAG_HIDE_VICTORY_ROAD_3F_MAX_REVIVE                    0x1AF
 #define FLAG_HIDE_VICTORY_ROAD_3F_TM50                          0x1B0
@@ -510,7 +510,7 @@
 #define FLAG_HIDE_SEVEN_ISLAND_SEVAULT_CANYON_NUGGET            0x1E9
 #define FLAG_HIDE_THREE_ISLAND_BERRY_FOREST_RARE_CANDY          0x1EA
 #define FLAG_HIDE_THREE_ISLAND_BERRY_FOREST_FULL_HEAL           0x1EB
-#define FLAG_HIDE_THREE_ISLAND_BERRY_FOREST_MAX_ELIXIR          0x1EC
+#define FLAG_HIDE_THREE_ISLAND_BERRY_FOREST_CHOICE_SPECS        0x1EC
 #define FLAG_HIDE_MT_EMBER_EXTERIOR_ULTRA_BALL                  0x1ED
 #define FLAG_HIDE_MT_EMBER_EXTERIOR_FIRE_STONE                  0x1EE
 #define FLAG_HIDE_MT_EMBER_EXTERIOR_CHARCOAL                    0x1EF

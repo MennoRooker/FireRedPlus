@@ -9,6 +9,9 @@ Ghost type moves are all special
 - Pay Day
 40 -> 60
 
+- Swords Dance
+30PP -> 20PP
+
 - Cut
 NORMAL -> STEEL
 95% -> 100%
@@ -96,6 +99,9 @@ Raises both atk and spatk
 
 - Dig
 60 -> 80
+
+- Agility
+30PP -> 20PP
 
 - Lick
 20 -> 30

@@ -238,8 +238,8 @@ SilphCo_3F_EventScript_ItemHyperPotion::
 	finditem ITEM_HYPER_POTION
 	end
 
-SilphCo_4F_EventScript_ItemMaxRevive::
-	finditem ITEM_MAX_REVIVE
+SilphCo_4F_EventScript_ItemMuscleBand::
+	finditem ITEM_MUSCLE_BAND
 	end
 
 SilphCo_4F_EventScript_ItemEscapeRope::
@@ -282,8 +282,8 @@ SilphCo_10F_EventScript_ItemCarbos::
 	finditem ITEM_CARBOS
 	end
 
-SilphCo_10F_EventScript_ItemUltraBall::
-	finditem ITEM_ULTRA_BALL
+SilphCo_10F_EventScript_ItemWiseGlasses::
+	finditem ITEM_WISE_GLASSES
 	end
 
 SilphCo_10F_EventScript_ItemRareCandy::
@@ -362,8 +362,8 @@ VictoryRoad_2F_EventScript_ItemTM07::
 	finditem ITEM_TM07
 	end
 
-VictoryRoad_2F_EventScript_ItemFullHeal::
-	finditem ITEM_FULL_HEAL
+VictoryRoad_2F_EventScript_ItemChoiceScarf::
+	finditem ITEM_CHOICE_SCARF
 	end
 
 VictoryRoad_2F_EventScript_ItemTM37::
@@ -598,8 +598,8 @@ ThreeIsland_BerryForest_EventScript_ItemFullHeal::
 	finditem ITEM_FULL_HEAL
 	end
 
-ThreeIsland_BerryForest_EventScript_ItemMaxElixir::
-	finditem ITEM_MAX_ELIXIR
+ThreeIsland_BerryForest_EventScript_ItemChoiceSpecs::
+	finditem ITEM_CHOICE_SPECS
 	end
 
 MtEmber_Exterior_EventScript_ItemUltraBall::

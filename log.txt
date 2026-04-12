@@ -1347,6 +1347,8 @@ x Ice Fang
 x Thunder Fang
 x Fire Fang
 - Iron Head
+- X-Scissor
+- Bug Bite
 - Air Slash
 - Close Combat
 - Brave Bird/Dragon Ascent
@@ -1360,7 +1362,7 @@ x Fire Fang
 - Draco Meteor
 - Dragon Pulse
 - High Horsepower
-- X-Scissor
+
 
 
 Items to add:
@@ -1369,19 +1371,21 @@ x Exp Candies
 x Bottle Caps
 x Focus Sash
 x Loaded Dice
-/ Choice Items
-- Wise Glasses
-- Muscle Band
-- Wide Lens
-- Expert Belt
-- Damp Rock
-- Heat Rock
-- Smooth Rock
-- Icy Rock
-- Light Clay
-- Eviolite
-- Air Balloon
-
+x Wise Glasses
+x Muscle Band
+x Choice Items
+/ Rocky Helmet
+/ Assault Vest
+/ Big Root
+/ Wide Lens
+/ Expert Belt
+/ Damp Rock
+/ Heat Rock
+/ Smooth Rock
+/ Icy Rock
+/ Eviolite
+/ Air Balloon
+/ Light Clay
 
 
 
