@@ -5932,7 +5932,7 @@ const struct Trainer gTrainers[] = {
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
         .party = NO_ITEM_DEFAULT_MOVES(sParty_TamerEvan),
     },
-    [TRAINER_POKEMANIAC_MARK_REMATCH_AFTER_FUCHSIA] = {
+    [TRAINER_POKEMANIAC_MARK_REMATCH_AFTER_LEAGUE] = {
         .trainerClass = TRAINER_CLASS_POKEMANIAC,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_SUSPICIOUS,
         .trainerPic = TRAINER_PIC_POKEMANIAC,
@@ -5940,7 +5940,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_PokemaniacMarkRematchAfterFuchsia),
+        .party = NO_ITEM_DEFAULT_MOVES(sParty_PokemaniacMarkRematchAfterLeague),
     },
     [TRAINER_PKMN_RANGER_LOGAN] = {
         .trainerClass = TRAINER_CLASS_PKMN_RANGER,

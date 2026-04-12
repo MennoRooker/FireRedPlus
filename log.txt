@@ -1245,6 +1245,12 @@ I am at Silph Co and I probably want to add the Muscle
 Band and Wise Glasses now so that I don't have to worry
 about those and where to place them in later versions.
 
+I've decided to add the Egg Move tutor to Fuchsia City,
+in the same house as the Move Deleter. With HMs being 
+removable the Move Deleter is much less essential during
+a playthrough so having the Egg Move tutor there may
+actually make the house a bit more relevant again.
+
 
 TO DO:
 x Add Bugsy
@@ -1299,16 +1305,17 @@ x Linearizations
 - Documentation
 ---------------------------------------
 - Add Fairy type
+- International Dex (Gens IV & V)
 - Physical/special split
 - Implement all abilites
-- Add gen 4 evos after dex upgrade
+- Custom move animations
 - Determine opponent EVs
 - Gym leaders rematches
 - Improved AI
 - Roamers
 - Events
 - Deoxys forms
-- Custom move animations
+
 
 
 

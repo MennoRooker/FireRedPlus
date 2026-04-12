@@ -174,10 +174,6 @@ NORMAL -> ELECTRIC
 - Fury Cutter
 10 -> 20
 
-- Dragon Breath
-60 -> 80
-20PP -> 15PP
-
 - Baton Pass
 40PP -> 10PP
 
