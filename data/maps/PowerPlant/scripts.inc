@@ -120,3 +120,11 @@ PowerPlant_EventScript_FoughtElectrode2::
 	setflag FLAG_FOUGHT_POWER_PLANT_ELECTRODE_2
 	goto EventScript_RemoveStaticMon
 	end
+
+PowerPlant_EventScript_Letter::
+	lock
+	faceplayer
+	removeobject VAR_LAST_TALKED
+	call EventScript_PickUpLetter
+	release
+	end

@@ -195,3 +195,11 @@ SeafoamIslands_B4F_EventScript_BoulderHintSign::
 SeafoamIslands_B4F_EventScript_FastCurrentSign::
 	msgbox SeafoamIslands_B4F_Text_DangerFastCurrent, MSGBOX_SIGN
 	end
+
+SeafoamIslands_B4F_EventScript_Letter::
+	lock
+	faceplayer
+	removeobject VAR_LAST_TALKED
+	call EventScript_PickUpLetter
+	release
+	end

@@ -1267,6 +1267,18 @@ work as an exclusive ability for the Magcargo line.
 I will probably have to come up with something for 
 Camerupt then. Maybe just keep Oblivious from Numel.
 
+I can make the second run of the E4 completely different
+than rematches. I wanted to make Steven the Champion, but
+maybe I can make it even more interesting. Steven could
+be an E4 member, since he is a type-specialist, which I
+don't think the Champion should be. I'm thinking of 
+making Paul champion. I also intend to have BLUE come
+up to the player after the first E4 run to explain that
+he was stripped of his title. Paul's team consists mainly
+of gen 4 mons so he would be perfect for an international
+dex showcase and finisher. I want him to at least have an
+Electivire and probably Garchomp etc.
+
 
 TO DO:
 x Add Bugsy
@@ -1317,12 +1329,14 @@ x Linearizations
 - Victory Road FLY checkpoint
 - Agatha's Flutter Mane
 - Max rematch
+- Steven E4
 - Title screen
 - Clean up
 - Documentation
 ---------------------------------------
 - Add Fairy type
 - International Dex (Gens IV & V)
+- Paul Champion
 - Physical/special split
 - Dynamic speed
 - Implement all abilites
@@ -1411,6 +1425,7 @@ x Choice Items
 / Eviolite
 / Air Balloon
 / Light Clay
+- Life Orb
 
 
 

@@ -1,4 +1,4 @@
-PokemonLeague_ChampionsRoom_Text_Intro::
+PokemonLeague_ChampionsRoom_Text_IntroPart1::
     .string "{RIVAL}: Hey, {PLAYER}!\p"
     .string "I was looking forward to seeing\n"
     .string "you, {PLAYER}.\p"
@@ -7,8 +7,29 @@ PokemonLeague_ChampionsRoom_Text_Intro::
     .string "While working on my POKéDEX, I\n"
     .string "looked all over for POKéMON.\p"
     .string "Not only that, I assembled teams\n"
-    .string "that would beat any POKéMON type.\p"
-    .string "And now…\p"
+    .string "that would beat any POKéMON type.$"
+
+PokemonLeague_ChampionsRoom_Text_DidYouFindMyLetters::
+    .string "Tell me, did you find my letters?$"
+
+PokemonLeague_ChampionsRoom_Text_FoundNoLetters::
+    .string "You didn't?\p"
+    .string "Well I can't say I'm surprised.\n"
+    .string "You never were too clever…\p"
+    .string "While you were off dilly-dallying\n"
+    .string "I recruited the strongest POKéMON\l"
+    .string "in the whole region.\p"
+    .string "And now…$"
+
+PokemonLeague_ChampionsRoom_Text_FoundLetters::
+    .string "HAHAHA! I knew you would.\p"
+    .string "You're so predictable and slow to\n" 
+    .string "everything.\p"
+    .string "I'm honestly surprised you even got\n"
+    .string "to this point.\p"
+    .string "But now…$"
+
+PokemonLeague_ChampionsRoom_Text_IntroPart2::
     .string "I'm the POKéMON LEAGUE CHAMPION!\p"
     .string "{PLAYER}!\n"
     .string "Do you know what that means?\p"

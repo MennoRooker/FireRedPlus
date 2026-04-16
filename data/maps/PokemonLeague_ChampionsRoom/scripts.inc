@@ -113,7 +113,18 @@ PokemonLeague_ChampionsRoom_EventScript_Rematch::
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_Intro::
-	msgbox PokemonLeague_ChampionsRoom_Text_Intro
+	msgbox PokemonLeague_ChampionsRoom_Text_IntroPart1
+	msgbox PokemonLeague_ChampionsRoom_Text_DidYouFindMyLetters
+	goto_if_eq VAR_LETTERS_FOUND, 0, PokemonLeague_ChampionsRoom_EventScript_FoundNoLetters
+	msgbox PokemonLeague_ChampionsRoom_Text_FoundLetters
+	goto PokemonLeague_ChampionsRoom_EventScript_IntroPart2
+
+PokemonLeague_ChampionsRoom_EventScript_FoundNoLetters::
+	msgbox PokemonLeague_ChampionsRoom_Text_FoundNoLetters
+	goto PokemonLeague_ChampionsRoom_EventScript_IntroPart2
+
+PokemonLeague_ChampionsRoom_EventScript_IntroPart2::
+	msgbox PokemonLeague_ChampionsRoom_Text_IntroPart2
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_RematchIntro::

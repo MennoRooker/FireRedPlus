@@ -440,7 +440,7 @@
 #define FLAG_HIDE_POKEMON_MANSION_3F_IRON                       0x1A3
 #define FLAG_HIDE_POKEMON_MANSION_B1F_TM14                      0x1A4
 #define FLAG_HIDE_POKEMON_MANSION_B1F_FULL_RESTORE              0x1A5
-#define FLAG_0x1A6                                              0x1A6
+#define FLAG_HIDE_POWER_PLANT_LETTER                            0x1A6
 #define FLAG_HIDE_POKEMON_MANSION_B1F_TM22                      0x1A7
 #define FLAG_HIDE_POKEMON_MANSION_B1F_SECRET_KEY                0x1A8
 #define FLAG_HIDE_VICTORY_ROAD_1F_RARE_CANDY                    0x1A9
@@ -462,8 +462,8 @@
 #define FLAG_HIDE_FUCHSIA_CITY_WARDENS_HOUSE_RARE_CANDY         0x1B9
 #define FLAG_HIDE_TWO_ISLAND_REVIVE                             0x1BA
 #define FLAG_HIDE_THREE_ISLAND_ZINC                             0x1BB
-#define FLAG_0x1BC                                              0x1BC
-#define FLAG_0x1BD                                              0x1BD
+#define FLAG_HIDE_MT_EMBER_SUMMIT_LETTER                        0x1BC
+#define FLAG_HIDE_SEAFOAM_ISLANDS_B4F_LETTER                    0x1BD
 #define FLAG_HIDE_VIRIDIAN_FOREST_SILVER_POWDER                 0x1BE
 #define FLAG_HIDE_MT_MOON_B2F_REVIVE                            0x1BF
 #define FLAG_HIDE_MT_MOON_B2F_EXP_CANDY_S                       0x1C0

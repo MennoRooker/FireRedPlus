@@ -57,3 +57,11 @@ MtEmber_Summit_EventScript_RanFromMoltres::
 	setvar VAR_0x8004, SPECIES_MOLTRES
 	goto EventScript_MonFlewAway
 	end
+
+MtEmber_Summit_EventScript_Letter::
+	lock
+	faceplayer
+	removeobject VAR_LAST_TALKED
+	call EventScript_PickUpLetter
+	release
+	end
