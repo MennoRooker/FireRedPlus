@@ -5,6 +5,16 @@ ViridianCity_Mart_MapScripts::
 
 ViridianCity_Mart_OnLoad::
 	goto_if_unset FLAG_SYS_POKEDEX_GET, ViridianCity_Mart_EventScript_HideQuestionnaire
+	call_if_unset FLAG_HIDE_MOLTRES, ViridianCity_Mart_EventScript_SetLegendaryBirdHideFlags
+	call_if_unset FLAG_HIDE_ZAPDOS, ViridianCity_Mart_EventScript_SetLegendaryBirdHideFlags
+	call_if_unset FLAG_HIDE_ARTICUNO, ViridianCity_Mart_EventScript_SetLegendaryBirdHideFlags
+	end
+
+ViridianCity_Mart_EventScript_SetLegendaryBirdHideFlags::
+	setflag FLAG_HIDE_MOLTRES
+	setflag FLAG_HIDE_ZAPDOS
+	setflag FLAG_HIDE_ARTICUNO
+	return
 	end
 
 ViridianCity_Mart_EventScript_HideQuestionnaire::

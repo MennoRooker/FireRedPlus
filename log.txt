@@ -1309,10 +1309,10 @@ x Egg Move tutor
 x Linearizations
 / HMs rework
 / Balancing
-- Dynamic speed
+- Letters
+- Ghosts can escape
 - ITEM-MOVE option
 - HP beeping
-- Letters
 - Faster Bike
 - Victory Road FLY checkpoint
 - Agatha's Flutter Mane
@@ -1324,6 +1324,7 @@ x Linearizations
 - Add Fairy type
 - International Dex (Gens IV & V)
 - Physical/special split
+- Dynamic speed
 - Implement all abilites
 - Custom move animations
 - Determine opponent EVs
