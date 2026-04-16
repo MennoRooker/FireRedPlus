@@ -40,6 +40,7 @@ SeafoamIslands_B4F_EventScript_SetNoCurrentLayout::
 	return
 
 SeafoamIslands_B4F_EventScript_ShowArticuno::
+	goto_if_unset FLAG_SYS_GAME_CLEAR, EventScript_Return
 	clearflag FLAG_HIDE_ARTICUNO
 	return
 

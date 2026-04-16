@@ -21,6 +21,7 @@ PowerPlant_OnTransition::
 	end
 
 PowerPlant_EventScript_ShowZapdos::
+	goto_if_unset FLAG_SYS_GAME_CLEAR, EventScript_Return
 	clearflag FLAG_HIDE_ZAPDOS
 	return
 
