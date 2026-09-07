@@ -20,8 +20,8 @@ CinnabarIsland_Gym_Text_FireBlastIsUltimateFireMove::
 
 CinnabarIsland_Gym_Text_ExplainVolcanoBadge::
     .string "Hah!\p"
-    .string "The VOLCANOBADGE is a highly\n"
-    .string "coveted item, young one!\p"
+    .string "The VOLCANOBADGE allows you to\n"
+    .string "use WATERFALL outside of battle.\p"
     .string "Here, you can have this, too!$"
 
 CinnabarIsland_Gym_Text_ReceivedTM38FromBlaine::
