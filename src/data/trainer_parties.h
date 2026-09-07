@@ -1618,7 +1618,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CamperRickyRematchAfterF
     {
         .iv = 6,
         .lvl = 39,
-        .species = SPECIES_GOLEM,
+        .species = SPECIES_GRAVELER,
     },
 };
 
@@ -6031,7 +6031,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGruntCedric[] 
     {
         .iv = 15,
         .lvl = 40,
-        .species = SPECIES_GOLEM,
+        .species = SPECIES_GRAVELER,
     },
 };
 

@@ -2458,8 +2458,8 @@
                 "species": "SPECIES_KADABRA"
               },
               {
-                "min_level": 36,
-                "max_level": 36,
+                "min_level": 39,
+                "max_level": 39,
                 "species": "SPECIES_GENGAR"
               }
             ]
@@ -2527,8 +2527,8 @@
                 "species": "SPECIES_KADABRA"
               },
               {
-                "min_level": 36,
-                "max_level": 36,
+                "min_level": 39,
+                "max_level": 39,
                 "species": "SPECIES_GENGAR"
               }
             ]
