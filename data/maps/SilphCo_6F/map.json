@@ -26,7 +26,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "2",
-      "script": "SilphCo_6F_EventScript_Grunt1",
+      "script": "SilphCo_6F_EventScript_GruntFelix",
       "flag": "FLAG_HIDE_SILPH_ROCKETS"
     },
     {
@@ -152,7 +152,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "2",
-      "script": "SilphCo_6F_EventScript_Grunt2",
+      "script": "SilphCo_6F_EventScript_GruntLevi",
       "flag": "FLAG_HIDE_SILPH_ROCKETS"
     }
   ],

@@ -62,26 +62,26 @@ SilphCo_11F_Text_GiovanniPostBattle::
     .string "POKéMON exist for TEAM ROCKET!\p"
     .string "I must go, but I shall return!$"
 
-SilphCo_11F_Text_Grunt2Intro::
+SilphCo_11F_Text_GruntCalderIntro::
     .string "Stop right there!\n"
     .string "Don't you move!$"
 
-SilphCo_11F_Text_Grunt2Defeat::
+SilphCo_11F_Text_GruntCalderDefeat::
     .string "Don't…\n"
     .string "Please!$"
 
-SilphCo_11F_Text_Grunt2PostBattle::
+SilphCo_11F_Text_GruntCalderPostBattle::
     .string "So, you want to see my BOSS?$"
 
-SilphCo_11F_Text_Grunt1Intro::
+SilphCo_11F_Text_GruntMarcelIntro::
     .string "Halt! Do you have an appointment\n"
     .string "with my BOSS?$"
 
-SilphCo_11F_Text_Grunt1Defeat::
+SilphCo_11F_Text_GruntMarcelDefeat::
     .string "Gaah!\n"
     .string "Demolished!$"
 
-SilphCo_11F_Text_Grunt1PostBattle::
+SilphCo_11F_Text_GruntMarcelPostBattle::
     .string "Watch your step…\n"
     .string "My BOSS likes his POKéMON tough!$"
 

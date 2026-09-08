@@ -37,14 +37,14 @@ SilphCo_6F_Text_ComeWorkForSilphWhenYoureOlder::
     .string "Come work for SILPH when you\n"
     .string "get older.$"
 
-SilphCo_6F_Text_Grunt1Intro::
+SilphCo_6F_Text_GruntFelixIntro::
     .string "I am one of the four ROCKET\n"
     .string "BROTHERS!$"
 
-SilphCo_6F_Text_Grunt1Defeat::
+SilphCo_6F_Text_GruntFelixDefeat::
     .string "Flame out!$"
 
-SilphCo_6F_Text_Grunt1PostBattle::
+SilphCo_6F_Text_GruntFelixPostBattle::
     .string "No matter!\n"
     .string "My brothers will avenge me!$"
 
@@ -62,13 +62,13 @@ SilphCo_6F_Text_TaylorPostBattle::
     .string "TIKSI BRANCH?\n"
     .string "It's in Russian no-man's-land!$"
 
-SilphCo_6F_Text_Grunt2Intro::
+SilphCo_6F_Text_GruntLeviIntro::
     .string "You dare betray TEAM ROCKET?$"
 
-SilphCo_6F_Text_Grunt2Defeat::
+SilphCo_6F_Text_GruntLeviDefeat::
     .string "You traitor!$"
 
-SilphCo_6F_Text_Grunt2PostBattle::
+SilphCo_6F_Text_GruntLeviPostBattle::
     .string "If you stand for justice, you\n"
     .string "betray us bad guys!$"
 

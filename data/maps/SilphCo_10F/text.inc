@@ -1,8 +1,8 @@
-SilphCo_10F_Text_GruntIntro::
+SilphCo_10F_Text_GruntConradIntro::
     .string "Welcome to 10F!\n"
     .string "So good of you to join me!$"
 
-SilphCo_10F_Text_GruntDefeat::
+SilphCo_10F_Text_GruntConradDefeat::
     .string "I'm stunned!$"
 
 SilphCo_10F_Text_GruntPostBattle::

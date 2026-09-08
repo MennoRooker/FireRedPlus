@@ -30,7 +30,7 @@
       "flag": "FLAG_HIDE_TOWER_FUJI"
     },
     {
-      "local_id": "LOCALID_POKEMON_TOWER_GRUNT1",
+      "local_id": "LOCALID_POKEMON_TOWER_GRUNT_TRISTAN",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ROCKET_M",
       "x": 9,
@@ -41,11 +41,11 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "4",
-      "script": "PokemonTower_7F_EventScript_Grunt1",
+      "script": "PokemonTower_7F_EventScript_GruntTristan",
       "flag": "FLAG_HIDE_TOWER_ROCKET_1"
     },
     {
-      "local_id": "LOCALID_POKEMON_TOWER_GRUNT2",
+      "local_id": "LOCALID_POKEMON_TOWER_GRUNT_ADRIAN",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ROCKET_M",
       "x": 13,
@@ -56,11 +56,11 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "4",
-      "script": "PokemonTower_7F_EventScript_Grunt2",
+      "script": "PokemonTower_7F_EventScript_GruntAdrian",
       "flag": "FLAG_HIDE_TOWER_ROCKET_2"
     },
     {
-      "local_id": "LOCALID_POKEMON_TOWER_GRUNT3",
+      "local_id": "LOCALID_POKEMON_TOWER_GRUNT_DESMOND",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ROCKET_M",
       "x": 9,
@@ -71,7 +71,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "4",
-      "script": "PokemonTower_7F_EventScript_Grunt3",
+      "script": "PokemonTower_7F_EventScript_GruntDesmond",
       "flag": "FLAG_HIDE_TOWER_ROCKET_3"
     }
   ],

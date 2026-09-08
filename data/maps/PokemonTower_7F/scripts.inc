@@ -15,49 +15,49 @@ PokemonTower_7F_EventScript_MrFuji::
 	release
 	end
 
-PokemonTower_7F_EventScript_Grunt1::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_TRISTAN, PokemonTower_7F_Text_Grunt1Intro, PokemonTower_7F_Text_Grunt1Defeat, PokemonTower_7F_EventScript_DefeatedGrunt1
-	msgbox PokemonTower_7F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE
+PokemonTower_7F_EventScript_GruntTristan::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_TRISTAN, PokemonTower_7F_Text_GruntTristanIntro, PokemonTower_7F_Text_GruntTristanDefeat, PokemonTower_7F_EventScript_DefeatedGruntTristan
+	msgbox PokemonTower_7F_Text_GruntTristanPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-PokemonTower_7F_EventScript_DefeatedGrunt1::
-	msgbox PokemonTower_7F_Text_Grunt1PostBattle
+PokemonTower_7F_EventScript_DefeatedGruntTristan::
+	msgbox PokemonTower_7F_Text_GruntTristanPostBattle
 	closemessage
 	getplayerxy VAR_0x8004, VAR_0x8005
-	goto_if_eq VAR_0x8004, 10, PokemonTower_7F_EventScript_Grunt1ExitMid
-	goto_if_eq VAR_0x8004, 11, PokemonTower_7F_EventScript_Grunt1ExitRight
-	goto_if_eq VAR_0x8004, 9, PokemonTower_7F_EventScript_Grunt1ExitLeft
-	applymovement LOCALID_POKEMON_TOWER_GRUNT1, PokemonTower_7F_Movement_Grunt1Exit
+	goto_if_eq VAR_0x8004, 10, PokemonTower_7F_EventScript_GruntTristanExitMid
+	goto_if_eq VAR_0x8004, 11, PokemonTower_7F_EventScript_GruntTristanExitRight
+	goto_if_eq VAR_0x8004, 9, PokemonTower_7F_EventScript_GruntTristanExitLeft
+	applymovement LOCALID_POKEMON_TOWER_GRUNT_TRISTAN, PokemonTower_7F_Movement_GruntTristanExit
 	waitmovement 0
-	goto PokemonTower_7F_EventScript_RemoveGrunt1
+	goto PokemonTower_7F_EventScript_RemoveGruntTristan
 	end
 
-PokemonTower_7F_EventScript_Grunt1ExitMid::
-	applymovement LOCALID_POKEMON_TOWER_GRUNT1, PokemonTower_7F_Movement_Grunt1ExitMid
+PokemonTower_7F_EventScript_GruntTristanExitMid::
+	applymovement LOCALID_POKEMON_TOWER_GRUNT_TRISTAN, PokemonTower_7F_Movement_GruntTristanExitMid
 	waitmovement 0
-	goto PokemonTower_7F_EventScript_RemoveGrunt1
+	goto PokemonTower_7F_EventScript_RemoveGruntTristan
 	end
 
-PokemonTower_7F_EventScript_Grunt1ExitRight::
-	applymovement LOCALID_POKEMON_TOWER_GRUNT1, PokemonTower_7F_Movement_Grunt1ExitRight
+PokemonTower_7F_EventScript_GruntTristanExitRight::
+	applymovement LOCALID_POKEMON_TOWER_GRUNT_TRISTAN, PokemonTower_7F_Movement_GruntTristanExitRight
 	waitmovement 0
-	goto PokemonTower_7F_EventScript_RemoveGrunt1
+	goto PokemonTower_7F_EventScript_RemoveGruntTristan
 	end
 
-PokemonTower_7F_EventScript_Grunt1ExitLeft::
-	applymovement LOCALID_POKEMON_TOWER_GRUNT1, PokemonTower_7F_Movement_Grunt1ExitLeft
+PokemonTower_7F_EventScript_GruntTristanExitLeft::
+	applymovement LOCALID_POKEMON_TOWER_GRUNT_TRISTAN, PokemonTower_7F_Movement_GruntTristanExitLeft
 	waitmovement 0
 	playse SE_EXIT
 	delay 25
-	goto PokemonTower_7F_EventScript_RemoveGrunt1
+	goto PokemonTower_7F_EventScript_RemoveGruntTristan
 	end
 
-PokemonTower_7F_EventScript_RemoveGrunt1::
-	removeobject LOCALID_POKEMON_TOWER_GRUNT1
+PokemonTower_7F_EventScript_RemoveGruntTristan::
+	removeobject LOCALID_POKEMON_TOWER_GRUNT_TRISTAN
 	release
 	end
 
-PokemonTower_7F_Movement_Grunt1ExitMid::
+PokemonTower_7F_Movement_GruntTristanExitMid::
 	walk_down
 	walk_right
 	walk_down
@@ -68,7 +68,7 @@ PokemonTower_7F_Movement_Grunt1ExitMid::
 	walk_down
 	step_end
 
-PokemonTower_7F_Movement_Grunt1ExitRight::
+PokemonTower_7F_Movement_GruntTristanExitRight::
 	walk_down
 	walk_down
 	walk_down
@@ -78,7 +78,7 @@ PokemonTower_7F_Movement_Grunt1ExitRight::
 	walk_down
 	step_end
 
-PokemonTower_7F_Movement_Grunt1Exit::
+PokemonTower_7F_Movement_GruntTristanExit::
 	walk_down
 	walk_down
 	walk_down
@@ -87,7 +87,7 @@ PokemonTower_7F_Movement_Grunt1Exit::
 	walk_down
 	step_end
 
-PokemonTower_7F_Movement_Grunt1ExitLeft::
+PokemonTower_7F_Movement_GruntTristanExitLeft::
 	walk_right
 	walk_down
 	walk_down
@@ -99,41 +99,41 @@ PokemonTower_7F_Movement_Grunt1ExitLeft::
 	walk_in_place_faster_left
 	step_end
 
-PokemonTower_7F_EventScript_Grunt2::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_ADRIAN, PokemonTower_7F_Text_Grunt2Intro, PokemonTower_7F_Text_Grunt2Defeat, PokemonTower_7F_EventScript_DefeatedGrunt2
-	msgbox PokemonTower_7F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
+PokemonTower_7F_EventScript_GruntAdrian::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_ADRIAN, PokemonTower_7F_Text_GruntAdrianIntro, PokemonTower_7F_Text_GruntAdrianDefeat, PokemonTower_7F_EventScript_DefeatedGruntAdrian
+	msgbox PokemonTower_7F_Text_GruntAdrianPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-PokemonTower_7F_EventScript_DefeatedGrunt2::
+PokemonTower_7F_EventScript_DefeatedGruntAdrian::
 	famechecker FAMECHECKER_MRFUJI, 1
-	msgbox PokemonTower_7F_Text_Grunt2PostBattle
+	msgbox PokemonTower_7F_Text_GruntAdrianPostBattle
 	closemessage
 	getplayerxy VAR_0x8004, VAR_0x8005
-	goto_if_eq VAR_0x8004, 12, PokemonTower_7F_EventScript_Grunt2ExitLeft
-	goto_if_eq VAR_0x8004, 13, PokemonTower_7F_EventScript_Grunt2ExitRight
-	applymovement LOCALID_POKEMON_TOWER_GRUNT2, PokemonTower_7F_Movement_Grunt2Exit
+	goto_if_eq VAR_0x8004, 12, PokemonTower_7F_EventScript_GruntAdrianExitLeft
+	goto_if_eq VAR_0x8004, 13, PokemonTower_7F_EventScript_GruntAdrianExitRight
+	applymovement LOCALID_POKEMON_TOWER_GRUNT_ADRIAN, PokemonTower_7F_Movement_GruntAdrianExit
 	waitmovement 0
-	goto PokemonTower_7F_EventScript_RemoveGrunt2
+	goto PokemonTower_7F_EventScript_RemoveGruntAdrian
 	end
 
-PokemonTower_7F_EventScript_Grunt2ExitLeft::
-	applymovement LOCALID_POKEMON_TOWER_GRUNT2, PokemonTower_7F_Movement_Grunt2ExitLeft
+PokemonTower_7F_EventScript_GruntAdrianExitLeft::
+	applymovement LOCALID_POKEMON_TOWER_GRUNT_ADRIAN, PokemonTower_7F_Movement_GruntAdrianExitLeft
 	waitmovement 0
-	goto PokemonTower_7F_EventScript_RemoveGrunt2
+	goto PokemonTower_7F_EventScript_RemoveGruntAdrian
 	end
 
-PokemonTower_7F_EventScript_Grunt2ExitRight::
-	applymovement LOCALID_POKEMON_TOWER_GRUNT2, PokemonTower_7F_Movement_Grunt2ExitRight
+PokemonTower_7F_EventScript_GruntAdrianExitRight::
+	applymovement LOCALID_POKEMON_TOWER_GRUNT_ADRIAN, PokemonTower_7F_Movement_GruntAdrianExitRight
 	waitmovement 0
-	goto PokemonTower_7F_EventScript_RemoveGrunt2
+	goto PokemonTower_7F_EventScript_RemoveGruntAdrian
 	end
 
-PokemonTower_7F_EventScript_RemoveGrunt2::
-	removeobject LOCALID_POKEMON_TOWER_GRUNT2
+PokemonTower_7F_EventScript_RemoveGruntAdrian::
+	removeobject LOCALID_POKEMON_TOWER_GRUNT_ADRIAN
 	release
 	end
 
-PokemonTower_7F_Movement_Grunt2ExitLeft::
+PokemonTower_7F_Movement_GruntAdrianExitLeft::
 	walk_down
 	walk_down
 	walk_down
@@ -143,7 +143,7 @@ PokemonTower_7F_Movement_Grunt2ExitLeft::
 	walk_down
 	step_end
 
-PokemonTower_7F_Movement_Grunt2Exit::
+PokemonTower_7F_Movement_GruntAdrianExit::
 	walk_down
 	walk_down
 	walk_down
@@ -152,7 +152,7 @@ PokemonTower_7F_Movement_Grunt2Exit::
 	walk_down
 	step_end
 
-PokemonTower_7F_Movement_Grunt2ExitRight::
+PokemonTower_7F_Movement_GruntAdrianExitRight::
 	walk_left
 	walk_down
 	walk_down
@@ -163,36 +163,36 @@ PokemonTower_7F_Movement_Grunt2ExitRight::
 	walk_down
 	step_end
 
-PokemonTower_7F_EventScript_Grunt3::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_DESMOND, PokemonTower_7F_Text_Grunt3Intro, PokemonTower_7F_Text_Grunt3Defeat, PokemonTower_7F_EventScript_DefeatedGrunt3
-	msgbox PokemonTower_7F_Text_Grunt3PostBattle, MSGBOX_AUTOCLOSE
+PokemonTower_7F_EventScript_GruntDesmond::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_DESMOND, PokemonTower_7F_Text_GruntDesmondIntro, PokemonTower_7F_Text_GruntDesmondDefeat, PokemonTower_7F_EventScript_DefeatedGruntDesmond
+	msgbox PokemonTower_7F_Text_GruntDesmondPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-PokemonTower_7F_EventScript_DefeatedGrunt3::
-	msgbox PokemonTower_7F_Text_Grunt3PostBattle
+PokemonTower_7F_EventScript_DefeatedGruntDesmond::
+	msgbox PokemonTower_7F_Text_GruntDesmondPostBattle
 	closemessage
 	getplayerxy VAR_0x8004, VAR_0x8005
-	goto_if_eq VAR_0x8004, 10, PokemonTower_7F_EventScript_Grunt3ExitRight
-	goto_if_eq VAR_0x8004, 9, PokemonTower_7F_EventScript_Grunt3ExitLeft
-	applymovement LOCALID_POKEMON_TOWER_GRUNT3, PokemonTower_7F_Movement_Grunt3Exit
+	goto_if_eq VAR_0x8004, 10, PokemonTower_7F_EventScript_GruntDesmondExitRight
+	goto_if_eq VAR_0x8004, 9, PokemonTower_7F_EventScript_GruntDesmondExitLeft
+	applymovement LOCALID_POKEMON_TOWER_GRUNT_DESMOND, PokemonTower_7F_Movement_GruntDesmondExit
 	waitmovement 0
-	goto PokemonTower_7F_EventScript_RemoveGrunt3
+	goto PokemonTower_7F_EventScript_RemoveGruntDesmond
 	end
 
-PokemonTower_7F_EventScript_Grunt3ExitRight::
-	applymovement LOCALID_POKEMON_TOWER_GRUNT3, PokemonTower_7F_Movement_Grunt3ExitRight
+PokemonTower_7F_EventScript_GruntDesmondExitRight::
+	applymovement LOCALID_POKEMON_TOWER_GRUNT_DESMOND, PokemonTower_7F_Movement_GruntDesmondExitRight
 	waitmovement 0
-	goto PokemonTower_7F_EventScript_RemoveGrunt3
+	goto PokemonTower_7F_EventScript_RemoveGruntDesmond
 	end
 
-PokemonTower_7F_EventScript_Grunt3ExitLeft::
-	applymovement LOCALID_POKEMON_TOWER_GRUNT3, PokemonTower_7F_Movement_Grunt3ExitLeft
+PokemonTower_7F_EventScript_GruntDesmondExitLeft::
+	applymovement LOCALID_POKEMON_TOWER_GRUNT_DESMOND, PokemonTower_7F_Movement_GruntDesmondExitLeft
 	waitmovement 0
-	goto PokemonTower_7F_EventScript_RemoveGrunt3
+	goto PokemonTower_7F_EventScript_RemoveGruntDesmond
 	end
 
-PokemonTower_7F_EventScript_RemoveGrunt3::
-	removeobject LOCALID_POKEMON_TOWER_GRUNT3
+PokemonTower_7F_EventScript_RemoveGruntDesmond::
+	removeobject LOCALID_POKEMON_TOWER_GRUNT_DESMOND
 	release
 	end
 
@@ -200,7 +200,7 @@ PokemonTower_7F_EventScript_Unused::
 	release
 	end
 
-PokemonTower_7F_Movement_Grunt3ExitRight::
+PokemonTower_7F_Movement_GruntDesmondExitRight::
 	walk_down
 	walk_down
 	walk_down
@@ -210,7 +210,7 @@ PokemonTower_7F_Movement_Grunt3ExitRight::
 	walk_down
 	step_end
 
-PokemonTower_7F_Movement_Grunt3Exit::
+PokemonTower_7F_Movement_GruntDesmondExit::
 	walk_down
 	walk_down
 	walk_down
@@ -219,7 +219,7 @@ PokemonTower_7F_Movement_Grunt3Exit::
 	walk_down
 	step_end
 
-PokemonTower_7F_Movement_Grunt3ExitLeft::
+PokemonTower_7F_Movement_GruntDesmondExitLeft::
 	walk_right
 	walk_down
 	walk_down

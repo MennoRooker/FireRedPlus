@@ -25,12 +25,12 @@ SilphCo_2F_EventScript_Jerry::
 	msgbox SilphCo_2F_Text_JerryPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_2F_EventScript_Grunt1::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_SILAS, SilphCo_2F_Text_Grunt1Intro, SilphCo_2F_Text_Grunt1Defeat
-	msgbox SilphCo_2F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_2F_EventScript_GruntSilas::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_SILAS, SilphCo_2F_Text_GruntSilasIntro, SilphCo_2F_Text_GruntSilasDefeat
+	msgbox SilphCo_2F_Text_GruntSilasPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_2F_EventScript_Grunt2::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_QUENTIN, SilphCo_2F_Text_Grunt2Intro, SilphCo_2F_Text_Grunt2Defeat
-	msgbox SilphCo_2F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_2F_EventScript_GruntQuentin::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_QUENTIN, SilphCo_2F_Text_GruntQuentinIntro, SilphCo_2F_Text_GruntQuentinDefeat
+	msgbox SilphCo_2F_Text_GruntQuentinPostBattle, MSGBOX_AUTOCLOSE
 	end

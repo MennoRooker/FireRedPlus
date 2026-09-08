@@ -34,12 +34,12 @@ SilphCo_9F_EventScript_Ed::
 	msgbox SilphCo_9F_Text_EdPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_9F_EventScript_Grunt1::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_HAYDEN, SilphCo_9F_Text_Grunt1Intro, SilphCo_9F_Text_Grunt1Defeat
-	msgbox SilphCo_9F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_9F_EventScript_GruntHayden::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_HAYDEN, SilphCo_9F_Text_GruntHaydenIntro, SilphCo_9F_Text_GruntHaydenDefeat
+	msgbox SilphCo_9F_Text_GruntHaydenPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_9F_EventScript_Grunt2::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_BLAKE, SilphCo_9F_Text_Grunt2Intro, SilphCo_9F_Text_Grunt2Defeat
-	msgbox SilphCo_9F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_9F_EventScript_GruntBlake::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_BLAKE, SilphCo_9F_Text_GruntBlakeIntro, SilphCo_9F_Text_GruntBlakeDefeat
+	msgbox SilphCo_9F_Text_GruntBlakePostBattle, MSGBOX_AUTOCLOSE
 	end

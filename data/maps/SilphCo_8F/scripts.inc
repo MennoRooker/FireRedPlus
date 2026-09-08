@@ -28,12 +28,12 @@ SilphCo_8F_EventScript_Parker::
 	msgbox SilphCo_8F_Text_ParkerPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_8F_EventScript_Grunt1::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_ARLO, SilphCo_8F_Text_Grunt1Intro, SilphCo_8F_Text_Grunt1Defeat
-	msgbox SilphCo_8F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_8F_EventScript_GruntArlo::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_ARLO, SilphCo_8F_Text_GruntArloIntro, SilphCo_8F_Text_GruntArloDefeat
+	msgbox SilphCo_8F_Text_GruntArloPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_8F_EventScript_Grunt2::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_PIERCE, SilphCo_8F_Text_Grunt2Intro, SilphCo_8F_Text_Grunt2Defeat
-	msgbox SilphCo_8F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_8F_EventScript_GruntPierce::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_PIERCE, SilphCo_8F_Text_GruntPierceIntro, SilphCo_8F_Text_GruntPierceDefeat
+	msgbox SilphCo_8F_Text_GruntPiercePostBattle, MSGBOX_AUTOCLOSE
 	end

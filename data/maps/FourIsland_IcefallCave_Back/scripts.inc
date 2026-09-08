@@ -43,9 +43,9 @@ FourIsland_IcefallCave_Back_EventScript_LoreleiRocketsScene::
 	waitmovement 0
 	playbgm MUS_ENCOUNTER_ROCKET, 0
 	textcolor NPC_TEXT_COLOR_MALE
-	msgbox FourIsland_IcefallCave_Back_Text_GruntIntro
+	msgbox FourIsland_IcefallCave_Back_Text_GruntEliasIntro
 	setvar VAR_LAST_TALKED, LOCALID_ICEFALL_ROCKET3
-	trainerbattle_no_intro TRAINER_TEAM_ROCKET_GRUNT_ELIAS, FourIsland_IcefallCave_Back_Text_GruntDefeat
+	trainerbattle_no_intro TRAINER_TEAM_ROCKET_GRUNT_ELIAS, FourIsland_IcefallCave_Back_Text_GruntEliasDefeat
 	applymovement LOCALID_ICEFALL_LORELEI, FourIsland_IcefallCave_Back_Movement_WalkInPlaceUp
 	waitmovement 0
 	textcolor NPC_TEXT_COLOR_FEMALE

@@ -80,12 +80,12 @@ SilphCo_6F_EventScript_Taylor::
 	msgbox SilphCo_6F_Text_TaylorPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_6F_EventScript_Grunt1::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_FELIX, SilphCo_6F_Text_Grunt1Intro, SilphCo_6F_Text_Grunt1Defeat
-	msgbox SilphCo_6F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_6F_EventScript_GruntFelix::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_FELIX, SilphCo_6F_Text_GruntFelixIntro, SilphCo_6F_Text_GruntFelixDefeat
+	msgbox SilphCo_6F_Text_GruntFelixPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_6F_EventScript_Grunt2::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_LEVI, SilphCo_6F_Text_Grunt2Intro, SilphCo_6F_Text_Grunt2Defeat
-	msgbox SilphCo_6F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_6F_EventScript_GruntLevi::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_LEVI, SilphCo_6F_Text_GruntLeviIntro, SilphCo_6F_Text_GruntLeviDefeat
+	msgbox SilphCo_6F_Text_GruntLeviPostBattle, MSGBOX_AUTOCLOSE
 	end

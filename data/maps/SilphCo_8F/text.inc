@@ -4,13 +4,13 @@ SilphCo_8F_Text_WonderIfSilphIsFinished::
 SilphCo_8F_Text_ThanksForSavingUs::
     .string "Thanks for saving us!$"
 
-SilphCo_8F_Text_Grunt1Intro::
+SilphCo_8F_Text_GruntArloIntro::
     .string "That's as far as you'll go!$"
 
-SilphCo_8F_Text_Grunt1Defeat::
+SilphCo_8F_Text_GruntArloDefeat::
     .string "Not enough grit!$"
 
-SilphCo_8F_Text_Grunt1PostBattle::
+SilphCo_8F_Text_GruntArloPostBattle::
     .string "If you don't turn back…\n"
     .string "I'll call for backup!$"
 
@@ -25,15 +25,15 @@ SilphCo_8F_Text_ParkerPostBattle::
     .string "So, what do you think of SILPH\n"
     .string "BUILDING's maze?$"
 
-SilphCo_8F_Text_Grunt2Intro::
+SilphCo_8F_Text_GruntPierceIntro::
     .string "I am one of the four ROCKET\n"
     .string "BROTHERS!$"
 
-SilphCo_8F_Text_Grunt2Defeat::
+SilphCo_8F_Text_GruntPierceDefeat::
     .string "Whoo!\n"
     .string "Oh, Brothers!$"
 
-SilphCo_8F_Text_Grunt2PostBattle::
+SilphCo_8F_Text_GruntPiercePostBattle::
     .string "I'll leave you up to my brothers.$"
 
 SilphCo_8F_Text_FloorSign::

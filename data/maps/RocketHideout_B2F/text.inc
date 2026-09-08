@@ -1,8 +1,8 @@
-RocketHideout_B2F_Text_GruntIntro::
+RocketHideout_B2F_Text_GruntVictorIntro::
     .string "BOSS said you can see ghosts with\n"
     .string "the SILPH SCOPE.$"
 
-RocketHideout_B2F_Text_GruntDefeat::
+RocketHideout_B2F_Text_GruntVictorDefeat::
     .string "I surrender!$"
 
 RocketHideout_B2F_Text_GruntPostBattle::

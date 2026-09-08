@@ -6,14 +6,14 @@ SilphCo_4F_Text_TeamRocketIsGone::
     .string "Huh?\n"
     .string "TEAM ROCKET is gone?$"
 
-SilphCo_4F_Text_Grunt1Intro::
+SilphCo_4F_Text_GruntJulianIntro::
     .string "TEAM ROCKET has taken control\n"
     .string "of SILPH CO.!$"
 
-SilphCo_4F_Text_Grunt1Defeat::
+SilphCo_4F_Text_GruntJulianDefeat::
     .string "Arrgh!$"
 
-SilphCo_4F_Text_Grunt1PostBattle::
+SilphCo_4F_Text_GruntJulianPostBattle::
     .string "Fwahahaha!\n"
     .string "My BOSS has been after this place!$"
 
@@ -30,13 +30,13 @@ SilphCo_4F_Text_RodneyPostBattle::
     .string "It takes a CARD KEY to open the\n"
     .string "doors here.$"
 
-SilphCo_4F_Text_Grunt2Intro::
+SilphCo_4F_Text_GruntCallumIntro::
     .string "Intruder spotted!$"
 
-SilphCo_4F_Text_Grunt2Defeat::
+SilphCo_4F_Text_GruntCallumDefeat::
     .string "Who are you?$"
 
-SilphCo_4F_Text_Grunt2PostBattle::
+SilphCo_4F_Text_GruntCallumPostBattle::
     .string "I better tell the BOSS on 11F!$"
 
 SilphCo_4F_Text_FloorSign::

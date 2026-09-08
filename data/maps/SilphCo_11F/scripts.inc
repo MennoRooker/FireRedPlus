@@ -70,8 +70,7 @@ SilphCo_11F_EventScript_BattleGiovanni::
 	closemessage
 	fadescreen FADE_TO_BLACK
 	removeobject LOCALID_SILPH_CO_GIOVANNI
-	removeobject LOCALID_SILPH_CO_11F_GRUNT1
-	removeobject LOCALID_SILPH_CO_11F_GRUNT2
+	removeobject LOCALID_SILPH_CO_11F_GRUNT_MARCEL
 	fadescreen FADE_FROM_BLACK
 	setvar VAR_MAP_SCENE_SILPH_CO_11F, 1
 	setflag FLAG_HIDE_SAFFRON_ROCKETS
@@ -122,12 +121,12 @@ SilphCo_11F_EventScript_FloorSign::
 	msgbox SilphCo_11F_Text_FloorSign, MSGBOX_SIGN
 	end
 
-SilphCo_11F_EventScript_Grunt1::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_MARCEL, SilphCo_11F_Text_Grunt1Intro, SilphCo_11F_Text_Grunt1Defeat
-	msgbox SilphCo_11F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_11F_EventScript_GruntMarcel::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_MARCEL, SilphCo_11F_Text_GruntMarcelIntro, SilphCo_11F_Text_GruntMarcelDefeat
+	msgbox SilphCo_11F_Text_GruntMarcelPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_11F_EventScript_Grunt2::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_CALDER, SilphCo_11F_Text_Grunt2Intro, SilphCo_11F_Text_Grunt2Defeat
-	msgbox SilphCo_11F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_11F_EventScript_GruntCalder::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_CALDER, SilphCo_11F_Text_GruntCalderIntro, SilphCo_11F_Text_GruntCalderDefeat
+	msgbox SilphCo_11F_Text_GruntCalderPostBattle, MSGBOX_AUTOCLOSE
 	end

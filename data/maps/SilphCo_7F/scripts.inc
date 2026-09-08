@@ -217,17 +217,17 @@ SilphCo_7F_EventScript_Joshua::
 	msgbox SilphCo_7F_Text_JoshuaPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_7F_EventScript_Grunt1::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_SOREN, SilphCo_7F_Text_Grunt1Intro, SilphCo_7F_Text_Grunt1Defeat
-	msgbox SilphCo_7F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_7F_EventScript_GruntSoren::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_SOREN, SilphCo_7F_Text_GruntSorenIntro, SilphCo_7F_Text_GruntSorenDefeat
+	msgbox SilphCo_7F_Text_GruntSorenPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_7F_EventScript_Grunt2::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_DAMIAN, SilphCo_7F_Text_Grunt2Intro, SilphCo_7F_Text_Grunt2Defeat
-	msgbox SilphCo_7F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_7F_EventScript_GruntDamian::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_DAMIAN, SilphCo_7F_Text_GruntDamianIntro, SilphCo_7F_Text_GruntDamianDefeat
+	msgbox SilphCo_7F_Text_GruntDamianPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_7F_EventScript_Grunt3::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_ROWAN, SilphCo_7F_Text_Grunt3Intro, SilphCo_7F_Text_Grunt3Defeat
-	msgbox SilphCo_7F_Text_Grunt3PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_7F_EventScript_GruntRowan::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_ROWAN, SilphCo_7F_Text_GruntRowanIntro, SilphCo_7F_Text_GruntRowanDefeat
+	msgbox SilphCo_7F_Text_GruntRowanPostBattle, MSGBOX_AUTOCLOSE
 	end

@@ -59,18 +59,18 @@
       "flag": "FLAG_HIDE_SILPH_ROCKETS"
     },
     {
-      "local_id": "LOCALID_SILPH_CO_11F_GRUNT1",
+      "local_id": "LOCALID_SILPH_CO_11F_GRUNT_MARCEL",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ROCKET_M",
-      "x": 16,
-      "y": 12,
+      "x": 2,
+      "y": 19,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "5",
-      "script": "SilphCo_11F_EventScript_Grunt1",
+      "script": "SilphCo_11F_EventScript_GruntMarcel",
       "flag": "FLAG_HIDE_SILPH_ROCKETS"
     },
     {
@@ -86,21 +86,6 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "SilphCo_11F_EventScript_ItemZinc",
       "flag": "FLAG_HIDE_SILPH_CO_11F_ZINC"
-    },
-    {
-      "local_id": "LOCALID_SILPH_CO_11F_GRUNT2",
-      "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_ROCKET_M",
-      "x": 2,
-      "y": 19,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_UP",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "5",
-      "script": "SilphCo_11F_EventScript_Grunt2",
-      "flag": "FLAG_HIDE_SILPH_ROCKETS"
     }
   ],
   "warp_events": [

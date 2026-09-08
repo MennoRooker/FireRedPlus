@@ -22,12 +22,12 @@ FourIsland_IcefallCave_Back_Text_LoreleiPlayerHelpMeKickPoachersOut::
     .string "Are you ready?\n"
     .string "You take that one, please!$"
 
-FourIsland_IcefallCave_Back_Text_GruntIntro::
+FourIsland_IcefallCave_Back_Text_GruntEliasIntro::
     .string "W-what?!\p"
     .string "Who says we can't do what we want\n"
     .string "with the POKéMON we catch?$"
 
-FourIsland_IcefallCave_Back_Text_GruntDefeat::
+FourIsland_IcefallCave_Back_Text_GruntEliasDefeat::
     .string "We didn't plan on this!$"
 
 FourIsland_IcefallCave_Back_Text_LoreleiWhereHaveYouTakenMons::

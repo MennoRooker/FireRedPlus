@@ -165,15 +165,15 @@ CeruleanCity_Movement_RivalExit::
 	walk_down
 	step_end
 
-CeruleanCity_EventScript_Grunt::
+CeruleanCity_EventScript_GruntEmmet::
 	lock
 	faceplayer
 	goto_if_defeated TRAINER_TEAM_ROCKET_GRUNT_EMMET, CeruleanCity_EventScript_GruntDefeated
-	message CeruleanCity_Text_GruntIntro
+	message CeruleanCity_Text_GruntEmmetIntro
 	waitmessage
 	playbgm MUS_ENCOUNTER_ROCKET, 0
 	waitbuttonpress
-	trainerbattle_no_intro TRAINER_TEAM_ROCKET_GRUNT_EMMET, CeruleanCity_Text_GruntDefeat
+	trainerbattle_no_intro TRAINER_TEAM_ROCKET_GRUNT_EMMET, CeruleanCity_Text_GruntEmmetDefeat
 	setvar VAR_MAP_SCENE_CERULEAN_CITY_ROCKET, 1
 	goto CeruleanCity_EventScript_GruntDefeated
 	end
@@ -220,9 +220,9 @@ CeruleanCity_EventScript_GruntTriggerBottom::
 
 CeruleanCity_EventScript_GruntTrigger::
 	textcolor NPC_TEXT_COLOR_MALE
-	msgbox CeruleanCity_Text_GruntIntro
+	msgbox CeruleanCity_Text_GruntEmmetIntro
 	setvar VAR_LAST_TALKED, LOCALID_CERULEAN_GRUNT
-	trainerbattle_no_intro TRAINER_TEAM_ROCKET_GRUNT_EMMET, CeruleanCity_Text_GruntDefeat
+	trainerbattle_no_intro TRAINER_TEAM_ROCKET_GRUNT_EMMET, CeruleanCity_Text_GruntEmmetDefeat
 	setvar VAR_MAP_SCENE_CERULEAN_CITY_ROCKET, 1
 	goto CeruleanCity_EventScript_GruntDefeated
 	end

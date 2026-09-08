@@ -6,10 +6,10 @@ SilphCo_3F_Text_YouAndYourMonsSavedUs::
     .string "{PLAYER}!\n"
     .string "You and your POKéMON saved us!$"
 
-SilphCo_3F_Text_GruntIntro::
+SilphCo_3F_Text_GruntCedricIntro::
     .string "Quit messing with us, kid!$"
 
-SilphCo_3F_Text_GruntDefeat::
+SilphCo_3F_Text_GruntCedricDefeat::
     .string "I give up!$"
 
 SilphCo_3F_Text_GruntPostBattle::

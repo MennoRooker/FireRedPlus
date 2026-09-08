@@ -47,7 +47,7 @@ CeruleanCity_Text_RivalVictory::
     .string "なんたって！\n"
     .string "おれは　てんさい　だからよ！$"
 
-CeruleanCity_Text_GruntIntro::
+CeruleanCity_Text_GruntEmmetIntro::
     .string "Hey! Stay out!\n"
     .string "It's not your yard!\p"
     .string "…Huh?\n"
@@ -55,7 +55,7 @@ CeruleanCity_Text_GruntIntro::
     .string "I'm an innocent bystander!\n"
     .string "Don't you believe me?{PLAY_BGM}{MUS_ENCOUNTER_ROCKET}$"
 
-CeruleanCity_Text_GruntDefeat::
+CeruleanCity_Text_GruntEmmetDefeat::
     .string "GRUNT: Stop! I give up!\n"
     .string "I'll leave quietly!$"
 

@@ -72,25 +72,25 @@ MtEmber_Exterior_Text_SnoopsBeenListeningIn::
     .string "Hey!\n"
     .string "This snoop's been listening in!$"
 
-MtEmber_Exterior_Text_Grunt1Intro::
+MtEmber_Exterior_Text_GruntSeleneIntro::
     .string "You've been eavesdropping on us,\n"
     .string "haven't you?$"
 
-MtEmber_Exterior_Text_Grunt1Defeat::
+MtEmber_Exterior_Text_GruntSeleneDefeat::
     .string "Huh, what?$"
 
-MtEmber_Exterior_Text_Grunt1PostBattle::
+MtEmber_Exterior_Text_GruntSelenePostBattle::
     .string "Why'd you have to win?$"
 
-MtEmber_Exterior_Text_Grunt2Intro::
+MtEmber_Exterior_Text_GruntGradyIntro::
     .string "Trying to horn in on our treasure?\n"
     .string "Don't bet on it!$"
 
-MtEmber_Exterior_Text_Grunt2Defeat::
+MtEmber_Exterior_Text_GruntGradyDefeat::
     .string "Wait!\n"
     .string "But how?$"
 
-MtEmber_Exterior_Text_Grunt2PostBattle::
+MtEmber_Exterior_Text_GruntGradyPostBattle::
     .string "Develop amnesia conveniently and\n"
     .string "forget everything you heard!$"
 

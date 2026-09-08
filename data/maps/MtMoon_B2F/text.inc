@@ -21,52 +21,52 @@ MtMoon_B2F_Text_LabOnCinnabarRegeneratesFossils::
     .string "They do research on regenerating\n"
     .string "fossils.$"
 
-MtMoon_B2F_Text_Grunt1Intro::
+MtMoon_B2F_Text_GruntKeiranIntro::
     .string "We, TEAM ROCKET, shall find the\n"
     .string "fossils!\p"
     .string "Reviving POKéMON from them will\n"
     .string "earn us huge riches!$"
 
-MtMoon_B2F_Text_Grunt1Defeat::
+MtMoon_B2F_Text_GruntKeiranDefeat::
     .string "Urgh!\n"
     .string "Now I'm mad!$"
 
-MtMoon_B2F_Text_Grunt1PostBattle::
+MtMoon_B2F_Text_GruntKeiranPostBattle::
     .string "You made me mad!\n"
     .string "TEAM ROCKET will blacklist you!$"
 
-MtMoon_B2F_Text_Grunt2Intro::
+MtMoon_B2F_Text_GruntLarsIntro::
     .string "We, TEAM ROCKET, are POKéMON\n"
     .string "gangsters!\l"
     .string "We strike fear with our strength!$"
 
-MtMoon_B2F_Text_Grunt2Defeat::
+MtMoon_B2F_Text_GruntLarsDefeat::
     .string "I blew it!$"
 
-MtMoon_B2F_Text_Grunt2PostBattle::
+MtMoon_B2F_Text_GruntLarsPostBattle::
     .string "Darn it all!\n"
     .string "My associates won't stand for this!$"
 
-MtMoon_B2F_Text_Grunt3Intro::
+MtMoon_B2F_Text_GruntCalebIntro::
     .string "We're pulling a big job here!\n"
     .string "Get lost, kid!$"
 
-MtMoon_B2F_Text_Grunt3Defeat::
+MtMoon_B2F_Text_GruntCalebDefeat::
     .string "So, you are good…$"
 
-MtMoon_B2F_Text_Grunt3PostBattle::
+MtMoon_B2F_Text_GruntCalebPostBattle::
     .string "If you find a fossil, give it to me\n"
     .string "and scram!$"
 
-MtMoon_B2F_Text_Grunt4Intro::
+MtMoon_B2F_Text_GruntKellanIntro::
     .string "Little kids shouldn't be messing\n"
     .string "around with grown-ups!\p"
     .string "It could be bad news!$"
 
-MtMoon_B2F_Text_Grunt4Defeat::
+MtMoon_B2F_Text_GruntKellanDefeat::
     .string "I'm steamed!$"
 
-MtMoon_B2F_Text_Grunt4PostBattle::
+MtMoon_B2F_Text_GruntKellanPostBattle::
     .string "POKéMON lived here long before\n"
     .string "people came.$"
 

@@ -7,14 +7,14 @@ SilphCo_5F_Text_YoureOurHeroThankYou::
     .string "TEAM ROCKET took off!\n"
     .string "You're our hero! Thank you!$"
 
-SilphCo_5F_Text_Grunt1Intro::
+SilphCo_5F_Text_GruntJoranIntro::
     .string "I heard a kid was wandering\n"
     .string "around.$"
 
-SilphCo_5F_Text_Grunt1Defeat::
+SilphCo_5F_Text_GruntJoranDefeat::
     .string "Boom!$"
 
-SilphCo_5F_Text_Grunt1PostBattle::
+SilphCo_5F_Text_GruntJoranPostBattle::
     .string "It's not smart to pick a fight with\n"
     .string "TEAM ROCKET!$"
 
@@ -42,14 +42,14 @@ SilphCo_5F_Text_DaltonPostBattle::
     .string "You're only on 5F.\n"
     .string "It's a long way to my BOSS!$"
 
-SilphCo_5F_Text_Grunt2Intro::
+SilphCo_5F_Text_GruntAsherIntro::
     .string "Show TEAM ROCKET a little respect!$"
 
-SilphCo_5F_Text_Grunt2Defeat::
+SilphCo_5F_Text_GruntAsherDefeat::
     .string "Cough…\n"
     .string "Cough…$"
 
-SilphCo_5F_Text_Grunt2PostBattle::
+SilphCo_5F_Text_GruntAsherPostBattle::
     .string "Which reminds me.\p"
     .string "KOFFING evolves into WEEZING!$"
 

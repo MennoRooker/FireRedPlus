@@ -16,7 +16,7 @@
   "connections": null,
   "object_events": [
     {
-      "local_id": "LOCALID_WAREHOUSE_GRUNT2",
+      "local_id": "LOCALID_WAREHOUSE_GRUNT_ROSALIND",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ROCKET_M",
       "x": 15,
@@ -27,11 +27,11 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "1",
-      "script": "FiveIsland_RocketWarehouse_EventScript_Grunt2",
+      "script": "FiveIsland_RocketWarehouse_EventScript_GruntRosalind",
       "flag": "FLAG_HIDE_FIVE_ISLAND_ROCKETS"
     },
     {
-      "local_id": "LOCALID_WAREHOUSE_GRUNT3",
+      "local_id": "LOCALID_WAREHOUSE_GRUNT_IVOR",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ROCKET_M",
       "x": 17,
@@ -42,7 +42,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "1",
-      "script": "FiveIsland_RocketWarehouse_EventScript_Grunt3",
+      "script": "FiveIsland_RocketWarehouse_EventScript_GruntIvor",
       "flag": "FLAG_HIDE_FIVE_ISLAND_ROCKETS"
     },
     {
@@ -86,7 +86,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "3",
-      "script": "FiveIsland_RocketWarehouse_EventScript_Grunt1",
+      "script": "FiveIsland_RocketWarehouse_EventScript_GruntAlden",
       "flag": "FLAG_HIDE_FIVE_ISLAND_ROCKETS"
     },
     {

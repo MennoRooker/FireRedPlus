@@ -176,6 +176,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperWilton[] = {DU
 static const struct TrainerMonNoItemDefaultMoves sParty_BirdKeeperRamiro[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_JugglerKayden[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_JugglerShawn[] = {DUMMY_TRAINER_MON};
+static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGruntCalder[] = {DUMMY_TRAINER_MON};
 
 
 
@@ -6165,7 +6166,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGruntLevi[] = 
     {
         .iv = 15,
         .lvl = 41,
-        .species = SPECIES_NOCTOWL,
+        .species = SPECIES_ARMALDO,
     },
     {
         .iv = 15,
@@ -6175,7 +6176,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGruntLevi[] = 
     {
         .iv = 15,
         .lvl = 41,
-        .species = SPECIES_ARMALDO,
+        .species = SPECIES_NOCTOWL,
     },
 };
 
@@ -6476,6 +6477,11 @@ static const struct TrainerMonNoItemDefaultMoves sParty_ScientistParker[] = {
         .lvl = 42,
         .species = SPECIES_PILOSWINE,
     },
+    {
+        .iv = 15,
+        .lvl = 42,
+        .species = SPECIES_ZANGOOSE,
+    },
 };
 
 // ========================================= 9F ========================================== //
@@ -6519,8 +6525,8 @@ static const struct TrainerMonNoItemCustomMoves sParty_ScientistEd[] = {
     {
         .iv = 15,
         .lvl = 41,
-        .species = SPECIES_HAUNTER,
-        .moves = {MOVE_SHADOW_BALL, MOVE_SLUDGE_BOMB, MOVE_WILL_O_WISP, MOVE_DESTINY_BOND},
+        .species = SPECIES_KINGLER,
+        .moves = {MOVE_WATERFALL, MOVE_VICE_GRIP, MOVE_ROCK_SMASH, MOVE_ROCK_TOMB},
     },
     {
         .iv = 15,
@@ -6531,17 +6537,39 @@ static const struct TrainerMonNoItemCustomMoves sParty_ScientistEd[] = {
     {
         .iv = 15,
         .lvl = 41,
-        .species = SPECIES_KINGLER,
-        .moves = {MOVE_WATERFALL, MOVE_VICE_GRIP, MOVE_ROCK_SMASH, MOVE_ROCK_TOMB},
+        .species = SPECIES_HAUNTER,
+        .moves = {MOVE_SHADOW_BALL, MOVE_SLUDGE_BOMB, MOVE_WILL_O_WISP, MOVE_DESTINY_BOND},
     },
 };
 
 // ======================================== 10F ========================================== //
-static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGruntConrad[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_TeamRocketGruntConrad[] = {
     {
         .iv = 15,
         .lvl = 45,
         .species = SPECIES_SLAKING,
+        .heldItem = ITEM_SITRUS_BERRY,
+        .moves = {MOVE_DOUBLE_EDGE, MOVE_YAWN, MOVE_FAINT_ATTACK, MOVE_COUNTER},
+        .nature = NATURE_SERIOUS,
+        .abilitySlot = 0,
+    },
+    {
+        .iv = 15,
+        .lvl = 42,
+        .species = SPECIES_SEVIPER,
+        .heldItem = ITEM_NONE,
+        .moves = {},
+        .nature = NATURE_SERIOUS,
+        .abilitySlot = 0,
+    },
+    {
+        .iv = 15,
+        .lvl = 42,
+        .species = SPECIES_MAROWAK,
+        .heldItem = ITEM_NONE,
+        .moves = {},
+        .nature = NATURE_SERIOUS,
+        .abilitySlot = 0,
     },
 };
 
@@ -6549,12 +6577,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_ScientistTravis[] = {
     {
         .iv = 15,
         .lvl = 43,
-        .species = SPECIES_AGGRON,
+        .species = SPECIES_TYPHLOSION,
     },
     {
         .iv = 15,
         .lvl = 43,
-        .species = SPECIES_TYPHLOSION,
+        .species = SPECIES_AGGRON,
     },
 };
 
@@ -6584,24 +6612,6 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGruntMarcel[] 
         .iv = 15,
         .lvl = 40,
         .species = SPECIES_CACTURNE,
-    },
-};
-
-static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGruntCalder[] = {
-    {
-        .iv = 15,
-        .lvl = 42,
-        .species = SPECIES_SEVIPER,
-    },
-    {
-        .iv = 15,
-        .lvl = 42,
-        .species = SPECIES_ZANGOOSE,
-    },
-    {
-        .iv = 15,
-        .lvl = 42,
-        .species = SPECIES_MAROWAK,
     },
 };
 

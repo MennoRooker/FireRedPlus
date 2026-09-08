@@ -29,7 +29,7 @@ SilphCo_3F_EventScript_Jose::
 	msgbox SilphCo_3F_Text_JosePostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_3F_EventScript_Grunt::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_CEDRIC, SilphCo_3F_Text_GruntIntro, SilphCo_3F_Text_GruntDefeat
+SilphCo_3F_EventScript_GruntCedric::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_CEDRIC, SilphCo_3F_Text_GruntCedricIntro, SilphCo_3F_Text_GruntCedricDefeat
 	msgbox SilphCo_3F_Text_GruntPostBattle, MSGBOX_AUTOCLOSE
 	end

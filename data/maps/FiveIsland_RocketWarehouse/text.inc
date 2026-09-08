@@ -6,41 +6,41 @@ FiveIsland_RocketWarehouse_Text_PenUnlockedMonsFled::
     .string "The pen door is unlocked.\n"
     .string "The POKéMON appear to have fled.$"
 
-FiveIsland_RocketWarehouse_Text_Grunt2Intro::
+FiveIsland_RocketWarehouse_Text_GruntRosalindIntro::
     .string "Did you come here knowing it's\n"
     .string "TEAM ROCKET's WAREHOUSE?$"
 
-FiveIsland_RocketWarehouse_Text_Grunt2Defeat::
+FiveIsland_RocketWarehouse_Text_GruntRosalindDefeat::
     .string "What do you think you're doing?!$"
 
-FiveIsland_RocketWarehouse_Text_Grunt2PostBattle::
+FiveIsland_RocketWarehouse_Text_GruntRosalindPostBattle::
     .string "TEAM ROCKET broke up?\n"
     .string "What planet are you from?$"
 
-FiveIsland_RocketWarehouse_Text_Grunt1Intro::
+FiveIsland_RocketWarehouse_Text_GruntAldenIntro::
     .string "Oh, now your POKéMON look strong.\n"
     .string "You're willing to sell them?\p"
     .string "Oh?\n"
     .string "You wanted to battle?$"
 
-FiveIsland_RocketWarehouse_Text_Grunt1Defeat::
+FiveIsland_RocketWarehouse_Text_GruntAldenDefeat::
     .string "Oh, but…\n"
     .string "Too much!$"
 
-FiveIsland_RocketWarehouse_Text_Grunt1PostBattle::
+FiveIsland_RocketWarehouse_Text_GruntAldenPostBattle::
     .string "We can give you a great price.\n"
     .string "Sell us your POKéMON!$"
 
-FiveIsland_RocketWarehouse_Text_Grunt3Intro::
+FiveIsland_RocketWarehouse_Text_GruntIvorIntro::
     .string "I got word about you from the\n"
     .string "others.\p"
     .string "But there's no way a kid like you'd\n"
     .string "know our BOSS GIOVANNI!$"
 
-FiveIsland_RocketWarehouse_Text_Grunt3Defeat::
+FiveIsland_RocketWarehouse_Text_GruntIvorDefeat::
     .string "Don't…you…dare…laugh…$"
 
-FiveIsland_RocketWarehouse_Text_Grunt3PostBattle::
+FiveIsland_RocketWarehouse_Text_GruntIvorPostBattle::
     .string "Don't mess in the doings of adults,\n"
     .string "you jumped-up pip-squeak!$"
 

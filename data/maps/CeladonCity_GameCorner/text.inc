@@ -106,11 +106,11 @@ CeladonCity_GameCorner_Text_WatchReelsClosely::
     .string "The trick is to watch the reels\n"
     .string "closely.$"
 
-CeladonCity_GameCorner_Text_GruntIntro::
+CeladonCity_GameCorner_Text_GruntAlecIntro::
     .string "I'm guarding this poster!\n"
     .string "Go away, or else!$"
 
-CeladonCity_GameCorner_Text_GruntDefeat::
+CeladonCity_GameCorner_Text_GruntAlecDefeat::
     .string "Dang!$"
 
 CeladonCity_GameCorner_Text_GruntPostBattle::

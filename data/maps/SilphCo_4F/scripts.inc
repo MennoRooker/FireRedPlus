@@ -29,12 +29,12 @@ SilphCo_4F_EventScript_Rodney::
 	msgbox SilphCo_4F_Text_RodneyPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_4F_EventScript_Grunt1::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_JULIAN, SilphCo_4F_Text_Grunt1Intro, SilphCo_4F_Text_Grunt1Defeat
-	msgbox SilphCo_4F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_4F_EventScript_GruntJulian::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_JULIAN, SilphCo_4F_Text_GruntJulianIntro, SilphCo_4F_Text_GruntJulianDefeat
+	msgbox SilphCo_4F_Text_GruntJulianPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_4F_EventScript_Grunt2::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_CALLUM, SilphCo_4F_Text_Grunt2Intro, SilphCo_4F_Text_Grunt2Defeat
-	msgbox SilphCo_4F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_4F_EventScript_GruntCallum::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_CALLUM, SilphCo_4F_Text_GruntCallumIntro, SilphCo_4F_Text_GruntCallumDefeat
+	msgbox SilphCo_4F_Text_GruntCallumPostBattle, MSGBOX_AUTOCLOSE
 	end

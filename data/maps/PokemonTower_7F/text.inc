@@ -1,14 +1,14 @@
-PokemonTower_7F_Text_Grunt1Intro::
+PokemonTower_7F_Text_GruntTristanIntro::
     .string "What do you want?\n"
     .string "Why are you here?$"
 
-PokemonTower_7F_Text_Grunt1Defeat::
+PokemonTower_7F_Text_GruntTristanDefeat::
     .string "I give up!$"
 
-PokemonTower_7F_Text_Grunt1PostBattle::
+PokemonTower_7F_Text_GruntTristanPostBattle::
     .string "I'm not going to forget this!$"
 
-PokemonTower_7F_Text_Grunt2Intro::
+PokemonTower_7F_Text_GruntAdrianIntro::
     .string "This old guy marched right up to\n"
     .string "our HIDEOUT.\p"
     .string "Then, he starts ranting about how\n"
@@ -16,22 +16,22 @@ PokemonTower_7F_Text_Grunt2Intro::
     .string "So, we're just talking it over as\n"
     .string "adults.$"
 
-PokemonTower_7F_Text_Grunt2Defeat::
+PokemonTower_7F_Text_GruntAdrianDefeat::
     .string "Please!\n"
     .string "No more!$"
 
-PokemonTower_7F_Text_Grunt2PostBattle::
+PokemonTower_7F_Text_GruntAdrianPostBattle::
     .string "POKéMON are only good for making\n"
     .string "money. Why not use them?\p"
     .string "You stay out of our business!$"
 
-PokemonTower_7F_Text_Grunt3Intro::
+PokemonTower_7F_Text_GruntDesmondIntro::
     .string "You're not saving anyone, kid!$"
 
-PokemonTower_7F_Text_Grunt3Defeat::
+PokemonTower_7F_Text_GruntDesmondDefeat::
     .string "Don't fight us ROCKETS!$"
 
-PokemonTower_7F_Text_Grunt3PostBattle::
+PokemonTower_7F_Text_GruntDesmondPostBattle::
     .string "You're not getting away with this!$"
 
 PokemonTower_7F_Text_MrFujiThankYouFollowMe::

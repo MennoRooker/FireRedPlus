@@ -9,8 +9,8 @@ MtEmber_Exterior_OnTransition::
 	end
 
 MtEmber_Exterior_EventScript_RocketsFaceDown::
-	setobjectmovementtype LOCALID_MT_EMBER_GRUNT1, MOVEMENT_TYPE_FACE_DOWN
-	setobjectmovementtype LOCALID_MT_EMBER_GRUNT2, MOVEMENT_TYPE_FACE_DOWN
+	setobjectmovementtype LOCALID_MT_EMBER_GRUNT_SELENE, MOVEMENT_TYPE_FACE_DOWN
+	setobjectmovementtype LOCALID_MT_EMBER_GRUNT_GRADY, MOVEMENT_TYPE_FACE_DOWN
 	return
 
 MtEmber_Exterior_OnLoad::
@@ -21,26 +21,26 @@ MtEmber_Exterior_EventScript_OpenCave::
 	setmetatile 42, 39, METATILE_MtEmber_CaveEntrance, 0
 	return
 
-MtEmber_Exterior_EventScript_Grunt1::
+MtEmber_Exterior_EventScript_GruntSelene::
 	lock
-	goto_if_defeated TRAINER_TEAM_ROCKET_GRUNT_SELENE, MtEmber_Exterior_EventScript_Grunt1Defeated
-	goto_if_eq VAR_MAP_SCENE_ONE_ISLAND_POKEMON_CENTER_1F, 4, MtEmber_Exterior_EventScript_BattleGrunt1
+	goto_if_defeated TRAINER_TEAM_ROCKET_GRUNT_SELENE, MtEmber_Exterior_EventScript_GruntSeleneDefeated
+	goto_if_eq VAR_MAP_SCENE_ONE_ISLAND_POKEMON_CENTER_1F, 4, MtEmber_Exterior_EventScript_BattleGruntSelene
 	msgbox MtEmber_Exterior_Text_WellTryDiggingHere
 	release
 	end
 
-MtEmber_Exterior_EventScript_Grunt1Defeated::
-	msgbox MtEmber_Exterior_Text_Grunt1PostBattle
+MtEmber_Exterior_EventScript_GruntSeleneDefeated::
+	msgbox MtEmber_Exterior_Text_GruntSelenePostBattle
 	release
 	end
 
-MtEmber_Exterior_EventScript_BattleGrunt1::
-	applymovement LOCALID_MT_EMBER_GRUNT1, Common_Movement_FacePlayer
+MtEmber_Exterior_EventScript_BattleGruntSelene::
+	applymovement LOCALID_MT_EMBER_GRUNT_SELENE, Common_Movement_FacePlayer
 	waitmovement 0
 	playbgm MUS_ENCOUNTER_ROCKET, 0
-	msgbox MtEmber_Exterior_Text_Grunt1Intro
-	trainerbattle_no_intro TRAINER_TEAM_ROCKET_GRUNT_SELENE, MtEmber_Exterior_Text_Grunt1Defeat
-	msgbox MtEmber_Exterior_Text_Grunt1PostBattle
+	msgbox MtEmber_Exterior_Text_GruntSeleneIntro
+	trainerbattle_no_intro TRAINER_TEAM_ROCKET_GRUNT_SELENE, MtEmber_Exterior_Text_GruntSeleneDefeat
+	msgbox MtEmber_Exterior_Text_GruntSelenePostBattle
 	goto_if_defeated TRAINER_TEAM_ROCKET_GRUNT_GRADY, MtEmber_Exterior_EventScript_DefeatedBothGrunts
 	release
 	end
@@ -49,34 +49,34 @@ MtEmber_Exterior_EventScript_DefeatedBothGrunts::
 	msgbox MtEmber_Exterior_Text_WellRegroupDontStepInsideThere
 	closemessage
 	fadescreen FADE_TO_BLACK
-	removeobject LOCALID_MT_EMBER_GRUNT1
-	removeobject LOCALID_MT_EMBER_GRUNT2
+	removeobject LOCALID_MT_EMBER_GRUNT_SELENE
+	removeobject LOCALID_MT_EMBER_GRUNT_GRADY
 	fadescreen FADE_FROM_BLACK
 	release
 	end
 
-MtEmber_Exterior_EventScript_Grunt2::
+MtEmber_Exterior_EventScript_GruntGrady::
 	lock
 	faceplayer
-	goto_if_defeated TRAINER_TEAM_ROCKET_GRUNT_GRADY, MtEmber_Exterior_EventScript_DefeatedGrunt2
-	goto_if_eq VAR_MAP_SCENE_ONE_ISLAND_POKEMON_CENTER_1F, 4, MtEmber_Exterior_EventScript_BattleGrunt2
+	goto_if_defeated TRAINER_TEAM_ROCKET_GRUNT_GRADY, MtEmber_Exterior_EventScript_DefeatedGruntGrady
+	goto_if_eq VAR_MAP_SCENE_ONE_ISLAND_POKEMON_CENTER_1F, 4, MtEmber_Exterior_EventScript_BattleGruntGrady
 	msgbox MtEmber_Exterior_Text_YoureInTheWayGetLost
 	closemessage
-	applymovement LOCALID_MT_EMBER_GRUNT2, Common_Movement_FaceOriginalDirection
+	applymovement LOCALID_MT_EMBER_GRUNT_GRADY, Common_Movement_FaceOriginalDirection
 	waitmovement 0
 	release
 	end
 
-MtEmber_Exterior_EventScript_DefeatedGrunt2::
-	msgbox MtEmber_Exterior_Text_Grunt2PostBattle
+MtEmber_Exterior_EventScript_DefeatedGruntGrady::
+	msgbox MtEmber_Exterior_Text_GruntGradyPostBattle
 	release
 	end
 
-MtEmber_Exterior_EventScript_BattleGrunt2::
+MtEmber_Exterior_EventScript_BattleGruntGrady::
 	playbgm MUS_ENCOUNTER_ROCKET, 0
-	msgbox MtEmber_Exterior_Text_Grunt2Intro
-	trainerbattle_no_intro TRAINER_TEAM_ROCKET_GRUNT_GRADY, MtEmber_Exterior_Text_Grunt2Defeat
-	msgbox MtEmber_Exterior_Text_Grunt2PostBattle
+	msgbox MtEmber_Exterior_Text_GruntGradyIntro
+	trainerbattle_no_intro TRAINER_TEAM_ROCKET_GRUNT_GRADY, MtEmber_Exterior_Text_GruntGradyDefeat
+	msgbox MtEmber_Exterior_Text_GruntGradyPostBattle
 	goto_if_defeated TRAINER_TEAM_ROCKET_GRUNT_SELENE, MtEmber_Exterior_EventScript_DefeatedBothGrunts
 	release
 	end
@@ -88,18 +88,18 @@ MtEmber_Exterior_EventScript_RocketPasswordScene::
 	message MtEmber_Exterior_Text_WhatsPasswordAgain
 	waitmessage
 	playse SE_PIN
-	applymovement LOCALID_MT_EMBER_GRUNT2, Common_Movement_QuestionMark
+	applymovement LOCALID_MT_EMBER_GRUNT_GRADY, Common_Movement_QuestionMark
 	waitmovement 0
 	waitbuttonpress
 	msgbox MtEmber_Exterior_Text_FirstPasswordGoldeen
-	applymovement LOCALID_MT_EMBER_GRUNT1, Common_Movement_WalkInPlaceFasterDown
+	applymovement LOCALID_MT_EMBER_GRUNT_SELENE, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	playse SE_PIN
-	applymovement LOCALID_MT_EMBER_GRUNT1, Common_Movement_ExclamationMark
+	applymovement LOCALID_MT_EMBER_GRUNT_SELENE, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement LOCALID_MT_EMBER_GRUNT1, Common_Movement_Delay48
+	applymovement LOCALID_MT_EMBER_GRUNT_SELENE, Common_Movement_Delay48
 	waitmovement 0
-	applymovement LOCALID_MT_EMBER_GRUNT2, Common_Movement_WalkInPlaceFasterDown
+	applymovement LOCALID_MT_EMBER_GRUNT_GRADY, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	call MtEmber_Exterior_EventScript_RocketsFaceDown
 	msgbox MtEmber_Exterior_Text_SnoopsBeenListeningIn

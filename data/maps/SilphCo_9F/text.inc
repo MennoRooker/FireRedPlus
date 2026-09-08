@@ -8,14 +8,14 @@ SilphCo_9F_Text_DontGiveUp::
 SilphCo_9F_Text_ThankYouSoMuch::
     .string "Thank you so much.$"
 
-SilphCo_9F_Text_Grunt1Intro::
+SilphCo_9F_Text_GruntHaydenIntro::
     .string "Your POKéMON seem to adore you,\n"
     .string "kid!$"
 
-SilphCo_9F_Text_Grunt1Defeat::
+SilphCo_9F_Text_GruntHaydenDefeat::
     .string "Ghaaah!$"
 
-SilphCo_9F_Text_Grunt1PostBattle::
+SilphCo_9F_Text_GruntHaydenPostBattle::
     .string "If I had started as a TRAINER at\n"
     .string "your age…$"
 
@@ -30,15 +30,15 @@ SilphCo_9F_Text_EdPostBattle::
     .string "Exploiting weak spots does work.\n"
     .string "Think about type advantages.$"
 
-SilphCo_9F_Text_Grunt2Intro::
+SilphCo_9F_Text_GruntBlakeIntro::
     .string "I am one of the four ROCKET\n"
     .string "BROTHERS!$"
 
-SilphCo_9F_Text_Grunt2Defeat::
+SilphCo_9F_Text_GruntBlakeDefeat::
     .string "Warg!\n"
     .string "Brothers, I lost!$"
 
-SilphCo_9F_Text_Grunt2PostBattle::
+SilphCo_9F_Text_GruntBlakePostBattle::
     .string "My brothers will avenge me!$"
 
 SilphCo_9F_Text_FloorSign::

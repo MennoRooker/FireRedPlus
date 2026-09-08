@@ -28,7 +28,7 @@ SilphCo_10F_EventScript_Travis::
 	msgbox SilphCo_10F_Text_TravisPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_10F_EventScript_Grunt::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_CONRAD, SilphCo_10F_Text_GruntIntro, SilphCo_10F_Text_GruntDefeat
+SilphCo_10F_EventScript_GruntConrad::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_CONRAD, SilphCo_10F_Text_GruntConradIntro, SilphCo_10F_Text_GruntConradDefeat
 	msgbox SilphCo_10F_Text_GruntPostBattle, MSGBOX_AUTOCLOSE
 	end

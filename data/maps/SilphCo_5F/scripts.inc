@@ -42,14 +42,14 @@ SilphCo_5F_EventScript_Beau::
 	msgbox SilphCo_5F_Text_BeauPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_5F_EventScript_Grunt1::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_JORAN, SilphCo_5F_Text_Grunt1Intro, SilphCo_5F_Text_Grunt1Defeat
-	msgbox SilphCo_5F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_5F_EventScript_GruntJoran::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_JORAN, SilphCo_5F_Text_GruntJoranIntro, SilphCo_5F_Text_GruntJoranDefeat
+	msgbox SilphCo_5F_Text_GruntJoranPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SilphCo_5F_EventScript_Grunt2::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_ASHER, SilphCo_5F_Text_Grunt2Intro, SilphCo_5F_Text_Grunt2Defeat
-	msgbox SilphCo_5F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
+SilphCo_5F_EventScript_GruntAsher::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_ASHER, SilphCo_5F_Text_GruntAsherIntro, SilphCo_5F_Text_GruntAsherDefeat
+	msgbox SilphCo_5F_Text_GruntAsherPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 SilphCo_5F_EventScript_Dalton::

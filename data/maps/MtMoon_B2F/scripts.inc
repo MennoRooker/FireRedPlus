@@ -115,22 +115,22 @@ MtMoon_B2F_Movement_MiguelToDomeFossil::
 	walk_up
 	step_end
 
-MtMoon_B2F_EventScript_Grunt1::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_KEIRAN, MtMoon_B2F_Text_Grunt1Intro, MtMoon_B2F_Text_Grunt1Defeat
-	msgbox MtMoon_B2F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE
+MtMoon_B2F_EventScript_GruntKeiran::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_KEIRAN, MtMoon_B2F_Text_GruntKeiranIntro, MtMoon_B2F_Text_GruntKeiranDefeat
+	msgbox MtMoon_B2F_Text_GruntKeiranPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-MtMoon_B2F_EventScript_Grunt2::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_LARS, MtMoon_B2F_Text_Grunt2Intro, MtMoon_B2F_Text_Grunt2Defeat
-	msgbox MtMoon_B2F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
+MtMoon_B2F_EventScript_GruntLars::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_LARS, MtMoon_B2F_Text_GruntLarsIntro, MtMoon_B2F_Text_GruntLarsDefeat
+	msgbox MtMoon_B2F_Text_GruntLarsPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-MtMoon_B2F_EventScript_Grunt3::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_CALEB, MtMoon_B2F_Text_Grunt3Intro, MtMoon_B2F_Text_Grunt3Defeat
-	msgbox MtMoon_B2F_Text_Grunt3PostBattle, MSGBOX_AUTOCLOSE
+MtMoon_B2F_EventScript_GruntCaleb::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_CALEB, MtMoon_B2F_Text_GruntCalebIntro, MtMoon_B2F_Text_GruntCalebDefeat
+	msgbox MtMoon_B2F_Text_GruntCalebPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-MtMoon_B2F_EventScript_Grunt4::
-	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_KELLAN, MtMoon_B2F_Text_Grunt4Intro, MtMoon_B2F_Text_Grunt4Defeat
-	msgbox MtMoon_B2F_Text_Grunt4PostBattle, MSGBOX_AUTOCLOSE
+MtMoon_B2F_EventScript_GruntKellan::
+	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_KELLAN, MtMoon_B2F_Text_GruntKellanIntro, MtMoon_B2F_Text_GruntKellanDefeat
+	msgbox MtMoon_B2F_Text_GruntKellanPostBattle, MSGBOX_AUTOCLOSE
 	end

@@ -56,7 +56,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "1",
-      "script": "RocketHideout_B4F_EventScript_Grunt1",
+      "script": "RocketHideout_B4F_EventScript_GruntDevin",
       "flag": "FLAG_HIDE_MISC_KANTO_ROCKETS"
     },
     {
@@ -85,7 +85,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "RocketHideout_B4F_EventScript_Grunt3",
+      "script": "RocketHideout_B4F_EventScript_GruntKendrick",
       "flag": "FLAG_HIDE_MISC_KANTO_ROCKETS"
     },
     {
@@ -99,7 +99,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "RocketHideout_B4F_EventScript_Grunt2",
+      "script": "RocketHideout_B4F_EventScript_GruntNolan",
       "flag": "FLAG_HIDE_MISC_KANTO_ROCKETS"
     },
     {
