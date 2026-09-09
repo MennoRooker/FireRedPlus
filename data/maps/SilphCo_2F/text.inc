@@ -72,3 +72,7 @@ SilphCo_2F_Text_FloorSign::
     .string "SILPH CO. HEAD OFFICE\n"
     .string "2F$"
 
+SilphCo_2F_Text_CoworkersJoinedTeamRocket::
+    .string "Some of my coworkers decided\n"
+    .string "to join TEAM ROCKET.\p"
+    .string "Those traitors!$"

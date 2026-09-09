@@ -3400,7 +3400,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_CUSTOM_MOVES(sParty_ScientistBeau),
+        .party = NO_ITEM_DEFAULT_MOVES(sParty_ScientistBeau),
     },
     [TRAINER_SCIENTIST_TAYLOR] = {
         .trainerClass = TRAINER_CLASS_SCIENTIST,
@@ -3540,7 +3540,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_TeamRocketGruntAsher),
+        .party = ITEM_CUSTOM_MOVES(sParty_TeamRocketGruntAsher),
     },
     [TRAINER_TEAM_ROCKET_GRUNT_CALLUM] = {
         .trainerClass = TRAINER_CLASS_TEAM_ROCKET_GRUNT,
@@ -3890,7 +3890,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_TeamRocketGruntJoran),
+        .party = NO_ITEM_CUSTOM_MOVES(sParty_TeamRocketGruntJoran),
     },
     [TRAINER_TEAM_ROCKET_GRUNT_NOLAN] = {
         .trainerClass = TRAINER_CLASS_TEAM_ROCKET_GRUNT,

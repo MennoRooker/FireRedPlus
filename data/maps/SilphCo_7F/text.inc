@@ -79,27 +79,27 @@ SilphCo_7F_Text_JoshuaPostBattle::
     .string "Despite your age, you are a\n"
     .string "skilled TRAINER!$"
 
-SilphCo_7F_Text_GruntSorenIntro::
+SilphCo_7F_Text_GruntDamianIntro::
     .string "I am one of the four ROCKET\n"
     .string "BROTHERS!$"
 
-SilphCo_7F_Text_GruntSorenDefeat::
+SilphCo_7F_Text_GruntDamianDefeat::
     .string "Aack!\n"
     .string "Brothers, I lost!$"
 
-SilphCo_7F_Text_GruntSorenPostBattle::
+SilphCo_7F_Text_GruntDamianPostBattle::
     .string "Doesn't matter.\n"
     .string "My brothers will repay the favor!$"
 
-SilphCo_7F_Text_GruntDamianIntro::
+SilphCo_7F_Text_GruntSorenIntro::
     .string "A child intruder?\n"
     .string "That must be you!$"
 
-SilphCo_7F_Text_GruntDamianDefeat::
+SilphCo_7F_Text_GruntSorenDefeat::
     .string "Fine!\n"
     .string "I lost!$"
 
-SilphCo_7F_Text_GruntDamianPostBattle::
+SilphCo_7F_Text_GruntSorenPostBattle::
     .string "Go on home before my BOSS gets\n"
     .string "ticked off!$"
 

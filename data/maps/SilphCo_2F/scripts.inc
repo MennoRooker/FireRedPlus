@@ -7,6 +7,13 @@ SilphCo_2F_OnLoad::
 	call_if_unset FLAG_SILPH_2F_DOOR_2, EventScript_Close2FDoor2
 	end
 
+SilphCo_2F_EventScript_Scientist::
+	lock
+	faceplayer
+	msgbox SilphCo_2F_Text_CoworkersJoinedTeamRocket
+	release
+	end
+
 SilphCo_2F_EventScript_ThunderWaveTutor::
 	goto EventScript_ThunderWaveTutor
 	end
