@@ -13,6 +13,7 @@ Ghost type moves are all special
 30PP -> 20PP
 
 - Cut
+50 -> 70
 NORMAL -> STEEL
 95% -> 100%
 High crit rate

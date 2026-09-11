@@ -3140,6 +3140,19 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungCoupleGiaJesRematch
     },
 };
 
+static const struct TrainerMonNoItemDefaultMoves sParty_YoungCoupleGiaJesRematchAfterSapphire[] = {
+    {
+        .iv = 12,
+        .lvl = 55,
+        .species = SPECIES_NIDOKING,
+    },
+    {
+        .iv = 12,
+        .lvl = 55,
+        .species = SPECIES_NIDOQUEEN,
+    },
+};
+
 
 // ======================================================================================= //
 // ======================================= Route 8 ======================================= //
@@ -6544,18 +6557,18 @@ static const struct TrainerMonItemCustomMovesNatureAbility sParty_TeamRocketGrun
         .iv = 15,
         .lvl = 42,
         .species = SPECIES_SEVIPER,
-        .heldItem = ITEM_NONE,
-        .moves = {},
+        .heldItem = ITEM_MUSCLE_BAND,
+        .moves = {MOVE_POISON_TAIL, MOVE_CRUNCH, MOVE_GLARE, MOVE_IRON_TAIL},
         .nature = NATURE_SERIOUS,
-        .abilitySlot = 0,
+        .abilitySlot = 1,
     },
     {
         .iv = 15,
         .lvl = 42,
         .species = SPECIES_MAROWAK,
-        .heldItem = ITEM_NONE,
-        .moves = {},
-        .nature = NATURE_SERIOUS,
+        .heldItem = ITEM_THICK_CLUB,
+        .moves = {MOVE_BONEMERANG, MOVE_ROCK_SLIDE, MOVE_HEADBUTT, MOVE_SKULL_BASH},
+        .nature = NATURE_ADAMANT,
         .abilitySlot = 0,
     },
 };
@@ -11384,19 +11397,6 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PkmnBreederAlizeRematchA
         .iv = 15,
         .lvl = 53,
         .species = SPECIES_MARILL,
-    },
-};
-
-static const struct TrainerMonNoItemDefaultMoves sParty_YoungCoupleGiaJesRematchAfterSapphire[] = {
-    {
-        .iv = 12,
-        .lvl = 55,
-        .species = SPECIES_NIDOKING,
-    },
-    {
-        .iv = 12,
-        .lvl = 55,
-        .species = SPECIES_NIDOQUEEN,
     },
 };
 

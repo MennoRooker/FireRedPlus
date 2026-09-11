@@ -920,6 +920,8 @@ const u16 gEggMoves[] = {
     egg_moves(TORCHIC,
               MOVE_COUNTER,
               MOVE_REVERSAL,
+              MOVE_JUMP_KICK,
+              MOVE_HI_JUMP_KICK,
               MOVE_ENDURE,
               MOVE_SWAGGER,
               MOVE_ROCK_SLIDE,

@@ -1450,11 +1450,12 @@ x Victory Road FLY checkpoint
 x Balancing
 x Title screen
 x No badge boosts
+- Item sprites in party menu
+- SELECT for move items
 - Cue Ball sprites
 / Fewer trainer battles
 / Documentation
 ---------------------------------------
-- Clean up
 - Add Fairy type
 - Agatha's Flutter Mane
 - Max rematch
@@ -1472,7 +1473,7 @@ x No badge boosts
   • Edit titles
 - Elemental punches tutor
 - Dynamic speed
-- MOVE_ITEM option
+
 - Implement all abilites
 - Custom move animations
 - Determine opponent EVs
