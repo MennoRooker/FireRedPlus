@@ -6676,104 +6676,147 @@ static const struct TrainerMonItemCustomMovesNatureAbility sParty_BossGiovanniSi
 // ======================================================================================= //
 // =================================== Saffron City Gym ================================== //
 // ======================================================================================= //
-static const struct TrainerMonNoItemDefaultMoves sParty_PsychicCameron[] = {
-    {
-        .iv = 15,
-        .lvl = 43,
-        .species = SPECIES_WOBBUFFET,
-    },
-    {
-        .iv = 15,
-        .lvl = 43,
-        .species = SPECIES_CLAYDOL,
-    },
-    {
-        .iv = 15,
-        .lvl = 43,
-        .species = SPECIES_SLOWBRO,
-    },
-};
-
-static const struct TrainerMonNoItemDefaultMoves sParty_PsychicTyron[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_PsychicCameron[] = {
     {
         .iv = 15,
         .lvl = 44,
+        .species = SPECIES_WOBBUFFET,
+        .moves = {MOVE_COUNTER, MOVE_MIRROR_COAT, MOVE_SAFEGUARD, MOVE_DESTINY_BOND},
+    },
+    {
+        .iv = 15,
+        .lvl = 44,
+        .species = SPECIES_CLAYDOL,
+        .moves = {MOVE_ANCIENT_POWER, MOVE_HYPER_BEAM, MOVE_COSMIC_POWER},
+    },
+    {
+        .iv = 15,
+        .lvl = 44,
+        .species = SPECIES_SLOWBRO,
+        .moves = {MOVE_HEADBUTT, MOVE_AMNESIA, MOVE_WATER_PULSE, MOVE_PSYCHIC},
+    },
+};
+
+static const struct TrainerMonNoItemCustomMoves sParty_PsychicTyron[] = {
+    {
+        .iv = 15,
+        .lvl = 45,
         .species = SPECIES_MR_MIME,
+        .moves = {MOVE_PSYCHIC, MOVE_MAGICAL_LEAF, MOVE_SUBSTITUTE, MOVE_SHADOW_BALL},
     },
     {
         .iv = 15,
         .lvl = 44,
         .species = SPECIES_KADABRA,
+        .moves = {MOVE_PSYCHIC, MOVE_REFLECT, MOVE_RECOVER, MOVE_HYPER_BEAM},
+    },
+    {
+        .iv = 15,
+        .lvl = 44,
+        .species = SPECIES_AZUMARILL,
+        .moves = {MOVE_BUBBLE_BEAM, MOVE_DOUBLE_EDGE, MOVE_ROLLOUT, MOVE_BRICK_BREAK},
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_ChannelerStacy[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_ChannelerStacy[] = {
     {
         .iv = 15,
-        .lvl = 48,
+        .lvl = 46,
+        .species = SPECIES_HYPNO,
+        .moves = {MOVE_ICE_PUNCH, MOVE_THUNDER_PUNCH, MOVE_MEDITATE, MOVE_BRICK_BREAK},
+    },
+    {
+        .iv = 15,
+        .lvl = 46,
         .species = SPECIES_GENGAR,
+        .moves = {MOVE_SHADOW_BALL, MOVE_PSYCHIC, MOVE_GIGA_DRAIN, MOVE_CONFUSE_RAY},
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PsychicPreston[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_PsychicPreston[] = {
     {
         .iv = 15,
-        .lvl = 48,
+        .lvl = 46,
         .species = SPECIES_SLOWKING,
+        .moves = {MOVE_SURF, MOVE_PSYCHIC, MOVE_BLIZZARD, MOVE_FIRE_BLAST},
+    },
+    {
+        .iv = 15,
+        .lvl = 46,
+        .species = SPECIES_WIGGLYTUFF,
+        .moves = {MOVE_HYPER_VOICE, MOVE_THUNDERBOLT, MOVE_SING, MOVE_ICE_BEAM},
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_ChannelerAmanda[] = {
+static const struct TrainerMonItemCustomMoves sParty_ChannelerAmanda[] = {
     {
         .iv = 15,
         .lvl = 44,
         .species = SPECIES_HAUNTER,
+        .heldItem = ITEM_FOCUS_SASH,
+        .moves = {MOVE_HYPNOSIS, MOVE_DREAM_EATER, MOVE_SHADOW_BALL, MOVE_DESTINY_BOND},
     },
     {
         .iv = 15,
         .lvl = 44,
+        .species = SPECIES_NOCTOWL,
+        .heldItem = ITEM_TWISTED_SPOON,
+        .moves = {MOVE_PSYBEAM, MOVE_HYPNOSIS, MOVE_REFLECT, MOVE_AERIAL_ACE},
+    },
+    {
+        .iv = 16,
+        .lvl = 44,
         .species = SPECIES_DUSCLOPS,
+        .heldItem = ITEM_SITRUS_BERRY,
+        .moves = {MOVE_PURSUIT, MOVE_CURSE, MOVE_SHADOW_BALL, MOVE_WILL_O_WISP},
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_ChannelerTasha[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_ChannelerTasha[] = {
     {
         .iv = 15,
-        .lvl = 43,
-        .species = SPECIES_SABLEYE,
-    },
-    {
-        .iv = 15,
-        .lvl = 43,
+        .lvl = 44,
         .species = SPECIES_MISDREAVUS,
+        .moves = {MOVE_PSYBEAM, MOVE_SHADOW_BALL, MOVE_PAIN_SPLIT, MOVE_CONFUSE_RAY},
+    },
+    {
+        .iv = 15,
+        .lvl = 44,
+        .species = SPECIES_SEVIPER,
+        .moves = {MOVE_POISON_TAIL, MOVE_CRUNCH, MOVE_HAZE, MOVE_FLAMETHROWER},
+    },
+    {
+        .iv = 15,
+        .lvl = 44,
+        .species = SPECIES_SABLEYE,
+        .moves = {MOVE_KNOCK_OFF, MOVE_FAKE_OUT, MOVE_SHADOW_BALL, MOVE_METRONOME},
+    },
+};
+
+static const struct TrainerMonNoItemCustomMoves sParty_PsychicJohan[] = {
+    {
+        .iv = 15,
+        .lvl = 43,
+        .species = SPECIES_ABSOL,
+        .moves = {MOVE_NIGHT_SLASH, MOVE_CUT, MOVE_FUTURE_SIGHT, MOVE_FOCUS_ENERGY},
     },
     {
         .iv = 15,
         .lvl = 43,
-        .species = SPECIES_SEVIPER,
-    },
-};
-
-static const struct TrainerMonNoItemDefaultMoves sParty_PsychicJohan[] = {
-    {
-        .iv = 15,
-        .lvl = 41,
-        .species = SPECIES_GIRAFARIG,
-    },
-    {
-        .iv = 15,
-        .lvl = 41,
         .species = SPECIES_LICKITUNG,
+        .moves = {MOVE_BODY_SLAM, MOVE_DISABLE, MOVE_WATER_PULSE, MOVE_KNOCK_OFF},
     },
     {
         .iv = 15,
-        .lvl = 41,
-        .species = SPECIES_ABSOL,
+        .lvl = 43,
+        .species = SPECIES_GIRAFARIG,
+        .moves = {MOVE_PSYBEAM, MOVE_SHADOW_BALL, MOVE_THUNDER, MOVE_RAIN_DANCE},
     },
     {
         .iv = 15,
-        .lvl = 41,
+        .lvl = 43,
         .species = SPECIES_METANG,
+        .moves = {MOVE_METAL_CLAW, MOVE_PURSUIT, MOVE_PSYCHIC, MOVE_EARTHQUAKE},
     },
 };
 
