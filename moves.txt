@@ -16,6 +16,7 @@ Ghost type moves are all special
 50 -> 70
 NORMAL -> STEEL
 95% -> 100%
+30PP -> 20PP
 High crit rate
 
 - Fly

@@ -264,18 +264,26 @@ CeladonCity_GameCorner_PrizeRoom_EventScript_PrizeClerkTMs::
 	end
 
 CeladonCity_GameCorner_PrizeRoom_EventScript_ChoosePrizeTM::
-	message CeladonCity_GameCorner_PrizeRoom_Text_WhichPrize
+	message CeladonCity_GameCorner_PrizeRoom_Text_WhichPrizeSeperated
 	waitmessage
 	multichoice 11, 0, MULTICHOICE_GAME_CORNER_TMPRIZES, FALSE
 	switch VAR_RESULT
-	case 0, CeladonCity_GameCorner_PrizeRoom_EventScript_TM13
-	case 1, CeladonCity_GameCorner_PrizeRoom_EventScript_TM23
-	case 2, CeladonCity_GameCorner_PrizeRoom_EventScript_TM24
-	case 3, CeladonCity_GameCorner_PrizeRoom_EventScript_TM26
-	case 4, CeladonCity_GameCorner_PrizeRoom_EventScript_TM30
-	case 5, CeladonCity_GameCorner_PrizeRoom_EventScript_TM35
-	case 6, CeladonCity_GameCorner_PrizeRoom_EventScript_EndPrizeExchange
+	case 0, CeladonCity_GameCorner_PrizeRoom_EventScript_TM02
+	case 1, CeladonCity_GameCorner_PrizeRoom_EventScript_TM13
+	case 2, CeladonCity_GameCorner_PrizeRoom_EventScript_TM23
+	case 3, CeladonCity_GameCorner_PrizeRoom_EventScript_TM24
+	case 4, CeladonCity_GameCorner_PrizeRoom_EventScript_TM26
+	case 5, CeladonCity_GameCorner_PrizeRoom_EventScript_TM30
+	case 6, CeladonCity_GameCorner_PrizeRoom_EventScript_TM35
+	case 7, CeladonCity_GameCorner_PrizeRoom_EventScript_EndPrizeExchange
 	case 127, CeladonCity_GameCorner_PrizeRoom_EventScript_EndPrizeExchange
+	end
+
+CeladonCity_GameCorner_PrizeRoom_EventScript_TM02::
+	setvar VAR_TEMP_1, ITEM_TM02
+	setvar VAR_TEMP_2, 1500
+	buffermovename STR_VAR_2, MOVE_DRAGON_CLAW
+	goto CeladonCity_GameCorner_PrizeRoom_EventScript_ConfirmPrizeTM
 	end
 
 CeladonCity_GameCorner_PrizeRoom_EventScript_TM13::

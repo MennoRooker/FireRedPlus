@@ -1473,7 +1473,7 @@ x No badge boosts
   • Edit titles
 - Elemental punches tutor
 - Dynamic speed
-
+- Nidoqueen eggs
 - Implement all abilites
 - Custom move animations
 - Determine opponent EVs

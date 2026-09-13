@@ -15,6 +15,10 @@ CeladonCity_GameCorner_PrizeRoom_Text_WeExchangeCoinsForPrizes::
 CeladonCity_GameCorner_PrizeRoom_Text_WhichPrize::
     .string "Which prize would you like?$"
 
+CeladonCity_GameCorner_PrizeRoom_Text_WhichPrizeSeperated::
+    .string "Which prize\n"
+    .string "would you like?$"
+
 CeladonCity_GameCorner_PrizeRoom_Text_HereYouGo::
     .string "はい どうぞ$"
 

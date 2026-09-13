@@ -449,6 +449,7 @@ const u8 gText_GreenShard[] = _("GREEN SHARD");
 const u8 gText_BattleTower[] = _("バトルタワ-");
 const u8 gText_Right[] = _("Right");
 const u8 gText_Left[] = _("Left");
+const u8 gText_Tm02_1500Coins[] = _("TM02{CLEAR_TO 0x48}{FONT_SMALL}1,500 COINS");
 const u8 gText_Tm13_1500Coins[] = _("TM13{CLEAR_TO 0x48}{FONT_SMALL}1,500 COINS");
 const u8 gText_Tm23_1200Coins[] = _("TM23{CLEAR_TO 0x48}{FONT_SMALL}1,200 COINS");
 const u8 gText_Tm24_1500Coins[] = _("TM24{CLEAR_TO 0x48}{FONT_SMALL}1,500 COINS");

@@ -751,6 +751,7 @@ extern const u8 gText_BlueShard[];
 extern const u8 gText_GreenShard[];
 extern const u8 gText_Right[];
 extern const u8 gText_Left[];
+extern const u8 gText_Tm02_1500Coins[];
 extern const u8 gText_Tm13_1500Coins[];
 extern const u8 gText_Tm23_1200Coins[];
 extern const u8 gText_Tm24_1500Coins[];
