@@ -135,6 +135,9 @@ struct PartyMenuInternal
     u8 windowId[3];
     u8 actions[8];
     u8 numActions;
+    bool8 itemMoveMode;
+    bool8 itemMoveSourceLocked;
+    u8 itemMoveSourceSlot;
     u16 palBuffer[BG_PLTT_SIZE / sizeof(u16)];
     u32 expCandyRemainingExp;
     s16 data[16];
@@ -246,6 +249,12 @@ static void AnimateSelectedPartyIcon(u8 spriteId, u8 animNum);
 static void PartyMenuStartSpriteAnim(u8 spriteId, u8 animNum);
 static void Task_ClosePartyMenuAndSetCB2(u8 taskId);
 static void UpdatePartyToFieldOrder(void);
+static bool8 IsPartyItemMoveModeAvailable(void);
+static void EnterPartyItemMoveMode(void);
+static void ExitPartyItemMoveMode(void);
+static void UpdatePartyItemMoveModeVisuals(void);
+static bool8 TrySetPartyItemMoveSource(u8 slot);
+static bool8 TryDoPartyItemMove(u8 sourceSlot, u8 targetSlot);
 static s8 *GetCurrentPartySlotPtr(void);
 static u16 PartyMenuButtonHandler(s8 *slotPtr);
 static void HandleChooseMonSelection(u8 taskId, s8 *slotPtr);
@@ -287,6 +296,9 @@ static bool8 ShouldUseChooseMonText(void);
 static void UpdatePartyMonHPBar(u8 spriteId, struct Pokemon *mon);
 static void SpriteCB_UpdatePartyMonIcon(struct Sprite *sprite);
 static void SpriteCB_BouncePartyMonIcon(struct Sprite *sprite);
+static void SetPartyMonIconStatic(u8 spriteId, u8 animNum);
+static void AnimateSelectedPartyHeldItemIcon(u8 spriteId, u8 animNum);
+static void SpriteCB_BouncePartyHeldItemIcon(struct Sprite *sprite);
 static void SpriteCB_HeldItem(struct Sprite *sprite);
 static void UpdatePartyMonHeldItemSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void ShowOrHideHeldItemSprite(u16 item, struct PartyMenuBox *menuBox);
@@ -549,6 +561,9 @@ void InitPartyMenu(u8 menuType, u8 layout, u8 partyAction, bool8 keepCursorPos, 
             sPartyMenuInternal->chooseMultiple = TRUE;
         else
             sPartyMenuInternal->chooseMultiple = FALSE;
+        sPartyMenuInternal->itemMoveMode = FALSE;
+        sPartyMenuInternal->itemMoveSourceLocked = FALSE;
+        sPartyMenuInternal->itemMoveSourceSlot = SLOT_CANCEL;
             sPartyMenuInternal->expCandyRemainingExp = 0;
         if (layout != KEEP_PARTY_LAYOUT)
             gPartyMenu.layout = layout;
@@ -1186,7 +1201,16 @@ void AnimatePartySlot(u8 slot, u8 animNum)
         if (GetMonData(&gPlayerParty[slot], MON_DATA_SPECIES) != SPECIES_NONE)
         {
             LoadPartyBoxPalette(&sPartyMenuBoxes[slot], GetPartyBoxPaletteFlags(slot, animNum));
-            AnimateSelectedPartyIcon(sPartyMenuBoxes[slot].monSpriteId, animNum);
+            if (sPartyMenuInternal->itemMoveMode)
+            {
+                SetPartyMonIconStatic(sPartyMenuBoxes[slot].monSpriteId, animNum);
+                AnimateSelectedPartyHeldItemIcon(sPartyMenuBoxes[slot].itemSpriteId, animNum);
+            }
+            else
+            {
+                AnimateSelectedPartyIcon(sPartyMenuBoxes[slot].monSpriteId, animNum);
+                AnimateSelectedPartyHeldItemIcon(sPartyMenuBoxes[slot].itemSpriteId, 0);
+            }
             PartyMenuStartSpriteAnim(sPartyMenuBoxes[slot].pokeballSpriteId, animNum);
         }
         return;
@@ -1238,6 +1262,10 @@ static u8 GetPartyBoxPaletteFlags(u8 slot, u8 animNum)
         if (slot == gPartyMenu.slotId || slot == gPartyMenu.slotId2)
             palFlags |= PARTY_PAL_TO_SWITCH;
     }
+    if (sPartyMenuInternal->itemMoveMode
+     && sPartyMenuInternal->itemMoveSourceLocked
+     && slot == sPartyMenuInternal->itemMoveSourceSlot)
+        palFlags |= PARTY_PAL_TO_SWITCH;
     if (gPartyMenu.action == PARTY_ACTION_SOFTBOILED && slot == gPartyMenu.slotId )
         palFlags |= PARTY_PAL_TO_SOFTBOIL;
     return palFlags;
@@ -1256,6 +1284,90 @@ bool8 IsMultiBattle(void)
         return TRUE;
     else
         return FALSE;
+}
+
+static bool8 IsPartyItemMoveModeAvailable(void)
+{
+    return gPartyMenu.action == PARTY_ACTION_CHOOSE_MON
+        && gPartyMenu.menuType != PARTY_MENU_TYPE_IN_BATTLE
+        && !sPartyMenuInternal->chooseMultiple;
+}
+
+static void EnterPartyItemMoveMode(void)
+{
+    sPartyMenuInternal->itemMoveMode = TRUE;
+    sPartyMenuInternal->itemMoveSourceLocked = FALSE;
+    sPartyMenuInternal->itemMoveSourceSlot = SLOT_CANCEL;
+    UpdatePartyItemMoveModeVisuals();
+}
+
+static void ExitPartyItemMoveMode(void)
+{
+    sPartyMenuInternal->itemMoveMode = FALSE;
+    sPartyMenuInternal->itemMoveSourceLocked = FALSE;
+    sPartyMenuInternal->itemMoveSourceSlot = SLOT_CANCEL;
+    UpdatePartyItemMoveModeVisuals();
+}
+
+static void UpdatePartyItemMoveModeVisuals(void)
+{
+    u8 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE)
+            AnimatePartySlot(i, i == gPartyMenu.slotId);
+    }
+}
+
+static bool8 TrySetPartyItemMoveSource(u8 slot)
+{
+    u16 item;
+
+    if (slot >= PARTY_SIZE)
+        return FALSE;
+    if (GetMonData(&gPlayerParty[slot], MON_DATA_SPECIES) == SPECIES_NONE)
+        return FALSE;
+    if (GetMonData(&gPlayerParty[slot], MON_DATA_IS_EGG))
+        return FALSE;
+
+    item = GetMonData(&gPlayerParty[slot], MON_DATA_HELD_ITEM);
+    if (item == ITEM_NONE)
+        return FALSE;
+    if (ItemIsMail(item))
+        return FALSE;
+
+    sPartyMenuInternal->itemMoveSourceLocked = TRUE;
+    sPartyMenuInternal->itemMoveSourceSlot = slot;
+    return TRUE;
+}
+
+static bool8 TryDoPartyItemMove(u8 sourceSlot, u8 targetSlot)
+{
+    u16 sourceItem;
+    u16 targetItem;
+
+    if (sourceSlot >= PARTY_SIZE || targetSlot >= PARTY_SIZE)
+        return FALSE;
+    if (sourceSlot == targetSlot)
+        return FALSE;
+    if (GetMonData(&gPlayerParty[targetSlot], MON_DATA_SPECIES) == SPECIES_NONE)
+        return FALSE;
+    if (GetMonData(&gPlayerParty[targetSlot], MON_DATA_IS_EGG))
+        return FALSE;
+
+    sourceItem = GetMonData(&gPlayerParty[sourceSlot], MON_DATA_HELD_ITEM);
+    targetItem = GetMonData(&gPlayerParty[targetSlot], MON_DATA_HELD_ITEM);
+    if (sourceItem == ITEM_NONE)
+        return FALSE;
+    if (ItemIsMail(sourceItem) || ItemIsMail(targetItem))
+        return FALSE;
+
+    SetMonData(&gPlayerParty[sourceSlot], MON_DATA_HELD_ITEM, &targetItem);
+    SetMonData(&gPlayerParty[targetSlot], MON_DATA_HELD_ITEM, &sourceItem);
+    UpdatePartyMonHeldItemSprite(&gPlayerParty[sourceSlot], &sPartyMenuBoxes[sourceSlot]);
+    UpdatePartyMonHeldItemSprite(&gPlayerParty[targetSlot], &sPartyMenuBoxes[targetSlot]);
+    return TRUE;
 }
 
 static void SwapPartyPokemon(struct Pokemon *mon1, struct Pokemon *mon2)
@@ -1307,10 +1419,43 @@ void Task_HandleChooseMonInput(u8 taskId)
 
         // LR quick switch: override LR movement with direct swap behavior
         // Only active when choosing a mon outside of battle
-        if (gPartyMenu.action == PARTY_ACTION_CHOOSE_MON && gPartyMenu.menuType != PARTY_MENU_TYPE_IN_BATTLE)
+        if (gPartyMenu.action == PARTY_ACTION_CHOOSE_MON
+         && gPartyMenu.menuType != PARTY_MENU_TYPE_IN_BATTLE)
         {
             u8 lr = GetLRKeysPressed();
-            if (lr == MENU_L_PRESSED)
+            if (sPartyMenuInternal->itemMoveMode)
+            {
+                if (lr == MENU_L_PRESSED)
+                {
+                    if (*slotPtr != SLOT_CANCEL && *slotPtr != 0)
+                    {
+                        sPartyMenuInternal->lastSelectedSlot = *slotPtr;
+                        if (TryDoPartyItemMove(*slotPtr, 0))
+                            PlaySE(SE_SELECT);
+                        else
+                            PlaySE(SE_FAILURE);
+                    }
+                    return;
+                }
+                else if (lr == MENU_R_PRESSED)
+                {
+                    if (*slotPtr == 0)
+                    {
+                        u8 dest = sPartyMenuInternal->lastSelectedSlot;
+                        if (dest == 0 || dest >= gPlayerPartyCount || GetMonData(&gPlayerParty[dest], MON_DATA_SPECIES) == SPECIES_NONE)
+                            dest = (gPlayerPartyCount > 1 ? 1 : 0);
+                        if (dest != 0)
+                        {
+                            if (TryDoPartyItemMove(0, dest))
+                                PlaySE(SE_SELECT);
+                            else
+                                PlaySE(SE_FAILURE);
+                        }
+                    }
+                    return;
+                }
+            }
+            else if (lr == MENU_L_PRESSED)
             {
                 // L: switch selected mon to first slot if not already there; do nothing on Cancel
                 if (*slotPtr != SLOT_CANCEL && *slotPtr != 0)
@@ -1354,16 +1499,64 @@ void Task_HandleChooseMonInput(u8 taskId)
         switch (PartyMenuButtonHandler(slotPtr))
         {
         case A_BUTTON:
-            HandleChooseMonSelection(taskId, slotPtr);
+            if (sPartyMenuInternal->itemMoveMode)
+            {
+                if (!sPartyMenuInternal->itemMoveSourceLocked)
+                {
+                    if (TrySetPartyItemMoveSource(*slotPtr))
+                    {
+                        PlaySE(SE_SELECT);
+                        UpdatePartyItemMoveModeVisuals();
+                    }
+                    else
+                        PlaySE(SE_FAILURE);
+                }
+                else
+                {
+                    if (TryDoPartyItemMove(sPartyMenuInternal->itemMoveSourceSlot, *slotPtr))
+                    {
+                        PlaySE(SE_SELECT);
+                        sPartyMenuInternal->itemMoveSourceLocked = FALSE;
+                        sPartyMenuInternal->itemMoveSourceSlot = SLOT_CANCEL;
+                        UpdatePartyItemMoveModeVisuals();
+                    }
+                    else
+                        PlaySE(SE_FAILURE);
+                }
+            }
+            else
+            {
+                HandleChooseMonSelection(taskId, slotPtr);
+            }
             break;
         case B_BUTTON: // also handles pressing A_BUTTON on Cancel
-            HandleChooseMonCancel(taskId, slotPtr);
+            if (sPartyMenuInternal->itemMoveMode && sPartyMenuInternal->itemMoveSourceLocked)
+            {
+                PlaySE(SE_SELECT);
+                sPartyMenuInternal->itemMoveSourceLocked = FALSE;
+                sPartyMenuInternal->itemMoveSourceSlot = SLOT_CANCEL;
+                UpdatePartyItemMoveModeVisuals();
+            }
+            else
+            {
+                HandleChooseMonCancel(taskId, slotPtr);
+            }
             break;
         case START_BUTTON:
             if (sPartyMenuInternal->chooseMultiple)
             {
                 PlaySE(SE_SELECT);
                 MoveCursorToConfirm();
+            }
+            break;
+        case SELECT_BUTTON:
+            if (IsPartyItemMoveModeAvailable())
+            {
+                if (sPartyMenuInternal->itemMoveMode)
+                    ExitPartyItemMoveMode();
+                else
+                    EnterPartyItemMoveMode();
+                PlaySE(SE_SELECT);
             }
             break;
         }
@@ -1547,28 +1740,36 @@ static u16 PartyMenuButtonHandler(s8 *slotPtr)
         movementDir = MENU_DIR_RIGHT;
         break;
     default:
-        switch (GetLRKeysPressedAndHeld())
+        if (!sPartyMenuInternal->itemMoveMode)
         {
-        case MENU_L_PRESSED:
-            movementDir = MENU_DIR_UP;
-            break;
-        case MENU_R_PRESSED:
-            movementDir = MENU_DIR_DOWN;
-            break;
-        default:
-            movementDir = 0;
-            break;
+            switch (GetLRKeysPressedAndHeld())
+            {
+            case MENU_L_PRESSED:
+                movementDir = MENU_DIR_UP;
+                break;
+            case MENU_R_PRESSED:
+                movementDir = MENU_DIR_DOWN;
+                break;
+            default:
+                movementDir = 0;
+                break;
+            }
         }
+        else
+            movementDir = 0;
         break;
     }
     if (JOY_NEW(START_BUTTON))
         return START_BUTTON;
+    if (JOY_NEW(SELECT_BUTTON))
+        return SELECT_BUTTON;
     if (movementDir)
     {
         UpdateCurrentPartySelection(slotPtr, movementDir);
         return 0;
     }
-    if (JOY_NEW(A_BUTTON) && *slotPtr == SLOT_CANCEL)
+    if (JOY_NEW(A_BUTTON) && *slotPtr == SLOT_CANCEL
+     && !(sPartyMenuInternal->itemMoveMode && sPartyMenuInternal->itemMoveSourceLocked))
         return B_BUTTON;
     return JOY_NEW(A_BUTTON | B_BUTTON);
 }
@@ -2986,6 +3187,55 @@ static void SpriteCB_BouncePartyMonIcon(struct Sprite *sprite)
         else
             sprite->y2 = 1;
     }
+}
+
+static void SetPartyMonIconStatic(u8 spriteId, u8 animNum)
+{
+    gSprites[spriteId].data[0] = 0;
+    if (animNum == 0)
+    {
+        if (gSprites[spriteId].x == 16)
+        {
+            gSprites[spriteId].x2 = 0;
+            gSprites[spriteId].y2 = -4;
+        }
+        else
+        {
+            gSprites[spriteId].x2 = -4;
+            gSprites[spriteId].y2 = 0;
+        }
+    }
+    else
+    {
+        gSprites[spriteId].x2 = 0;
+        gSprites[spriteId].y2 = 0;
+    }
+    gSprites[spriteId].callback = SpriteCB_UpdatePartyMonIcon;
+}
+
+static void AnimateSelectedPartyHeldItemIcon(u8 spriteId, u8 animNum)
+{
+    if (spriteId >= MAX_SPRITES)
+        return;
+
+    if (animNum == 1 && !gSprites[spriteId].invisible)
+    {
+        gSprites[spriteId].data[0] = 0;
+        gSprites[spriteId].callback = SpriteCB_BouncePartyHeldItemIcon;
+    }
+    else
+    {
+        gSprites[spriteId].y2 = 0;
+        gSprites[spriteId].callback = SpriteCallbackDummy;
+    }
+}
+
+static void SpriteCB_BouncePartyHeldItemIcon(struct Sprite *sprite)
+{
+    if (++sprite->data[0] & 8)
+        sprite->y2 = -1;
+    else
+        sprite->y2 = 1;
 }
 
 static void SpriteCB_UpdatePartyMonIcon(struct Sprite *sprite)
