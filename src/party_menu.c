@@ -23,6 +23,7 @@
 #include "help_system.h"
 #include "item.h"
 #include "item_menu.h"
+#include "item_menu_icons.h"
 #include "item_use.h"
 #include "link.h"
 #include "link_rfu.h"
@@ -85,6 +86,10 @@
 
 #define SLOT_CONFIRM (PARTY_SIZE)
 #define SLOT_CANCEL  (PARTY_SIZE + 1)
+
+#define TAG_PARTY_HELD_ITEM_ICON_BASE 0xD760
+#define PARTY_HELD_ITEM_ICON_OFFSET_X 8
+#define PARTY_HELD_ITEM_ICON_OFFSET_Y 12
 
 enum
 {
@@ -226,6 +231,10 @@ static void CreatePartyMonPokeballSpriteParameterized(u16 species, struct PartyM
 static void CreatePartyMonStatusSpriteParameterized(u16 species, u8 status, struct PartyMenuBox *menuBox);
 static void CreatePartyMonIconSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox, u32 slot);
 static void CreatePartyMonHeldItemSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox);
+static u8 GetPartyMenuBoxId(struct PartyMenuBox *menuBox);
+static void DestroyPartyMonHeldItemIconSprite(struct PartyMenuBox *menuBox);
+static void CreatePartyMonHeldItemIconSprite(u16 item, struct PartyMenuBox *menuBox, u8 priority, s16 x2, s16 y2);
+static void SetPartyHeldItemIconSpritePos(u8 spriteId, struct PartyMenuBox *menuBox);
 static void CreatePartyMonPokeballSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void CreatePartyMonStatusSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void CreateCancelConfirmPokeballSprites(void);
@@ -480,6 +489,41 @@ static EWRAM_DATA u32 sExpCandyMoveLearnRemainingExp = 0;
 ALIGNED(4) EWRAM_DATA u8 gBattlePartyCurrentOrder[PARTY_SIZE / 2] = {0}; // bits 0-3 are the current pos of Slot 1, 4-7 are Slot 2, and so on
 
 COMMON_DATA void (*gItemUseCB)(u8, TaskFunc) = NULL;
+
+static const struct OamData sOamData_PartyHeldItemIcon = {
+    .affineMode = ST_OAM_AFFINE_NORMAL,
+    .shape = SPRITE_SHAPE(32x32),
+    .size = SPRITE_SIZE(32x32),
+    .priority = 1,
+};
+
+static const union AnimCmd sAnim_PartyHeldItemIcon[] = {
+    ANIMCMD_FRAME(0, 0),
+    ANIMCMD_END
+};
+
+static const union AnimCmd *const sAnims_PartyHeldItemIcon[] = {
+    sAnim_PartyHeldItemIcon,
+};
+
+static const union AffineAnimCmd sAffineAnim_PartyHeldItemIcon[] = {
+    AFFINEANIMCMD_FRAME(128, 128, 0, 0),
+    AFFINEANIMCMD_END
+};
+
+static const union AffineAnimCmd *const sAffineAnims_PartyHeldItemIcon[] = {
+    sAffineAnim_PartyHeldItemIcon,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_PartyHeldItemIcon = {
+    .tileTag = 0,
+    .paletteTag = 0,
+    .oam = &sOamData_PartyHeldItemIcon,
+    .anims = sAnims_PartyHeldItemIcon,
+    .images = NULL,
+    .affineAnims = sAffineAnims_PartyHeldItemIcon,
+    .callback = SpriteCallbackDummy,
+};
 
 #include "data/pokemon/tutor_learnsets.h"
 #include "data/party_menu.h"
@@ -2952,19 +2996,78 @@ static void SpriteCB_UpdatePartyMonIcon(struct Sprite *sprite)
 static void CreatePartyMonHeldItemSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox)
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
-    {
-        menuBox->itemSpriteId = CreateSprite(&sSpriteTemplate_HeldItem, menuBox->spriteCoords[2], menuBox->spriteCoords[3], 0);
-        UpdatePartyMonHeldItemSprite(mon, menuBox);
-    }
+        CreatePartyMonHeldItemIconSprite(GetMonData(mon, MON_DATA_HELD_ITEM), menuBox, 1, 0, 0);
 }
 
 static void CreatePartyMonHeldItemSpriteParameterized(u16 species, u16 item, struct PartyMenuBox *menuBox)
 {
     if (species != SPECIES_NONE)
+        CreatePartyMonHeldItemIconSprite(item, menuBox, 0, 0, 0);
+}
+
+static u8 GetPartyMenuBoxId(struct PartyMenuBox *menuBox)
+{
+    return menuBox - sPartyMenuBoxes;
+}
+
+static void DestroyPartyMonHeldItemIconSprite(struct PartyMenuBox *menuBox)
+{
+    u16 tileTag = TAG_PARTY_HELD_ITEM_ICON_BASE + GetPartyMenuBoxId(menuBox);
+
+    if (menuBox->itemSpriteId < MAX_SPRITES)
+        DestroySprite(&gSprites[menuBox->itemSpriteId]);
+
+    FreeSpriteTilesByTag(tileTag);
+    FreeSpritePaletteByTag(tileTag);
+}
+
+static void CreatePartyMonHeldItemIconSprite(u16 item, struct PartyMenuBox *menuBox, u8 priority, s16 x2, s16 y2)
+{
+    u16 tileTag = TAG_PARTY_HELD_ITEM_ICON_BASE + GetPartyMenuBoxId(menuBox);
+    u8 spriteId = AddItemIconObjectWithCustomObjectTemplate(&sSpriteTemplate_PartyHeldItemIcon, tileTag, tileTag, item);
+
+    if (spriteId == MAX_SPRITES)
     {
-        menuBox->itemSpriteId = CreateSprite(&sSpriteTemplate_HeldItem, menuBox->spriteCoords[2], menuBox->spriteCoords[3], 0);
-        gSprites[menuBox->itemSpriteId].oam.priority = 0;
-        ShowOrHideHeldItemSprite(item, menuBox);
+        spriteId = CreateSprite(&sSpriteTemplate_HeldItem, 0, 0, 0);
+        if (spriteId == MAX_SPRITES)
+        {
+            menuBox->itemSpriteId = SPRITE_NONE;
+            return;
+        }
+
+        if (item != ITEM_NONE)
+        {
+            if (ItemIsMail(item))
+                StartSpriteAnim(&gSprites[spriteId], 1);
+            else
+                StartSpriteAnim(&gSprites[spriteId], 0);
+        }
+    }
+    else
+    {
+        StartSpriteAffineAnim(&gSprites[spriteId], 0);
+    }
+
+    SetPartyHeldItemIconSpritePos(spriteId, menuBox);
+
+    gSprites[spriteId].x2 = x2;
+    gSprites[spriteId].y2 = y2;
+    gSprites[spriteId].oam.priority = priority;
+    gSprites[spriteId].invisible = (item == ITEM_NONE);
+    menuBox->itemSpriteId = spriteId;
+}
+
+static void SetPartyHeldItemIconSpritePos(u8 spriteId, struct PartyMenuBox *menuBox)
+{
+    if (menuBox->monSpriteId < MAX_SPRITES)
+    {
+        gSprites[spriteId].x = gSprites[menuBox->monSpriteId].x + PARTY_HELD_ITEM_ICON_OFFSET_X;
+        gSprites[spriteId].y = gSprites[menuBox->monSpriteId].y + PARTY_HELD_ITEM_ICON_OFFSET_Y;
+    }
+    else
+    {
+        gSprites[spriteId].x = menuBox->spriteCoords[2];
+        gSprites[spriteId].y = menuBox->spriteCoords[3];
     }
 }
 
@@ -2975,18 +3078,19 @@ static void UpdatePartyMonHeldItemSprite(struct Pokemon *mon, struct PartyMenuBo
 
 static void ShowOrHideHeldItemSprite(u16 item, struct PartyMenuBox *menuBox)
 {
-    if (item == ITEM_NONE)
+    s16 x2 = 0;
+    s16 y2 = 0;
+    u8 priority = 1;
+
+    if (menuBox->itemSpriteId < MAX_SPRITES)
     {
-        gSprites[menuBox->itemSpriteId].invisible = TRUE;
+        x2 = gSprites[menuBox->itemSpriteId].x2;
+        y2 = gSprites[menuBox->itemSpriteId].y2;
+        priority = gSprites[menuBox->itemSpriteId].oam.priority;
     }
-    else
-    {
-        if (ItemIsMail(item))
-            StartSpriteAnim(&gSprites[menuBox->itemSpriteId], 1);
-        else
-            StartSpriteAnim(&gSprites[menuBox->itemSpriteId], 0);
-        gSprites[menuBox->itemSpriteId].invisible = FALSE;
-    }
+
+    DestroyPartyMonHeldItemIconSprite(menuBox);
+    CreatePartyMonHeldItemIconSprite(item, menuBox, priority, x2, y2);
 }
 
 void LoadHeldItemIcons(void)
