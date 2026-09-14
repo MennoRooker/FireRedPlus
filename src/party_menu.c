@@ -1431,7 +1431,10 @@ void Task_HandleChooseMonInput(u8 taskId)
                     {
                         sPartyMenuInternal->lastSelectedSlot = *slotPtr;
                         if (TryDoPartyItemMove(*slotPtr, 0))
+                        {
                             PlaySE(SE_SELECT);
+                            UpdatePartyItemMoveModeVisuals();
+                        }
                         else
                             PlaySE(SE_FAILURE);
                     }
@@ -1447,7 +1450,10 @@ void Task_HandleChooseMonInput(u8 taskId)
                         if (dest != 0)
                         {
                             if (TryDoPartyItemMove(0, dest))
+                            {
                                 PlaySE(SE_SELECT);
+                                UpdatePartyItemMoveModeVisuals();
+                            }
                             else
                                 PlaySE(SE_FAILURE);
                         }
@@ -3191,7 +3197,6 @@ static void SpriteCB_BouncePartyMonIcon(struct Sprite *sprite)
 
 static void SetPartyMonIconStatic(u8 spriteId, u8 animNum)
 {
-    gSprites[spriteId].data[0] = 0;
     if (animNum == 0)
     {
         if (gSprites[spriteId].x == 16)
@@ -3210,7 +3215,9 @@ static void SetPartyMonIconStatic(u8 spriteId, u8 animNum)
         gSprites[spriteId].x2 = 0;
         gSprites[spriteId].y2 = 0;
     }
-    gSprites[spriteId].callback = SpriteCB_UpdatePartyMonIcon;
+
+    // In item-move mode mon icons should be fully static so only item icons animate.
+    gSprites[spriteId].callback = SpriteCallbackDummy;
 }
 
 static void AnimateSelectedPartyHeldItemIcon(u8 spriteId, u8 animNum)
