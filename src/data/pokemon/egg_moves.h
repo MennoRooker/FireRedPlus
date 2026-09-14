@@ -932,6 +932,7 @@ const u16 gEggMoves[] = {
               MOVE_UPROAR,
               MOVE_CURSE,
               MOVE_STOMP,
+              MOVE_BULLDOZE,
               MOVE_ICE_BALL,
               MOVE_MIRROR_COAT),
 

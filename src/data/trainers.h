@@ -2370,7 +2370,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_SwimmerMaleMatthew),
+        .party = NO_ITEM_CUSTOM_MOVES(sParty_SwimmerMaleMatthew),
     },
     [TRAINER_SWIMMER_MALE_DOUGLAS] = {
         .trainerClass = TRAINER_CLASS_SWIMMER_M,
@@ -2760,7 +2760,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_SwimmerFemaleAnya),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_SwimmerFemaleAnya),
     },
     [TRAINER_SWIMMER_FEMALE_ALICE] = {
         .trainerClass = TRAINER_CLASS_SWIMMER_F,
@@ -7330,7 +7330,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_SwimmerMaleMatthewRematchAfterLeague),
+        .party = NO_ITEM_CUSTOM_MOVES(sParty_SwimmerMaleMatthewRematchAfterLeague),
     },
     [TRAINER_SWIMMER_MALE_TONY_REMATCH_AFTER_LEAGUE] = {
         .trainerClass = TRAINER_CLASS_SWIMMER_M,
