@@ -722,6 +722,11 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBen[] = {
     {
         .iv = 0,
         .lvl = 10,
+        .species = SPECIES_POLIWAG,
+    },
+    {
+        .iv = 0,
+        .lvl = 10,
         .species = SPECIES_RATTATA,
     },
     {
@@ -732,6 +737,11 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBen[] = {
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBenRematch[] = {
+    {
+        .iv = 2,
+        .lvl = 21,
+        .species = SPECIES_POLIWAG,
+    },
     {
         .iv = 2,
         .lvl = 21,
@@ -748,6 +758,11 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBenRematchAfter
     {
         .iv = 6,
         .lvl = 39,
+        .species = SPECIES_POLIWHIRL,
+    },
+    {
+        .iv = 6,
+        .lvl = 39,
         .species = SPECIES_RATICATE,
     },
     {
@@ -758,6 +773,11 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBenRematchAfter
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterBenRematchAfterLeague[] = {
+    {
+        .iv = 12,
+        .lvl = 58,
+        .species = SPECIES_POLITOED,
+    },
     {
         .iv = 12,
         .lvl = 58,
@@ -884,6 +904,11 @@ static const struct TrainerMonNoItemDefaultMoves sParty_LassMiriam[] = {
         .lvl = 13,
         .species = SPECIES_BULBASAUR,
     },
+    {
+        .iv = 5,
+        .lvl = 12,
+        .species = SPECIES_MAGIKARP,
+    },
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterJosh[] = {
@@ -894,7 +919,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_YoungsterJosh[] = {
     },
     {
         .iv = 0,
-        .lvl = 11,
+        .lvl = 12,
         .species = SPECIES_EEVEE,
     },
     {
@@ -6911,42 +6936,93 @@ static const struct TrainerMonNoItemDefaultMoves sParty_LassCrissy[] = {
 // ======================================================================================= //
 // ==================================== Route 10 Surf ==================================== //
 // ======================================================================================= //
-static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacMark[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_PokemaniacMark[] = {
     {
         .iv = 15,
         .lvl = 45,
         .species = SPECIES_RHYDON,
+        .heldItem = ITEM_PASSHO_BERRY,
+        .moves = {MOVE_ROCK_BLAST, MOVE_BULLDOZE, MOVE_TAKE_DOWN, MOVE_HORN_DRILL},
+        .nature = NATURE_IMPISH,
+        .abilitySlot = 1,
     },
     {
         .iv = 15,
         .lvl = 45,
         .species = SPECIES_LICKITUNG,
+        .heldItem = ITEM_NONE,
+        .moves = {MOVE_NONE, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+        .nature = NATURE_SERIOUS,
+        .abilitySlot = 1,
+    },
+    {
+        .iv = 15,
+        .lvl = 45,
+        .species = SPECIES_AMPHAROS,
+        .heldItem = ITEM_NONE,
+        .moves = {MOVE_THUNDERBOLT, MOVE_LIGHT_SCREEN, MOVE_COTTON_SPORE, MOVE_BODY_SLAM},
+        .nature = NATURE_QUIET,
+        .abilitySlot = 0,
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacMarkRematchAfterLeague[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_PokemaniacMarkRematchAfterLeague[] = {
     {
         .iv = 19,
         .lvl = 61,
         .species = SPECIES_RHYDON,
+        .heldItem = ITEM_RINDO_BERRY,
+        .moves = {MOVE_ROCK_BLAST, MOVE_EARTHQUAKE, MOVE_DOUBLE_EDGE, MOVE_HORN_DRILL},
+        .nature = NATURE_IMPISH,
+        .abilitySlot = 1,
     },
+    // {
+    //     .iv = 19,
+    //     .lvl = 61,
+    //     .species = SPECIES_LICKILICKY,
+    //     .heldItem = ITEM_NONE,
+    //     .moves = {MOVE_NONE, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+    //     .nature = NATURE_SERIOUS,
+    //     .abilitySlot = 1,
+    // },
     {
         .iv = 19,
         .lvl = 61,
-        .species = SPECIES_LICKITUNG,
+        .species = SPECIES_AMPHAROS,
+        .heldItem = ITEM_NONE,
+        .moves = {MOVE_THUNDERBOLT, MOVE_LIGHT_SCREEN, MOVE_COTTON_SPORE, MOVE_BODY_SLAM},
+        .nature = NATURE_QUIET,
+        .abilitySlot = 0,
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacMarkRematchAfterSapphire[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_PokemaniacMarkRematchAfterSapphire[] = {
+    // {
+    //     .iv = 25,
+    //     .lvl = 69,
+    //     .species = SPECIES_RHYPERIOR,
+    //     .heldItem = ITEM_SITRUS_BERRY,
+    //     .moves = {MOVE_HEAD_SMASH, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+    //     .nature = NATURE_IMPISH,
+    //     .abilitySlot = 1,
+    // },
+    // {
+    //     .iv = 25,
+    //     .lvl = 69,
+    //     .species = SPECIES_LICKILICKY,
+    //     .heldItem = ITEM_NONE,
+    //     .moves = {MOVE_NONE, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+    //     .nature = NATURE_SERIOUS,
+    //     .abilitySlot = 1,
+    // },
     {
         .iv = 25,
         .lvl = 69,
-        .species = SPECIES_RHYDON,
-    },
-    {
-        .iv = 25,
-        .lvl = 69,
-        .species = SPECIES_LICKITUNG,
+        .species = SPECIES_AMPHAROS,
+        .heldItem = ITEM_NONE,
+        .moves = {MOVE_NONE, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+        .nature = NATURE_QUIET,
+        .abilitySlot = 0,
     },
 };
 
@@ -7636,7 +7712,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerMissyRematchAft
     {
         .iv = 22,
         .lvl = 68,
-        .species = SPECIES_CHANSEY,
+        .species = SPECIES_BLISSEY,
     },
     {
         .iv = 22,
@@ -11770,7 +11846,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_PkmnRangerKatelynRematchA
     {
         .iv = 22,
         .lvl = 56,
-        .species = SPECIES_CHANSEY,
+        .species = SPECIES_BLISSEY,
         .moves = {MOVE_EGG_BOMB, MOVE_DEFENSE_CURL, MOVE_MINIMIZE, MOVE_SOFT_BOILED},
     },
 };

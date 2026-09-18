@@ -1620,7 +1620,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_PokemaniacMark),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_PokemaniacMark),
     },
     [TRAINER_POKEMANIAC_HERMAN] = {
         .trainerClass = TRAINER_CLASS_POKEMANIAC,
@@ -5940,7 +5940,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_PokemaniacMarkRematchAfterLeague),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_PokemaniacMarkRematchAfterLeague),
     },
     [TRAINER_PKMN_RANGER_LOGAN] = {
         .trainerClass = TRAINER_CLASS_PKMN_RANGER,
@@ -6440,7 +6440,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_PokemaniacMarkRematchAfterSapphire),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_PokemaniacMarkRematchAfterSapphire),
     },
     [TRAINER_POKEMANIAC_HERMAN_REMATCH_AFTER_FUCHSIA] = {
         .trainerClass = TRAINER_CLASS_POKEMANIAC,
