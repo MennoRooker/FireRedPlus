@@ -324,6 +324,12 @@ struct BattleTowerData // Leftover from R/S
     /*0x04D1, 0x0581*/ u8 filler_4D1[0x317];
 }; /* size = 0x7E8 */
 
+struct VsSeekerRematchSaveData
+{
+    u32 magic;
+    u16 cooldowns[MAX_VS_SEEKER_REMATCHES];
+}; // size: 0x1BE
+
 struct SaveBlock2
 {
     /*0x000*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
@@ -354,7 +360,8 @@ struct SaveBlock2
     /*0xAF0*/ struct BerryCrush berryCrush;
     /*0xB00*/ struct PokemonJumpRecords pokeJump;
     /*0xB10*/ struct BerryPickingResults berryPick;
-    /*0xB20*/ u8 filler_B20[0x400];
+    /*0xB20*/ struct VsSeekerRematchSaveData vsSeekerRematches;
+    /*0xCDE*/ u8 filler_CDE[0x242];
     /*0xF20*/ u32 encryptionKey;
 }; // size: 0xF24
 
@@ -812,9 +819,10 @@ struct SaveBlock1
     /*0x3AB4*/ struct DaycareMon route5DayCareMon;
     /*0x3B40*/ u32 towerChallengeId;
     /*0x3B44*/ struct TrainerTower trainerTower[NUM_TOWER_CHALLENGE_TYPES];
-    /*0x3B74*/ u32 vsSeekerRematchSaveMagic;
-    /*0x3B78*/ u16 vsSeekerRematchCooldowns[MAX_VS_SEEKER_REMATCHES];
-}; // size: 0x3D34
+}; // size: 0x3B74
+
+#define SAVEBLOCK1_SERIALIZED_SIZE 0x3D34
+#define SAVEBLOCK1_LEGACY_VS_SEEKER_OFFSET 0x3B74
 
 struct MapPosition
 {

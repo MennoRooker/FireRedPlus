@@ -1468,7 +1468,20 @@ I can only test before all 3 commits or
 after all 3 commits and not inbetween, since
 I don't have .sav files for that. But I 
 might need to play through it all anyway 
-just for my own sanity and more 
+just for my own sanity and.
+
+I found a .sav from 15-03-2026 and I went
+to the Power Plant. There was no transi-
+tion glitch until the 'Limit rematches'
+commit! That means that the VS Seeker data
+in the SaveBlock is the confirmed culprit.
+
+Interestingly, I can use the 15 Mar save
+with the 22 Mar 'Limit rematches' version
+of the game. This makes some sense due to
+the VS Seeker data being serialized after
+the SaveBlock1 on which 'Limit rematches'
+is built.
 
 Sceptile Sharpness & Castform Dust forme +
 buffed stats

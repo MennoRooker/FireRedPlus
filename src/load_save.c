@@ -13,6 +13,9 @@
 #include "sloopsvc.h"
 
 #define SAVEBLOCK_MOVE_RANGE    128
+#define SAVEBLOCK1_COMPAT_TAIL_SIZE (SAVEBLOCK1_SERIALIZED_SIZE - sizeof(struct SaveBlock1))
+
+STATIC_ASSERT(SAVEBLOCK1_SERIALIZED_SIZE >= sizeof(struct SaveBlock1), SaveBlock1SerializedSizeTooSmall);
 
 struct LoadedSaveData
 {
@@ -30,7 +33,7 @@ EWRAM_DATA struct SaveBlock2 gSaveBlock2 = {0};
 EWRAM_DATA u8 gSaveBlock2_DMA[SAVEBLOCK_MOVE_RANGE] = {0};
 
 EWRAM_DATA struct SaveBlock1 gSaveBlock1 = {0};
-EWRAM_DATA u8 gSaveBlock1_DMA[SAVEBLOCK_MOVE_RANGE] = {0};
+EWRAM_DATA u8 gSaveBlock1_DMA[SAVEBLOCK_MOVE_RANGE + SAVEBLOCK1_COMPAT_TAIL_SIZE] = {0};
 
 EWRAM_DATA struct PokemonStorage gPokemonStorage = {0};
 EWRAM_DATA u8 gSaveBlock3_DMA[SAVEBLOCK_MOVE_RANGE] = {0};

@@ -115,6 +115,16 @@ struct VsSeekerStruct
 // static declarations
 static EWRAM_DATA struct VsSeekerStruct *sVsSeeker = NULL;
 
+static struct VsSeekerRematchSaveData *GetVsSeekerRematchSaveData(void)
+{
+   return &gSaveBlock2Ptr->vsSeekerRematches;
+}
+
+static const struct VsSeekerRematchSaveData *GetLegacyVsSeekerRematchSaveData(void)
+{
+   return (const struct VsSeekerRematchSaveData *)((const u8 *)gSaveBlock1Ptr + SAVEBLOCK1_LEGACY_VS_SEEKER_OFFSET);
+}
+
 static void VsSeekerResetInBagStepCounter(void);
 static void VsSeekerResetChargingStepCounter(void);
 static void Task_ResetObjectsRematchWantedState(u8 taskId);
@@ -1183,15 +1193,30 @@ void ClearRematchStateByTrainerId(void)
 
 static void EnsureVsSeekerRematchSaveData(void)
 {
+   struct VsSeekerRematchSaveData *save = GetVsSeekerRematchSaveData();
+   const struct VsSeekerRematchSaveData *legacySave = GetLegacyVsSeekerRematchSaveData();
    u16 i;
 
-   if (gSaveBlock1Ptr->vsSeekerRematchSaveMagic == VS_SEEKER_REMATCH_SAVE_MAGIC)
+   if (save->magic == VS_SEEKER_REMATCH_SAVE_MAGIC)
       return;
 
-   for (i = 0; i < MAX_VS_SEEKER_REMATCHES; i++)
-      gSaveBlock1Ptr->vsSeekerRematchCooldowns[i] = 0;
+   if (legacySave->magic == VS_SEEKER_REMATCH_SAVE_MAGIC)
+   {
+      for (i = 0; i < MAX_VS_SEEKER_REMATCHES; i++)
+         save->cooldowns[i] = legacySave->cooldowns[i];
+   }
+   else
+   {
+      for (i = 0; i < MAX_VS_SEEKER_REMATCHES; i++)
+         save->cooldowns[i] = 0;
+   }
 
-   gSaveBlock1Ptr->vsSeekerRematchSaveMagic = VS_SEEKER_REMATCH_SAVE_MAGIC;
+   save->magic = VS_SEEKER_REMATCH_SAVE_MAGIC;
+}
+
+void VsSeekerEnsureRematchSaveData(void)
+{
+   EnsureVsSeekerRematchSaveData();
 }
 
 static bool8 IsRematchStageUnlocked(u8 rematchIdx)
@@ -1414,8 +1439,10 @@ static int GetRematchIdx(const struct RematchData * vsSeekerData, u16 trainerFla
 
 static bool8 IsTrainerEntryOnCooldown(u16 rematchTableIdx)
 {
+   struct VsSeekerRematchSaveData *save = GetVsSeekerRematchSaveData();
+
    EnsureVsSeekerRematchSaveData();
-   return gSaveBlock1Ptr->vsSeekerRematchCooldowns[rematchTableIdx] != 0;
+   return save->cooldowns[rematchTableIdx] != 0;
 }
 
 static bool32 IsThisTrainerRematchable(u32 localId)
@@ -1508,33 +1535,35 @@ static u8 GetNextEligibleRematchTrainer(const struct RematchData *vsSeekerData, 
 
 static void StartTrainerRematchCooldown(u16 trainerId)
 {
+   struct VsSeekerRematchSaveData *save = GetVsSeekerRematchSaveData();
    int rematchTableIdx = LookupVsSeekerOpponentInArray(sRematches, trainerId);
 
    if (rematchTableIdx < 0 || rematchTableIdx >= NELEMS(sRematches))
       return;
 
    if (GetNextRemainingRematchTrainerByTableIdx(sRematches, rematchTableIdx, trainerId) == 0)
-      gSaveBlock1Ptr->vsSeekerRematchCooldowns[rematchTableIdx] = 0;
+      save->cooldowns[rematchTableIdx] = 0;
    else
-      gSaveBlock1Ptr->vsSeekerRematchCooldowns[rematchTableIdx] = VS_SEEKER_REMATCH_COOLDOWN_STEPS;
+      save->cooldowns[rematchTableIdx] = VS_SEEKER_REMATCH_COOLDOWN_STEPS;
 }
 
 static void UpdateTrainerRematchCooldowns(void)
 {
+   struct VsSeekerRematchSaveData *save = GetVsSeekerRematchSaveData();
    u16 i;
 
    for (i = 0; i < NELEMS(sRematches); i++)
    {
-      if (gSaveBlock1Ptr->vsSeekerRematchCooldowns[i] == 0)
+      if (save->cooldowns[i] == 0)
          continue;
 
       if (GetNextRemainingRematchTrainerByTableIdx(sRematches, i, TRAINER_NONE) == 0)
       {
-         gSaveBlock1Ptr->vsSeekerRematchCooldowns[i] = 0;
+         save->cooldowns[i] = 0;
          continue;
       }
 
-      gSaveBlock1Ptr->vsSeekerRematchCooldowns[i]--;
+      save->cooldowns[i]--;
    }
 }
 

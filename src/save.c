@@ -8,6 +8,7 @@
 #include "save_failed_screen.h"
 #include "fieldmap.h"
 #include "pokemon_storage_system.h"
+#include "vs_seeker.h"
 #include "gba/flash_internal.h"
 #include "sloopsvc.h"
 
@@ -47,6 +48,13 @@ static u16 CalculateChecksum(void *data, u16 size);
     min(sizeof(structure) - chunkNum * SECTOR_DATA_SIZE, SECTOR_DATA_SIZE) : 0 \
 }
 
+#define SAVEBLOCK_CHUNK_SIZE(totalSize, chunkNum)                           \
+{                                                                           \
+    chunkNum * SECTOR_DATA_SIZE,                                            \
+    (totalSize) >= chunkNum * SECTOR_DATA_SIZE ?                            \
+    min((totalSize) - chunkNum * SECTOR_DATA_SIZE, SECTOR_DATA_SIZE) : 0    \
+}
+
 struct
 {
     u16 offset;
@@ -55,10 +63,10 @@ struct
 {
     SAVEBLOCK_CHUNK(struct SaveBlock2, 0), // SECTOR_ID_SAVEBLOCK2
 
-    SAVEBLOCK_CHUNK(struct SaveBlock1, 0), // SECTOR_ID_SAVEBLOCK1_START
-    SAVEBLOCK_CHUNK(struct SaveBlock1, 1),
-    SAVEBLOCK_CHUNK(struct SaveBlock1, 2),
-    SAVEBLOCK_CHUNK(struct SaveBlock1, 3), // SECTOR_ID_SAVEBLOCK1_END
+    SAVEBLOCK_CHUNK_SIZE(SAVEBLOCK1_SERIALIZED_SIZE, 0), // SECTOR_ID_SAVEBLOCK1_START
+    SAVEBLOCK_CHUNK_SIZE(SAVEBLOCK1_SERIALIZED_SIZE, 1),
+    SAVEBLOCK_CHUNK_SIZE(SAVEBLOCK1_SERIALIZED_SIZE, 2),
+    SAVEBLOCK_CHUNK_SIZE(SAVEBLOCK1_SERIALIZED_SIZE, 3), // SECTOR_ID_SAVEBLOCK1_END
 
     SAVEBLOCK_CHUNK(struct PokemonStorage, 0), // SECTOR_ID_PKMN_STORAGE_START
     SAVEBLOCK_CHUNK(struct PokemonStorage, 1),
@@ -74,7 +82,7 @@ struct
 // These will produce an error if a save struct is larger than the space
 // alloted for it in the flash.
 STATIC_ASSERT(sizeof(struct SaveBlock2) <= SECTOR_DATA_SIZE, SaveBlock2FreeSpace);
-STATIC_ASSERT(sizeof(struct SaveBlock1) <= SECTOR_DATA_SIZE * (SECTOR_ID_SAVEBLOCK1_END - SECTOR_ID_SAVEBLOCK1_START + 1), SaveBlock1FreeSpace);
+STATIC_ASSERT(SAVEBLOCK1_SERIALIZED_SIZE <= SECTOR_DATA_SIZE * (SECTOR_ID_SAVEBLOCK1_END - SECTOR_ID_SAVEBLOCK1_START + 1), SaveBlock1FreeSpace);
 STATIC_ASSERT(sizeof(struct PokemonStorage) <= SECTOR_DATA_SIZE * (SECTOR_ID_PKMN_STORAGE_END - SECTOR_ID_PKMN_STORAGE_START + 1), PokemonStorageFreeSpace);
 
 // Sector num to begin writing save data. Sectors are rotated each time the game is saved. (possibly to avoid wear on flash memory?)
@@ -817,6 +825,7 @@ u8 LoadGameSave(u8 saveType)
     default:
         result = TryLoadSaveSlot(FULL_SAVE_SLOT, gRamSaveSectorLocations);
         LoadSerializedGame();
+        VsSeekerEnsureRematchSaveData();
         gSaveFileStatus = result;
         gGameContinueCallback = NULL;
         break;
