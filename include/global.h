@@ -324,11 +324,23 @@ struct BattleTowerData // Leftover from R/S
     /*0x04D1, 0x0581*/ u8 filler_4D1[0x317];
 }; /* size = 0x7E8 */
 
+struct ItemSlot
+{
+    u16 itemId;
+    u16 quantity;
+};
+
 struct VsSeekerRematchSaveData
 {
     u32 magic;
     u16 cooldowns[MAX_VS_SEEKER_REMATCHES];
 }; // size: 0x1BE
+
+struct TmHmPocketSaveData
+{
+    u32 magic;
+    struct ItemSlot slots[BAG_TMHM_COUNT_EXPANDED];
+}; // size: 0x150
 
 struct SaveBlock2
 {
@@ -360,8 +372,9 @@ struct SaveBlock2
     /*0xAF0*/ struct BerryCrush berryCrush;
     /*0xB00*/ struct PokemonJumpRecords pokeJump;
     /*0xB10*/ struct BerryPickingResults berryPick;
-    /*0xB20*/ struct VsSeekerRematchSaveData vsSeekerRematches;
-    /*0xCDE*/ u8 filler_CDE[0x242];
+    /*0xB20*/ struct TmHmPocketSaveData tmHmPocket;
+    /*0xC70*/ struct VsSeekerRematchSaveData vsSeekerRematches;
+    /*0xE2E*/ u8 filler_E2E[0xF2];
     /*0xF20*/ u32 encryptionKey;
 }; // size: 0xF24
 
@@ -402,12 +415,6 @@ struct WarpData
     s8 mapNum;
     s8 warpId;
     s16 x, y;
-};
-
-struct ItemSlot
-{
-    u16 itemId;
-    u16 quantity;
 };
 
 struct Pokeblock

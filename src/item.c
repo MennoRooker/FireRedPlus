@@ -12,6 +12,8 @@
 #include "constants/maps.h"
 #include "item_menu.h"
 
+#define TMHM_POCKET_SAVE_MAGIC 0x544D484D
+
 EWRAM_DATA struct BagPocket gBagPockets[NUM_BAG_POCKETS] = {};
 
 void SortAndCompactBagPocket(struct BagPocket * pocket);
@@ -57,6 +59,26 @@ void ApplyNewEncryptionKeyToBagItems_(u32 key)
     ApplyNewEncryptionKeyToBagItems(key);
 }
 
+void TmHmEnsurePocketSaveData(void)
+{
+    struct TmHmPocketSaveData *save = &gSaveBlock2Ptr->tmHmPocket;
+    u16 i;
+
+    if (save->magic == TMHM_POCKET_SAVE_MAGIC)
+        return;
+
+    for (i = 0; i < BAG_TMHM_COUNT_EXPANDED; i++)
+    {
+        save->slots[i].itemId = ITEM_NONE;
+        save->slots[i].quantity = 0;
+    }
+
+    for (i = 0; i < BAG_TMHM_COUNT; i++)
+        save->slots[i] = gSaveBlock1Ptr->bagPocket_TMHM[i];
+
+    save->magic = TMHM_POCKET_SAVE_MAGIC;
+}
+
 void SetBagPocketsPointers(void)
 {
     gBagPockets[POCKET_MEDICINE - 1].itemSlots = gSaveBlock1Ptr->bagPocket_Medicine;
@@ -67,7 +89,7 @@ void SetBagPocketsPointers(void)
     gBagPockets[POCKET_KEY_ITEMS - 1].capacity = BAG_KEYITEMS_COUNT;
     gBagPockets[POCKET_POKE_BALLS - 1].itemSlots = gSaveBlock1Ptr->bagPocket_PokeBalls;
     gBagPockets[POCKET_POKE_BALLS - 1].capacity = BAG_POKEBALLS_COUNT;
-    gBagPockets[POCKET_TM_CASE - 1].itemSlots = gSaveBlock1Ptr->bagPocket_TMHM;
+    gBagPockets[POCKET_TM_CASE - 1].itemSlots = gSaveBlock2Ptr->tmHmPocket.slots;
     gBagPockets[POCKET_TM_CASE - 1].capacity = BAG_TMHM_COUNT;
     gBagPockets[POCKET_BERRY_POUCH - 1].itemSlots = gSaveBlock1Ptr->bagPocket_Berries;
     gBagPockets[POCKET_BERRY_POUCH - 1].capacity = BAG_BERRIES_COUNT;

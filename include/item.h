@@ -83,6 +83,7 @@ u8 ItemId_GetImportance(u16 itemId);
 void BagPocketCompaction(struct ItemSlot * slots, u8 capacity);
 u16 GetPcItemQuantity(u16 *);
 void SetBagPocketsPointers(void);
+void TmHmEnsurePocketSaveData(void);
 
 void ItemPcCompaction(void);
 void RemovePCItem(u16 itemId, u16 quantity);

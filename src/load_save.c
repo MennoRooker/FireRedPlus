@@ -47,6 +47,14 @@ COMMON_DATA struct SaveBlock1 *gSaveBlock1Ptr = NULL;
 COMMON_DATA struct SaveBlock2 *gSaveBlock2Ptr = NULL;
 COMMON_DATA struct PokemonStorage *gPokemonStoragePtr = NULL;
 
+static void SyncLegacyTmHmSlotsFromExpanded(void)
+{
+    u16 i;
+
+    for (i = 0; i < BAG_TMHM_COUNT; i++)
+        gSaveBlock1Ptr->bagPocket_TMHM[i] = gSaveBlock2Ptr->tmHmPocket.slots[i];
+}
+
 void CheckForFlashMemory(void)
 {
     if (!IdentifyFlash())
@@ -199,6 +207,7 @@ void LoadObjectEvents(void)
 
 void SaveSerializedGame(void)
 {
+    SyncLegacyTmHmSlotsFromExpanded();
     SavePlayerParty();
     SaveObjectEvents();
 }
@@ -229,9 +238,9 @@ void LoadPlayerBag(void)
     for (i = 0; i < BAG_POKEBALLS_COUNT; i++)
         gLoadedSaveData.pokeBalls[i] = gSaveBlock1Ptr->bagPocket_PokeBalls[i];
 
-    // load player TMs and HMs.
+    // load player TMs and HMs from the expanded runtime save pocket.
     for (i = 0; i < BAG_TMHM_COUNT; i++)
-        gLoadedSaveData.TMsHMs[i] = gSaveBlock1Ptr->bagPocket_TMHM[i];
+        gLoadedSaveData.TMsHMs[i] = gSaveBlock2Ptr->tmHmPocket.slots[i];
 
     // load player berries.
     for (i = 0; i < BAG_BERRIES_COUNT; i++)
@@ -265,9 +274,12 @@ void SavePlayerBag(void)
     for (i = 0; i < BAG_POKEBALLS_COUNT; i++)
         gSaveBlock1Ptr->bagPocket_PokeBalls[i] = gLoadedSaveData.pokeBalls[i];
 
-    // save player TMs and HMs.
+    // save player TMs and HMs to the expanded runtime save pocket.
     for (i = 0; i < BAG_TMHM_COUNT; i++)
-        gSaveBlock1Ptr->bagPocket_TMHM[i] = gLoadedSaveData.TMsHMs[i];
+        gSaveBlock2Ptr->tmHmPocket.slots[i] = gLoadedSaveData.TMsHMs[i];
+
+    // mirror the legacy TM/HM range to SaveBlock1 for serialized compatibility.
+    SyncLegacyTmHmSlotsFromExpanded();
 
     // save player berries.
     for (i = 0; i < BAG_BERRIES_COUNT; i++)

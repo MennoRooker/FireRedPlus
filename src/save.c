@@ -8,6 +8,7 @@
 #include "save_failed_screen.h"
 #include "fieldmap.h"
 #include "pokemon_storage_system.h"
+#include "item.h"
 #include "vs_seeker.h"
 #include "gba/flash_internal.h"
 #include "sloopsvc.h"
@@ -826,6 +827,7 @@ u8 LoadGameSave(u8 saveType)
         result = TryLoadSaveSlot(FULL_SAVE_SLOT, gRamSaveSectorLocations);
         LoadSerializedGame();
         VsSeekerEnsureRematchSaveData();
+        TmHmEnsurePocketSaveData();
         gSaveFileStatus = result;
         gGameContinueCallback = NULL;
         break;
