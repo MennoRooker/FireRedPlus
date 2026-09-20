@@ -283,10 +283,12 @@ static void SetUpWarpExitTask(bool8 playerNotMoving)
 static void ExitWarpFadeInScreen(bool8 playerNotMoving)
 
 {
-    // Skip fade when entering indoor buildings (like Pokémon Centers)
+    // Skips fade when entering most indoor warps, but preserve legacy fade
+    // behavior on maps that show a preview transition card (forest/cave/etc.).
     if (!playerNotMoving && 
         GetLastUsedWarpMapType() != MAP_TYPE_INDOOR && 
-        GetCurrentMapType() == MAP_TYPE_INDOOR)
+        GetCurrentMapType() == MAP_TYPE_INDOOR &&
+        !MapHasPreviewScreen_HandleQLState2(gMapHeader.regionMapSectionId, MPS_TYPE_ANY))
     {
         // No fade - instant transition
         return;

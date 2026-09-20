@@ -1411,6 +1411,70 @@ to add the Fairy type icon to the file
 graphics/interface/menu_info.png somehow.
 Probably at the top right.
 
+I thought I fixed the map transition glitch
+in the Power Plant but I just got back there
+and experienced the same glitch. Apparently
+I never changed the saveblocks and the issue
+might not even be related to the saveblocks
+this time around. It could be the rematch
+icons, but I'm not convinced of that either.
+
+Saw a stale rematch icon (Fuchsia) on Mark
+in route 10 on the master branch. He doesn't
+even have a Fuchsia rematch...
+
+git commands for pulling pret commits into
+the branch DEMO:
+ 1914  git fetch upstream
+ 1915  git log --oneline --decorate --graph DEMO.upstream/master
+ 1917  git merge --no-ff upstream/master
+
+Apparently the commit in which the SaveBlock
+was changed once more was not just Expanded
+Berry Pouch (New SaveBlock) [11 mar], but 
+also Limit Rematches [22 mar]. I think this 
+is where the new transition glitch comes from
+despite there not being a clear discrepancy
+in the memory according to every chat I've
+had with the bots.
+
+I see that the faster warp commit did create
+a stutter in the map transition of the Power
+Plant so I will revert the faster warps for
+all of the maps with these transition screens.
+(eb7af8c7914b974e608644267da9e666be27bf89)
+
+The actual new SaveBlock commits that may
+have caused the main bug are the following:
+
+- Increased BAG size (New SaveBlock)
+  Mar 8 2026
+  60315b445d72e71937375ec1490eb332ad88e8b6
+- Expanded Berry Pouch (New SaveBlock)
+  Mar 11 2026
+  ec00d67bf821a67d2f77243f2b7462991830149e
+  e67b763990869ffef4ecd2d8dfb6db8077dc945e
+- Limit rematches
+  Mar 22 2026
+  f9e068c5ed4ea3197164f2131b80e10ce6a8f851
+  4364d3241b28ea63a3ef7b1e4869e8af7949aa90
+
+The 2 most recent commits both have 2 SHAs,
+which could be irrelevant to the bug, but 
+is coincidental enough to make me feel like
+there might be something there.
+
+I can only test before all 3 commits or 
+after all 3 commits and not inbetween, since
+I don't have .sav files for that. But I 
+might need to play through it all anyway 
+just for my own sanity and more 
+
+Sceptile Sharpness & Castform Dust forme +
+buffed stats
+
+
+
 TO DO:
 x Force SET mode
 x EV berries
@@ -1450,8 +1514,6 @@ x Victory Road FLY checkpoint
 x Balancing
 x Title screen
 x No badge boosts
-- Item sprites in party menu
-- SELECT for move items
 - Cue Ball sprites
 / Fewer trainer battles
 / Documentation
