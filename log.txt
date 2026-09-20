@@ -1470,8 +1470,9 @@ I don't have .sav files for that. But I
 might need to play through it all anyway 
 just for my own sanity and more 
 
-Sceptile Sharpness & Castform Dust forme +
-buffed stats
+I added more space to the TMs pocket but
+I have to reset the commit because it 
+corrupted the BAG data.
 
 
 
@@ -1534,6 +1535,8 @@ x No badge boosts
   • LR navigation
   • Edit titles
 - Elemental punches tutor
+- Sceptile Sharpness 
+- Castform Dust forme
 - Dynamic speed
 - Nidoqueen eggs
 - Implement all abilites
