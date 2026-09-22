@@ -1476,6 +1476,8 @@ I need to make it clear that the current SaveBlock1
 already exceeds the limit. The VS Seeker rematches cross
 over the safe memory border and I need to remedy this by
 removing some stuff before I start my next playthrough:
+
+Have to be on master branch!!
 "I intend on adding things to the project that require
 an expansion of the SaveBlock struct(s). The current
 state of the project already exceeds the safe limit
@@ -1490,8 +1492,10 @@ glitches, but backwards compatiblity was not possible.
 There are 2 commits that tried to implement this fix
 in a compatible way, but the BAG loses items when the
 game is built halfway through a playthrough:
-
-
+Fixed: Power Plant transition glitch (New SaveBlock)
+SHA: 264fe753443196585bebf7378239834497cb09db
+Expanded TMHM pocket in SaveBlock2 (+25)
+SHA: 5a14a9b3c54104c38801e8f16778e19ff279ad30
 
 Interestingly, according to the comments alongside the
 SaveBlock1 struct in the vanilla version of the game,
@@ -1562,7 +1566,46 @@ struct SaveBlock1
     /*0x3D38*/ struct TrainerTower trainerTower[NUM_TOWER_CHALLENGE_TYPES];
 }; // size: 0x3D68
 
+This would indicate that there is another mechanism that
+causes the overflow to occur. I am not necessarily inter-
+ested in figuring out what the exact cause of these 
+glitches is, but I do want to make sure they do not 
+occur from now on. I like the idea of having certain things
+be serialized outside of the SaveBlocks themselves, but in
+the end I just want the game to function with all of my
+plans for the future. I want to clean up the SaveBlocks
+with headroom so that no feature is left without any room. 
+I think the safest way to get this to work is to make sure 
+SaveBlock1 has the same start and end as in vanilla. If we
+remove some unnecessary things from SaveBlock1 and move
+the VS Seeker uints into the middle of the SaveBlock and
+then add padding like filler_B20[0x400]; in SB2 to make
+sure that SaveBlock1 ends at the exact same address as 
+vanilla at 0x3D68 with TrainerTowes as its final entry.
 
+In order to do this we need to remove things from SB1 and
+I already know what I do want to remove: QuestLogScene.
+I disabled the questlog a long time ago and I never intend
+on adding it back into the game. Eventually any mention of
+the questlog should be removed from the game, along with
+all of its logic. Many scripts include things like 
+goto_if_questlog and QuestLog_CutRecording etc.
+Preferably I would remove the log and its quest_log
+files altogether. I count at least 12 files that have 
+quest_log in its name, ranging from helpers and PNGs to
+actual game logic. If we remove all of these and clear
+questlog from the SB we can have the space we need to
+get the features I want in there. If some files and 
+funcs need to be left in the codebase to act as stumps
+then that's OK, but if we can remove them then that is
+prefered.
+
+Please set up a plan to remove questlog from the project
+entirely and fill up its space in SB1 with the VS Seeker
+rematches. Any additional space that is now freed up
+should be filler. Make this filler exactly big enough
+to make sure SaveBlock1 ends at with TrainerTower at 
+0x3D68."
 
 
 TO DO:
