@@ -3,6 +3,8 @@
 
 #include "global.h"
 
+struct QuestLogScene;
+
 void QL_RecordObjects(struct QuestLogScene *);
 void QL_LoadObjects(struct QuestLogScene *, struct ObjectEventTemplate *);
 void QL_TryStopSurfing(void);
