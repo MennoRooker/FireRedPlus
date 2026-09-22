@@ -160,25 +160,26 @@ CinnabarIsland_Gym_Text_PokemonQuizRules::
     .string "Here we go!$"
 
 CinnabarIsland_Gym_Text_QuizQuestion1::
-    .string "CATERPIE evolves into METAPOD?$"
+    .string "Does the move DEFENSE CURL raise\n"
+    .string "the damage of ROLLOUT?$"
 
 CinnabarIsland_Gym_Text_QuizQuestion2::
-    .string "There are nine certified POKéMON\n"
-    .string "LEAGUE BADGES?$"
+    .string "Are there any fossils POKéMON that\n"
+    .string "are not ROCK-type?$"
 
 CinnabarIsland_Gym_Text_QuizQuestion3::
-    .string "POLIWAG evolves three times?$"
+    .string "Can the move SLAM cause paralysis?$"
 
 CinnabarIsland_Gym_Text_QuizQuestion4::
-    .string "Are electric moves effective\n"
-    .string "against GROUND-type POKéMON?$"
+    .string "FIGHTING-type POKéMON take neutral\n"
+    .string "damage from BUG-type moves?$"
 
 CinnabarIsland_Gym_Text_QuizQuestion5::
-    .string "POKéMON of the same kind and level\n"
-    .string "are not identical?$"
+    .string "Do POKéMON with a LAX nature have\n"
+    .string "a heightened DEFENSE stat?$"
 
 CinnabarIsland_Gym_Text_QuizQuestion6::
-    .string "TM28 contains TOMBSTONY?$"
+    .string "Does TM28 contain EARTHQUAKE?$"
 
 CinnabarIsland_Gym_Text_CorrectGoOnThrough::
     .string "You're absolutely correct!\p"

@@ -1692,15 +1692,15 @@ const struct Trainer gTrainers[] = {
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
         .party = NO_ITEM_DEFAULT_MOVES(sParty_SuperNerdAron),
     },
-    [TRAINER_SUPER_NERD_MIGUEL] = {
-        .trainerClass = TRAINER_CLASS_SUPER_NERD,
+    [TRAINER_SCIENTIST_MIGUEL] = {
+        .trainerClass = TRAINER_CLASS_SCIENTIST,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_SUSPICIOUS,
-        .trainerPic = TRAINER_PIC_SUPER_NERD,
+        .trainerPic = TRAINER_PIC_SCIENTIST,
         .trainerName = _("MIGUEL"),
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_SuperNerdMiguel),
+        .party = NO_ITEM_DEFAULT_MOVES(sParty_ScientistMiguel),
     },
     [TRAINER_SUPER_NERD_AIDAN] = {
         .trainerClass = TRAINER_CLASS_SUPER_NERD,
@@ -3350,7 +3350,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_ScientistTed),
+        .party = NO_ITEM_CUSTOM_MOVES(sParty_ScientistTed),
     },
     [TRAINER_SCIENTIST_CONNOR] = {
         .trainerClass = TRAINER_CLASS_SCIENTIST,

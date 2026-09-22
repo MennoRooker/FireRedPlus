@@ -23,7 +23,7 @@ MtMoon_B2F_EventScript_Miguel::
 	lock
 	faceplayer
 	goto_if_set FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B2F_EventScript_MiguelFossilPicked
-	goto_if_defeated TRAINER_SUPER_NERD_MIGUEL, MtMoon_B2F_EventScript_MiguelGoPickFossil
+	goto_if_defeated TRAINER_SCIENTIST_MIGUEL, MtMoon_B2F_EventScript_MiguelGoPickFossil
 	call MtMoon_B2F_EventScript_BattleMiguel
 	release
 	end
@@ -35,7 +35,7 @@ MtMoon_B2F_EventScript_BattleMiguel::
 	playbgm MUS_ENCOUNTER_GYM_LEADER, 0
 	waitbuttonpress
 	setvar VAR_LAST_TALKED, LOCALID_MIGUEL
-	trainerbattle_no_intro TRAINER_SUPER_NERD_MIGUEL, MtMoon_B2F_Text_MiguelDefeat
+	trainerbattle_no_intro TRAINER_SCIENTIST_MIGUEL, MtMoon_B2F_Text_MiguelDefeat
 	setvar VAR_MAP_SCENE_MT_MOON_B2F, 1
 	msgbox MtMoon_B2F_Text_WellEachTakeAFossil
 	return

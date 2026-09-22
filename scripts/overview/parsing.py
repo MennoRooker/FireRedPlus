@@ -974,7 +974,7 @@ def parse_trade_gift_pokemon_by_section_map_token() -> Dict[str, List[Dict[str, 
     ingame_trade_text = read_text("src/data/ingame_trades.h")
     trade_defs: Dict[str, Dict[str, str]] = {}
     trade_block_re = re.compile(
-        r"\[(INGAME_TRADE_[A-Z0-9_]+)\]\s*=\s*\{(.*?)\n\s*\},",
+        r"\[(INGAME_TRADE_[A-Z0-9_]+)\]\s*=\s*\{(.*?)\n\s*\},?",
         re.S,
     )
     for trade_token, body in trade_block_re.findall(ingame_trade_text):

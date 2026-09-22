@@ -173,7 +173,7 @@
 #define TRAINER_POKEMANIAC_DAWSON                               167
 #define TRAINER_POKEMANIAC_ABE                                  168
 #define TRAINER_SUPER_NERD_ARON                                 169
-#define TRAINER_SUPER_NERD_MIGUEL                               170
+#define TRAINER_SCIENTIST_MIGUEL                                170
 #define TRAINER_SUPER_NERD_AIDAN                                171
 #define TRAINER_SUPER_NERD_GLENN                                172
 #define TRAINER_SUPER_NERD_LESLIE                               173
