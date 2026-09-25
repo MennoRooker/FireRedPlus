@@ -1790,7 +1790,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_SuperNerdDerek),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_SuperNerdDerek),
     },
     [TRAINER_SUPER_NERD_ZAC] = {
         .trainerClass = TRAINER_CLASS_SUPER_NERD,
@@ -1800,7 +1800,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_SuperNerdZac),
+        .party = NO_ITEM_DEFAULT_MOVES_NATURE_ABILITY(sParty_SuperNerdZac),
     },
     [TRAINER_HIKER_MARCOS] = {
         .trainerClass = TRAINER_CLASS_HIKER,
@@ -2130,7 +2130,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_BurglarQuinn),
+        .party = ITEM_CUSTOM_MOVES(sParty_BurglarQuinn),
     },
     [TRAINER_BURGLAR_RAMON] = {
         .trainerClass = TRAINER_CLASS_BURGLAR,

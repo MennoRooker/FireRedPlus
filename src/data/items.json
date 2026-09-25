@@ -6157,7 +6157,7 @@
     {
       "english": "BOTTLE CAP",
       "itemId": "ITEM_BOTTLE_CAP",
-      "price": 9800,
+      "price": 12800,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
       "description_english": "An item that is used to maximize\\nthe IV of one of the stats of\\na POKéMON.",

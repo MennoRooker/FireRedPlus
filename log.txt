@@ -1607,6 +1607,33 @@ should be filler. Make this filler exactly big enough
 to make sure SaveBlock1 ends at with TrainerTower at 
 0x3D68."
 
+I have succesfully reshaped the SaveBlocks to what I now
+believe will work in the long run. I will continue to work
+on the DEMO branch with the old save file structure so I
+will have to remember to pull the single commit that
+changes the SaveBlocks: Removed QuestLog (New SaveBlock)
+SHA: 2b3b2cad82bed123cf90afac3502eaf3aa355a73
+
+Note: 
++ "EVs capped at 252 instead of 255" in the Pokécommunity 
+  forum post.
++ "Hidden Power always 70BP and type is shown" in the
+  forum post.
++ "See items in party screen"
++ "Easy item switching"
+
+I want to introduce IVs and EVs as structs in the exis-
+ting battle structs used in trainer_parties.h. '.IVs' can
+be used in replacement of .iv and .ev + .EVs will be in-
+troduced alongside it. How it will work is as follows:
+.IVs builds an array of 6 uint8s with 5-bit encoding (0-32)
+that allow me to set specific IVs of the trainer mons.
+I can then call .IVs in any TrainerMon* struct and specify
+the IVs in an array like {HP, ATK, DEF, SPATK, SPDEF, SPD}.
+Same goes for .EVs with 6 uint8s, or I can just use .ev if 
+I want to apply blanket EVs for all stats like we already 
+do with .iv.
+
 
 TO DO:
 x Force SET mode
@@ -1647,7 +1674,10 @@ x Victory Road FLY checkpoint
 x Balancing
 x Title screen
 x No badge boosts
+- Flavour dislikes
 - Cue Ball sprites
+- Burglar sprites
+- Determine opponent EVs
 / Fewer trainer battles
 / Documentation
 ---------------------------------------
@@ -1673,7 +1703,6 @@ x No badge boosts
 - Nidoqueen eggs
 - Implement all abilites
 - Custom move animations
-- Determine opponent EVs
 - 2 trainers double battle
 - Gym leaders rematches
 - Improved AI

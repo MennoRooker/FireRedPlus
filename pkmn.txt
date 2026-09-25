@@ -71,6 +71,9 @@ atk:	90 -> 95
 POISON -> POISON/DARK
 Intimidate/Shed Skin -> Intimidate/Venomous
 
+- SANDSLASH
+spdef:	55 -> 65
+
 - VULPIX
 Flash Fire -> Flash Fire/Drought
 
