@@ -1409,7 +1409,7 @@ static void Cmd_typecalc(void)
         {
             gLastUsedAbility = ABILITY_SOLID_ROCK;
             RecordAbilityBattle(gBattlerTarget, ABILITY_SOLID_ROCK);
-            gBattleMoveDamage /= 2;
+            gBattleMoveDamage = (3 * gBattleMovePower) / 4; // Solid rock reduces damage by 25%
             if (gBattleMoveDamage == 0)
                 gBattleMoveDamage = 1;
         }

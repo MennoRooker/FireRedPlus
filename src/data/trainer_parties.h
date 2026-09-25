@@ -7865,21 +7865,27 @@ static const struct TrainerMonNoItemDefaultMoves sParty_ScientistIvan[] = {
 // ======================================================================================= //
 // ================================= Cinnabar Island Gym ================================= //
 // ======================================================================================= //
-static const struct TrainerMonNoItemDefaultMoves sParty_BurglarQuinn[] = {
+static const struct TrainerMonItemCustomMoves sParty_BurglarQuinn[] = {
     {
         .iv = 15,
         .lvl = 49,
         .species = SPECIES_ESPEON,
+        .heldItem = ITEM_WISE_GLASSES,
+        .moves = {MOVE_PSYCHIC, MOVE_QUICK_ATTACK, MOVE_SUNNY_DAY, MOVE_SHADOW_BALL},
     },
     {
         .iv = 15,
         .lvl = 49,
         .species = SPECIES_NINETALES,
+        .heldItem = ITEM_FOCUS_SASH,
+        .moves = {MOVE_WILL_O_WISP, MOVE_FIRE_SPIN, MOVE_CONFUSE_RAY, MOVE_DIG},
     },
     {
         .iv = 15,
         .lvl = 49,
         .species = SPECIES_FLAREON,
+        .heldItem = ITEM_MUSCLE_BAND,
+        .moves = {MOVE_DOUBLE_EDGE, MOVE_DIG, MOVE_QUICK_ATTACK, MOVE_CHARM},
     },
 };
 
@@ -7919,21 +7925,38 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BurglarRamon[] = {
     },
     {
         .iv = 15,
-        .lvl = 52,
+        .lvl = 51,
         .species = SPECIES_RAPIDASH,
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SuperNerdDerek[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_SuperNerdDerek[] = {
     {
         .iv = 15,
         .lvl = 50,
-        .species = SPECIES_CAMERUPT
+        .species = SPECIES_CAMERUPT,
+        .heldItem = ITEM_SITRUS_BERRY,
+        .moves = {MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_ERUPTION, MOVE_AMNESIA},
+        .nature = NATURE_QUIRKY,
+        .abilitySlot = 0,
     },
     {
         .iv = 15,
-        .lvl = 53,
+        .lvl = 51,
         .species = SPECIES_ALAKAZAM,
+        .heldItem = ITEM_SPELL_TAG,
+        .moves = {MOVE_PSYCHIC, MOVE_SHADOW_BALL, MOVE_SHOCK_WAVE, MOVE_SUNNY_DAY},
+        .nature = NATURE_TIMID,
+        .abilitySlot = 1,
+    },
+    {
+        .iv = 15,
+        .lvl = 50,
+        .species = SPECIES_PORYGON2,
+        .heldItem = ITEM_NONE,
+        .moves = {MOVE_TRI_ATTACK, MOVE_ZAP_CANNON, MOVE_ICE_BEAM, MOVE_SOLAR_BEAM},
+        .nature = NATURE_SERIOUS,
+        .abilitySlot = 0,
     },
 };
 
@@ -7941,25 +7964,41 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BurglarDusty[] = {
     {
         .iv = 15,
         .lvl = 50,
-        .species = SPECIES_PERSIAN,
+        .species = SPECIES_WEEZING,
     },
     {
         .iv = 15,
         .lvl = 50,
         .species = SPECIES_DODRIO,
     },
+    {
+        .iv = 15,
+        .lvl = 50,
+        .species = SPECIES_PERSIAN,
+    },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_SuperNerdZac[] = {
+static const struct TrainerMonNoItemDefaultMovesNatureAbility sParty_SuperNerdZac[] = {
     {
         .iv = 15,
         .lvl = 51,
         .species = SPECIES_FLYGON,
+        .nature = NATURE_HARDY,
+        .abilitySlot = 0,
     },
     {
         .iv = 15,
         .lvl = 51,
         .species = SPECIES_HOUNDOOM,
+        .nature = NATURE_HARDY,
+        .abilitySlot = 0,
+    },
+    {
+        .iv = 15,
+        .lvl = 50,
+        .species = SPECIES_SKARMORY,
+        .nature = NATURE_HARDY,
+        .abilitySlot = 0,
     },
 };
 

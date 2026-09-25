@@ -824,7 +824,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .baseAttack = 100,
         .baseDefense = 110,
         .baseSpAttack = 45,
-        .baseSpDefense = 55,
+        .baseSpDefense = 65,
         .baseSpeed = 65,
         .types = {TYPE_GROUND, TYPE_GROUND},
         .catchRate = 90,
@@ -1111,7 +1111,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_NINETALES] =
     {
         .baseHP = 73,
-        .baseAttack = 66,
+        .baseAttack = 76,
         .baseDefense = 75,
         .baseSpAttack = 91,
         .baseSpDefense = 100,
