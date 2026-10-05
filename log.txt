@@ -1634,6 +1634,63 @@ Same goes for .EVs with 6 uint8s, or I can just use .ev if
 I want to apply blanket EVs for all stats like we already 
 do with .iv.
 
+New ability idea for Donphan could be to up its speed on 
+every turn when using Rollout, or any move with the effect
+EFFECT_ROLLOUT for that matter. It could also be considered
+for Ice Ball users like Glalie. I might also allow pokémon
+with this ability to cancel their Rollout moves and call
+the ability 'Roll Control' or something dumb like that.
+
+I have been looking for some more documentation on the
+gen 3 games and the AI specifically. There seem to be
+some helpful docs and even sheets with EV spreads of battle
+frontier trainers. But this would suggest that pokeemerald
+has EV specifications in its vanilla source code...
+
+I implemented the guaranteed Speed Boost into Protect AI,
+but I want to actually check for opponent speed and only
+force the Protect if one of the mons of the player is 
+faster than the Speed Boost mon.
+
+I noticed that truantCounter is in DisableStruct, which
+seems to assume that Truant still disables EVERY move.
+Also, truantSwitchInHack, which is apparently not in 
+FRLG, but can be activated in Cmd_switchineffects to
+mirror the Emerald AI even further.
+
+I asked the AI for a summary of battle AI in regards to
+speed control. Apparently the AI does have checks in
+place based of active speed rather than the speed stat,
+which is useful for more comprehensive speed control
+logic implementation. GetWhoStrikesFirst exposes the
+faster of 2 mons using the macros if_user_faster and
+if_target_faster.
+
+Platinum Kaizo apparently uses AI flags to make individual
+trainers more formidable with how they approach their fight
+with the player. This could be a useful addition. A similar
+thing might be in Emerald with the AI being of one of seve-
+ral different levels in the Battle Frontier, though I'm 
+not sure whether that's true.
+We can add something like 'dirty' AI on members of Team
+Rocket because they thematically tend to play dirty. 
+Gym leaders and E4 members should have AI more closely
+tailored to their teams and playstyles.
+
+The current AI changes are as follows:
+- If the AI has Speed Boost and Protect/Detect AND they
+are slower than the player's mon in singles OR either of
+the player's mons in doubles it is guaranteed to go for 
+protect/detect.
+- If the AI has a weather move, but they are faster than
+the player's mon that also has a weather move they will be 
+discouraged from using it, since they would just lose the
+weather was. (Have to make sure this is guarded by 
+if_no_weather_active)
+
+Black Belts have the same item (BLACK BELT) over and over
+again in many fights, which is actually not allowed in my
+game so I have to change that.
 
 TO DO:
 x Force SET mode
@@ -1675,7 +1732,10 @@ x Balancing
 x Title screen
 x No badge boosts
 - Flavour dislikes
+- Single turn bounce
+- Change crits to 1.5x
 - Cue Ball sprites
+- Encourage ∞ acc moves
 - Burglar sprites
 - Determine opponent EVs
 / Fewer trainer battles
@@ -1801,4 +1861,14 @@ https://discordapp.com/invite/cJxDDVP
 https://github.com/huderlem/poryscript
 https://www.youtube.com/playlist?list=PLLNv9Lq6kDmT2zNM_gz3IkUUzjT4KaC-G
 https://www.youtube.com/playlist?list=PLLNv9Lq6kDmQllAMToZJDjc7WZqqO6xvD
+https://docs.google.com/spreadsheets/d/1ZsNDY1yEfr0M8Gf7xuFjh8lI6TGAZ1lUHbuBKZKtM7g/edit?gid=422754009#gid=422754009
+https://psypokes.com/rsefrlg/breeding.php
+https://pokemondb.net/mechanics/breeding
+https://www.smogon.com/ingame/guides/breeding_guide_part1
+https://www.smogon.com/ingame/guides/breeding_guide_part2
+https://www.smogon.com/ingame/guides/breeding_guide_part3
+https://www.smogon.com/ingame/guides/breeding_guide_part4
+https://turskain.github.io/
+https://www.smogon.com/forums/threads/battle-frontier-max-stats-pokemon-database.15426/
+https://www.smogon.com/forums/threads/gen-iii-battle-frontier-discussion-and-records.3648697/
 

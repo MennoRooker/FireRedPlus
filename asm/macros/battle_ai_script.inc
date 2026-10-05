@@ -1,13 +1,13 @@
-	.macro if_random_less_than percent:req, ptr:req
+	.macro if_random_less_than threshold:req, ptr:req
 	.byte 0x00
-	.byte \percent
+	.byte \threshold
 	.4byte \ptr
 	.endm
 
 	@ unused
-	.macro if_random_greater_than percent:req, ptr:req
+	.macro if_random_greater_than threshold:req, ptr:req
 	.byte 0x01
-	.byte \percent
+	.byte \threshold
 	.4byte \ptr
 	.endm
 

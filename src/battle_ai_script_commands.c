@@ -36,8 +36,8 @@ enum
 sAIScriptPtr is a pointer to the next battle AI cmd command to read.
 when a command finishes processing, sAIScriptPtr is incremented by
 the number of bytes that the current command had reserved for arguments
-in order to read the next command correctly. refer to battle_ai_scripts.s for the
-AI scripts.
+in order to read the next command correctly. refer to battle_ai_scripts.s 
+for the AI scripts.
 */
 
 static EWRAM_DATA const u8 *sAIScriptPtr = NULL;
@@ -141,6 +141,9 @@ static void Cmd_if_target_not_taunted(void);
 static void RecordLastUsedMoveByTarget(void);
 static void BattleAI_DoAIProcessing(void);
 static bool8 HasUsableDamagingMove(u8 battlerId);
+static bool8 IsSlowerThanOpponent(u8 battler1, u8 battler2);
+static bool8 IsSlowerThanAnyOpponent(u8 battlerId);
+static u8 GetSpeedBoostOpeningMove(u8 battlerId);
 static void AIStackPushVar(const u8 *ptr);
 static bool8 AIStackPop(void);
 
@@ -367,7 +370,12 @@ u8 BattleAI_ChooseMoveOrAction(void)
     u8 currentMoveArray[MAX_MON_MOVES];
     u8 consideredMoveArray[MAX_MON_MOVES];
     u8 numOfBestMoves;
+    u8 forcedMove;
     s32 i;
+
+    forcedMove = GetSpeedBoostOpeningMove(gActiveBattler);
+    if (forcedMove != MAX_MON_MOVES)
+        return forcedMove;
 
     RecordLastUsedMoveByTarget();
     while (AI_THINKING_STRUCT->aiFlags != 0)
@@ -482,6 +490,71 @@ static bool8 HasUsableDamagingMove(u8 battlerId)
     }
 
     return FALSE;
+}
+
+static bool8 IsSlowerThanBattler(u8 battlerId, u8 opposingBattler)
+{
+    if (gAbsentBattlerFlags & gBitTable[opposingBattler])
+        return FALSE;
+    if (gBattleMons[opposingBattler].hp == 0)
+        return FALSE;
+
+    // GetWhoStrikesFirst returns 1 when battler2 (opposingBattler) goes first.
+    return GetWhoStrikesFirst(battlerId, opposingBattler, TRUE) == 1;
+}
+
+static bool8 IsSlowerThanAnyOpponent(u8 battlerId)
+{
+    u8 opposingBattler;
+    u8 battlerSide = GetBattlerSide(battlerId);
+
+    // Singles: only one opposing active battler.
+    if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+        return IsSlowerThanBattler(battlerId, battlerId ^ BIT_SIDE);
+    
+    // Doubles: true if slower than at least one active opposing battler
+    for (opposingBattler = 0; opposingBattler < gBattlersCount; opposingBattler++)
+    {
+        if (GetBattlerSide(opposingBattler) == battlerSide)
+            continue;
+
+        if (IsSlowerThanBattler(battlerId, opposingBattler))
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+static u8 GetSpeedBoostOpeningMove(u8 battlerId)
+{
+    u8 protectDetectSlots[MAX_MON_MOVES];
+    u8 moveLimitations;
+    s32 i;
+    u8 count = 0;
+
+    // isFirstTurn is nonzero on a battler's first active turn (including after switch-in).
+    if (gBattleMons[battlerId].ability != ABILITY_SPEED_BOOST
+     || gDisableStructs[battlerId].isFirstTurn == 0
+     || !IsSlowerThanAnyOpponent(battlerId))
+        return MAX_MON_MOVES;
+
+    moveLimitations = CheckMoveLimitations(battlerId, 0, 0xFF);
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = gBattleMons[battlerId].moves[i];
+
+        if (gBitTable[i] & moveLimitations)
+            continue;
+
+        if (move == MOVE_PROTECT || move == MOVE_DETECT)
+            protectDetectSlots[count++] = i;
+    }
+
+    if (count == 0)
+        return MAX_MON_MOVES;
+
+    return protectDetectSlots[Random() % count];
 }
 
 static void RecordLastUsedMoveByTarget(void)
@@ -1644,10 +1717,15 @@ static void Cmd_if_has_move_with_effect(void)
     case AI_TARGET_PARTNER:
         for (i = 0; i < 8; i++)
         {
-            if (gBattleMons[gBattlerAttacker].moves[i] != 0 && gBattleMoves[BATTLE_HISTORY->usedMoves[gBattlerTarget >> 1][i]].effect == sAIScriptPtr[2])
-                break;
+            if (BATTLE_HISTORY->usedMoves[gBattlerTarget >> 1][i] != 0
+             && gBattleMoves[BATTLE_HISTORY->usedMoves[gBattlerTarget >> 1][i]].effect == sAIScriptPtr[2])
+            {
+                sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 3);
+                return;
+            }
         }
-        sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 3);
+        sAIScriptPtr += 7;
+        break;
     }
 }
 
@@ -1676,7 +1754,11 @@ static void Cmd_if_doesnt_have_move_with_effect(void)
             if (BATTLE_HISTORY->usedMoves[gBattlerTarget >> 1][i] != 0 && gBattleMoves[BATTLE_HISTORY->usedMoves[gBattlerTarget >> 1][i]].effect == sAIScriptPtr[2])
                 break;
         }
-        sAIScriptPtr += 7;
+        if (i != 8)
+            sAIScriptPtr += 7;
+        else
+            sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 3);
+        break;
     }
 }
 
