@@ -2159,10 +2159,21 @@ AI_CV_Pursuit_End::
 	end
 
 AI_CV_RainDance::
+	if_hp_less_than AI_USER, 40, AI_CV_RainDance_ScoreDown1
+	get_weather
+	if_equal AI_WEATHER_NONE, AI_CV_RainDance_NoWeather
+	if_equal AI_WEATHER_HAIL, AI_CV_RainDance_WeatherHail
+	if_equal AI_WEATHER_SUN, AI_CV_RainDance_WeatherSun
+	if_equal AI_WEATHER_SANDSTORM, AI_CV_RainDance_WeatherSand
+	goto AI_CV_RainDance_End
+
+AI_CV_RainDance_NoWeather::
 	if_user_faster AI_CV_RainDance_CheckTargetWeatherWar
 	get_ability AI_USER
 	if_equal ABILITY_SWIFT_SWIM, AI_CV_RainDance3
-	goto AI_CV_RainDance2
+	get_ability AI_USER
+	if_equal ABILITY_RAIN_DISH, AI_CV_RainDance3
+	goto AI_CV_RainDance_End
 
 AI_CV_RainDance_CheckTargetWeatherWar::
 	if_has_move AI_TARGET, MOVE_RAIN_DANCE, AI_CV_RainDance_ScoreDown1
@@ -2173,28 +2184,22 @@ AI_CV_RainDance_CheckTargetWeatherWar::
 	if_has_move AI_TARGET_PARTNER, MOVE_HAIL, AI_CV_RainDance_ScoreDown1
 	if_has_move AI_TARGET, MOVE_SANDSTORM, AI_CV_RainDance_ScoreDown1
 	if_has_move AI_TARGET_PARTNER, MOVE_SANDSTORM, AI_CV_RainDance_ScoreDown1
-	goto AI_CV_RainDance2
-
-AI_CV_RainDance2::
-	if_hp_less_than AI_USER, 40, AI_CV_RainDance_ScoreDown1
-	get_weather
-	if_equal AI_WEATHER_HAIL, AI_CV_RainDance_CheckHail
-	if_equal AI_WEATHER_SUN, AI_CV_RainDance_CheckSun
-	if_equal AI_WEATHER_SANDSTORM, AI_CV_RainDance_CheckSand
-	get_ability AI_USER
-	if_equal ABILITY_RAIN_DISH, AI_CV_RainDance3
 	goto AI_CV_RainDance_End
 
-AI_CV_RainDance_CheckHail::
+AI_CV_RainDance_WeatherHail::
 	if_has_move AI_USER, MOVE_HAIL, AI_CV_RainDance_End
-	goto AI_CV_RainDance3
+	goto AI_CV_RainDance_MismatchWeather
 
-AI_CV_RainDance_CheckSun::
+AI_CV_RainDance_WeatherSun::
 	if_has_move AI_USER, MOVE_SUNNY_DAY, AI_CV_RainDance_End
-	goto AI_CV_RainDance3
+	goto AI_CV_RainDance_MismatchWeather
 
-AI_CV_RainDance_CheckSand::
+AI_CV_RainDance_WeatherSand::
 	if_has_move AI_USER, MOVE_SANDSTORM, AI_CV_RainDance_End
+	goto AI_CV_RainDance_MismatchWeather
+
+AI_CV_RainDance_MismatchWeather::
+	if_can_faint AI_CV_RainDance_End
 	goto AI_CV_RainDance3
 
 AI_CV_RainDance3::
@@ -2209,10 +2214,18 @@ AI_CV_RainDance_End::
 
 AI_CV_SunnyDay::
 	if_hp_less_than AI_USER, 40, AI_CV_SunnyDay_ScoreDown1
+	get_weather
+	if_equal AI_WEATHER_NONE, AI_CV_SunnyDay_NoWeather
+	if_equal AI_WEATHER_HAIL, AI_CV_SunnyDay_WeatherHail
+	if_equal AI_WEATHER_RAIN, AI_CV_SunnyDay_WeatherRain
+	if_equal AI_WEATHER_SANDSTORM, AI_CV_SunnyDay_WeatherSand
+	goto AI_CV_SunnyDay_End
+
+AI_CV_SunnyDay_NoWeather::
 	if_user_faster AI_CV_SunnyDay_CheckTargetWeatherWar
 	get_ability AI_USER
 	if_equal ABILITY_CHLOROPHYLL, AI_CV_SunnyDay3
-	goto AI_CV_SunnyDay2
+	goto AI_CV_SunnyDay_End
 
 AI_CV_SunnyDay_CheckTargetWeatherWar::
 	if_has_move AI_TARGET, MOVE_RAIN_DANCE, AI_CV_SunnyDay_ScoreDown1
@@ -2223,25 +2236,22 @@ AI_CV_SunnyDay_CheckTargetWeatherWar::
 	if_has_move AI_TARGET_PARTNER, MOVE_HAIL, AI_CV_SunnyDay_ScoreDown1
 	if_has_move AI_TARGET, MOVE_SANDSTORM, AI_CV_SunnyDay_ScoreDown1
 	if_has_move AI_TARGET_PARTNER, MOVE_SANDSTORM, AI_CV_SunnyDay_ScoreDown1
-	goto AI_CV_SunnyDay2
-
-AI_CV_SunnyDay2::
-	get_weather
-	if_equal AI_WEATHER_HAIL, AI_CV_SunnyDay_CheckHail
-	if_equal AI_WEATHER_RAIN, AI_CV_SunnyDay_CheckRain
-	if_equal AI_WEATHER_SANDSTORM, AI_CV_SunnyDay_CheckSand
 	goto AI_CV_SunnyDay_End
 
-AI_CV_SunnyDay_CheckHail::
+AI_CV_SunnyDay_WeatherHail::
 	if_has_move AI_USER, MOVE_HAIL, AI_CV_SunnyDay_End
-	goto AI_CV_SunnyDay3
+	goto AI_CV_SunnyDay_MismatchWeather
 
-AI_CV_SunnyDay_CheckRain::
+AI_CV_SunnyDay_WeatherRain::
 	if_has_move AI_USER, MOVE_RAIN_DANCE, AI_CV_SunnyDay_End
-	goto AI_CV_SunnyDay3
+	goto AI_CV_SunnyDay_MismatchWeather
 
-AI_CV_SunnyDay_CheckSand::
+AI_CV_SunnyDay_WeatherSand::
 	if_has_move AI_USER, MOVE_SANDSTORM, AI_CV_SunnyDay_End
+	goto AI_CV_SunnyDay_MismatchWeather
+
+AI_CV_SunnyDay_MismatchWeather::
+	if_can_faint AI_CV_SunnyDay_End
 	goto AI_CV_SunnyDay3
 
 AI_CV_SunnyDay3::
@@ -2441,10 +2451,18 @@ AI_CV_SpitUp_End::
 
 AI_CV_Hail::
 	if_hp_less_than AI_USER, 40, AI_CV_Hail_ScoreDown1
+	get_weather
+	if_equal AI_WEATHER_NONE, AI_CV_Hail_NoWeather
+	if_equal AI_WEATHER_SUN, AI_CV_Hail_WeatherSun
+	if_equal AI_WEATHER_RAIN, AI_CV_Hail_WeatherRain
+	if_equal AI_WEATHER_SANDSTORM, AI_CV_Hail_WeatherSand
+	goto AI_CV_Hail_End
+
+AI_CV_Hail_NoWeather::
 	if_user_faster AI_CV_Hail_CheckTargetWeatherWar
 	get_ability AI_USER
 	if_equal ABILITY_SLUSH_RUSH, AI_CV_Hail3
-	goto AI_CV_Hail2
+	goto AI_CV_Hail_End
 
 AI_CV_Hail_CheckTargetWeatherWar::
 	if_has_move AI_TARGET, MOVE_RAIN_DANCE, AI_CV_Hail_ScoreDown1
@@ -2455,25 +2473,22 @@ AI_CV_Hail_CheckTargetWeatherWar::
 	if_has_move AI_TARGET_PARTNER, MOVE_HAIL, AI_CV_Hail_ScoreDown1
 	if_has_move AI_TARGET, MOVE_SANDSTORM, AI_CV_Hail_ScoreDown1
 	if_has_move AI_TARGET_PARTNER, MOVE_SANDSTORM, AI_CV_Hail_ScoreDown1
-	goto AI_CV_Hail2
-
-AI_CV_Hail2::
-	get_weather
-	if_equal AI_WEATHER_SUN, AI_CV_Hail_CheckSun
-	if_equal AI_WEATHER_RAIN, AI_CV_Hail_CheckRain
-	if_equal AI_WEATHER_SANDSTORM, AI_CV_Hail_CheckSand
 	goto AI_CV_Hail_End
 
-AI_CV_Hail_CheckSun::
+AI_CV_Hail_WeatherSun::
 	if_has_move AI_USER, MOVE_SUNNY_DAY, AI_CV_Hail_End
-	goto AI_CV_Hail3
+	goto AI_CV_Hail_MismatchWeather
 
-AI_CV_Hail_CheckRain::
+AI_CV_Hail_WeatherRain::
 	if_has_move AI_USER, MOVE_RAIN_DANCE, AI_CV_Hail_End
-	goto AI_CV_Hail3
+	goto AI_CV_Hail_MismatchWeather
 
-AI_CV_Hail_CheckSand::
+AI_CV_Hail_WeatherSand::
 	if_has_move AI_USER, MOVE_SANDSTORM, AI_CV_Hail_End
+	goto AI_CV_Hail_MismatchWeather
+
+AI_CV_Hail_MismatchWeather::
+	if_can_faint AI_CV_Hail_End
 	goto AI_CV_Hail3
 
 AI_CV_Hail3::
@@ -2488,10 +2503,18 @@ AI_CV_Hail_End::
 
 AI_CV_Sandstorm::
 	if_hp_less_than AI_USER, 40, AI_CV_Sandstorm_ScoreDown1
+	get_weather
+	if_equal AI_WEATHER_NONE, AI_CV_Sandstorm_NoWeather
+	if_equal AI_WEATHER_HAIL, AI_CV_Sandstorm_WeatherHail
+	if_equal AI_WEATHER_RAIN, AI_CV_Sandstorm_WeatherRain
+	if_equal AI_WEATHER_SUN, AI_CV_Sandstorm_WeatherSun
+	goto AI_CV_Sandstorm_End
+
+AI_CV_Sandstorm_NoWeather::
 	if_user_faster AI_CV_Sandstorm_CheckTargetWeatherWar
 	get_ability AI_USER
 	if_equal ABILITY_SAND_RUSH, AI_CV_Sandstorm3
-	goto AI_CV_Sandstorm2
+	goto AI_CV_Sandstorm_End
 
 AI_CV_Sandstorm_CheckTargetWeatherWar::
 	if_has_move AI_TARGET, MOVE_RAIN_DANCE, AI_CV_Sandstorm_ScoreDown1
@@ -2502,25 +2525,22 @@ AI_CV_Sandstorm_CheckTargetWeatherWar::
 	if_has_move AI_TARGET_PARTNER, MOVE_HAIL, AI_CV_Sandstorm_ScoreDown1
 	if_has_move AI_TARGET, MOVE_SANDSTORM, AI_CV_Sandstorm_ScoreDown1
 	if_has_move AI_TARGET_PARTNER, MOVE_SANDSTORM, AI_CV_Sandstorm_ScoreDown1
-	goto AI_CV_Sandstorm2
-
-AI_CV_Sandstorm2::
-	get_weather
-	if_equal AI_WEATHER_HAIL, AI_CV_Sandstorm_CheckHail
-	if_equal AI_WEATHER_RAIN, AI_CV_Sandstorm_CheckRain
-	if_equal AI_WEATHER_SUN, AI_CV_Sandstorm_CheckSun
 	goto AI_CV_Sandstorm_End
 
-AI_CV_Sandstorm_CheckHail::
+AI_CV_Sandstorm_WeatherHail::
 	if_has_move AI_USER, MOVE_HAIL, AI_CV_Sandstorm_End
-	goto AI_CV_Sandstorm3
+	goto AI_CV_Sandstorm_MismatchWeather
 
-AI_CV_Sandstorm_CheckRain::
+AI_CV_Sandstorm_WeatherRain::
 	if_has_move AI_USER, MOVE_RAIN_DANCE, AI_CV_Sandstorm_End
-	goto AI_CV_Sandstorm3
+	goto AI_CV_Sandstorm_MismatchWeather
 
-AI_CV_Sandstorm_CheckSun::
+AI_CV_Sandstorm_WeatherSun::
 	if_has_move AI_USER, MOVE_SUNNY_DAY, AI_CV_Sandstorm_End
+	goto AI_CV_Sandstorm_MismatchWeather
+
+AI_CV_Sandstorm_MismatchWeather::
+	if_can_faint AI_CV_Sandstorm_End
 	goto AI_CV_Sandstorm3
 
 AI_CV_Sandstorm3::
