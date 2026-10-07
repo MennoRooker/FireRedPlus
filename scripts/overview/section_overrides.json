@@ -605,7 +605,7 @@
       "hideMoveTutors": [0, 1, 2]
     },
     "Cape Brink": {
-          "title": "STATIC",
+      "mapToken": "TWO_ISLAND_CAPE_BRINK",
       "crop": { "y0": 0.3, "y1": 1.0 }
     },
     "Three Island Port": {
@@ -614,6 +614,21 @@
     "Three Island": {
       "hideEncounters": true,
       "mapScaleMax": 0.5
+    },
+    "Berry Forest": {
+      "manualEncounters": [
+        {
+          "kind": "static_mons",
+          "title": "STATIC",
+          "placement": "left",
+          "slots": [
+            {
+              "speciesToken": "SPECIES_HYPNO",
+              "level": "70"
+            }
+          ]
+        }
+      ]
     },
     "Viridian City Gym": {
       "mapScaleMax": 0.5

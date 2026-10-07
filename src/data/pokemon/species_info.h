@@ -6360,9 +6360,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_MAGCARGO] =
     {
         .baseHP = 60,
-        .baseAttack = 60,
+        .baseAttack = 65,
         .baseDefense = 120,
-        .baseSpAttack = 80,
+        .baseSpAttack = 90,
         .baseSpDefense = 80,
         .baseSpeed = 30,
         .types = {TYPE_FIRE, TYPE_ROCK},

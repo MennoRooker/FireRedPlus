@@ -254,8 +254,7 @@ spdef:	30 -> 35
 atk:	85 -> 108
 
 - MAGCARGO
-hp:	50 -> 60
-atk:	50 -> 60
+atk:	50 -> 65
 
 - CORSOLA
 hp:	55 -> 65
