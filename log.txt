@@ -1692,6 +1692,17 @@ Black Belts have the same item (BLACK BELT) over and over
 again in many fights, which is actually not allowed in my
 game so I have to change that.
 
+I added the cue_ball.png spritesheet to the project. Some
+color indexing had me fucked up again, but luckily an AI
+was able to fix it. Do not trust Claude Haiku 4.5 though,
+it will wipe your git project if you're not careful.
+
+I'm thinking about making it so that bottle caps only in-
+crease the IV of a stat by a pretty low amount (like +3)
+and Heart Scales can be used to max out one of the stats.
+This way you can't just max IV your team and steamroll 
+the game.
+
 TO DO:
 x Force SET mode
 x EV berries

@@ -137,6 +137,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PlayerBrendan[] = {DUMMY
 static const struct TrainerMonNoItemDefaultMoves sParty_PlayerMay[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_PlayerRed[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_PlayerLeaf[] = {DUMMY_TRAINER_MON};
+static const struct TrainerMonNoItemDefaultMoves sParty_CueBallChase[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherDoug[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherGreg[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_TeamRocketGruntCaleb[] = {DUMMY_TRAINER_MON};
@@ -8597,6 +8598,12 @@ static const struct TrainerMonNoItemCustomMoves sParty_BikerGoon2[] = {
         .species = SPECIES_ARBOK,
         .moves = {MOVE_BULLDOZE, MOVE_POISON_FANG, MOVE_CRUNCH, MOVE_GLARE},
     },
+    {
+        .iv = 15,
+        .lvl = 54,
+        .species = SPECIES_MIGHTYENA,
+        .moves = {MOVE_CRUNCH, MOVE_FIRE_FANG, MOVE_THUNDER_FANG, MOVE_STRENGTH},
+    },
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BikerGoon3[] = {
@@ -8605,6 +8612,11 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BikerGoon3[] = {
         .lvl = 54,
         .species = SPECIES_GRANBULL,
     },
+    {
+        .iv = 15,
+        .lvl = 53,
+        .species = SPECIES_ZANGOOSE,
+    }
 };
 
 static const struct TrainerMonItemCustomMovesNatureAbility sParty_CueBallPaxton[] = {
@@ -9967,24 +9979,6 @@ static const struct TrainerMonItemCustomMovesNatureAbility sParty_ChampionFirstC
 // ======================================================================================= //
 // ====================================== UNSORTED ======================================= //
 // ======================================================================================= //
-static const struct TrainerMonNoItemDefaultMoves sParty_CueBallChase[] = {
-    {
-        .iv = 15,
-        .lvl = 31,
-        .species = SPECIES_TENTACOOL,
-    },
-    {
-        .iv = 15,
-        .lvl = 31,
-        .species = SPECIES_TENTACOOL,
-    },
-    {
-        .iv = 15,
-        .lvl = 31,
-        .species = SPECIES_TENTACRUEL,
-    },
-};
-
 static const struct TrainerMonNoItemDefaultMoves sParty_BeautyLauren[] = {
     {
         .iv = 15,
