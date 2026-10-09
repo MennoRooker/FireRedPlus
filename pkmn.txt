@@ -153,6 +153,9 @@ WATER -> WATER/DRAGON
 - STARYU
 WATER -> WATER/PSYCHIC
 
+- JYNX
+defL	35 -> 55
+
 - OMASTAR
 atk:	60 -> 80
 
@@ -275,6 +278,17 @@ spatk	80 -> 95
 - HOUNDOOM
 def:	50 -> 58
 spd:	95 -> 105
+
+- SMEARGLE
+atk:	20 -> 40
+spatk:	20 -> 40
+
+- TYROGUE
+atk:	35 -> 55
+spdef:	35 -> 45
+
+- SMOOCHUM
+def:	15 -> 25
 
 - RAIKOU
 spatk:	115 -> 135

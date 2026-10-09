@@ -42,7 +42,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
+      "graphics_id": "OBJ_EVENT_GFX_POKEMANIAC",
       "x": 15,
       "y": 70,
       "elevation": 3,
@@ -70,7 +70,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
+      "graphics_id": "OBJ_EVENT_GFX_POKEMANIAC",
       "x": 13,
       "y": 44,
       "elevation": 3,

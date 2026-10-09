@@ -55,7 +55,7 @@
 #define OBJ_EVENT_GFX_ROCKET_M 49
 #define OBJ_EVENT_GFX_ROCKET_F 50
 #define OBJ_EVENT_GFX_GBA_KID 51
-#define OBJ_EVENT_GFX_POKE_MANIAC 52
+#define OBJ_EVENT_GFX_SUPER_NERD 52
 #define OBJ_EVENT_GFX_BIKER 53
 #define OBJ_EVENT_GFX_BLACK_BELT 54
 #define OBJ_EVENT_GFX_SCIENTIST 55
@@ -158,8 +158,10 @@
 #define OBJ_EVENT_GFX_BUGSY 152
 #define OBJ_EVENT_GFX_FARFETCHD 153
 #define OBJ_EVENT_GFX_CUE_BALL 154
+#define OBJ_EVENT_GFX_BURGLAR 155
+#define OBJ_EVENT_GFX_POKEMANIAC 156
 
-#define NUM_OBJ_EVENT_GFX     155
+#define NUM_OBJ_EVENT_GFX     157
 
 // These are dynamic object gfx ids.
 // They correspond with the values of the VAR_OBJ_GFX_ID_X vars.

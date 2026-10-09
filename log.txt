@@ -1467,8 +1467,10 @@ sprite, while these nerds look a lot more like the
 Pokémaniac NPC sprite. The Pokémaniac sprite is used 
 for both maniacs and burglars. I think I want to 
 change all Super Nerds to the maniac sprite in the 
-overworld and create a unique burglar sprite, like 
-I'm doing for the Cue Ball NPCs.
+overworld and rename it to the super nerd sprite,
+then create a unique burglar sprite, like I'm doing 
+for the Cue Ball NPCs. Then a maniac sprite shouldn't
+be too difiicult to implement either.
 
 I need to set up a prompt for inventory of what I 
 intend to expand upon in the SaveBlocks down the line.
@@ -1702,6 +1704,15 @@ crease the IV of a stat by a pretty low amount (like +3)
 and Heart Scales can be used to max out one of the stats.
 This way you can't just max IV your team and steamroll 
 the game.
+
+I need to keep in mind that the sprites I added do not all
+have 10 sprites in their sheet, making rematches tough to
+animate. I also made the choice to only raise 1 hand for
+the pokemaniac, meaning I need to not animate any jumping.
+I can take the sprite info from old_man_1.png to make sure
+it works. Burglars have no rematch option with its sprite-
+sheet.
+
 
 TO DO:
 x Force SET mode

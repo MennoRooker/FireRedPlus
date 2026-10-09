@@ -3606,7 +3606,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     {
         .baseHP = 65,
         .baseAttack = 50,
-        .baseDefense = 35,
+        .baseDefense = 55,
         .baseSpAttack = 115,
         .baseSpDefense = 95,
         .baseSpeed = 95,
@@ -6824,9 +6824,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_SMEARGLE] =
     {
         .baseHP = 55,
-        .baseAttack = 20,
+        .baseAttack = 40,
         .baseDefense = 35,
-        .baseSpAttack = 20,
+        .baseSpAttack = 40,
         .baseSpDefense = 45,
         .baseSpeed = 75,
         .types = {TYPE_NORMAL, TYPE_NORMAL},
@@ -6853,10 +6853,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_TYROGUE] =
     {
         .baseHP = 35,
-        .baseAttack = 35,
+        .baseAttack = 55,
         .baseDefense = 35,
         .baseSpAttack = 35,
-        .baseSpDefense = 35,
+        .baseSpDefense = 45,
         .baseSpeed = 35,
         .types = {TYPE_FIGHTING, TYPE_FIGHTING},
         .catchRate = 75,
@@ -6912,7 +6912,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     {
         .baseHP = 45,
         .baseAttack = 30,
-        .baseDefense = 15,
+        .baseDefense = 25,
         .baseSpAttack = 85,
         .baseSpDefense = 65,
         .baseSpeed = 65,

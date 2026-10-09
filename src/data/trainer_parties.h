@@ -3056,6 +3056,19 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHermanRematchA
     },
 };
 
+static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHermanRematchAfterSapphire[] = {
+    // {
+    //     .iv = 15,
+    //     .lvl = 64,
+    //     .species = SPECIES_WEAVILE,
+    // },
+    {
+        .iv = 15,
+        .lvl = 64,
+        .species = SPECIES_MASQUERAIN,
+    },
+};
+
 
 // ======================================================================================= //
 // =================================== Route 12 North ==================================== //
@@ -8709,23 +8722,18 @@ static const struct TrainerMonNoItemDefaultMoves sParty_AromaLadyViolet[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_TuberAlexis[] = {
     {
         .iv = 15,
-        .lvl = 49,
+        .lvl = 52,
+        .species = SPECIES_KINGLER,
+    },
+    {
+        .iv = 15,
+        .lvl = 53,
         .species = SPECIES_POLITOED,
     },
     {
         .iv = 15,
-        .lvl = 50,
-        .species = SPECIES_STARMIE,
-    },
-    {
-        .iv = 15,
-        .lvl = 50,
+        .lvl = 52,
         .species = SPECIES_LUDICOLO,
-    },
-    {
-        .iv = 15,
-        .lvl = 50,
-        .species = SPECIES_KINGLER,
     },
 };
 
@@ -8735,22 +8743,27 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleTisha[] = {
         .lvl = 54,
         .species = SPECIES_OCTILLERY,
     },
+    {
+        .iv = 15,
+        .lvl = 52,
+        .species = SPECIES_STARMIE,
+    },
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_TuberAmira[] = {
     {
         .iv = 15,
-        .lvl = 48,
+        .lvl = 51,
         .species = SPECIES_WHISCASH,
     },
     {
         .iv = 15,
-        .lvl = 49,
+        .lvl = 51,
         .species = SPECIES_POLIWRATH,
     },
     {
         .iv = 15,
-        .lvl = 48,
+        .lvl = 51,
         .species = SPECIES_WAILORD,
     },
 };
@@ -8758,17 +8771,17 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TuberAmira[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_TuberAmiraRematchAfterLeague[] = {
     {
         .iv = 18,
-        .lvl = 59,
+        .lvl = 62,
         .species = SPECIES_WHISCASH,
     },
     {
         .iv = 18,
-        .lvl = 59,
+        .lvl = 62,
         .species = SPECIES_POLIWRATH,
     },
     {
         .iv = 18,
-        .lvl = 59,
+        .lvl = 62,
         .species = SPECIES_WAILORD,
     },
 };
@@ -11590,20 +11603,6 @@ static const struct TrainerMonNoItemDefaultMoves sParty_RuinManiacLayton[] = {
     },
 };
 
-
-
-static const struct TrainerMonNoItemDefaultMoves sParty_PokemaniacHermanRematchAfterSapphire[] = {
-    {
-        .iv = 15,
-        .lvl = 54,
-        .species = SPECIES_MAROWAK,
-    },
-    {
-        .iv = 15,
-        .lvl = 54,
-        .species = SPECIES_SLOWBRO,
-    },
-};
 
 static const struct TrainerMonNoItemCustomMoves sParty_PainterRaynaRematchAfterSapphire[] = {
     {

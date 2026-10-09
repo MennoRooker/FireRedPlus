@@ -50,7 +50,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_WorkerF;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RocketM;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RocketF;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GBAKid;
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PokeManiac;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SuperNerd;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Biker;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BlackBelt;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Scientist;
@@ -153,6 +153,8 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DeoxysN;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SSAnne;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Bugsy;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CueBall;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Burglar;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PokeManiac;
 
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
@@ -208,7 +210,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_ROCKET_M]                 = &gObjectEventGraphicsInfo_RocketM,
     [OBJ_EVENT_GFX_ROCKET_F]                 = &gObjectEventGraphicsInfo_RocketF,
     [OBJ_EVENT_GFX_GBA_KID]                  = &gObjectEventGraphicsInfo_GBAKid,
-    [OBJ_EVENT_GFX_POKE_MANIAC]              = &gObjectEventGraphicsInfo_PokeManiac,
+    [OBJ_EVENT_GFX_SUPER_NERD]               = &gObjectEventGraphicsInfo_SuperNerd,
     [OBJ_EVENT_GFX_BIKER]                    = &gObjectEventGraphicsInfo_Biker,
     [OBJ_EVENT_GFX_BLACK_BELT]               = &gObjectEventGraphicsInfo_BlackBelt,
     [OBJ_EVENT_GFX_SCIENTIST]                = &gObjectEventGraphicsInfo_Scientist,
@@ -311,4 +313,6 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_SS_ANNE]                  = &gObjectEventGraphicsInfo_SSAnne,
     [OBJ_EVENT_GFX_BUGSY]                    = &gObjectEventGraphicsInfo_Bugsy,
     [OBJ_EVENT_GFX_CUE_BALL]                 = &gObjectEventGraphicsInfo_CueBall,
+    [OBJ_EVENT_GFX_BURGLAR]                 = &gObjectEventGraphicsInfo_Burglar,
+    [OBJ_EVENT_GFX_POKEMANIAC]                 = &gObjectEventGraphicsInfo_PokeManiac,
 };
