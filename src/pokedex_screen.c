@@ -11,6 +11,7 @@
 #include "overworld.h"
 #include "strings.h"
 #include "menu.h"
+#include "battle_main.h"
 #include "pokedex_screen.h"
 #include "data.h"
 #include "pokedex.h"
@@ -18,6 +19,7 @@
 #include "decompress.h"
 #include "constants/songs.h"
 #include "constants/sound.h"
+#include "constants/abilities.h"
 #include "pokedex_area_markers.h"
 #include "field_specials.h"
 
@@ -112,7 +114,7 @@ static u8 DexScreen_CreateDexOrderScrollArrows(void);
 static void DexScreen_DestroyDexOrderListMenu(u8 order);
 static void Task_DexScreen_CategorySubmenu(u8 taskId);
 static u8 DexScreen_CreateCategoryMenuScrollArrows(void);
-static int DexScreen_InputHandler_GetShoulderInput(void);
+static int DexScreen_InputHandler_GetArrowInput(void);
 static void Task_DexScreen_ShowMonPage(u8 taskId);
 static bool32 DexScreen_TryScrollMonsVertical(u8 direction);
 static bool32 DexScreen_TryScrollCategoryMonsVertical(u8 direction);
@@ -618,6 +620,26 @@ const struct WindowTemplate sWindowTemplate_DexEntry_MonPic = {
     .baseBlock = 0x01a8
 };
 
+// const struct WindowTemplate sWindowTemplate_DexEntry_MonTypes = {
+//     .bg = 1,
+//     .tilemapLeft = 19,
+//     .tilemapTop = 5,
+//     .width = 8,
+//     .height = 4,
+//     .paletteNum = 9,
+//     .baseBlock = 0x01a8
+// }
+
+const struct WindowTemplate sWindowTemplate_DexEntry_BaseStatsMonPic = {
+    .bg = 1,
+    .tilemapLeft = 19,
+    .tilemapTop = 3,
+    .width = 8,
+    .height = 8,
+    .paletteNum = 9,
+    .baseBlock = 0x01a8
+};
+
 const struct WindowTemplate sWindowTemplate_DexEntry_SpeciesStats = {
     .bg = 1,
     .tilemapLeft = 2,
@@ -650,12 +672,22 @@ const struct WindowTemplate sWindowTemplate_DexEntry_BaseStatsText = {
 
 const struct WindowTemplate sWindowTemplate_DexEntry_BaseStatsBars = {
     .bg = 1,
-    .tilemapLeft = 7,
+    .tilemapLeft = 8,
     .tilemapTop = 3,
     .width = 9,
     .height = 15,
     .paletteNum = 12,
     .baseBlock = 0x0260
+};
+
+const struct WindowTemplate sWindowTemplate_DexEntry_BaseStatsMonInfo = {
+    .bg = 1,
+    .tilemapLeft = 19,
+    .tilemapTop = 11,
+    .width = 12,
+    .height = 6,
+    .paletteNum = 0,
+    .baseBlock = 0x02e8
 };
 
 static const u8 sText_DexBaseStatHP[] = _("HP");
@@ -665,6 +697,40 @@ static const u8 sText_DexBaseStatSpAtk[] = _("SPA");
 static const u8 sText_DexBaseStatSpDef[] = _("SPD");
 static const u8 sText_DexBaseStatSpe[] = _("SPE");
 static const u8 sText_DexBaseStatBst[] = _("BST");
+static const u8 sText_DexBaseDataGrowthPrefix[] = _("GR:");
+static const u8 sText_DexBaseDataEggPrefix[] = _("EG:");
+static const u8 sText_DexBaseDataAbilityPrefix[] = _("AB:");
+static const u8 sText_DexBaseDataAbility1Prefix[] = _("A1:");
+static const u8 sText_DexBaseDataAbility2Prefix[] = _("A2:");
+static const u8 sText_DexBaseDataUnknown[] = _("?");
+
+static const u8 sDexGrowthRateNames[][11] = {
+    [GROWTH_MEDIUM_FAST] = _("Med Fast"),
+    [GROWTH_ERRATIC] = _("Erratic"),
+    [GROWTH_FLUCTUATING] = _("Fluctuat."),
+    [GROWTH_MEDIUM_SLOW] = _("Med Slow"),
+    [GROWTH_FAST] = _("Fast"),
+    [GROWTH_SLOW] = _("Slow"),
+};
+
+static const u8 sDexEggGroupNames[][8] = {
+    [EGG_GROUP_NONE] = _("None"),
+    [EGG_GROUP_MONSTER] = _("Monstr"),
+    [EGG_GROUP_WATER_1] = _("Wat1"),
+    [EGG_GROUP_BUG] = _("Bug"),
+    [EGG_GROUP_FLYING] = _("Fly"),
+    [EGG_GROUP_FIELD] = _("Field"),
+    [EGG_GROUP_FAIRY] = _("Fairy"),
+    [EGG_GROUP_GRASS] = _("Grass"),
+    [EGG_GROUP_HUMAN_LIKE] = _("Human"),
+    [EGG_GROUP_WATER_3] = _("Wat3"),
+    [EGG_GROUP_MINERAL] = _("Minrl"),
+    [EGG_GROUP_AMORPHOUS] = _("Amorph"),
+    [EGG_GROUP_WATER_2] = _("Wat2"),
+    [EGG_GROUP_DITTO] = _("Ditto"),
+    [EGG_GROUP_DRAGON] = _("Dragn"),
+    [EGG_GROUP_UNDISCOVERED] = _("Undisc"),
+};
 
 static const u16 sDexBaseStatsBarPalette[] = {
     RGB(31, 31, 31),
@@ -1712,7 +1778,7 @@ static void Task_DexScreen_CategorySubmenu(u8 taskId)
                 pageFlipCmd = 2;
         }
         if (pageFlipCmd == 0)
-            pageFlipCmd = DexScreen_InputHandler_GetShoulderInput();
+            pageFlipCmd = DexScreen_InputHandler_GetArrowInput();
         switch (pageFlipCmd)
         {
         case 0: // No action
@@ -1946,34 +2012,19 @@ static u8 DexScreen_CreateCategoryMenuScrollArrows(void)
 /*
  * Returns 1 to flip pages left, 2 to flip pages right, 0 for no action
  */
-static int DexScreen_InputHandler_GetShoulderInput(void)
+static int DexScreen_InputHandler_GetArrowInput(void)
 {
-    switch (gSaveBlock2Ptr->optionsButtonMode)
-    {
-    case OPTIONS_BUTTON_MODE_L_EQUALS_A:
-        // Using the JOY_HELD and JOY_NEW macros here does not match!
-        if ((gMain.heldKeys & R_BUTTON) && (gMain.newKeys & DPAD_LEFT))
-            return 1;
-        else if ((gMain.heldKeys & R_BUTTON) && (gMain.newKeys & DPAD_RIGHT))
-            return 2;
-        else
-            return 0;
-    case OPTIONS_BUTTON_MODE_LR:
-        if (gMain.newKeys & L_BUTTON)
-            return 1;
-        else if (gMain.newKeys & R_BUTTON)
-            return 2;
-        else
-            return 0;
-    case OPTIONS_BUTTON_MODE_HELP:
-    default:
+    if (gMain.newKeys & DPAD_LEFT)
+        return 1;
+    else if (gMain.newKeys & DPAD_RIGHT)
+        return 2;
+    else
         return 0;
-    }
 }
 
 static void Task_DexScreen_ShowMonPage(u8 taskId)
 {
-    int shoulderInput;
+    int arrowInput;
 
     switch (sPokedexScreenData->state)
     {
@@ -2032,9 +2083,9 @@ static void Task_DexScreen_ShowMonPage(u8 taskId)
         sPokedexScreenData->state = 5;
         break;
     case 5:
-        shoulderInput = DexScreen_InputHandler_GetShoulderInput();
+        arrowInput = DexScreen_InputHandler_GetArrowInput();
 
-        if (shoulderInput == 2)
+        if (arrowInput == 2)
         {
             RemoveDexPageWindows();
             FillBgTilemapBufferRect_Palette0(1, 0x000, 0, 2, 30, 16);
@@ -2082,7 +2133,7 @@ static void Task_DexScreen_ShowMonPage(u8 taskId)
         sPokedexScreenData->state = 9;
         break;
     case 9:
-        shoulderInput = DexScreen_InputHandler_GetShoulderInput();
+        arrowInput = DexScreen_InputHandler_GetArrowInput();
 
         if (JOY_NEW(B_BUTTON))
         {
@@ -2090,7 +2141,7 @@ static void Task_DexScreen_ShowMonPage(u8 taskId)
             BeginNormalPaletteFade(~0x8000, 0, 0, 16, RGB_WHITEALPHA);
             sPokedexScreenData->state = 1;
         }
-        else if (shoulderInput == 2)
+        else if (arrowInput == 2)
         {
             RemoveDexPageWindows();
             FillBgTilemapBufferRect_Palette0(2, 0x000, 0, 2, 30, 16);
@@ -2101,7 +2152,7 @@ static void Task_DexScreen_ShowMonPage(u8 taskId)
             CopyBgTilemapBufferToVram(0);
             sPokedexScreenData->state = 10;
         }
-        else if (shoulderInput == 1)
+        else if (arrowInput == 1)
         {
             RemoveDexPageWindows();
             FillBgTilemapBufferRect_Palette0(1, 0x000, 0, 2, 30, 16);
@@ -2139,14 +2190,14 @@ static void Task_DexScreen_ShowMonPage(u8 taskId)
         sPokedexScreenData->state = 12;
         break;
     case 12:
-        shoulderInput = DexScreen_InputHandler_GetShoulderInput();
+        arrowInput = DexScreen_InputHandler_GetArrowInput();
 
         if (JOY_NEW(B_BUTTON))
         {
             BeginNormalPaletteFade(~0x8000, 0, 0, 16, RGB_WHITEALPHA);
             sPokedexScreenData->state = 15;
         }
-        else if (shoulderInput == 1)
+        else if (arrowInput == 1)
         {
             FillBgTilemapBufferRect_Palette0(2, 0x000, 0, 2, 30, 16);
             FillBgTilemapBufferRect_Palette0(1, 0x000, 0, 2, 30, 16);
@@ -3226,10 +3277,16 @@ static void DexScreen_DrawBaseStatBar(u8 windowId, u8 y, u8 stat)
 static u8 DexScreen_DrawMonBaseStatsPage(void)
 {
     u8 i;
+    u8 infoLineY;
     u8 width;
     u8 height;
     s16 left;
     s16 top;
+    u8 ability1;
+    u8 ability2;
+    u8 eggGroup1;
+    u8 eggGroup2;
+    u8 lineBuffer[32];
     u8 bstStr[6];
     u16 bst;
     u16 species = sPokedexScreenData->dexSpecies;
@@ -3272,9 +3329,10 @@ static u8 DexScreen_DrawMonBaseStatsPage(void)
     FillBgTilemapBufferRect_Palette0(1, 0, 0, 0, 30, 20);
     FillBgTilemapBufferRect_Palette0(0, 0, 0, 2, 30, 16);
 
-    sPokedexScreenData->windowIds[0] = AddWindow(&sWindowTemplate_DexEntry_MonPic);
+    sPokedexScreenData->windowIds[0] = AddWindow(&sWindowTemplate_DexEntry_BaseStatsMonPic);
     sPokedexScreenData->windowIds[1] = AddWindow(&sWindowTemplate_DexEntry_BaseStatsText);
     sPokedexScreenData->windowIds[2] = AddWindow(&sWindowTemplate_DexEntry_BaseStatsBars);
+    sPokedexScreenData->windowIds[3] = AddWindow(&sWindowTemplate_DexEntry_BaseStatsMonInfo);
 
     FillWindowPixelBuffer(sPokedexScreenData->windowIds[0], PIXEL_FILL(0));
     DexScreen_LoadMonPicInWindow(sPokedexScreenData->windowIds[0], species, 144);
@@ -3306,6 +3364,66 @@ static u8 DexScreen_DrawMonBaseStatsPage(void)
         DexScreen_DrawBaseStatBar(sPokedexScreenData->windowIds[2], 32 + i * 12, baseStats[i]);
     PutWindowTilemap(sPokedexScreenData->windowIds[2]);
     CopyWindowToVram(sPokedexScreenData->windowIds[2], COPYWIN_GFX);
+
+    FillWindowPixelBuffer(sPokedexScreenData->windowIds[3], PIXEL_FILL(0));
+    infoLineY = 0;
+
+    StringCopy(lineBuffer, sText_DexBaseDataGrowthPrefix);
+    if (gSpeciesInfo[species].growthRate < ARRAY_COUNT(sDexGrowthRateNames))
+        StringAppend(lineBuffer, sDexGrowthRateNames[gSpeciesInfo[species].growthRate]);
+    else
+        StringAppend(lineBuffer, sText_DexBaseDataUnknown);
+    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[3], FONT_SMALL, lineBuffer, 0, infoLineY, 0);
+    infoLineY += 12;
+
+    eggGroup1 = gSpeciesInfo[species].eggGroups[0];
+    eggGroup2 = gSpeciesInfo[species].eggGroups[1];
+    StringCopy(lineBuffer, sText_DexBaseDataEggPrefix);
+    if (eggGroup1 < ARRAY_COUNT(sDexEggGroupNames))
+        StringAppend(lineBuffer, sDexEggGroupNames[eggGroup1]);
+    else
+        StringAppend(lineBuffer, sText_DexBaseDataUnknown);
+    if (eggGroup2 != eggGroup1)
+    {
+        StringAppend(lineBuffer, gText_Slash);
+        if (eggGroup2 < ARRAY_COUNT(sDexEggGroupNames))
+            StringAppend(lineBuffer, sDexEggGroupNames[eggGroup2]);
+        else
+            StringAppend(lineBuffer, sText_DexBaseDataUnknown);
+    }
+    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[3], FONT_SMALL, lineBuffer, 0, infoLineY, 0);
+    infoLineY += 12;
+
+    ability1 = gSpeciesInfo[species].abilities[0];
+    ability2 = gSpeciesInfo[species].abilities[1];
+    if (ability2 != ABILITY_NONE && ability2 != ability1)
+    {
+        StringCopy(lineBuffer, sText_DexBaseDataAbility1Prefix);
+        if (ability1 < ABILITIES_COUNT)
+            StringAppend(lineBuffer, gAbilityNames[ability1]);
+        else
+            StringAppend(lineBuffer, sText_DexBaseDataUnknown);
+        DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[3], FONT_SMALL, lineBuffer, 0, infoLineY, 0);
+        infoLineY += 12;
+
+        StringCopy(lineBuffer, sText_DexBaseDataAbility2Prefix);
+        if (ability2 < ABILITIES_COUNT)
+            StringAppend(lineBuffer, gAbilityNames[ability2]);
+        else
+            StringAppend(lineBuffer, sText_DexBaseDataUnknown);
+    }
+    else
+    {
+        StringCopy(lineBuffer, sText_DexBaseDataAbilityPrefix);
+        if (ability1 < ABILITIES_COUNT)
+            StringAppend(lineBuffer, gAbilityNames[ability1]);
+        else
+            StringAppend(lineBuffer, sText_DexBaseDataUnknown);
+    }
+    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[3], FONT_SMALL, lineBuffer, 0, infoLineY, 0);
+
+    PutWindowTilemap(sPokedexScreenData->windowIds[3]);
+    CopyWindowToVram(sPokedexScreenData->windowIds[3], COPYWIN_GFX);
 
     FillWindowPixelBuffer(1, PIXEL_FILL(15));
     DexScreen_AddTextPrinterParameterized(1, FONT_SMALL, gText_Cry, 8, 2, 4);
@@ -3371,6 +3489,7 @@ u8 RemoveDexPageWindows(void)
     DexScreen_RemoveWindow(&sPokedexScreenData->windowIds[0]);
     DexScreen_RemoveWindow(&sPokedexScreenData->windowIds[1]);
     DexScreen_RemoveWindow(&sPokedexScreenData->windowIds[2]);
+    DexScreen_RemoveWindow(&sPokedexScreenData->windowIds[3]);
 
     return 0;
 }
