@@ -5039,6 +5039,21 @@ static const u8 *GetBottleCapStatName(u8 statId)
     return sBottleCapStatNames[statId];
 }
 
+static bool8 IsHeartScaleIvItem(void)
+{
+    return gSpecialVar_ItemId == ITEM_HEART_SCALE;
+}
+
+static const u8 *GetIvChooseStatText(void)
+{
+    return IsHeartScaleIvItem() ? gText_HeartScaleChooseStat : gText_BottleCapChooseStat;
+}
+
+static const u8 *GetIvConfirmText(void)
+{
+    return IsHeartScaleIvItem() ? gText_HeartScaleMaximizeStat : gText_BottleCapIncreaseStat;
+}
+
 static void ShowBottleCapStatSelectWindow(void)
 {
     u8 i;
@@ -5078,7 +5093,7 @@ void ItemUseCB_BottleCap(u8 taskId, TaskFunc func)
         return;
     }
 
-    DisplayPartyMenuMessage(gText_BottleCapChooseStat, TRUE);
+    DisplayPartyMenuMessage(GetIvChooseStatText(), TRUE);
     ShowBottleCapStatSelectWindow();
     gTasks[taskId].func = Task_HandleBottleCapStatSelection;
 }
@@ -5103,7 +5118,7 @@ static void Task_HandleBottleCapStatSelection(u8 taskId)
         gPartyMenu.data[0] = input;
         PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
         StringCopy(gStringVar2, GetBottleCapStatName((u8)input));
-        StringExpandPlaceholders(gStringVar4, gText_BottleCapMaximizeStat);
+        StringExpandPlaceholders(gStringVar4, GetIvConfirmText());
         DisplayPartyMenuMessage(gStringVar4, TRUE);
         ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].func = Task_BottleCapWaitForYesNo;
@@ -5139,7 +5154,7 @@ static void Task_HandleBottleCapYesNoInput(u8 taskId)
             gPartyMenuUseExitCallback = FALSE;
             GetMonNickname(mon, gStringVar1);
             StringCopy(gStringVar2, GetBottleCapStatName(statId));
-            StringExpandPlaceholders(gStringVar4, gText_BottleCapStatAlreadyMax);
+            StringExpandPlaceholders(gStringVar4, gText_IvAlreadyMaxed);
             DisplayPartyMenuMessage(gStringVar4, TRUE);
             ScheduleBgCopyTilemapToVram(2);
             gTasks[taskId].func = Task_ClosePartyMenuAfterText;
@@ -5154,7 +5169,7 @@ static void Task_HandleBottleCapYesNoInput(u8 taskId)
         PlaySE(SE_SELECT);
         // fallthrough
     case 1: // No
-        DisplayPartyMenuMessage(gText_BottleCapChooseStat, TRUE);
+        DisplayPartyMenuMessage(GetIvChooseStatText(), TRUE);
         ShowBottleCapStatSelectWindow();
         gTasks[taskId].func = Task_HandleBottleCapStatSelection;
         break;
@@ -5166,13 +5181,21 @@ static void ItemUseCB_BottleCapStep(u8 taskId, TaskFunc func)
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
     u8 statId = gPartyMenu.data[0];
     u8 monDataField;
-    u8 iv = 31;
+    u8 iv;
+    u8 newIv;
 
     if (statId >= BOTTLE_CAP_STAT_COUNT)
         statId = BOTTLE_CAP_STAT_HP;
     monDataField = sBottleCapStatToMonData[statId];
+    iv = GetMonData(mon, monDataField);
+    if (IsHeartScaleIvItem())
+        newIv = 31;
+    else
+        newIv = iv + 5;
+    if (newIv > 31)
+        newIv = 31;
 
-    SetMonData(mon, monDataField, &iv);
+    SetMonData(mon, monDataField, &newIv);
     CalculateMonStats(mon);
     UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
 
@@ -5184,7 +5207,10 @@ static void ItemUseCB_BottleCapStep(u8 taskId, TaskFunc func)
 
     GetMonNickname(mon, gStringVar1);
     StringCopy(gStringVar2, GetBottleCapStatName(statId));
-    StringExpandPlaceholders(gStringVar4, gText_BottleCapIVMaximized);
+    if (newIv >= 31)
+        StringExpandPlaceholders(gStringVar4, gText_IvMaximized);
+    else
+        StringExpandPlaceholders(gStringVar4, gText_BottleCapIVIncreased);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
     ScheduleBgCopyTilemapToVram(2);
     gTasks[taskId].func = func;
