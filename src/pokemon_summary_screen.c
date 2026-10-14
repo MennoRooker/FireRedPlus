@@ -24,6 +24,7 @@
 #include "region_map.h"
 #include "field_specials.h"
 #include "party_menu.h"
+#include "berry.h"
 #include "constants/battle.h"
 #include "event_data.h"
 #include "trainer_pokemon_sprites.h"
@@ -121,6 +122,7 @@ static bool32 PokeSum_IsMonBoldOrGentle(u8 nature);
 static void PokeSum_PrintTrainerMemo_Mon_NotHeldByOT(void);
 static bool32 CurrentMonIsFromGBA(void);
 static u8 PokeSum_BufferOtName_IsEqualToCurrentOwner(struct Pokemon * mon);
+static const u8 *PokeSum_BufferFlavorPreferenceString(struct Pokemon *mon);
 static void PokeSum_PrintAbilityNameAndDesc(void);
 static void PokeSum_DrawMoveTypeIcons(void);
 static void PokeSum_DestroySprites(void);
@@ -2753,6 +2755,29 @@ static void PokeSum_PrintTrainerMemo(void)
         PokeSum_PrintTrainerMemo_Egg();
 }
 
+static const u8 *PokeSum_BufferFlavorPreferenceString(struct Pokemon *mon)
+{
+    static const u8 *const sFlavorNames[FLAVOR_COUNT] =
+    {
+        [FLAVOR_SPICY] = gText_PokeSum_FlavorSpicy,
+        [FLAVOR_DRY] = gText_PokeSum_FlavorDry,
+        [FLAVOR_SWEET] = gText_PokeSum_FlavorSweet,
+        [FLAVOR_BITTER] = gText_PokeSum_FlavorBitter,
+        [FLAVOR_SOUR] = gText_PokeSum_FlavorSour,
+    };
+    u8 flavor;
+
+    for (flavor = 0; flavor < FLAVOR_COUNT; flavor++)
+    {
+        if (GetMonFlavorRelation(mon, flavor) < 0)
+        {
+           return sFlavorNames[flavor];
+        }
+    }
+
+    return gText_PokeSum_FlavorNone;
+}
+
 static void PokeSum_PrintTrainerMemo_Mon_HeldByOT(void)
 {
     u8 nature;
@@ -2786,6 +2811,7 @@ static void PokeSum_PrintTrainerMemo_Mon_HeldByOT(void)
     }
 
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(2, mapNameStr);
+    DynamicPlaceholderTextUtil_SetPlaceholderPtr(3, PokeSum_BufferFlavorPreferenceString(&sMonSummaryScreen->currentMon));
 
     // These pairs of strings are bytewise identical to each other in English,
     // but Japanese uses different grammar for Bold and Gentle natures.
@@ -2847,6 +2873,7 @@ static void PokeSum_PrintTrainerMemo_Mon_NotHeldByOT(void)
 
     ConvertIntToDecimalStringN(levelStr, level, STR_CONV_MODE_LEFT_ALIGN, 3);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, levelStr);
+    DynamicPlaceholderTextUtil_SetPlaceholderPtr(3, PokeSum_BufferFlavorPreferenceString(&sMonSummaryScreen->currentMon));
 
     metLocation = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MET_LOCATION);
 
