@@ -5421,6 +5421,8 @@ static void ReturnToUseOnWhichMon(u8 taskId)
 {
     gTasks[taskId].func = Task_HandleChooseMonInput;
     sPartyMenuInternal->exitCallback = NULL;
+    ClearStdWindowAndFrameToTransparent(6, FALSE);
+    ClearWindowTilemap(6);
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
     DisplayPartyMenuStdMessage(PARTY_MSG_USE_ON_WHICH_MON);
 }
