@@ -71,4 +71,4 @@ scripts/__pycache__/
 scripts/overview/__pycache__/
 !scripts/overview/static/overview_map_renderer.js
 !scripts/overview/static/overview_state.js
-
+Cnotes.md

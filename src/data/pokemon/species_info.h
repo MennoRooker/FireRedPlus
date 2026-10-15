@@ -3025,7 +3025,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_CUBONE] =
     {
         .baseHP = 50,
-        .baseAttack = 50,
+        .baseAttack = 54,
         .baseDefense = 95,
         .baseSpAttack = 40,
         .baseSpDefense = 50,
@@ -3054,7 +3054,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_MAROWAK] =
     {
         .baseHP = 60,
-        .baseAttack = 80,
+        .baseAttack = 92,
         .baseDefense = 110,
         .baseSpAttack = 50,
         .baseSpDefense = 80,

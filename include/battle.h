@@ -4,6 +4,7 @@
 #include <limits.h>
 #include "global.h"
 #include "constants/battle.h"
+#include "constants/pokemon.h"
 #include "constants/battle_script_commands.h"
 #include "battle_util.h"
 #include "battle_script_commands.h"
@@ -71,74 +72,114 @@ enum {
 struct TrainerMonNoItemDefaultMoves
 {
     u16 iv;
+    u8 ev;
     u8 lvl;
     u16 species;
+    u16 evSpread;
+    u16 ivSpread;
+    u8 evs[NUM_STATS];
+    u8 ivs[NUM_STATS];
 };
 
 struct TrainerMonItemDefaultMoves
 {
     u16 iv;
+    u8 ev;
     u8 lvl;
     u16 species;
     u16 heldItem;
+    u16 evSpread;
+    u16 ivSpread;
+    u8 evs[NUM_STATS];
+    u8 ivs[NUM_STATS];
 };
 
 struct TrainerMonNoItemCustomMoves
 {
     u16 iv;
+    u8 ev;
     u8 lvl;
     u16 species;
     u16 moves[MAX_MON_MOVES];
+    u16 evSpread;
+    u16 ivSpread;
+    u8 evs[NUM_STATS];
+    u8 ivs[NUM_STATS];
 };
 
 struct TrainerMonItemCustomMoves
 {
     u16 iv;
+    u8 ev;
     u8 lvl;
     u16 species;
     u16 heldItem;
     u16 moves[MAX_MON_MOVES];
+    u16 evSpread;
+    u16 ivSpread;
+    u8 evs[NUM_STATS];
+    u8 ivs[NUM_STATS];
 };
 
 // New variants: allow explicit nature and ability slot overrides per mon
 struct TrainerMonNoItemDefaultMovesNatureAbility
 {
     u16 iv;
+    u8 ev;
     u8 lvl;
     u16 species;
     u8 nature;       // 0..24 as per Nature enum
     u8 abilitySlot;  // 0 or 1; ignored if species has only one ability
+    u16 evSpread;
+    u16 ivSpread;
+    u8 evs[NUM_STATS];
+    u8 ivs[NUM_STATS];
 };
 
 struct TrainerMonItemDefaultMovesNatureAbility
 {
     u16 iv;
+    u8 ev;
     u8 lvl;
     u16 species;
     u16 heldItem;
     u8 nature;
     u8 abilitySlot;
+    u16 evSpread;
+    u16 ivSpread;
+    u8 evs[NUM_STATS];
+    u8 ivs[NUM_STATS];
 };
 
 struct TrainerMonNoItemCustomMovesNatureAbility
 {
     u16 iv;
+    u8 ev;
     u8 lvl;
     u16 species;
     u16 moves[MAX_MON_MOVES];
     u8 nature;
     u8 abilitySlot;
+    u16 evSpread;
+    u16 ivSpread;
+    u8 evs[NUM_STATS];
+    u8 ivs[NUM_STATS];
 };
 
 struct TrainerMonItemCustomMovesNatureAbility
 {
     u16 iv;
+    u8 ev;
     u8 lvl;
     u16 species;
     u16 heldItem;
     u16 moves[MAX_MON_MOVES];
     u8 nature;
     u8 abilitySlot;
+    u16 evSpread;
+    u16 ivSpread;
+    u8 evs[NUM_STATS];
+    u8 ivs[NUM_STATS];
 };
 
 #define NO_ITEM_DEFAULT_MOVES(party) { .NoItemDefaultMoves = party }, .partySize = ARRAY_COUNT(party), .partyFlags = 0

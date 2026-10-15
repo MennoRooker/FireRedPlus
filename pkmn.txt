@@ -144,6 +144,12 @@ spdef:	50 -> 55
 - EXEGGUTOR
 Chlorophyll -> Chlorophyll/Harvest
 
+- CUBONE
+atk:	50 -> 54
+
+- MAROWAK
+atk:	80 -> 92
+
 - CHANSEY
 Lucky Egg 5% -> 50%
 

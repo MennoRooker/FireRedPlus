@@ -1,12 +1,7 @@
 #ifndef GUARD_CONSTANTS_BATTLE_TOWER_H
 #define GUARD_CONSTANTS_BATTLE_TOWER_H
 
-#define F_EV_SPREAD_HP         1 << 0
-#define F_EV_SPREAD_ATTACK     1 << 1
-#define F_EV_SPREAD_DEFENSE    1 << 2
-#define F_EV_SPREAD_SPEED      1 << 3
-#define F_EV_SPREAD_SP_ATTACK  1 << 4
-#define F_EV_SPREAD_SP_DEFENSE 1 << 5
+#include "constants/trainers.h"
 
 #define BATTLE_TOWER_ITEM_NONE           0
 #define BATTLE_TOWER_ITEM_KINGS_ROCK     1

@@ -1581,6 +1581,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv;
                 CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                ApplyMonStatSpreads(&party[i], partyData[i].evSpread, partyData[i].ev, partyData[i].evs, partyData[i].ivSpread, partyData[i].ivs);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
@@ -1599,6 +1600,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
+                ApplyMonStatSpreads(&party[i], partyData[i].evSpread, partyData[i].ev, partyData[i].evs, partyData[i].ivSpread, partyData[i].ivs);
                 break;
             }
             case F_TRAINER_PARTY_HELD_ITEM:
@@ -1613,6 +1615,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+                ApplyMonStatSpreads(&party[i], partyData[i].evSpread, partyData[i].ev, partyData[i].evs, partyData[i].ivSpread, partyData[i].ivs);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
@@ -1632,6 +1635,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
+                ApplyMonStatSpreads(&party[i], partyData[i].evSpread, partyData[i].ev, partyData[i].evs, partyData[i].ivSpread, partyData[i].ivs);
                 break;
             }
             case F_TRAINER_PARTY_NATURE_ABILITY:
@@ -1641,6 +1645,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 fixedIV = partyData[i].iv;
                 personalityValue = ComposePersonalityForNatureAbility(partyData[i].species, partyData[i].nature, partyData[i].abilitySlot);
                 CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                ApplyMonStatSpreads(&party[i], partyData[i].evSpread, partyData[i].ev, partyData[i].evs, partyData[i].ivSpread, partyData[i].ivs);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_NATURE_ABILITY:
@@ -1656,6 +1661,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
+                ApplyMonStatSpreads(&party[i], partyData[i].evSpread, partyData[i].ev, partyData[i].evs, partyData[i].ivSpread, partyData[i].ivs);
                 break;
             }
             case F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_NATURE_ABILITY:
@@ -1666,6 +1672,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 personalityValue = ComposePersonalityForNatureAbility(partyData[i].species, partyData[i].nature, partyData[i].abilitySlot);
                 CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+                ApplyMonStatSpreads(&party[i], partyData[i].evSpread, partyData[i].ev, partyData[i].evs, partyData[i].ivSpread, partyData[i].ivs);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_NATURE_ABILITY:
@@ -1682,6 +1689,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
+                ApplyMonStatSpreads(&party[i], partyData[i].evSpread, partyData[i].ev, partyData[i].evs, partyData[i].ivSpread, partyData[i].ivs);
                 break;
             }
             }

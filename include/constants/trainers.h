@@ -443,12 +443,36 @@
 
 #define F_TRAINER_FEMALE (1 << 7)
 
-// All trainer parties specify the IV, level, and species for each Pokémon in the
-// party. Some trainer parties also specify held items and custom moves for each
-// Pokémon.
+// Vanilla: All trainer parties specify the IV, level, and species for each Pokémon 
+// in the party. Some trainer parties also specify held items and custom moves for 
+// each Pokémon.
 #define F_TRAINER_PARTY_CUSTOM_MOVESET (1 << 0)
 #define F_TRAINER_PARTY_HELD_ITEM      (1 << 1)
-// New: Party entries can explicitly set nature and ability slot per mon
+// FR+: Extra customization options for trainer battles include their nature, ability
+// and specifiable IVs and EVs.
 #define F_TRAINER_PARTY_NATURE_ABILITY (1 << 2)
+
+// Trainer-mon spread flags.
+// Bits select stats in stat order: HP, Atk, Def, Speed, SpAtk, SpDef.
+
+// IVs:
+#define F_IV_SPREAD_HP         (1 << 0)
+#define F_IV_SPREAD_ATTACK     (1 << 1)
+#define F_IV_SPREAD_DEFENSE    (1 << 2)
+#define F_IV_SPREAD_SPEED      (1 << 3)
+#define F_IV_SPREAD_SP_ATTACK  (1 << 4)
+#define F_IV_SPREAD_SP_DEFENSE (1 << 5)
+#define F_IV_SPREAD_ALL        (F_IV_SPREAD_HP | F_IV_SPREAD_ATTACK | F_IV_SPREAD_DEFENSE | F_IV_SPREAD_SPEED | F_IV_SPREAD_SP_ATTACK | F_IV_SPREAD_SP_DEFENSE)
+
+// EVs:
+#define F_EV_SPREAD_HP         (1 << 0)
+#define F_EV_SPREAD_ATTACK     (1 << 1)
+#define F_EV_SPREAD_DEFENSE    (1 << 2)
+#define F_EV_SPREAD_SPEED      (1 << 3)
+#define F_EV_SPREAD_SP_ATTACK  (1 << 4)
+#define F_EV_SPREAD_SP_DEFENSE (1 << 5)
+#define F_EV_SPREAD_ALL        (F_EV_SPREAD_HP | F_EV_SPREAD_ATTACK | F_EV_SPREAD_DEFENSE | F_EV_SPREAD_SPEED | F_EV_SPREAD_SP_ATTACK | F_EV_SPREAD_SP_DEFENSE)
+
+#define MAX_PER_STAT_EV_SPREAD 85
 
 #endif  // GUARD_CONSTANTS_TRAINERS_H

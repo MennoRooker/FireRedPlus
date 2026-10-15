@@ -195,7 +195,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SuperNerdErik[] = {DUMMY
 static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleMaria[] = {DUMMY_TRAINER_MON};
 
 
-
+// Example usage for regular trainer mons:
+// 1) Legacy-style spread over selected stats:
+//    .evSpread = F_EV_SPREAD_SPEED | F_EV_SPREAD_SP_ATTACK,
+// 2) Exact per-stat EVs/IVs (array implies exact mode):
+//    .evs = { 4, 0, 0, 252, 252, 0 },
+//    .ivs = { 31, 0, 31, 31, 31, 31 },
 
 // Start of actual trainer data
 

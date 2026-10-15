@@ -1700,7 +1700,7 @@ was able to fix it. Do not trust Claude Haiku 4.5 though,
 it will wipe your git project if you're not careful.
 
 I'm thinking about making it so that bottle caps only in-
-crease the IV of a stat by a pretty low amount (like +3)
+crease the IV of a stat by a pretty low amount (like +5)
 and Heart Scales can be used to max out one of the stats.
 This way you can't just max IV your team and steamroll 
 the game.
@@ -1753,13 +1753,13 @@ x Victory Road FLY checkpoint
 x Balancing
 x Title screen
 x No badge boosts
-- Flavour dislikes
+x Flavor dislikes
+x Custom sprites
+x Determine opponent EVs
 - Single turn bounce
 - Change crits to 1.5x
 - Cue Ball sprites
 - Encourage ∞ acc moves
-- Burglar sprites
-- Determine opponent EVs
 / Fewer trainer battles
 / Documentation
 ---------------------------------------

@@ -313,6 +313,7 @@ void CreateMaleMon(struct Pokemon *mon, u16 species, u8 level);
 u32 ComposePersonalityForNatureAbility(u16 species, u8 nature, u8 abilitySlot);
 void CreateMonWithIVsPersonality(struct Pokemon *mon, u16 species, u8 level, u32 ivs, u32 personality);
 void CreateMonWithEVSpread(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 evSpread);
+void ApplyMonStatSpreads(struct Pokemon *mon, u16 evSpread, u8 ev, const u8 *evs, u16 ivSpread, const u8 *ivs);
 void CreateBattleTowerMon(struct Pokemon *mon, struct BattleTowerPokemon *src);
 void ConvertPokemonToBattleTowerPokemon(struct Pokemon *mon, struct BattleTowerPokemon *dest);
 void CalculateMonStats(struct Pokemon *mon);

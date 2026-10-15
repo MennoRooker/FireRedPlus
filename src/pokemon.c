@@ -2045,6 +2045,12 @@ void CreateMonWithEVSpread(struct Pokemon *mon, u16 species, u8 level, u8 fixedI
         evsBits >>= 1;
     }
 
+    if (statCount == 0)
+    {
+        CalculateMonStats(mon);
+        return;
+    }
+
     evAmount = MAX_TOTAL_EVS / statCount;
     if (evAmount > MAX_PER_STAT_EVS)
         evAmount = MAX_PER_STAT_EVS;
@@ -2056,6 +2062,120 @@ void CreateMonWithEVSpread(struct Pokemon *mon, u16 species, u8 level, u8 fixedI
         if (evSpread & evsBits)
             SetMonData(mon, MON_DATA_HP_EV + i, &evAmount);
         evsBits <<= 1;
+    }
+
+    CalculateMonStats(mon);
+}
+
+void ApplyMonStatSpreads(struct Pokemon *mon, u16 evSpread, u8 ev, const u8 *evs, u16 ivSpread, const u8 *ivs)
+{
+    s32 i;
+    u8 value;
+    u16 selectedStats;
+    u16 evAmount;
+    u16 remainingEv;
+    u8 statCount;
+    bool8 hasExactEvValues = FALSE;
+    bool8 hasExactIvValues = FALSE;
+
+    if (evs != NULL)
+    {
+        for (i = 0; i < NUM_STATS; i++)
+        {
+            if (evs[i] != 0)
+            {
+                hasExactEvValues = TRUE;
+                break;
+            }
+        }
+    }
+
+    if (ivs != NULL)
+    {
+        for (i = 0; i < NUM_STATS; i++)
+        {
+            if (ivs[i] != 0)
+            {
+                hasExactIvValues = TRUE;
+                break;
+            }
+        }
+    }
+
+    if (hasExactIvValues)
+    {
+        for (i = 0; i < NUM_STATS; i++)
+        {
+            value = ivs[i];
+            if (value > MAX_PER_STAT_IVS)
+                value = MAX_PER_STAT_IVS;
+            SetMonData(mon, MON_DATA_HP_IV + i, &value);
+        }
+    }
+    else if (ivSpread != 0)
+    {
+        selectedStats = ivSpread & ((1 << NUM_STATS) - 1);
+        if (selectedStats != 0)
+        {
+            value = GetMonData(mon, MON_DATA_HP_IV, NULL);
+            for (i = 0; i < NUM_STATS; i++)
+            {
+                if (selectedStats & (1 << i))
+                    SetMonData(mon, MON_DATA_HP_IV + i, &value);
+            }
+        }
+    }
+
+    if (hasExactEvValues)
+    {
+        remainingEv = MAX_TOTAL_EVS;
+        for (i = 0; i < NUM_STATS; i++)
+        {
+            value = evs[i];
+            if (value > MAX_PER_STAT_EVS)
+                value = MAX_PER_STAT_EVS;
+            if (value > remainingEv)
+                value = remainingEv;
+
+            SetMonData(mon, MON_DATA_HP_EV + i, &value);
+            remainingEv -= value;
+        }
+    }
+    else if (evSpread != 0)
+    {
+        selectedStats = evSpread & ((1 << NUM_STATS) - 1);
+        if (selectedStats != 0)
+        {
+            statCount = 0;
+            for (i = 0; i < NUM_STATS; i++)
+            {
+                if (selectedStats & (1 << i))
+                    statCount++;
+            }
+
+            if (statCount != 0)
+            {
+                evAmount = MAX_TOTAL_EVS / statCount;
+                if (evAmount > MAX_PER_STAT_EVS)
+                    evAmount = MAX_PER_STAT_EVS;
+
+                value = evAmount;
+                for (i = 0; i < NUM_STATS; i++)
+                {
+                    if (selectedStats & (1 << i))
+                        SetMonData(mon, MON_DATA_HP_EV + i, &value);
+                }
+            }
+        }
+    }
+    else if (ev != 0)
+    {
+        value = ev;
+        if (value > MAX_PER_STAT_EV_SPREAD)
+            value = MAX_PER_STAT_EV_SPREAD;
+
+        for (i = 0; i < NUM_STATS; i++)
+            SetMonData(mon, MON_DATA_HP_EV + i, &value);
     }
 
     CalculateMonStats(mon);
