@@ -133,6 +133,14 @@ bool8 IsWindMove(u16 move)
     return FALSE;
 }
 
+s32 ApplyCriticalMultiplier(s32 damage, u8 times)
+{
+    while (times-- != 0)
+        damage = (damage * 3) / 2;
+
+    return damage;
+}
+
 void PressurePPLose(u8 target, u8 attacker, u16 move)
 {
     int moveIndex;

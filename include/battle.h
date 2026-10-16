@@ -748,7 +748,7 @@ extern struct BattleEnigmaBerry gEnigmaBerries[MAX_BATTLERS_COUNT];
 extern u16 gCurrentMove;
 extern u16 gChosenMove;
 extern u16 gCalledMove;
-extern u8 gCritMultiplier;
+extern bool8 gIsCriticalHit;
 extern u16 gBattleWeather;
 extern u8 gLastUsedAbility;
 extern u8 gBattlerInMenuId;
