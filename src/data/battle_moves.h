@@ -4422,7 +4422,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BOUNCE] =
     {
-        .effect = EFFECT_SEMI_INVULNERABLE,
+        .effect = EFFECT_PARALYZE_HIT,
         .power = 85,
         .type = TYPE_FLYING,
         .accuracy = 95,

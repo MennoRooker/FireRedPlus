@@ -1719,6 +1719,10 @@ tionals. Blizzard in Hail and Thunder in Rain. Also higher
 scores for infinite-accuracy moves if the mon has lowered
 accuracy or sees kill with an infinite-accuracy move.
 
+I am making Bounce a 1-turn move. I think having Fly as a
+2-turn flying move is move than enough and I hate that Gya-
+rados' only flying move takes 2 turns.
+
 TO DO:
 x Force SET mode
 x EV berries
