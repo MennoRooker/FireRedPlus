@@ -1713,6 +1713,11 @@ I can take the sprite info from old_man_1.png to make sure
 it works. Burglars have no rematch option with its sprite-
 sheet.
 
+I am increasing incentive for the AI to use moves that 
+become infinitely accurate due to weather or other condi-
+tionals. Blizzard in Hail and Thunder in Rain. Also higher
+scores for infinite-accuracy moves if the mon has lowered
+accuracy or sees kill with an infinite-accuracy move.
 
 TO DO:
 x Force SET mode
@@ -1755,12 +1760,9 @@ x Title screen
 x No badge boosts
 x Flavor dislikes
 x Custom sprites
-x Determine opponent EVs
-- Single turn bounce
-- Change crits to 1.5x
-- Cue Ball sprites
-- Encourage ∞ acc moves
+x 1.5x crits
 / Fewer trainer battles
+/ Opponent EVs
 / Documentation
 ---------------------------------------
 - Add Fairy type

@@ -664,6 +664,9 @@ AI_CheckViability::
 	if_effect EFFECT_ACCURACY_UP, AI_CV_AccuracyUp
 	if_effect EFFECT_EVASION_UP, AI_CV_EvasionUp
 	if_effect EFFECT_ALWAYS_HIT, AI_CV_AlwaysHit
+	if_effect EFFECT_VITAL_THROW, AI_CV_AlwaysHit
+	if_move MOVE_THUNDER, AI_CV_Thunder
+	if_move MOVE_BLIZZARD, AI_CV_Blizzard
 	if_effect EFFECT_ATTACK_DOWN, AI_CV_AttackDown
 	if_effect EFFECT_DEFENSE_DOWN, AI_CV_DefenseDown
 	if_effect EFFECT_SPEED_DOWN, AI_CV_SpeedDown
@@ -1117,6 +1120,24 @@ AI_CV_AlwaysHit::
 	if_stat_level_more_than AI_TARGET, STAT_EVASION, 8, AI_CV_AlwaysHit2
 	if_stat_level_less_than AI_USER, STAT_ACC, 4, AI_CV_AlwaysHit2
 	goto AI_CV_AlwaysHit_End
+
+AI_CV_Thunder::
+	get_weather
+	if_equal AI_WEATHER_RAIN, AI_CV_ThunderInRain
+	goto AI_CV_AlwaysHit_End
+
+AI_CV_ThunderInRain::
+	score +6
+	goto AI_CV_AlwaysHit
+
+AI_CV_Blizzard::
+	get_weather
+	if_equal AI_WEATHER_HAIL, AI_CV_BlizzardInHail
+	goto AI_CV_AlwaysHit_End
+
+AI_CV_BlizzardInHail::
+	score +6
+	goto AI_CV_AlwaysHit
 
 AI_CV_AlwaysHit_ScoreUp1::
 	score +1
@@ -3002,8 +3023,30 @@ AI_TryToFaint_DoubleSuperEffective:
 
 AI_TryToFaint_TryToEncourageQuickAttack::
 	if_effect EFFECT_EXPLOSION, AI_TryToFaint_End
-	if_not_effect EFFECT_QUICK_ATTACK, AI_TryToFaint_ScoreUp4
+	if_not_effect EFFECT_QUICK_ATTACK, AI_TryToFaint_TryToEncourageReliableKO
 	score +2
+	score +6
+	goto AI_TryToFaint_End
+
+AI_TryToFaint_TryToEncourageReliableKO::
+	if_effect EFFECT_ALWAYS_HIT, AI_TryToFaint_ScoreUp3
+	if_effect EFFECT_VITAL_THROW, AI_TryToFaint_ScoreUp3
+	if_move MOVE_THUNDER, AI_TryToFaint_CheckThunderRain
+	if_move MOVE_BLIZZARD, AI_TryToFaint_CheckBlizzardHail
+	goto AI_TryToFaint_ScoreUp4
+
+AI_TryToFaint_CheckThunderRain::
+	get_weather
+	if_equal AI_WEATHER_RAIN, AI_TryToFaint_ScoreUp3
+	goto AI_TryToFaint_ScoreUp4
+
+AI_TryToFaint_CheckBlizzardHail::
+	get_weather
+	if_equal AI_WEATHER_HAIL, AI_TryToFaint_ScoreUp3
+	goto AI_TryToFaint_ScoreUp4
+
+AI_TryToFaint_ScoreUp3::
+	score +3
 
 AI_TryToFaint_ScoreUp4::
 	score +4
