@@ -1736,6 +1736,14 @@ Donphan and Electrode for example. Perhaps we also give the
 mons with this ability the choice of cancelling ROLLOUT and
 ICE BALL.
 
+I found all the moves and their animations in pokeemerald-
+expansion. Luckily Copilot can access other folders and can
+port animations and other things to my project. I have given
+Copilot instructions to do this for Quiver Dance already.
+It looks good in-game! I just have to wait with reordering
+all the moves from gens 4 and 5 into my project until I am
+ready to start a new save file.
+
 TO DO:
 x Force SET mode
 x EV berries

@@ -375,7 +375,7 @@ gBattleAnims_Moves::
 	.4byte Move_WATER_PULSE
 	.4byte Move_DOOM_DESIRE
 	.4byte Move_PSYCHO_BOOST
-	.4byte Move_DRAGON_DANCE @ MOVE_QUIVER_DANCE (355) - uses Dragon Dance animation (stat boost)
+	.4byte Move_QUIVER_DANCE @ MOVE_QUIVER_DANCE (355)
 	.4byte Move_MAGNITUDE @ MOVE_BULLDOZE (356) - uses Magnitude 7 animation
 	.4byte Move_NIGHT_SLASH @ MOVE_NIGHT_SLASH (357)
 	.4byte Move_FIRE_FANG @ MOVE_FIRE_FANG (358)
@@ -4633,6 +4633,29 @@ Move_DRAGON_DANCE:
 	waitforvisualfinish
 	clearmonbg ANIM_ATTACKER
 	delay 1
+	end
+
+Move_QUIVER_DANCE:
+	loadspritegfx ANIM_TAG_HOLLOW_ORB
+	monbg ANIM_ATTACKER
+	call SetBugBg
+	createvisualtask AnimTask_DragonDanceWaver, 5
+	playsewithpan SE_M_TELEPORT, SOUND_PAN_ATTACKER
+	delay 8
+	createvisualtask AnimTask_BlendPalInAndOutByTag, 5, ANIM_TAG_HOLLOW_ORB, RGB_GREEN, 14, 0, 3
+	createsprite gDragonDanceOrbSpriteTemplate, ANIM_ATTACKER, 2, 0
+	createsprite gDragonDanceOrbSpriteTemplate, ANIM_ATTACKER, 2, 43
+	createsprite gDragonDanceOrbSpriteTemplate, ANIM_ATTACKER, 2, 85
+	createsprite gDragonDanceOrbSpriteTemplate, ANIM_ATTACKER, 2, 128
+	createsprite gDragonDanceOrbSpriteTemplate, ANIM_ATTACKER, 2, 170
+	createsprite gDragonDanceOrbSpriteTemplate, ANIM_ATTACKER, 2, 213
+	delay 30
+	playsewithpan SE_M_TELEPORT, SOUND_PAN_ATTACKER
+	delay 30
+	playsewithpan SE_M_TELEPORT, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	call UnsetBugBg
 	end
 
 Move_SHOCK_WAVE:
@@ -10449,6 +10472,32 @@ UnsetPsychicBackground:
 	restorebg
 	waitbgfadeout
 	setarg 7, 0xFFFF
+	waitbgfadein
+	return
+
+SetBugBg:
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 10, ANIM_TARGET, 0, 0, 4, RGB_BLACK
+	createvisualtask AnimTask_GetAttackerSide, 2
+	jumprettrue SetBugBgPlayer
+	fadetobg BG_BUG_OPPONENT
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 1536, 0, 0, -1
+	goto SetBugBgFade
+SetBugBgPlayer:
+	fadetobg BG_BUG_PLAYER
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, -1536, 0, 0, -1
+SetBugBgFade:
+	delay 0
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 0, 4, 4, RGB_BLACK
+	waitbgfadein
+	return
+
+UnsetBugBg:
+	restorebg
+	waitbgfadeout
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 10, ANIM_TARGET, 0, 4, 0, RGB_BLACK
+	setarg 7, -1
 	waitbgfadein
 	return
 
