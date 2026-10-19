@@ -602,6 +602,7 @@
       ]
     },
     "Two Island": {
+      "hideEncounters": true,
       "hideMoveTutors": [0, 1, 2]
     },
     "Cape Brink": {
