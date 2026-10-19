@@ -1728,6 +1728,14 @@ actually add gen IV to the regular playthrough and only
 have gen V and some later evolutions available after the
 League.
 
+I'm thinking of adding an ability that raises speed after
+every use of a 'Rolling' move. The moves I am thinking of
+off the top of my head are ROLLOUT, ICE BALL, FLAME WHEEL,
+GYRO BALL, ELECTRO BALL, DEFENSE CURL. We can give this to
+Donphan and Electrode for example. Perhaps we also give the
+mons with this ability the choice of cancelling ROLLOUT and
+ICE BALL.
+
 TO DO:
 x Force SET mode
 x EV berries

@@ -582,8 +582,7 @@ static void ClearBattlerMoveHistory(u8 battlerId)
 
 void RecordAbilityBattle(u8 battlerId, u8 abilityId)
 {
-    if (GetBattlerSide(battlerId) == 0)
-        BATTLE_HISTORY->abilities[GET_BATTLER_SIDE(battlerId)] = abilityId;
+    BATTLE_HISTORY->abilities[battlerId] = abilityId;
 }
 
 void RecordItemEffectBattle(u8 battlerId, u8 itemEffect)
@@ -1251,45 +1250,8 @@ static void Cmd_get_ability(void)
 
     if (GetBattlerSide(battlerId) == AI_TARGET)
     {
-        u16 side = GET_BATTLER_SIDE(battlerId);
-
-        if (BATTLE_HISTORY->abilities[side] != 0)
-        {
-            AI_THINKING_STRUCT->funcResult = BATTLE_HISTORY->abilities[side];
-            sAIScriptPtr += 2;
-            return;
-        }
-
-        // abilities that prevent fleeing.
-        if (gBattleMons[battlerId].ability == ABILITY_SHADOW_TAG
-        || gBattleMons[battlerId].ability == ABILITY_MAGNET_PULL
-        || gBattleMons[battlerId].ability == ABILITY_ARENA_TRAP)
-        {
-            AI_THINKING_STRUCT->funcResult = gBattleMons[battlerId].ability;
-            sAIScriptPtr += 2;
-            return;
-        }
-
-        if (gSpeciesInfo[gBattleMons[battlerId].species].abilities[0] != ABILITY_NONE)
-        {
-            if (gSpeciesInfo[gBattleMons[battlerId].species].abilities[1] != ABILITY_NONE)
-            {
-                // AI has no knowledge of opponent, so it guesses which ability.
-                if (Random() % 2)
-                    AI_THINKING_STRUCT->funcResult = gSpeciesInfo[gBattleMons[battlerId].species].abilities[0];
-                else
-                    AI_THINKING_STRUCT->funcResult = gSpeciesInfo[gBattleMons[battlerId].species].abilities[1];
-            }
-            else
-            {
-                AI_THINKING_STRUCT->funcResult = gSpeciesInfo[gBattleMons[battlerId].species].abilities[0];
-            }
-        }
-        else
-        {
-             // AI can't actually reach this part since no pokemon has ability 2 and no ability 1.
-            AI_THINKING_STRUCT->funcResult = gSpeciesInfo[gBattleMons[battlerId].species].abilities[1];
-        }
+        AI_THINKING_STRUCT->funcResult = gBattleMons[battlerId].ability;
+        RecordAbilityBattle(battlerId, AI_THINKING_STRUCT->funcResult);
     }
     else
     {
