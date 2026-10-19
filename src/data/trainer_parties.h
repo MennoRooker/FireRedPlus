@@ -193,6 +193,8 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleNora[] = {D
 static const struct TrainerMonNoItemDefaultMoves sParty_BurglarSimon[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_SuperNerdErik[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleMaria[] = {DUMMY_TRAINER_MON};
+static const struct TrainerMonItemDefaultMoves sParty_BlackBeltAtsushi[] = {DUMMY_TRAINER_MON};
+
 
 
 // Example usage for regular trainer mons:
@@ -8808,25 +8810,54 @@ static const struct TrainerMonNoItemDefaultMoves sParty_AromaLadyNikki[] = {
 // ======================================================================================= //
 // ================================== Viridian City Gym ================================== //
 // ======================================================================================= //
-static const struct TrainerMonNoItemDefaultMoves sParty_TamerCole[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_TamerCole[] = {
     {
         .iv = 15,
-        .lvl = 51,
+        .lvl = 54,
         .species = SPECIES_ARBOK,
+        .heldItem = ITEM_MUSCLE_BAND,
+        .moves = {MOVE_CRUNCH, MOVE_GLARE, MOVE_POISON_FANG, MOVE_IRON_TAIL},
+        .nature = NATURE_DOCILE,
+        .abilitySlot = 1,
     },
     {
         .iv = 15,
-        .lvl = 51,
+        .lvl = 54,
         .species = SPECIES_TAUROS,
+        .heldItem = ITEM_LUM_BERRY,
+        .moves = {MOVE_THRASH, MOVE_PURSUIT, MOVE_REST, MOVE_EARTHQUAKE},
+        .nature = NATURE_ADAMANT,
+        .abilitySlot = 0,
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_BlackBeltKiyo[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_BlackBeltKiyo[] = {
     {
         .iv = 15,
         .lvl = 53,
         .species = SPECIES_MACHAMP,
         .heldItem = ITEM_BLACK_BELT,
+        .moves = {MOVE_CROSS_CHOP, MOVE_ROCK_SLIDE, MOVE_ROCK_TOMB, MOVE_BULK_UP},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 1,
+    },
+    {
+        .iv = 15,
+        .lvl = 52,
+        .species = SPECIES_BRELOOM,
+        .heldItem = ITEM_FOCUS_SASH,
+        .moves = {MOVE_SKY_UPPERCUT, MOVE_BULLET_SEED, MOVE_MACH_PUNCH, MOVE_SPORE},
+        .nature = NATURE_LONELY,
+        .abilitySlot = 0,
+    },
+    {
+        .iv = 15,
+        .lvl = 52,
+        .species = SPECIES_POLIWRATH,
+        .heldItem = ITEM_MYSTIC_WATER,
+        .moves = {MOVE_WATERFALL, MOVE_SUBMISSION, MOVE_HYPNOSIS, MOVE_STRENGTH},
+        .nature = NATURE_HARDY,
+        .abilitySlot = 0,
     },
 };
 
@@ -8896,31 +8927,20 @@ static const struct TrainerMonNoItemCustomMoves sParty_CooltrainerYuji[] = {
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_BlackBeltAtsushi[] = {
-    {
-        .iv = 15,
-        .lvl = 52,
-        .species = SPECIES_BRELOOM,
-        .heldItem = ITEM_BLACK_BELT,
-    },
-    {
-        .iv = 15,
-        .lvl = 52,
-        .species = SPECIES_POLIWRATH,
-        .heldItem = ITEM_MYSTIC_WATER,
-    },
-};
-
-static const struct TrainerMonNoItemDefaultMoves sParty_TamerJason[] = {
-    {
-        .iv = 15,
-        .lvl = 54,
-        .species = SPECIES_ABSOL,
-    },
+static const struct TrainerMonItemCustomMoves sParty_TamerJason[] = {
     {
         .iv = 15,
         .lvl = 54,
         .species = SPECIES_UMBREON,
+        .heldItem = ITEM_LEFTOVERS,
+        .moves = {MOVE_PSYCHIC, MOVE_CHARM, MOVE_PURSUIT, MOVE_MOONLIGHT},
+    },
+    {
+        .iv = 15,
+        .lvl = 54,
+        .species = SPECIES_ABSOL,
+        .heldItem = ITEM_SCOPE_LENS,
+        .moves = {MOVE_NIGHT_SLASH, MOVE_SLASH, MOVE_DOUBLE_TEAM, MOVE_FOCUS_ENERGY},
     },
 };
 

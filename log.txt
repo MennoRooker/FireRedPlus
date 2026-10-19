@@ -1723,6 +1723,11 @@ I am making Bounce a 1-turn move. I think having Fly as a
 2-turn flying move is move than enough and I hate that Gya-
 rados' only flying move takes 2 turns.
 
+I think the most logical and fun course of action is to 
+actually add gen IV to the regular playthrough and only
+have gen V and some later evolutions available after the
+League.
+
 TO DO:
 x Force SET mode
 x EV berries
@@ -1765,25 +1770,26 @@ x No badge boosts
 x Flavor dislikes
 x Custom sprites
 x 1.5x crits
-/ Fewer trainer battles
-/ Opponent EVs
-/ Documentation
----------------------------------------
-- Add Fairy type
-- Agatha's Flutter Mane
-- Max rematch
-- National Dex (Gens IV & V)
-- Paul Champion
-- Physical/special split
-- Pokedex:
+/ Pokedex:
   • Stats screen
     ‣ Pokemon DB colors
     ‣ Full 0-255 scaling
   • Evos screen
     ‣ Only if seen
     ‣ Evo methods
-  • LR navigation
+  • Arrow navigation
   • Edit titles
+/ Fewer trainer battles
+- Gen 4 in regional dex
+/ Opponent EVs
+/ Documentation
+---------------------------------------
+- Add Fairy type
+- Agatha's Flutter Mane
+- Max rematch
+- National Dex (Gen V and evos)
+- Paul Champion
+- Physical/special split
 - Elemental punches tutor
 - Sceptile Sharpness 
 - Castform Dust forme
@@ -1791,7 +1797,7 @@ x 1.5x crits
 - Nidoqueen eggs
 - Implement all abilites
 - Custom move animations
-- 2 trainers double battle
+- 2 NPC double battle
 - Gym leaders rematches
 - Improved AI
 - Roamers
