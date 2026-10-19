@@ -1316,6 +1316,28 @@ static void ModulateDmgByType(u8 multiplier)
     }
 }
 
+static bool8 ShouldApplySkyUppercutFlyingBonus(u16 move, u8 type1, u8 type2)
+{
+    if (gBattleMoves[move].effect != EFFECT_SKY_UPPERCUT)
+        return FALSE;
+    if (type1 == TYPE_FLYING)
+        return TRUE;
+    if (type2 == TYPE_FLYING && type1 != type2)
+        return TRUE;
+    return FALSE;
+}
+
+static void ApplySuperEffectiveFlag(u16 move, u8 *flags)
+{
+    if (gBattleMoves[move].power && !(*flags & MOVE_RESULT_NO_EFFECT))
+    {
+        if (*flags & MOVE_RESULT_NOT_VERY_EFFECTIVE)
+            *flags &= ~MOVE_RESULT_NOT_VERY_EFFECTIVE;
+        else
+            *flags |= MOVE_RESULT_SUPER_EFFECTIVE;
+    }
+}
+
 static void Cmd_typecalc(void)
 {
     s32 i = 0;
@@ -1371,6 +1393,13 @@ static void Cmd_typecalc(void)
             }
             i += 3;
         }
+    }
+
+    if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+     && ShouldApplySkyUppercutFlyingBonus(gCurrentMove, gBattleMons[gBattlerTarget].type1, gBattleMons[gBattlerTarget].type2))
+    {
+        ModulateDmgByType(TYPE_MUL_SUPER_EFFECTIVE);
+        ModulateDmgByType(TYPE_MUL_SUPER_EFFECTIVE);
     }
 
     if (gBattleMons[gBattlerTarget].ability == ABILITY_WONDER_GUARD && AttacksThisTurn(gBattlerAttacker, gCurrentMove) == 2
@@ -1483,6 +1512,13 @@ static void CheckWonderGuardAndLevitate(void)
         i += 3;
     }
 
+    if (!(flags & MOVE_RESULT_NO_EFFECT)
+     && ShouldApplySkyUppercutFlyingBonus(gCurrentMove, gBattleMons[gBattlerTarget].type1, gBattleMons[gBattlerTarget].type2))
+    {
+        ApplySuperEffectiveFlag(gCurrentMove, &flags);
+        ApplySuperEffectiveFlag(gCurrentMove, &flags);
+    }
+
     if (gBattleMons[gBattlerTarget].ability == ABILITY_WONDER_GUARD && AttacksThisTurn(gBattlerAttacker, gCurrentMove) == 2)
     {
         if (((flags & 2) || !(flags & 1)) && gBattleMoves[gCurrentMove].power)
@@ -1577,6 +1613,13 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
         }
     }
 
+    if (!(flags & MOVE_RESULT_NO_EFFECT)
+     && ShouldApplySkyUppercutFlyingBonus(move, gBattleMons[defender].type1, gBattleMons[defender].type2))
+    {
+        ModulateDmgByType2(TYPE_MUL_SUPER_EFFECTIVE, move, &flags);
+        ModulateDmgByType2(TYPE_MUL_SUPER_EFFECTIVE, move, &flags);
+    }
+
     if (gBattleMons[defender].ability == ABILITY_WONDER_GUARD && !(flags & MOVE_RESULT_MISSED)
         && AttacksThisTurn(attacker, move) == 2
         && (!(flags & MOVE_RESULT_SUPER_EFFECTIVE) || ((flags & (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)) == (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)))
@@ -1624,6 +1667,14 @@ u8 AI_TypeCalc(u16 move, u16 targetSpecies, u8 targetAbility)
             i += 3;
         }
     }
+
+    if (!(flags & MOVE_RESULT_NO_EFFECT)
+     && ShouldApplySkyUppercutFlyingBonus(move, type1, type2))
+    {
+        ModulateDmgByType2(TYPE_MUL_SUPER_EFFECTIVE, move, &flags);
+        ModulateDmgByType2(TYPE_MUL_SUPER_EFFECTIVE, move, &flags);
+    }
+
     if (targetAbility == ABILITY_WONDER_GUARD
      && (!(flags & MOVE_RESULT_SUPER_EFFECTIVE) || ((flags & (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)) == (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)))
      && gBattleMoves[move].power)
@@ -4711,6 +4762,13 @@ static void Cmd_typecalc2(void)
             }
             i += 3;
         }
+    }
+
+    if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+     && ShouldApplySkyUppercutFlyingBonus(gCurrentMove, gBattleMons[gBattlerTarget].type1, gBattleMons[gBattlerTarget].type2))
+    {
+        ApplySuperEffectiveFlag(gCurrentMove, &flags);
+        ApplySuperEffectiveFlag(gCurrentMove, &flags);
     }
 
     if (gBattleMons[gBattlerTarget].ability == ABILITY_WONDER_GUARD

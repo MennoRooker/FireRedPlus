@@ -230,8 +230,7 @@ No global recharge
 80% -> 95%
 
 - Sky Uppercut
-85 -> 90
-90% -> 95%
+2x vs Flying
 
 - Sand Tomb
 15 -> 70
