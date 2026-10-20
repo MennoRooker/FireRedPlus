@@ -1127,7 +1127,7 @@ AI_CV_Thunder::
 	goto AI_CV_AlwaysHit_End
 
 AI_CV_ThunderInRain::
-	score +6
+	score +2
 	goto AI_CV_AlwaysHit
 
 AI_CV_Blizzard::
@@ -1136,7 +1136,7 @@ AI_CV_Blizzard::
 	goto AI_CV_AlwaysHit_End
 
 AI_CV_BlizzardInHail::
-	score +6
+	score +2
 	goto AI_CV_AlwaysHit
 
 AI_CV_AlwaysHit_ScoreUp1::

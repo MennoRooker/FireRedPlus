@@ -1755,6 +1755,18 @@ This would make Flutter Mane a regional variant of Misdrea-
 vus and the IsRegionalVariant flag should prevent it from
 evolving into Mismagius.
 
+The reordering of the base stats has now been pushed to the 
+master branch. I now have 2 commits at the HEAD of that
+branch that I cannot port into DEMO for compatibility rea-
+sons. More changes to the master branch like these are yet
+to come, like: moves, mons, fairy type and physical/special
+split. All of these things must be implemented before I can
+start my master branch playthrough.
+
+What I CAN maybe do is see if I can add the gen 4 and 5 
+mons to the pokedex and test if Regional vs National dex
+logic is functional.
+
 TO DO:
 x Force SET mode
 x EV berries
