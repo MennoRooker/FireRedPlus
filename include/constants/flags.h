@@ -383,7 +383,7 @@
 #define FLAG_HIDE_SSANNE_KITCHEN_RARE_CANDY                     0x16A
 #define FLAG_HIDE_ROUTE9_TM40                                   0x16B
 #define FLAG_HIDE_ROCKET_HIDEOUT_B1F_ESCAPE_ROPE                0x16C
-#define FLAG_HIDE_ROCKET_HIDEOUT_B1F_HYPER_POTION               0x16D
+#define FLAG_HIDE_ROCKET_HIDEOUT_B1F_MEGA_POTION                0x16D
 #define FLAG_HIDE_ROCKET_HIDEOUT_B2F_FULL_RESTORE               0x16E
 #define FLAG_HIDE_ROCKET_HIDEOUT_B2F_WHITE_HERB                 0x16F
 #define FLAG_HIDE_ROCKET_HIDEOUT_B2F_TM12                       0x170
@@ -1074,7 +1074,7 @@
 #define FLAG_HIDDEN_ITEM_CERULEAN_CAVE_1F_ULTRA_BALL                       (FLAG_HIDDEN_ITEMS_START +  39)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x28                                       (FLAG_HIDDEN_ITEMS_START +  40)
 #define FLAG_HIDDEN_ITEM_ROUTE11_LEAF_STONE                                (FLAG_HIDDEN_ITEMS_START +  41)
-#define FLAG_HIDDEN_ITEM_ROUTE12_HYPER_POTION                              (FLAG_HIDDEN_ITEMS_START +  42)
+#define FLAG_HIDDEN_ITEM_ROUTE12_MEGA_POTION                               (FLAG_HIDDEN_ITEMS_START +  42)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x2B                                       (FLAG_HIDDEN_ITEMS_START +  43)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x2C                                       (FLAG_HIDDEN_ITEMS_START +  44)
 #define FLAG_HIDDEN_ITEM_UNUSED_0x2D                                       (FLAG_HIDDEN_ITEMS_START +  45)

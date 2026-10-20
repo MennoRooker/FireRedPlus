@@ -106,8 +106,8 @@ RocketHideout_B1F_EventScript_ItemEscapeRope::
 	finditem ITEM_ESCAPE_ROPE
 	end
 
-RocketHideout_B1F_EventScript_ItemHyperPotion::
-	finditem ITEM_HYPER_POTION
+RocketHideout_B1F_EventScript_ItemMegaPotion::
+	finditem ITEM_MEGA_POTION
 	end
 
 RocketHideout_B2F_EventScript_ItemFullRestore::

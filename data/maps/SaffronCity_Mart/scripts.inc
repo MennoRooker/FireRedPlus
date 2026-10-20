@@ -24,7 +24,7 @@ SaffronCity_Mart_EventScript_Clerk::
 SaffronCity_Mart_Items::
 	.2byte ITEM_GREAT_BALL
 	.2byte ITEM_POKE_BALL
-	.2byte ITEM_HYPER_POTION
+	.2byte ITEM_MEGA_POTION
 	.2byte ITEM_SUPER_POTION
 	.2byte ITEM_POTION
 	.2byte ITEM_REVIVE
