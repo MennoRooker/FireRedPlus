@@ -141,6 +141,7 @@ static void Cmd_if_target_not_taunted(void);
 static void RecordLastUsedMoveByTarget(void);
 static void BattleAI_DoAIProcessing(void);
 static bool8 HasUsableDamagingMove(u8 battlerId);
+static bool8 ShouldAvoidMoveForTypeImmunity(u16 move);
 static bool8 IsSlowerThanOpponent(u8 battler1, u8 battler2);
 static bool8 IsSlowerThanAnyOpponent(u8 battlerId);
 static u8 GetSpeedBoostOpeningMove(u8 battlerId);
@@ -451,6 +452,12 @@ static void BattleAI_DoAIProcessing(void)
             }
             if (AI_THINKING_STRUCT->aiAction & AI_ACTION_DONE)
             {
+                if (AI_THINKING_STRUCT->moveConsidered != MOVE_NONE
+                 && ShouldAvoidMoveForTypeImmunity(AI_THINKING_STRUCT->moveConsidered))
+                {
+                    AI_THINKING_STRUCT->score[AI_THINKING_STRUCT->movesetIndex] = 0;
+                }
+
                 if (gBattleMons[gBattlerAttacker].ability == ABILITY_TRUANT
                  && gDisableStructs[gBattlerAttacker].isFirstTurn != 0
                  && AI_THINKING_STRUCT->moveConsidered != 0
@@ -490,6 +497,22 @@ static bool8 HasUsableDamagingMove(u8 battlerId)
     }
 
     return FALSE;
+}
+
+static bool8 ShouldAvoidMoveForTypeImmunity(u16 move)
+{
+    if (move == MOVE_SAND_ATTACK)
+        return FALSE;
+
+    gDynamicBasePower = 0;
+    gBattleStruct->dynamicMoveType = 0;
+    gBattleScripting.dmgMultiplier = 1;
+    gMoveResultFlags = 0;
+    gIsCriticalHit = FALSE;
+    gCurrentMove = move;
+    gMoveResultFlags = TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
+
+    return (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE) != 0;
 }
 
 static bool8 IsSlowerThanBattler(u8 battlerId, u8 opposingBattler)
@@ -1101,7 +1124,7 @@ static void Cmd_get_how_powerful_move_is(void)
             {
                 gCurrentMove = gBattleMons[gBattlerAttacker].moves[checkedMove];
                 AI_CalcDmg(gBattlerAttacker, gBattlerTarget);
-                TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
+                gMoveResultFlags = TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
                 moveDmgs[checkedMove] = gBattleMoveDamage * AI_THINKING_STRUCT->simulatedRNG[checkedMove] / 100;
                 if (moveDmgs[checkedMove] == 0)
                     moveDmgs[checkedMove] = 1;
@@ -1282,7 +1305,7 @@ static void Cmd_get_highest_type_effectiveness(void)
 
         if (gCurrentMove != MOVE_NONE)
         {
-            TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
+            gMoveResultFlags = TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
 
             if (gBattleMoveDamage == 120) // Super effective STAB.
                 gBattleMoveDamage = AI_EFFECTIVENESS_x2;
@@ -1317,7 +1340,7 @@ static void Cmd_if_type_effectiveness(void)
     gBattleMoveDamage = AI_EFFECTIVENESS_x1;
     gCurrentMove = AI_THINKING_STRUCT->moveConsidered;
 
-    TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
+    gMoveResultFlags = TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
 
     if (gBattleMoveDamage == 120) // Super effective STAB.
         gBattleMoveDamage = AI_EFFECTIVENESS_x2;
@@ -1548,7 +1571,13 @@ static void Cmd_if_can_faint(void)
     gIsCriticalHit = FALSE;
     gCurrentMove = AI_THINKING_STRUCT->moveConsidered;
     AI_CalcDmg(gBattlerAttacker, gBattlerTarget);
-    TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
+    gMoveResultFlags = TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
+
+    if (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE)
+    {
+        sAIScriptPtr += 5;
+        return;
+    }
 
     gBattleMoveDamage = gBattleMoveDamage * AI_THINKING_STRUCT->simulatedRNG[AI_THINKING_STRUCT->movesetIndex] / 100;
 
@@ -1577,7 +1606,13 @@ static void Cmd_if_cant_faint(void)
     gIsCriticalHit = FALSE;
     gCurrentMove = AI_THINKING_STRUCT->moveConsidered;
     AI_CalcDmg(gBattlerAttacker, gBattlerTarget);
-    TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
+    gMoveResultFlags = TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
+
+    if (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE)
+    {
+        sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 1);
+        return;
+    }
 
     gBattleMoveDamage = gBattleMoveDamage * AI_THINKING_STRUCT->simulatedRNG[AI_THINKING_STRUCT->movesetIndex] / 100;
 

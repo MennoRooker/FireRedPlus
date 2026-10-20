@@ -52,6 +52,7 @@ gBattleAI_ScriptsTable::
 AI_CheckBadMove::
 	if_move MOVE_FISSURE, AI_CBM_CheckIfNegatesType  @ Improvement in Emerald
 	if_move MOVE_HORN_DRILL, AI_CBM_CheckIfNegatesType	@ Improvement in Emerald
+	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
 	get_how_powerful_move_is
 	if_equal MOVE_POWER_DISCOURAGED, AI_CheckBadMove_CheckSoundproof
 
