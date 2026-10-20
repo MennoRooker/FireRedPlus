@@ -1767,6 +1767,21 @@ What I CAN maybe do is see if I can add the gen 4 and 5
 mons to the pokedex and test if Regional vs National dex
 logic is functional.
 
+I think it will be best to leave the high EVs to after the
+player has beaten the main story. Giving Gary and the E4
+member full 510 EV spreads is seemingly insurmountable.
+I think my best estimate at this time would be to give
+them roughly 48 EVs per stat. 6 * 48 = 288 EVs total.
+Trainers like Bruno could have 100 in attack and 0 in
+special attack to reflect his training style. Inversely
+for Agatha. I think regular trainers should be getting EVs
+at around Route 3 and Gym leaders should have EVs that 
+scale with the story and also reflect their training style.
+
+Adrian is in Pokémon Tower 7F. Current party: Ariados & 
+Ampharos. New party: Hisuian Typhlosion, Lucario, Ariados.
+Dialogue: 52 BOMBOCLAT PUSSYWAGON CHICKEN NUGGET!
+
 TO DO:
 x Force SET mode
 x EV berries
@@ -1810,7 +1825,9 @@ x Flavor dislikes
 x Custom sprites
 x 1.5x crits
 x Fewer trainer battles
-- 100 HP potion (Mega)
+x 100 HP potion (Mega)
+x Documentation
+---------------------------------------
 / Pokedex:
   • Stats screen
     ‣ Pokemon DB colors
@@ -1820,13 +1837,12 @@ x Fewer trainer battles
     ‣ Evo methods
   • Arrow navigation
   • Edit titles
-/ Documentation
----------------------------------------
 - Add Fairy type
 - Port gens 4/5 moves
 - Agatha's Flutter Mane
 - Max rematch
 - Opponent EVs
+- Speed stat hint in overview
 - Gen 4 in regional dex
 - National Dex (Gen V and evos)
 - Paul Champion

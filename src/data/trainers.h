@@ -4880,7 +4880,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = TRUE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = ITEM_DEFAULT_MOVES(sParty_CrushKinRonMya),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_CrushKinRonMya),
     },
     [TRAINER_YOUNG_COUPLE_LEA_JED] = {
         .trainerClass = TRAINER_CLASS_YOUNG_COUPLE,
@@ -6730,7 +6730,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = TRUE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = ITEM_DEFAULT_MOVES(sParty_CrushKinRonMyaRematchAfterFuchsia),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_CrushKinRonMyaRematchAfterFuchsia),
     },
     [TRAINER_CRUSH_KIN_RON_MYA_REMATCH_AFTER_LEAGUE] = {
         .trainerClass = TRAINER_CLASS_CRUSH_KIN,
@@ -6740,7 +6740,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = TRUE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = ITEM_DEFAULT_MOVES(sParty_CrushKinRonMyaRematchAfterLeague),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_CrushKinRonMyaRematchAfterLeague),
     },
     [TRAINER_CRUSH_KIN_RON_MYA_REMATCH_AFTER_SAPPHIRE] = {
         .trainerClass = TRAINER_CLASS_CRUSH_KIN,
@@ -6750,7 +6750,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = TRUE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = ITEM_DEFAULT_MOVES(sParty_CrushKinRonMyaRematchAfterSapphire),
+        .party = ITEM_CUSTOM_MOVES_NATURE_ABILITY(sParty_CrushKinRonMyaRematchAfterSapphire),
     },
     [TRAINER_BIKER_RUBEN_REMATCH_AFTER_LEAGUE] = {
         .trainerClass = TRAINER_CLASS_BIKER,

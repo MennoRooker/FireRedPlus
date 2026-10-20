@@ -5230,64 +5230,88 @@ static const struct TrainerMonNoItemDefaultMoves sParty_PicnickerBeckyRematchAft
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMya[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_CrushKinRonMya[] = {
     {
         .iv = 10,
         .lvl = 35,
         .species = SPECIES_HITMONCHAN,
         .heldItem = ITEM_BLACK_BELT,
+        .moves = {MOVE_THUNDER_PUNCH, MOVE_ICE_PUNCH, MOVE_FIRE_PUNCH, MOVE_SKY_UPPERCUT},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 0,
     },
     {
         .iv = 10,
         .lvl = 35,
         .species = SPECIES_HITMONLEE,
         .heldItem = ITEM_CHOICE_BAND,
+        .moves = {MOVE_HI_JUMP_KICK, MOVE_FOCUS_ENERGY, MOVE_BRICK_BREAK, MOVE_MIND_READER},
+        .nature = NATURE_ADAMANT,
+        .abilitySlot = 0,
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMyaRematchAfterFuchsia[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_CrushKinRonMyaRematchAfterFuchsia[] = {
     {
         .iv = 11,
         .lvl = 39,
         .species = SPECIES_HITMONCHAN,
         .heldItem = ITEM_BLACK_BELT,
+        .moves = {MOVE_THUNDER_PUNCH, MOVE_ICE_PUNCH, MOVE_FIRE_PUNCH, MOVE_SKY_UPPERCUT},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 0,
     },
     {
         .iv = 11,
         .lvl = 39,
         .species = SPECIES_HITMONLEE,
         .heldItem = ITEM_CHOICE_BAND,
+        .moves = {MOVE_HI_JUMP_KICK, MOVE_FOCUS_ENERGY, MOVE_BRICK_BREAK, MOVE_MIND_READER},
+        .nature = NATURE_ADAMANT,
+        .abilitySlot = 0,
     },
 };
 
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMyaRematchAfterLeague[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_CrushKinRonMyaRematchAfterLeague[] = {
     {
         .iv = 13,
         .lvl = 59,
         .species = SPECIES_HITMONCHAN,
         .heldItem = ITEM_BLACK_BELT,
+        .moves = {MOVE_THUNDER_PUNCH, MOVE_ICE_PUNCH, MOVE_FIRE_PUNCH, MOVE_SKY_UPPERCUT},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 0,
     },
     {
         .iv = 13,
         .lvl = 59,
         .species = SPECIES_HITMONLEE,
         .heldItem = ITEM_CHOICE_BAND,
+        .moves = {MOVE_HI_JUMP_KICK, MOVE_FOCUS_ENERGY, MOVE_BRICK_BREAK, MOVE_MIND_READER},
+        .nature = NATURE_ADAMANT,
+        .abilitySlot = 0,
     },
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_CrushKinRonMyaRematchAfterSapphire[] = {
+static const struct TrainerMonItemCustomMovesNatureAbility sParty_CrushKinRonMyaRematchAfterSapphire[] = {
     {
         .iv = 17,
         .lvl = 66,
         .species = SPECIES_HITMONCHAN,
         .heldItem = ITEM_BLACK_BELT,
+        .moves = {MOVE_THUNDER_PUNCH, MOVE_ICE_PUNCH, MOVE_FIRE_PUNCH, MOVE_SKY_UPPERCUT},
+        .nature = NATURE_JOLLY,
+        .abilitySlot = 0,
     },
     {
         .iv = 17,
         .lvl = 66,
         .species = SPECIES_HITMONLEE,
         .heldItem = ITEM_CHOICE_BAND,
+        .moves = {MOVE_HI_JUMP_KICK, MOVE_FOCUS_ENERGY, MOVE_BRICK_BREAK, MOVE_MIND_READER},
+        .nature = NATURE_ADAMANT,
+        .abilitySlot = 0,
     },
 };
 
