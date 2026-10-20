@@ -1842,7 +1842,14 @@ x Fewer trainer battles
 x 100 HP potion (Mega)
 x Documentation
 ---------------------------------------
-/ Pokedex:
+- Reorder stats
+- Add Fairy type
+- Agatha's Flutter Mane
+- Max rematch
+- National Dex (Gens IV & V)
+- Paul Champion
+- Physical/special split
+- Pokedex:
   • Stats screen
     ‣ Pokemon DB colors
     ‣ Full 0-255 scaling

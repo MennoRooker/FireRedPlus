@@ -87,6 +87,8 @@ static u16 GiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move);
 static u8 GetLevelFromMonExp(struct Pokemon *mon);
 static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon);
 static u8 CalcHiddenPowerTypeFromIVs(u8 hpIv, u8 attackIv, u8 defenseIv, u8 speedIv, u8 spAttackIv, u8 spDefenseIv);
+static u8 GetMonDataIdFromStatIndexForIv(u8 statIndex);
+static u8 GetMonDataIdFromStatIndexForEv(u8 statIndex);
 
 #include "data/battle_moves.h"
 
@@ -1409,42 +1411,81 @@ static const struct SpindaSpot sSpindaSpotGraphics[] =
 #include "data/pokemon/item_effects.h"
 
 static const s8 sNatureStatTable[NUM_NATURES][NUM_NATURE_STATS] =
-{                      // Attack  Defense  Speed  Sp.Atk  Sp.Def
+{                      // Attack  Defense  Sp.Atk  Sp.Def  Speed
     [NATURE_HARDY]   = {    0,      0,      0,      0,      0   },
     [NATURE_LONELY]  = {   +1,     -1,      0,      0,      0   },
-    [NATURE_BRAVE]   = {   +1,      0,     -1,      0,      0   },
-    [NATURE_ADAMANT] = {   +1,      0,      0,     -1,      0   },
-    [NATURE_NAUGHTY] = {   +1,      0,      0,      0,     -1   },
+    [NATURE_BRAVE]   = {   +1,      0,      0,      0,     -1   },
+    [NATURE_ADAMANT] = {   +1,      0,     -1,      0,      0   },
+    [NATURE_NAUGHTY] = {   +1,      0,      0,     -1,      0   },
     [NATURE_BOLD]    = {   -1,     +1,      0,      0,      0   },
     [NATURE_DOCILE]  = {    0,      0,      0,      0,      0   },
-    [NATURE_RELAXED] = {    0,     +1,     -1,      0,      0   },
-    [NATURE_IMPISH]  = {    0,     +1,      0,     -1,      0   },
-    [NATURE_LAX]     = {    0,     +1,      0,      0,     -1   },
-    [NATURE_TIMID]   = {   -1,      0,     +1,      0,      0   },
-    [NATURE_HASTY]   = {    0,     -1,     +1,      0,      0   },
+    [NATURE_RELAXED] = {    0,     +1,      0,      0,     -1   },
+    [NATURE_IMPISH]  = {    0,     +1,     -1,      0,      0   },
+    [NATURE_LAX]     = {    0,     +1,      0,     -1,      0   },
+    [NATURE_TIMID]   = {   -1,      0,      0,      0,     +1   },
+    [NATURE_HASTY]   = {    0,     -1,      0,      0,     +1   },
     [NATURE_SERIOUS] = {    0,      0,      0,      0,      0   },
-    [NATURE_JOLLY]   = {    0,      0,     +1,     -1,      0   },
-    [NATURE_NAIVE]   = {    0,      0,     +1,      0,     -1   },
-    [NATURE_MODEST]  = {   -1,      0,      0,     +1,      0   },
-    [NATURE_MILD]    = {    0,     -1,      0,     +1,      0   },
-    [NATURE_QUIET]   = {    0,      0,     -1,     +1,      0   },
+    [NATURE_JOLLY]   = {    0,      0,     -1,      0,     +1   },
+    [NATURE_NAIVE]   = {    0,      0,      0,     -1,     +1   },
+    [NATURE_MODEST]  = {   -1,      0,     +1,      0,      0   },
+    [NATURE_MILD]    = {    0,     -1,     +1,      0,      0   },
+    [NATURE_QUIET]   = {    0,      0,     +1,      0,     -1   },
     [NATURE_BASHFUL] = {    0,      0,      0,      0,      0   },
-    [NATURE_RASH]    = {    0,      0,      0,     +1,     -1   },
-    [NATURE_CALM]    = {   -1,      0,      0,      0,     +1   },
-    [NATURE_GENTLE]  = {    0,     -1,      0,      0,     +1   },
-    [NATURE_SASSY]   = {    0,      0,     -1,      0,     +1   },
-    [NATURE_CAREFUL] = {    0,      0,      0,     -1,     +1   },
+    [NATURE_RASH]    = {    0,      0,     +1,     -1,      0   },
+    [NATURE_CALM]    = {   -1,      0,      0,     +1,      0   },
+    [NATURE_GENTLE]  = {    0,     -1,      0,     +1,      0   },
+    [NATURE_SASSY]   = {    0,      0,      0,     +1,     -1   },
+    [NATURE_CAREFUL] = {    0,      0,     -1,     +1,      0   },
     [NATURE_QUIRKY]  = {    0,      0,      0,      0,      0   },
 };
 
 s8 GetNatureStatModifier(u8 nature, u8 statIndex)
 {
-    // statIndex uses STAT_ATK=1, STAT_DEF=2, etc.
-    // Nature table is indexed 0-4 (Attack, Defense, Speed, Sp.Atk, Sp.Def)
-    // So we need to subtract 1 to convert STAT_ constants to nature table indices
+    // statIndex uses STAT_ATK=1, STAT_DEF=2, STAT_SPATK=3, STAT_SPDEF=4, STAT_SPEED=5.
+    // Nature table is indexed 0-4 in that same non-HP order.
     if (statIndex <= STAT_HP || statIndex > NUM_NATURE_STATS)
         return 0;
     return sNatureStatTable[nature][statIndex - 1];
+}
+
+static u8 GetMonDataIdFromStatIndexForIv(u8 statIndex)
+{
+    switch (statIndex)
+    {
+    case STAT_HP:
+        return MON_DATA_HP_IV;
+    case STAT_ATK:
+        return MON_DATA_ATK_IV;
+    case STAT_DEF:
+        return MON_DATA_DEF_IV;
+    case STAT_SPATK:
+        return MON_DATA_SPATK_IV;
+    case STAT_SPDEF:
+        return MON_DATA_SPDEF_IV;
+    case STAT_SPEED:
+    default:
+        return MON_DATA_SPEED_IV;
+    }
+}
+
+static u8 GetMonDataIdFromStatIndexForEv(u8 statIndex)
+{
+    switch (statIndex)
+    {
+    case STAT_HP:
+        return MON_DATA_HP_EV;
+    case STAT_ATK:
+        return MON_DATA_ATK_EV;
+    case STAT_DEF:
+        return MON_DATA_DEF_EV;
+    case STAT_SPATK:
+        return MON_DATA_SPATK_EV;
+    case STAT_SPDEF:
+        return MON_DATA_SPDEF_EV;
+    case STAT_SPEED:
+    default:
+        return MON_DATA_SPEED_EV;
+    }
 }
 
 #include "data/pokemon/tmhm_learnsets.h"
@@ -2060,7 +2101,7 @@ void CreateMonWithEVSpread(struct Pokemon *mon, u16 species, u8 level, u8 fixedI
     for (i = 0; i < NUM_STATS; i++)
     {
         if (evSpread & evsBits)
-            SetMonData(mon, MON_DATA_HP_EV + i, &evAmount);
+            SetMonData(mon, GetMonDataIdFromStatIndexForEv(i), &evAmount);
         evsBits <<= 1;
     }
 
@@ -2109,7 +2150,7 @@ void ApplyMonStatSpreads(struct Pokemon *mon, u16 evSpread, u8 ev, const u8 *evs
             value = ivs[i];
             if (value > MAX_PER_STAT_IVS)
                 value = MAX_PER_STAT_IVS;
-            SetMonData(mon, MON_DATA_HP_IV + i, &value);
+            SetMonData(mon, GetMonDataIdFromStatIndexForIv(i), &value);
         }
     }
     else if (ivSpread != 0)
@@ -2121,7 +2162,7 @@ void ApplyMonStatSpreads(struct Pokemon *mon, u16 evSpread, u8 ev, const u8 *evs
             for (i = 0; i < NUM_STATS; i++)
             {
                 if (selectedStats & (1 << i))
-                    SetMonData(mon, MON_DATA_HP_IV + i, &value);
+                    SetMonData(mon, GetMonDataIdFromStatIndexForIv(i), &value);
             }
         }
     }
@@ -2137,7 +2178,7 @@ void ApplyMonStatSpreads(struct Pokemon *mon, u16 evSpread, u8 ev, const u8 *evs
             if (value > remainingEv)
                 value = remainingEv;
 
-            SetMonData(mon, MON_DATA_HP_EV + i, &value);
+            SetMonData(mon, GetMonDataIdFromStatIndexForEv(i), &value);
             remainingEv -= value;
         }
     }
@@ -2163,7 +2204,7 @@ void ApplyMonStatSpreads(struct Pokemon *mon, u16 evSpread, u8 ev, const u8 *evs
                 for (i = 0; i < NUM_STATS; i++)
                 {
                     if (selectedStats & (1 << i))
-                        SetMonData(mon, MON_DATA_HP_EV + i, &value);
+                        SetMonData(mon, GetMonDataIdFromStatIndexForEv(i), &value);
                 }
             }
         }
@@ -2175,7 +2216,7 @@ void ApplyMonStatSpreads(struct Pokemon *mon, u16 evSpread, u8 ev, const u8 *evs
             value = MAX_PER_STAT_EV_SPREAD;
 
         for (i = 0; i < NUM_STATS; i++)
-            SetMonData(mon, MON_DATA_HP_EV + i, &value);
+            SetMonData(mon, GetMonDataIdFromStatIndexForEv(i), &value);
     }
 
     CalculateMonStats(mon);
@@ -4086,7 +4127,7 @@ static void CreateSecretBaseEnemyParty(struct SecretBaseRecord *secretBaseRecord
             SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &gBattleResources->secretBase->party.heldItems[i]);
 
             for (j = 0; j < NUM_STATS; j++)
-                SetMonData(&gEnemyParty[i], MON_DATA_HP_EV + j, &gBattleResources->secretBase->party.EVs[i]);
+                SetMonData(&gEnemyParty[i], GetMonDataIdFromStatIndexForEv(j), &gBattleResources->secretBase->party.EVs[i]);
 
             for (j = 0; j < MAX_MON_MOVES; j++)
             {
@@ -5838,7 +5879,7 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
 
     for (i = 0; i < NUM_STATS; i++)
     {
-        evs[i] = GetMonData(mon, MON_DATA_HP_EV + i, NULL);
+        evs[i] = GetMonData(mon, GetMonDataIdFromStatIndexForEv(i), NULL);
         totalEVs += evs[i];
     }
 
@@ -5908,7 +5949,7 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
 
         evs[i] += evIncrease;
         totalEVs += evIncrease;
-        SetMonData(mon, MON_DATA_HP_EV + i, &evs[i]);
+        SetMonData(mon, GetMonDataIdFromStatIndexForEv(i), &evs[i]);
     }
 }
 
@@ -5918,7 +5959,7 @@ u16 GetMonEVCount(struct Pokemon *mon)
     u16 count = 0;
 
     for (i = 0; i < NUM_STATS; i++)
-        count += GetMonData(mon, MON_DATA_HP_EV + i, NULL);
+        count += GetMonData(mon, GetMonDataIdFromStatIndexForEv(i), NULL);
 
     return count;
 }
@@ -6631,8 +6672,8 @@ static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId)
     if (gBattleTypeFlags & BATTLE_TYPE_LINK_IN_BATTLE || GetMonData(mon, MON_DATA_SPECIES, NULL) != SPECIES_DEOXYS)
         return 0;
 
-    ivVal = GetMonData(mon, MON_DATA_HP_IV + statId, NULL);
-    evVal = GetMonData(mon, MON_DATA_HP_EV + statId, NULL);
+    ivVal = GetMonData(mon, GetMonDataIdFromStatIndexForIv(statId), NULL);
+    evVal = GetMonData(mon, GetMonDataIdFromStatIndexForEv(statId), NULL);
     statValue = ((sDeoxysBaseStats[statId] * 2 + ivVal + evVal / 4) * mon->level) / 100 + 5;
     nature = GetNature(mon);
     statValue = ModifyStatByNature(nature, statValue, (u8)statId);
