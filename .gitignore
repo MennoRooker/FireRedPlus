@@ -73,4 +73,3 @@ scripts/overview/__pycache__/
 !scripts/overview/static/overview_state.js
 Cnotes.md
 !saves/**
-*.Zone.Identifier

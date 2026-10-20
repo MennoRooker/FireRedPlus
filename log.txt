@@ -1742,7 +1742,18 @@ port animations and other things to my project. I have given
 Copilot instructions to do this for Quiver Dance already.
 It looks good in-game! I just have to wait with reordering
 all the moves from gens 4 and 5 into my project until I am
-ready to start a new save file.
+ready to start a new save file. (!I also need Fairy type
+moves so I might have to add gen 6+ moves...)
+
+I want to have Alolan Marowak as the dead Marowak at the top
+of the Pokémon Tower. I'm thinking of adding a flag called
+IsRegionalVariant, which allows for some regional variants
+to be seen, but only obtained after beating the main story.
+I think having the past paradoxes as regional variants is
+a cleaner approach than having new entries in the pokedex.
+This would make Flutter Mane a regional variant of Misdrea-
+vus and the IsRegionalVariant flag should prevent it from
+evolving into Mismagius.
 
 TO DO:
 x Force SET mode
@@ -1786,6 +1797,8 @@ x No badge boosts
 x Flavor dislikes
 x Custom sprites
 x 1.5x crits
+x Fewer trainer battles
+- 100 HP potion (Mega)
 / Pokedex:
   • Stats screen
     ‣ Pokemon DB colors
@@ -1795,14 +1808,14 @@ x 1.5x crits
     ‣ Evo methods
   • Arrow navigation
   • Edit titles
-/ Fewer trainer battles
-- Gen 4 in regional dex
-/ Opponent EVs
 / Documentation
 ---------------------------------------
 - Add Fairy type
+- Port gens 4/5 moves
 - Agatha's Flutter Mane
 - Max rematch
+- Opponent EVs
+- Gen 4 in regional dex
 - National Dex (Gen V and evos)
 - Paul Champion
 - Physical/special split

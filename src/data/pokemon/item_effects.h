@@ -45,6 +45,11 @@ static const u8 sItemEffect_SuperPotion[7] = {
     [6] = 50, // Amount of HP to recover
 };
 
+static const u8 sItemEffect_MegaPotion[7] = {
+    [4] = ITEM4_HEAL_HP,
+    [6] = 100, // Amount of HP to recover
+};
+
 static const u8 sItemEffect_FullHeal[6] = {
     [3] = ITEM3_STATUS_ALL,
 };
@@ -408,6 +413,7 @@ const u8 *const gItemEffectTable[] =
     [ITEM_RED_FLUTE - ITEM_POTION]     = sItemEffect_RedFlute,
     [ITEM_BERRY_JUICE - ITEM_POTION]   = sItemEffect_BerryJuice,
     [ITEM_SACRED_ASH - ITEM_POTION]    = sItemEffect_SacredAsh,
+    [ITEM_MEGA_POTION - ITEM_POTION]   = sItemEffect_MegaPotion,
     [ITEM_HP_UP - ITEM_POTION]         = sItemEffect_HPUp,
     [ITEM_PROTEIN - ITEM_POTION]       = sItemEffect_Protein,
     [ITEM_IRON - ITEM_POTION]          = sItemEffect_Iron,

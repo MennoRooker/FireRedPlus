@@ -211,7 +211,7 @@
     {
       "english": "POTION",
       "itemId": "ITEM_POTION",
-      "price": 300,
+      "price": 200,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 20,
       "description_english": "A spray-type wound medicine.\\nIt restores the HP of one POKéMON\\nby 20 points.",
@@ -355,7 +355,7 @@
     {
       "english": "SUPER POTION",
       "itemId": "ITEM_SUPER_POTION",
-      "price": 700,
+      "price": 400,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 50,
       "description_english": "A spray-type wound medicine.\\nIt restores the HP of one POKéMON\\nby 50 points.",
@@ -993,19 +993,19 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
-      "price": 0,
+      "english": "MEGA POTION",
+      "itemId": "ITEM_MEGA_POTION",
+      "price": 700,
       "holdEffect": "HOLD_EFFECT_NONE",
-      "holdEffectParam": 0,
-      "description_english": "?????",
+      "holdEffectParam": 100,
+      "description_english": "A spray-type wound medicine.\\nIt restores the HP of one POKéMON\\nby 100 points.",
       "importance": 0,
       "registrability": 0,
-      "pocket": "POCKET_ITEMS",
-      "type": "ITEM_TYPE_BAG_MENU",
-      "fieldUseFunc": "FieldUseFunc_OakStopsYou",
-      "battleUsage": 0,
-      "battleUseFunc": "NULL",
+      "pocket": "POCKET_MEDICINE",
+      "type": "ITEM_TYPE_PARTY_MENU",
+      "fieldUseFunc": "FieldUseFunc_Medicine",
+      "battleUsage": 1,
+      "battleUseFunc": "BattleUseFunc_Medicine",
       "secondaryId": 0
     },
     {

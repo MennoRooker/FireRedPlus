@@ -66,7 +66,8 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_03B]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_03C]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_03D]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_03E]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    // Mega Potion (100 HP)
+    [ITEM_MEGA_POTION]    = {gItemIcon_Potion, gItemIconPalette_MegaPotion},
     // Vitamins
     [ITEM_HP_UP]          = {gItemIcon_HPUp, gItemIconPalette_HPUp},
     [ITEM_PROTEIN]        = {gItemIcon_Vitamin, gItemIconPalette_Protein},

@@ -49,6 +49,7 @@ IndigoPlateau_PokemonCenter_1F_Items::
 	.2byte ITEM_FULL_RESTORE
 	.2byte ITEM_MAX_POTION
 	.2byte ITEM_HYPER_POTION
+	.2byte ITEM_MEGA_POTION
 	.2byte ITEM_SUPER_POTION
 	.2byte ITEM_POTION
 	.2byte ITEM_MAX_REVIVE

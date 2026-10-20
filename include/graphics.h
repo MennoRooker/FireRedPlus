@@ -2848,6 +2848,7 @@ extern const u32 gItemIconPalette_FullRestore[];
 extern const u32 gItemIconPalette_MaxPotion[];
 extern const u32 gItemIconPalette_HyperPotion[];
 extern const u32 gItemIconPalette_SuperPotion[];
+extern const u32 gItemIconPalette_MegaPotion[];
 extern const u32 gItemIcon_FullHeal[];
 extern const u32 gItemIconPalette_FullHeal[];
 extern const u32 gItemIcon_Revive[];
