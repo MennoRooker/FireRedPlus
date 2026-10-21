@@ -5,9 +5,6 @@
 #include "constants/menu.h"
 
 // Not actually "old" given these were introduced in Gen 3,
-// but they're used as equivalents here alongside the other OLD_UNOWN
-#define SPECIES_OLD_UNOWN_EMARK (NUM_SPECIES + 0)
-#define SPECIES_OLD_UNOWN_QMARK (NUM_SPECIES + 1)
 
 static void Task_SmoothBlendLayers(u8 taskId);
 
@@ -264,31 +261,6 @@ static const u8 sMonPosAttributes[][PSA_MON_ATTR_COUNT] = {
     [SPECIES_LUGIA           - 1] = { 8, 42,  8, 20, 52},
     [SPECIES_HO_OH           - 1] = {13, 37,  8, 14, 52},
     [SPECIES_CELEBI          - 1] = {21, 33,  8, 26, 43},
-    [SPECIES_OLD_UNOWN_B     - 1] = {31, 18,  8, 30, 28},
-    [SPECIES_OLD_UNOWN_C     - 1] = {32, 23,  8, 31, 33},
-    [SPECIES_OLD_UNOWN_D     - 1] = {28, 25,  8, 27, 35},
-    [SPECIES_OLD_UNOWN_E     - 1] = {33, 25,  8, 32, 35},
-    [SPECIES_OLD_UNOWN_F     - 1] = {27, 19,  8, 26, 29},
-    [SPECIES_OLD_UNOWN_G     - 1] = {32, 22,  8, 31, 33},
-    [SPECIES_OLD_UNOWN_H     - 1] = {32, 25,  8, 31, 35},
-    [SPECIES_OLD_UNOWN_I     - 1] = {32, 25,  8, 31, 35},
-    [SPECIES_OLD_UNOWN_J     - 1] = {32, 22,  8, 31, 32},
-    [SPECIES_OLD_UNOWN_K     - 1] = {29, 26,  8, 28, 36},
-    [SPECIES_OLD_UNOWN_L     - 1] = {32, 22,  8, 31, 31},
-    [SPECIES_OLD_UNOWN_M     - 1] = {32, 28,  8, 31, 38},
-    [SPECIES_OLD_UNOWN_N     - 1] = {32, 26,  8, 31, 35},
-    [SPECIES_OLD_UNOWN_O     - 1] = {32, 26,  8, 31, 35},
-    [SPECIES_OLD_UNOWN_P     - 1] = {32, 22,  8, 31, 32},
-    [SPECIES_OLD_UNOWN_Q     - 1] = {29, 22,  8, 28, 32},
-    [SPECIES_OLD_UNOWN_R     - 1] = {32, 21,  8, 31, 31},
-    [SPECIES_OLD_UNOWN_S     - 1] = {32, 25,  8, 31, 35},
-    [SPECIES_OLD_UNOWN_T     - 1] = {32, 30,  8, 31, 40},
-    [SPECIES_OLD_UNOWN_U     - 1] = {32, 23,  8, 31, 33},
-    [SPECIES_OLD_UNOWN_V     - 1] = {30, 30,  8, 29, 40},
-    [SPECIES_OLD_UNOWN_W     - 1] = {32, 29,  8, 31, 39},
-    [SPECIES_OLD_UNOWN_X     - 1] = {32, 25,  8, 31, 35},
-    [SPECIES_OLD_UNOWN_Y     - 1] = {32, 21,  8, 31, 31},
-    [SPECIES_OLD_UNOWN_Z     - 1] = {32, 25,  8, 31, 35},
     [SPECIES_TREECKO         - 1] = {26, 15, 48, 25, 32},
     [SPECIES_GROVYLE         - 1] = {13,  5, 16,  5, 19},
     [SPECIES_SCEPTILE        - 1] = {16,  4, 40, 12, 18},
@@ -428,8 +400,6 @@ static const u8 sMonPosAttributes[][PSA_MON_ATTR_COUNT] = {
     [SPECIES_DEOXYS          - 1] = {26,  9, 40, 26, 23},
 #endif
     [SPECIES_CHIMECHO        - 1] = {29, 12,  8, 28, 26},
-    [SPECIES_OLD_UNOWN_EMARK - 1] = {32, 33,  8, 32, 43},
-    [SPECIES_OLD_UNOWN_QMARK - 1] = {32, 35,  8, 32, 45}
 };
 
 void AddTextPrinterParameterized3(u8 windowId, u8 fontId, u8 x, u8 y, const u8 * color, s8 speed, const u8 * str)
@@ -644,15 +614,16 @@ u8 Menu2_GetMonPosAttribute(u16 species, u32 personality, u8 attributeId)
         switch (unownLetter)
         {
         case 0:
+            species = SPECIES_UNOWN;
             break;
         case 26:
-            species = SPECIES_OLD_UNOWN_EMARK;
+            species = SPECIES_UNOWN_EMARK;
             break;
         case 27:
-            species = SPECIES_OLD_UNOWN_QMARK;
+            species = SPECIES_UNOWN_QMARK;
             break;
         default:
-            species = SPECIES_OLD_UNOWN_B + unownLetter - 1;
+            species = SPECIES_UNOWN_B + unownLetter - 1;
             break;
         }
     }
