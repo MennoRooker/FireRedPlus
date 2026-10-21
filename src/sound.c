@@ -40,8 +40,6 @@ extern struct MusicPlayerInfo gMPlayInfo_SE3;
 extern struct ToneData gCryTable[];
 extern struct ToneData gCryTable_Reverse[];
 
-extern u16 SpeciesToCryId(u16);
-
 static void Task_Fanfare(u8 taskId);
 static void CreateFanfareTask(void);
 static void Task_DuckBGMForPokemonCry(u8 taskId);
@@ -469,11 +467,7 @@ void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
     SetPokemonCryChorus(chorus);
     SetPokemonCryPriority(priority);
 
-    // This is a fancy way to get a cry of a pokemon.
-    // It creates 4 sets of 128 mini cry tables.
-    // If you wish to expand pokemon, you need to
-    // append new cases to the switch.
-    species = SpeciesToCryId(species);
+    // Cry tables are indexed by species - 1 in contiguous groups of 128.
     index = species % 128;
     table = species / 128;
 
