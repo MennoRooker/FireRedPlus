@@ -5911,3 +5911,7 @@ static const u16 sChimechoLevelUpLearnset[] = {
     LEVEL_UP_MOVE(46, MOVE_PSYCHIC),
     LEVEL_UP_END
 };
+static const u16 sGen4PlusStubLevelUpLearnset[] = {
+    LEVEL_UP_END
+};
+
