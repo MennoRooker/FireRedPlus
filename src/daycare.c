@@ -70,6 +70,7 @@ static void SpriteCB_EggShard(struct Sprite* sprite);
 static void EggHatchPrintMessage(u8 windowId, u8 *string, u8 x, u8 y, u8 speed);
 static void CreateRandomEggShardSprite(void);
 static void CreateEggShardSprite(u8 x, u8 y, s16 data1, s16 data2, s16 data3, u8 spriteAnimIndex);
+static u8 GetMonDataIdFromStatIndexForIv(u8 statIndex);
 
 // IWRAM bss
 static struct EggHatchData *sEggHatchData;
@@ -834,18 +835,38 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
                 SetMonData(egg, MON_DATA_DEF_IV, &iv);
                 break;
             case 3:
-                iv = GetBoxMonData(&daycare->mons[whichParent[i]].mon, MON_DATA_SPEED_IV);
-                SetMonData(egg, MON_DATA_SPEED_IV, &iv);
-                break;
-            case 4:
                 iv = GetBoxMonData(&daycare->mons[whichParent[i]].mon, MON_DATA_SPATK_IV);
                 SetMonData(egg, MON_DATA_SPATK_IV, &iv);
                 break;
-            case 5:
+            case 4:
                 iv = GetBoxMonData(&daycare->mons[whichParent[i]].mon, MON_DATA_SPDEF_IV);
                 SetMonData(egg, MON_DATA_SPDEF_IV, &iv);
                 break;
+            case 5:
+                iv = GetBoxMonData(&daycare->mons[whichParent[i]].mon, MON_DATA_SPEED_IV);
+                SetMonData(egg, MON_DATA_SPEED_IV, &iv);
+                break;
         }
+    }
+}
+
+static u8 GetMonDataIdFromStatIndexForIv(u8 statIndex)
+{
+    switch (statIndex)
+    {
+    case STAT_HP:
+        return MON_DATA_HP_IV;
+    case STAT_ATK:
+        return MON_DATA_ATK_IV;
+    case STAT_DEF:
+        return MON_DATA_DEF_IV;
+    case STAT_SPATK:
+        return MON_DATA_SPATK_IV;
+    case STAT_SPDEF:
+        return MON_DATA_SPDEF_IV;
+    case STAT_SPEED:
+    default:
+        return MON_DATA_SPEED_IV;
     }
 }
 
@@ -1754,7 +1775,7 @@ static void CreatedHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
     personality = GetMonData(egg, MON_DATA_PERSONALITY);
 
     for (i = 0; i < NUM_STATS; i++)
-        ivs[i] = GetMonData(egg, MON_DATA_HP_IV + i);
+        ivs[i] = GetMonData(egg, GetMonDataIdFromStatIndexForIv(i));
 
 //    language = GetMonData(egg, MON_DATA_LANGUAGE);
     gameMet = GetMonData(egg, MON_DATA_MET_GAME);
@@ -1768,7 +1789,7 @@ static void CreatedHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
         SetMonData(temp, MON_DATA_MOVE1 + i,  &moves[i]);
 
     for (i = 0; i < NUM_STATS; i++)
-        SetMonData(temp, MON_DATA_HP_IV + i,  &ivs[i]);
+        SetMonData(temp, GetMonDataIdFromStatIndexForIv(i),  &ivs[i]);
 
     language = GAME_LANGUAGE;
     SetMonData(temp, MON_DATA_LANGUAGE, &language);

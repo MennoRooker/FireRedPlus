@@ -1836,9 +1836,7 @@
 
 	@ Jumps to dest if the Quest Log is currently showing playback scenes (dest is usually a release/end)
 	.macro goto_if_questlog dest:req
-	special GetQuestLogState
-	compare VAR_RESULT, 2
-	goto_if_eq \dest
+	@ Quest Log removed: retain macro call sites as no-op.
 	.endm
 
 	@ Prints a braille message, then waits for users input.

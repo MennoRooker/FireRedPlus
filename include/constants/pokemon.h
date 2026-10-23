@@ -169,9 +169,9 @@
 #define STAT_HP      0
 #define STAT_ATK     1
 #define STAT_DEF     2
-#define STAT_SPEED   3
-#define STAT_SPATK   4
-#define STAT_SPDEF   5
+#define STAT_SPATK   3
+#define STAT_SPDEF   4
+#define STAT_SPEED   5
 #define NUM_STATS    6
 
 #define STAT_ACC     6 // Only in battles.

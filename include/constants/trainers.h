@@ -453,24 +453,24 @@
 #define F_TRAINER_PARTY_NATURE_ABILITY (1 << 2)
 
 // Trainer-mon spread flags.
-// Bits select stats in stat order: HP, Atk, Def, Speed, SpAtk, SpDef.
+// Bits select stats in stat order: HP, Atk, Def, SpAtk, SpDef, Speed.
 
 // IVs:
 #define F_IV_SPREAD_HP         (1 << 0)
 #define F_IV_SPREAD_ATTACK     (1 << 1)
 #define F_IV_SPREAD_DEFENSE    (1 << 2)
-#define F_IV_SPREAD_SPEED      (1 << 3)
-#define F_IV_SPREAD_SP_ATTACK  (1 << 4)
-#define F_IV_SPREAD_SP_DEFENSE (1 << 5)
+#define F_IV_SPREAD_SP_ATTACK  (1 << 3)
+#define F_IV_SPREAD_SP_DEFENSE (1 << 4)
+#define F_IV_SPREAD_SPEED      (1 << 5)
 #define F_IV_SPREAD_ALL        (F_IV_SPREAD_HP | F_IV_SPREAD_ATTACK | F_IV_SPREAD_DEFENSE | F_IV_SPREAD_SPEED | F_IV_SPREAD_SP_ATTACK | F_IV_SPREAD_SP_DEFENSE)
 
 // EVs:
 #define F_EV_SPREAD_HP         (1 << 0)
 #define F_EV_SPREAD_ATTACK     (1 << 1)
 #define F_EV_SPREAD_DEFENSE    (1 << 2)
-#define F_EV_SPREAD_SPEED      (1 << 3)
-#define F_EV_SPREAD_SP_ATTACK  (1 << 4)
-#define F_EV_SPREAD_SP_DEFENSE (1 << 5)
+#define F_EV_SPREAD_SP_ATTACK  (1 << 3)
+#define F_EV_SPREAD_SP_DEFENSE (1 << 4)
+#define F_EV_SPREAD_SPEED      (1 << 5)
 #define F_EV_SPREAD_ALL        (F_EV_SPREAD_HP | F_EV_SPREAD_ATTACK | F_EV_SPREAD_DEFENSE | F_EV_SPREAD_SPEED | F_EV_SPREAD_SP_ATTACK | F_EV_SPREAD_SP_DEFENSE)
 
 #define MAX_PER_STAT_EV_SPREAD 85
