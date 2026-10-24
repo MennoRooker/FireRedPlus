@@ -449,6 +449,7 @@ const u8 gTypeNames[NUMBER_OF_MON_TYPES][TYPE_NAME_LENGTH + 1] =
     [TYPE_ICE] = _("ICE"),
     [TYPE_DRAGON] = _("DRAGON"),
     [TYPE_DARK] = _("DARK"),
+    [TYPE_FAIRY] = _("FAIRY"),
 };
 
 // This is a factor in how much money you get for beating a trainer.

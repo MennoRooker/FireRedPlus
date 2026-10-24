@@ -96,14 +96,12 @@ BLOCK_START_RE = re.compile(r"\[(SPECIES_[A-Z0-9_]+)\]\s*=\s*\{")
 BLOCK_MACRO_RE = re.compile(r"\[(SPECIES_[A-Z0-9_]+)\]\s*=\s*([A-Z0-9_]+)(?:\(([^)]*)\))?,\s*$")
 SPECIES_DEFINE_RE = re.compile(r"^\s*#define\s+(SPECIES_[A-Z0-9_]+)\s+(\d+)\b")
 SPECIES_ALIAS_RE = re.compile(r"^\s*#define\s+(SPECIES_[A-Z0-9_]+)\s+(SPECIES_[A-Z0-9_]+)\b")
-MACRO_DEFINE_RE = re.compile(r"^\s*#define\s+([A-Z0-9_]+)\s+(\d+)\b")
+MACRO_DEFINE_RE = re.compile(r"^\s*#define\s+([A-Z0-9_]+)\s+(.+?)\s*$")
 SPECIAL_ALIAS_FALLBACKS = {
     "SPECIES_MOTHIM": ("SPECIES_MOTHIM_PLANT",),
     "SPECIES_ARCEUS": ("SPECIES_ARCEUS_NORMAL",),
 }
 SPECIAL_VALUE_MAP = {
-    "TOGEPI_FAMILY_TYPE1": "TYPE_NORMAL",
-    "ROTOM_FAMILY_TYPES": "{TYPE_ELECTRIC, TYPE_GHOST}",
     "RALTS_FAMILY_EGG_GROUPS": "{EGG_GROUP_AMORPHOUS, EGG_GROUP_HUMAN_LIKE}",
 }
 
@@ -149,8 +147,16 @@ def parse_args() -> argparse.Namespace:
 
 def extract_numeric_macros(text: str) -> dict[str, str]:
     macros: dict[str, str] = {}
-    for name, value in re.findall(MACRO_DEFINE_RE.pattern, text, re.MULTILINE):
-        macros[name] = value
+    for line in text.splitlines():
+        match = MACRO_DEFINE_RE.match(line)
+        if match is None:
+            continue
+        name, raw_value = match.group(1), match.group(2).strip()
+        if "(" in name:  # Skip function-like macros.
+            continue
+        if raw_value.endswith("\\"):  # Multi-line macro, handled elsewhere.
+            continue
+        macros[name] = raw_value
     return macros
 
 
@@ -178,8 +184,16 @@ def simplify_conditional(value: str, macro_values: dict[str, str]) -> str:
     if value in macro_values:
         return macro_values[value]
     if "?" in value and ":" in value:
-        tail = value.rsplit(":", 1)[1].strip()
-        return simplify_conditional(tail, macro_values)
+        head = value.find("?")
+        cond = value[:head].strip()
+        rest = value[head + 1 :]
+        true_branch, false_branch = rest.rsplit(":", 1)
+
+        # Prefer updated typing branches so TYPE_FAIRY resolves when present.
+        if "P_UPDATED_TYPES" in cond and ">=" in cond and "GEN_6" in cond:
+            return simplify_conditional(true_branch.strip(), macro_values)
+
+        return simplify_conditional(false_branch.strip(), macro_values)
     return value
 
 
