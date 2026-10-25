@@ -360,6 +360,7 @@ extern const u8 gText_PkmnWokeUp2[];
 extern const u8 gText_PkmnBurnHealed[];
 extern const u8 gText_PkmnThawedOut[];
 extern const u8 gText_PkmnCuredOfParalysis[];
+extern const u8 gText_PkmnChangedForm[];
 extern const u8 gText_PkmnSnappedOutOfConfusion[];
 extern const u8 gText_PkmnGotOverInfatuation[];
 extern const u8 gText_PkmnBecameHealthy[];

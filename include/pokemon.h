@@ -250,6 +250,13 @@ struct BattleMove
     u8 flags;
 };
 
+struct FormChange
+{
+    u8 method;
+    u16 targetSpecies;
+    u16 param1;
+};
+
 #define SPINDA_SPOT_WIDTH 16
 #define SPINDA_SPOT_HEIGHT 16
 
@@ -378,6 +385,8 @@ const u8 *Battle_PrintStatBoosterEffectMessage(u16 itemId);
 u8 GetNature(struct Pokemon *mon);
 s8 GetNatureStatModifier(u8 nature, u8 statIndex);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem);
+bool8 CanItemUseFormChange(struct Pokemon *mon, u16 itemId);
+bool8 TryItemUseFormChange(struct Pokemon *mon, u16 itemId);
 u16 NationalPokedexNumToSpecies(u16 nationalNum);
 u16 SpeciesToNationalPokedexNum(u16 species);
 u16 HoennToNationalOrder(u16 hoennNum);

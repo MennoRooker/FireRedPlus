@@ -456,6 +456,8 @@ hp:	99 -> 109
 spatk:	72 -> 92
 
 - ABSOL
+def:	60 -> 70
+sodef:	60 -> 70
 spd:	75 -> 98
 
 - SEALEO

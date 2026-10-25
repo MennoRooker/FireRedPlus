@@ -66,6 +66,8 @@ static EWRAM_DATA struct MonSpritesGfxManager *sMonSpritesGfxManager = NULL;
 extern const struct Evolution gEvolutionTable[][EVOS_PER_MON];
 extern const u16 gEggMoves[];
 
+#include "data/pokemon/form_change_tables.h"
+
 #define EGG_MOVES_SPECIES_OFFSET 20000
 #define EGG_MOVES_TERMINATOR 0xFFFF
 #define EGG_TUTOR_MAX_LIST_SIZE 25
@@ -6003,6 +6005,74 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
     }
 
     return targetSpecies;
+}
+
+static const struct FormChange *GetSpeciesFormChanges(u16 species)
+{
+    switch (species)
+    {
+    case SPECIES_DEOXYS:
+        return sDeoxysNormalFormChangeTable;
+    case SPECIES_DEOXYS_ATTACK:
+        return sDeoxysAttackFormChangeTable;
+    case SPECIES_DEOXYS_DEFENSE:
+        return sDeoxysDefenseFormChangeTable;
+    case SPECIES_DEOXYS_SPEED:
+        return sDeoxysSpeedFormChangeTable;
+    default:
+        return NULL;
+    }
+}
+
+static u16 GetItemFormChangeTargetSpecies(u16 species, u16 itemId)
+{
+    u32 i;
+    const struct FormChange *formChanges = GetSpeciesFormChanges(species);
+
+    if (formChanges == NULL)
+        return SPECIES_NONE;
+
+    for (i = 0; formChanges[i].method != FORM_CHANGE_TERMINATOR; i++)
+    {
+        if (formChanges[i].method == FORM_CHANGE_ITEM_USE
+         && formChanges[i].param1 == itemId
+         && formChanges[i].targetSpecies != species)
+            return formChanges[i].targetSpecies;
+    }
+
+    return SPECIES_NONE;
+}
+
+bool8 CanItemUseFormChange(struct Pokemon *mon, u16 itemId)
+{
+    u16 species;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG, NULL))
+        return FALSE;
+
+    species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    if (species == SPECIES_NONE)
+        return FALSE;
+
+    return GetItemFormChangeTargetSpecies(species, itemId) != SPECIES_NONE;
+}
+
+bool8 TryItemUseFormChange(struct Pokemon *mon, u16 itemId)
+{
+    u16 species;
+    u16 targetSpecies;
+
+    if (!CanItemUseFormChange(mon, itemId))
+        return FALSE;
+
+    species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    targetSpecies = GetItemFormChangeTargetSpecies(species, itemId);
+    if (targetSpecies == SPECIES_NONE)
+        return FALSE;
+
+    SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);
+    CalculateMonStats(mon);
+    return TRUE;
 }
 
 static u16 HoennPokedexNumToSpecies(u16 hoennNum)

@@ -434,6 +434,7 @@ static void Task_HandleBottleCapStatSelection(u8 taskId);
 static void Task_BottleCapWaitForYesNo(u8 taskId);
 static void Task_HandleBottleCapYesNoInput(u8 taskId);
 static void ItemUseCB_BottleCapStep(u8 taskId, TaskFunc func);
+static void ItemUseCB_FormChangeStep(u8 taskId, TaskFunc func);
 static void TryUsePPItemOutsideBattle(u8 taskId);
 static void ItemUseCB_RestorePP(u8 taskId, TaskFunc func);
 static void ItemUseCB_ReplaceMoveWithTMHM(u8 taskId, TaskFunc func);
@@ -6308,6 +6309,48 @@ void ItemUseCB_EvolutionStone(u8 taskId, TaskFunc func)
     }
     else
         Task_DoUseItemAnim(taskId);
+}
+
+void ItemUseCB_FormChange(u8 taskId, TaskFunc func)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    PlaySE(SE_SELECT);
+    if (!CanItemUseFormChange(mon, gSpecialVar_ItemId))
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = func;
+        return;
+    }
+
+    Task_DoUseItemAnim(taskId);
+    gItemUseCB = ItemUseCB_FormChangeStep;
+}
+
+static void ItemUseCB_FormChangeStep(u8 taskId, TaskFunc func)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    if (!TryItemUseFormChange(mon, gSpecialVar_ItemId))
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = func;
+        return;
+    }
+
+    UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
+    gPartyMenuUseExitCallback = TRUE;
+    ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, mon, gSpecialVar_ItemId, 0xFFFF);
+    PlaySE(SE_USE_ITEM);
+    GetMonNickname(mon, gStringVar1);
+    StringExpandPlaceholders(gStringVar4, gText_PkmnChangedForm);
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = func;
 }
 
 static void CB2_UseEvolutionStone(void)
