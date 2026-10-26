@@ -552,7 +552,7 @@ struct BattleStruct
     u8 fillerDC[0xDF-0xDC];
     u8 givenExpMons;
     u8 lastTakenMoveFrom[MAX_BATTLERS_COUNT * MAX_BATTLERS_COUNT * 2];
-    u16 castformPalette[MAX_BATTLERS_COUNT][16];
+    u16 castformPalette[NUM_CASTFORM_FORMS][16];
     u8 wishPerishSongState;
     u8 wishPerishSongBattlerId;
     u8 lastAttackerToFaintOpponent;
@@ -719,7 +719,7 @@ struct MonSpritesGfx
     void *firstDecompressed; // ptr to the decompressed sprite of the first pokemon
     void *sprites[MAX_BATTLERS_COUNT];
     struct SpriteTemplate templates[MAX_BATTLERS_COUNT];
-    struct SpriteFrameImage images[MAX_BATTLERS_COUNT][4];
+    struct SpriteFrameImage images[MAX_BATTLERS_COUNT][MAX_MON_PIC_FRAMES];
     u8 field_F4[0x80]; // unused
     u8 *barFontGfx;
     void *field_178; // freed but never allocated
