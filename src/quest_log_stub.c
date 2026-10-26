@@ -3,6 +3,8 @@
 #include "quest_log_player.h"
 #include "quest_log_objects.h"
 #include "event_data.h"
+#include "overworld.h"
+#include "task.h"
 
 COMMON_DATA u8 gQuestLogState = 0;
 COMMON_DATA u8 gQuestLogPlaybackState = 0;
@@ -69,7 +71,8 @@ void ResetQuestLog(void)
 
 void TryStartQuestLogPlayback(u8 taskId)
 {
-    (void)taskId;
+    SetMainCallback2(CB2_ContinueSavedGame);
+    DestroyTask(taskId);
 }
 
 void SaveQuestLogData(void)
