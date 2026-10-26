@@ -193,7 +193,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleNora[] = {D
 static const struct TrainerMonNoItemDefaultMoves sParty_BurglarSimon[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_SuperNerdErik[] = {DUMMY_TRAINER_MON};
 static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerFemaleMaria[] = {DUMMY_TRAINER_MON};
-static const struct TrainerMonItemDefaultMoves sParty_BlackBeltAtsushi[] = {DUMMY_TRAINER_MON};
+static const struct TrainerMonNoItemDefaultMoves sParty_BlackBeltAtsushi[] = {DUMMY_TRAINER_MON};
 
 
 
