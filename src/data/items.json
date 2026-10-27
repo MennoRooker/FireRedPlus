@@ -1,17 +1,17 @@
 {
   "items": [
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "ROTOM CATALOG",
+      "itemId": "ITEM_ROTOM_CATALOG",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "?????",
-      "importance": 0,
-      "registrability": 0,
-      "pocket": "POCKET_ITEMS",
-      "type": "ITEM_TYPE_BAG_MENU",
-      "fieldUseFunc": "FieldUseFunc_OakStopsYou",
+      "description_english": "A catalog of appliances\\nthat lets ROTOM change forms.",
+      "importance": 1,
+      "registrability": 1,
+      "pocket": "POCKET_KEY_ITEMS",
+      "type": "ITEM_TYPE_FIELD",
+      "fieldUseFunc": "FieldUseFunc_FormChange",
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0

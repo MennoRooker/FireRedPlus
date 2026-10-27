@@ -255,6 +255,7 @@ struct FormChange
     u8 method;
     u16 targetSpecies;
     u16 param1;
+    u16 param2;
 };
 
 #define SPINDA_SPOT_WIDTH 16
@@ -386,7 +387,9 @@ u8 GetNature(struct Pokemon *mon);
 s8 GetNatureStatModifier(u8 nature, u8 statIndex);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem);
 bool8 CanItemUseFormChange(struct Pokemon *mon, u16 itemId);
+bool8 CanItemUseFormChangeWithSelection(struct Pokemon *mon, u16 itemId, u16 selection);
 bool8 TryItemUseFormChange(struct Pokemon *mon, u16 itemId);
+bool8 TryItemUseFormChangeWithSelection(struct Pokemon *mon, u16 itemId, u16 selection);
 u16 NationalPokedexNumToSpecies(u16 nationalNum);
 u16 SpeciesToNationalPokedexNum(u16 species);
 u16 HoennToNationalOrder(u16 hoennNum);

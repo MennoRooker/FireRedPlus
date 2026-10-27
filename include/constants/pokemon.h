@@ -293,6 +293,7 @@
 // Form change methods
 #define FORM_CHANGE_TERMINATOR 0
 #define FORM_CHANGE_ITEM_USE   1
+#define FORM_CHANGE_ITEM_USE_MULTICHOICE 2
 
 #define MON_PIC_WIDTH 64
 #define MON_PIC_HEIGHT 64
