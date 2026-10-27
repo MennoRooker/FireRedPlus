@@ -455,6 +455,12 @@ void FieldUseFunc_EvoItem(u8 taskId)
     DoSetUpItemUseCallback(taskId);
 }
 
+void FieldUseFunc_FormChange(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_FormChange;
+    DoSetUpItemUseCallback(taskId);
+}
+
 void FieldUseFunc_SacredAsh(u8 taskId)
 {
     gItemUseCB = ItemUseCB_SacredAsh;

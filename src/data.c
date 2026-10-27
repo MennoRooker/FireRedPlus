@@ -269,12 +269,19 @@ static const union AnimCmd sAnim_MonPic_3[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_MonPic_4[] =
+{
+    ANIMCMD_FRAME(4, 0),
+    ANIMCMD_END,
+};
+
 const union AnimCmd *const gAnims_MonPic[] =
 {
     sAnim_MonPic_0,
     sAnim_MonPic_1,
     sAnim_MonPic_2,
     sAnim_MonPic_3,
+    sAnim_MonPic_4,
 };
 
 #define SPECIES_SPRITE(species, sprite) [SPECIES_##species] = {sprite, 0x800, SPECIES_##species}

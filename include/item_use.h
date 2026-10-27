@@ -20,6 +20,7 @@ void FieldUseFunc_ExpCandy(u8 taskId);
 void FieldUseFunc_BottleCap(u8 taskId);
 void FieldUseFunc_HeartScale(u8 taskId);
 void FieldUseFunc_EvoItem(u8 taskId);
+void FieldUseFunc_FormChange(u8 taskId);
 void FieldUseFunc_SacredAsh(u8 taskId);
 void FieldUseFunc_TmCase(u8 taskId);
 void FieldUseFunc_BerryPouch(u8 taskId);

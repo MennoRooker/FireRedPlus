@@ -113,7 +113,8 @@
 #define TYPE_ICE            15
 #define TYPE_DRAGON         16
 #define TYPE_DARK           17
-#define NUMBER_OF_MON_TYPES 18
+#define TYPE_FAIRY          18
+#define NUMBER_OF_MON_TYPES 19
 
 // Pokemon egg groups
 #define EGG_GROUP_NONE         0
@@ -177,8 +178,8 @@
 #define STAT_ACC     6 // Only in battles.
 #define STAT_EVASION 7 // Only in battles.
 
-#define NUM_NATURE_STATS (NUM_STATS - 1) // excludes HP
-#define NUM_BATTLE_STATS (NUM_STATS + 2) // includes Accuracy and Evasion
+#define NUM_NATURE_STATS (NUM_STATS - 1) // Excludes HP
+#define NUM_BATTLE_STATS (NUM_STATS + 2) // Includes Accuracy and Evasion
 
 #define MIN_STAT_STAGE     0
 #define DEFAULT_STAT_STAGE 6
@@ -272,7 +273,7 @@
 #define EVO_LEVEL            4  // Pokémon reaches the specified level
 #define EVO_TRADE            5  // Pokémon is traded
 #define EVO_TRADE_ITEM       6  // Pokémon is traded while it's holding the specified item
-#define EVO_ITEM             7  // specified item is used on Pokémon
+#define EVO_ITEM             7  // Specified item is used on Pokémon
 #define EVO_LEVEL_ATK_GT_DEF 8  // Pokémon reaches the specified level with attack > defense
 #define EVO_LEVEL_ATK_EQ_DEF 9  // Pokémon reaches the specified level with attack = defense
 #define EVO_LEVEL_ATK_LT_DEF 10 // Pokémon reaches the specified level with attack < defense
@@ -282,21 +283,25 @@
 #define EVO_LEVEL_SHEDINJA   14 // Pokémon reaches the specified level (special value for Shedinja)
 #define EVO_BEAUTY           15 // Pokémon levels up with beauty ≥ specified value
 
-#define EVOS_PER_MON 5
+#define EVOS_PER_MON 8
 
 #define EVO_MODE_NORMAL     0
 #define EVO_MODE_TRADE      1
 #define EVO_MODE_ITEM_USE   2
 #define EVO_MODE_ITEM_CHECK 3 // If an Everstone is being held, still want to show that the stone *could* be used on that Pokémon to evolve
 
+// Form change methods
+#define FORM_CHANGE_TERMINATOR 0
+#define FORM_CHANGE_ITEM_USE   1
+
 #define MON_PIC_WIDTH 64
 #define MON_PIC_HEIGHT 64
 #define MON_PIC_SIZE (MON_PIC_WIDTH * MON_PIC_HEIGHT / 2)
 
-// Most pokemon have 1 frame. There are 2 exceptions:
-// - Castform has 4 frames, 1 for each form
-// - Deoxys has 2 frames, 1 for each form
-#define MAX_MON_PIC_FRAMES 4
+// Most pokemon have 1 frame. 
+// Castform gets 4 vanilla frames + 
+// Sandy form for 5 frames total.
+#define MAX_MON_PIC_FRAMES 5
 
 // used by ShouldIgnoreDeoxysForm
 #define DEOXYS_CHECK_BATTLE_SPRITE      1

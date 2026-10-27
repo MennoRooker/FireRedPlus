@@ -1780,6 +1780,7 @@ enum
     CASTFORM_TO_FIRE,
     CASTFORM_TO_WATER,
     CASTFORM_TO_ICE,
+    CASTFORM_TO_ROCK,
 };
 
 u8 CastformDataTypeChange(u8 battler)
@@ -1794,7 +1795,7 @@ u8 CastformDataTypeChange(u8 battler)
     }
     if (!WEATHER_HAS_EFFECT)
         return CASTFORM_NO_CHANGE;
-    if (!(gBattleWeather & (B_WEATHER_RAIN | B_WEATHER_SUN | B_WEATHER_HAIL)) && !IS_BATTLER_OF_TYPE(battler, TYPE_NORMAL))
+    if (!(gBattleWeather & (B_WEATHER_RAIN | B_WEATHER_SUN | B_WEATHER_HAIL | B_WEATHER_SANDSTORM)) && !IS_BATTLER_OF_TYPE(battler, TYPE_NORMAL))
     {
         SET_BATTLER_TYPE(battler, TYPE_NORMAL);
         formChange = CASTFORM_TO_NORMAL;
@@ -1813,6 +1814,11 @@ u8 CastformDataTypeChange(u8 battler)
     {
         SET_BATTLER_TYPE(battler, TYPE_ICE);
         formChange = CASTFORM_TO_ICE;
+    }
+    if (gBattleWeather & B_WEATHER_SANDSTORM && !IS_BATTLER_OF_TYPE(battler, TYPE_ROCK))
+    {
+        SET_BATTLER_TYPE(battler, TYPE_ROCK);
+        formChange = CASTFORM_TO_ROCK;
     }
     return formChange;
 }

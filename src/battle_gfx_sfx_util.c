@@ -778,13 +778,13 @@ void BattleLoadSubstituteOrMonSpriteGfx(u8 battlerId, bool8 loadMonSprite)
             LZDecompressVram(gSubstituteDollFrontGfx, gMonSpritesGfxPtr->sprites[position]);
         else
             LZDecompressVram(gSubstituteDollBackGfx, gMonSpritesGfxPtr->sprites[position]);
-        for (i = 1; i < 4; ++i)
+        for (i = 1; i < MAX_MON_PIC_FRAMES; ++i)
         {
-            u8 (*ptr)[4][0x800] = gMonSpritesGfxPtr->sprites[position];
+            u8 (*ptr)[MAX_MON_PIC_FRAMES][MON_PIC_SIZE] = gMonSpritesGfxPtr->sprites[position];
 
             ++ptr;
             --ptr;
-            DmaCopy32Defvars(3, (*ptr)[0], (*ptr)[i], 0x800);
+            DmaCopy32Defvars(3, (*ptr)[0], (*ptr)[i], MON_PIC_SIZE);
         }
         palOffset = OBJ_PLTT_ID(battlerId);
         LoadCompressedPalette(gSubstituteDollPal, palOffset, PLTT_SIZE_4BPP);
@@ -1060,16 +1060,16 @@ void AllocateMonSpritesGfx(void)
 
     gMonSpritesGfxPtr = NULL;
     gMonSpritesGfxPtr = AllocZeroed(sizeof(*gMonSpritesGfxPtr));
-    gMonSpritesGfxPtr->firstDecompressed = AllocZeroed(0x8000);
+    gMonSpritesGfxPtr->firstDecompressed = AllocZeroed(MAX_BATTLERS_COUNT * MAX_MON_PIC_FRAMES * MON_PIC_SIZE);
     for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
     {
-        gMonSpritesGfxPtr->sprites[i] = gMonSpritesGfxPtr->firstDecompressed + (i * 0x2000);
+        gMonSpritesGfxPtr->sprites[i] = gMonSpritesGfxPtr->firstDecompressed + (i * MAX_MON_PIC_FRAMES * MON_PIC_SIZE);
         *(gMonSpritesGfxPtr->templates + i) = gSpriteTemplates_Battlers[i];
 
-        for (j = 0; j < 4; ++j)
+        for (j = 0; j < MAX_MON_PIC_FRAMES; ++j)
         {
-            gMonSpritesGfxPtr->images[i][j].data = gMonSpritesGfxPtr->sprites[i] + (j * 0x800);
-            gMonSpritesGfxPtr->images[i][j].size = 0x800;
+            gMonSpritesGfxPtr->images[i][j].data = gMonSpritesGfxPtr->sprites[i] + (j * MON_PIC_SIZE);
+            gMonSpritesGfxPtr->images[i][j].size = MON_PIC_SIZE;
         }
 
         gMonSpritesGfxPtr->templates[i].images = gMonSpritesGfxPtr->images[i];
