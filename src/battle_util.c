@@ -1783,6 +1783,81 @@ enum
     CASTFORM_TO_ROCK,
 };
 
+static struct Pokemon *GetBattlerPartyMon(u8 battler)
+{
+    if (GetBattlerSide(battler) == B_SIDE_PLAYER)
+        return &gPlayerParty[gBattlerPartyIndexes[battler]];
+    else
+        return &gEnemyParty[gBattlerPartyIndexes[battler]];
+}
+
+static void SyncBattleMonStatsFromPartyMon(u8 battler, struct Pokemon *mon, u16 oldMaxHp)
+{
+    u16 hp;
+
+    gBattleMons[battler].species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    gBattleMons[battler].maxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
+    gBattleMons[battler].attack = GetMonData(mon, MON_DATA_ATK, NULL);
+    gBattleMons[battler].defense = GetMonData(mon, MON_DATA_DEF, NULL);
+    gBattleMons[battler].speed = GetMonData(mon, MON_DATA_SPEED, NULL);
+    gBattleMons[battler].spAttack = GetMonData(mon, MON_DATA_SPATK, NULL);
+    gBattleMons[battler].spDefense = GetMonData(mon, MON_DATA_SPDEF, NULL);
+    gBattleMons[battler].type1 = gSpeciesInfo[gBattleMons[battler].species].types[0];
+    gBattleMons[battler].type2 = gSpeciesInfo[gBattleMons[battler].species].types[1];
+    gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
+
+    if (oldMaxHp == 0)
+        hp = gBattleMons[battler].maxHP;
+    else
+        hp = (gBattleMons[battler].hp * gBattleMons[battler].maxHP) / oldMaxHp;
+    if (gBattleMons[battler].hp != 0 && hp == 0)
+        hp = 1;
+    if (hp > gBattleMons[battler].maxHP)
+        hp = gBattleMons[battler].maxHP;
+
+    gBattleMons[battler].hp = hp;
+    SetMonData(mon, MON_DATA_HP, &hp);
+}
+
+bool8 TryBattleFormChange(u8 battler, u8 method, u16 param1, u16 param2, u16 param3)
+{
+    struct Pokemon *mon;
+    u16 targetSpecies;
+    u16 oldMaxHp;
+
+    if (gAbsentBattlerFlags & gBitTable[battler] || gBattleMons[battler].species == SPECIES_NONE)
+        return FALSE;
+
+    mon = GetBattlerPartyMon(battler);
+    targetSpecies = GetFormChangeTargetSpeciesByMethod(gBattleMons[battler].species, method, param1, param2, param3);
+    if (targetSpecies == SPECIES_NONE)
+        return FALSE;
+
+    oldMaxHp = gBattleMons[battler].maxHP;
+    SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);
+    CalculateMonStats(mon);
+    SyncBattleMonStatsFromPartyMon(battler, mon, oldMaxHp);
+
+    gActiveBattler = battler;
+    BtlController_EmitSetMonData(BUFFER_A, REQUEST_SPECIES_BATTLE, 0, sizeof(gBattleMons[battler].species), &gBattleMons[battler].species);
+    MarkBattlerForControllerExec(gActiveBattler);
+    return TRUE;
+}
+
+void ApplyBattleFormChangesAtBattleEnd(void)
+{
+    u8 battler;
+
+    for (battler = 0; battler < gBattlersCount; battler++)
+    {
+        if (gAbsentBattlerFlags & gBitTable[battler])
+            continue;
+
+        TryBattleFormChange(battler, FORM_CHANGE_END_BATTLE_ENVIRONMENT, gBattleTerrain, 0, 0);
+        TryBattleFormChange(battler, FORM_CHANGE_END_BATTLE, gBattleMons[battler].ability, 0, 0);
+    }
+}
+
 u8 CastformDataTypeChange(u8 battler)
 {
     u8 formChange = 0;
@@ -2013,6 +2088,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
         case ABILITYEFFECT_ENDTURN: // 1
             if (gBattleMons[battler].hp != 0)
             {
+                u16 hpPercent;
+
                 gBattlerAttacker = battler;
                 switch (gLastUsedAbility)
                 {
@@ -2113,6 +2190,10 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     gDisableStructs[gBattlerAttacker].truantCounter ^= 1;
                     break;
                 }
+
+                hpPercent = (gBattleMons[battler].maxHP == 0) ? 0 : (100 * gBattleMons[battler].hp) / gBattleMons[battler].maxHP;
+                if (TryBattleFormChange(battler, FORM_CHANGE_BATTLE_HP_PERCENT_TURN_END, gBattleMons[battler].ability, hpPercent, 0))
+                    effect++;
             }
             break;
         case ABILITYEFFECT_MOVES_BLOCK: // 2
@@ -2462,6 +2543,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                         return effect;
                     }
                 }
+
+                if (TryBattleFormChange(battler, FORM_CHANGE_BATTLE_WEATHER, gBattleWeather, gBattleMons[battler].ability, 0))
+                    return 1;
             }
             break;
         case ABILITYEFFECT_SYNCHRONIZE: // 7

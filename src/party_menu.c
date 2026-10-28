@@ -1372,6 +1372,8 @@ static bool8 TryDoPartyItemMove(u8 sourceSlot, u8 targetSlot)
 
     SetMonData(&gPlayerParty[sourceSlot], MON_DATA_HELD_ITEM, &targetItem);
     SetMonData(&gPlayerParty[targetSlot], MON_DATA_HELD_ITEM, &sourceItem);
+    TryHeldItemFormChange(&gPlayerParty[sourceSlot]);
+    TryHeldItemFormChange(&gPlayerParty[targetSlot]);
     UpdatePartyMonHeldItemSprite(&gPlayerParty[sourceSlot], &sPartyMenuBoxes[sourceSlot]);
     UpdatePartyMonHeldItemSprite(&gPlayerParty[targetSlot], &sPartyMenuBoxes[targetSlot]);
     return TRUE;
@@ -2100,6 +2102,7 @@ static void GiveItemToMon(struct Pokemon *mon, u16 item)
     itemBytes[0] = item;
     itemBytes[1] = item >> 8;
     SetMonData(mon, MON_DATA_HELD_ITEM, itemBytes);
+    TryHeldItemFormChange(mon);
 }
 
 static u8 TryTakeMonItem(struct Pokemon *mon)
@@ -2112,6 +2115,7 @@ static u8 TryTakeMonItem(struct Pokemon *mon)
         return 1;
     item = ITEM_NONE;
     SetMonData(mon, MON_DATA_HELD_ITEM, &item);
+    TryHeldItemFormChange(mon);
     return 2;
 }
 

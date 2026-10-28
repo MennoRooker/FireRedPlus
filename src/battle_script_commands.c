@@ -3178,6 +3178,7 @@ static void Cmd_tryfaintmon(void)
         if (!(gAbsentBattlerFlags & gBitTable[gActiveBattler])
          && gBattleMons[gActiveBattler].hp == 0)
         {
+            TryBattleFormChange(gActiveBattler, FORM_CHANGE_FAINT, gBattleMons[gActiveBattler].ability, 0, 0);
             gHitMarker |= HITMARKER_FAINTED(gActiveBattler);
             BattleScriptPush(gBattlescriptCurrInstr + 7);
             gBattlescriptCurrInstr = BS_ptr;
@@ -4683,6 +4684,12 @@ static void Cmd_moveend(void)
 
     if (gBattleScripting.moveendState == MOVEEND_COUNT && effect == FALSE)
         gBattlescriptCurrInstr += 3;
+
+    if (!(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
+     && gBattleMons[gBattlerAttacker].hp != 0)
+    {
+        TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_AFTER_MOVE, gCurrentMove, 0, 0);
+    }
     sDrainPoisonDisplayPending = FALSE;
     sDrainPoisonDisplayBattler = MAX_BATTLERS_COUNT;
 }
@@ -4794,6 +4801,7 @@ static void Cmd_returnatktoball(void)
     gActiveBattler = gBattlerAttacker;
     if (!(gHitMarker & HITMARKER_FAINTED(gActiveBattler)))
     {
+        TryBattleFormChange(gActiveBattler, FORM_CHANGE_BATTLE_SWITCH_OUT, gBattleMons[gActiveBattler].ability, 0, 0);
         BtlController_EmitReturnMonToBall(BUFFER_A, FALSE);
         MarkBattlerForControllerExec(gActiveBattler);
     }
@@ -5450,6 +5458,7 @@ static void Cmd_endlinkbattle(void)
 static void Cmd_returntoball(void)
 {
     gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
+    TryBattleFormChange(gActiveBattler, FORM_CHANGE_BATTLE_SWITCH_OUT, gBattleMons[gActiveBattler].ability, 0, 0);
     BtlController_EmitReturnMonToBall(BUFFER_A, TRUE);
     MarkBattlerForControllerExec(gActiveBattler);
 

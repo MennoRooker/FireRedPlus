@@ -833,12 +833,12 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
-      "price": 0,
+      "english": "GRISEOUS ORB",
+      "itemId": "ITEM_GRISEOUS_ORB",
+      "price": 10000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "?????",
+      "description_english": "A glowing orb that lets\\nGIRATINA change form when held.",
       "importance": 0,
       "registrability": 0,
       "pocket": "POCKET_ITEMS",

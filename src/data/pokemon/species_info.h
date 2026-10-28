@@ -9925,7 +9925,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     },
     [SPECIES_BALTOY /* 343 */] =
     {
-        .baseHP = 40,
+        .baseHP = 50,
         .baseAttack = 40,
         .baseDefense = 55,
         .baseSpAttack = 40,
@@ -9954,7 +9954,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     },
     [SPECIES_CLAYDOL /* 344 */] =
     {
-        .baseHP = 60,
+        .baseHP = 80,
         .baseAttack = 70,
         .baseDefense = 105,
         .baseSpAttack = 70,
