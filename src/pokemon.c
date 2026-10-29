@@ -2954,7 +2954,12 @@ u8 GetLevelFromBoxMonExp(struct BoxPokemon *boxMon)
 
 u16 GiveMoveToMon(struct Pokemon *mon, u16 move)
 {
-    return GiveMoveToBoxMon(&mon->box, move);
+    u16 result = GiveMoveToBoxMon(&mon->box, move);
+
+    if (result == move)
+        TryMoveFormChange(mon, move, TRUE);
+
+    return result;
 }
 
 static u16 GiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move)
@@ -2994,8 +2999,18 @@ u16 GiveMoveToBattleMon(struct BattlePokemon *mon, u16 move)
 
 void SetMonMoveSlot(struct Pokemon *mon, u16 move, u8 slot)
 {
+    u16 oldMove = GetMonData(mon, MON_DATA_MOVE1 + slot, NULL);
+
     SetMonData(mon, MON_DATA_MOVE1 + slot, &move);
     SetMonData(mon, MON_DATA_PP1 + slot, &gBattleMoves[move].pp);
+
+    if (oldMove != move)
+    {
+        if (oldMove != MOVE_NONE)
+            TryMoveFormChange(mon, oldMove, FALSE);
+        if (move != MOVE_NONE)
+            TryMoveFormChange(mon, move, TRUE);
+    }
 }
 
 void SetBattleMonMoveSlot(struct BattlePokemon *mon, u16 move, u8 slot)
@@ -3068,8 +3083,11 @@ void DeleteFirstMoveAndGiveMoveToMon(struct Pokemon *mon, u16 move)
 {
     s32 i;
     u16 moves[MAX_MON_MOVES];
+    u16 oldFirstMove;
     u8 pp[MAX_MON_MOVES];
     u8 ppBonuses;
+
+    oldFirstMove = GetMonData(mon, MON_DATA_MOVE1, NULL);
 
     for (i = 0; i < MAX_MON_MOVES - 1; i++)
     {
@@ -3089,6 +3107,8 @@ void DeleteFirstMoveAndGiveMoveToMon(struct Pokemon *mon, u16 move)
     }
 
     SetMonData(mon, MON_DATA_PP_BONUSES, &ppBonuses);
+    TryMoveFormChange(mon, oldFirstMove, FALSE);
+    TryMoveFormChange(mon, move, TRUE);
 }
 
 static void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move)
@@ -6009,22 +6029,18 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
 
 static const struct FormChange *GetSpeciesFormChanges(u16 species)
 {
-    switch (species)
+    u32 i;
+
+    for (i = 0; i < NELEMS(sSpeciesFormChangeTablePointers); i++)
     {
-    case SPECIES_DEOXYS:
-        return sDeoxysNormalFormChangeTable;
-    case SPECIES_DEOXYS_ATTACK:
-        return sDeoxysAttackFormChangeTable;
-    case SPECIES_DEOXYS_DEFENSE:
-        return sDeoxysDefenseFormChangeTable;
-    case SPECIES_DEOXYS_SPEED:
-        return sDeoxysSpeedFormChangeTable;
-    default:
-        return NULL;
+        if (sSpeciesFormChangeTablePointers[i].species == species)
+            return sSpeciesFormChangeTablePointers[i].table;
     }
+
+    return NULL;
 }
 
-static u16 GetItemFormChangeTargetSpecies(u16 species, u16 itemId)
+u16 GetFormChangeTargetSpeciesByMethod(u16 species, u8 method, u16 param1, u16 param2, u16 param3)
 {
     u32 i;
     const struct FormChange *formChanges = GetSpeciesFormChanges(species);
@@ -6034,10 +6050,51 @@ static u16 GetItemFormChangeTargetSpecies(u16 species, u16 itemId)
 
     for (i = 0; formChanges[i].method != FORM_CHANGE_TERMINATOR; i++)
     {
-        if (formChanges[i].method == FORM_CHANGE_ITEM_USE
-         && formChanges[i].param1 == itemId
-         && formChanges[i].targetSpecies != species)
-            return formChanges[i].targetSpecies;
+        if (formChanges[i].targetSpecies == species || formChanges[i].method != method)
+            continue;
+
+        switch (method)
+        {
+        case FORM_CHANGE_ITEM_USE:
+        case FORM_CHANGE_ITEM_HOLD:
+            if (formChanges[i].param1 == param1)
+                return formChanges[i].targetSpecies;
+            break;
+        case FORM_CHANGE_ITEM_USE_MULTICHOICE:
+            if (formChanges[i].param1 == param1 && formChanges[i].param2 == param2)
+                return formChanges[i].targetSpecies;
+            break;
+        case FORM_CHANGE_BATTLE_WEATHER:
+            if (((formChanges[i].param1 == 0 && param1 == 0) || ((formChanges[i].param1 & param1) != 0))
+             && (formChanges[i].param2 == ABILITY_NONE || formChanges[i].param2 == param2))
+                return formChanges[i].targetSpecies;
+            break;
+        case FORM_CHANGE_BATTLE_HP_PERCENT_TURN_END:
+            if (formChanges[i].param1 == param1)
+            {
+                if (formChanges[i].param2 == FORM_CHANGE_HP_HIGHER_THAN && param2 > formChanges[i].param3)
+                    return formChanges[i].targetSpecies;
+                if (formChanges[i].param2 == FORM_CHANGE_HP_LOWER_EQ_THAN && param2 <= formChanges[i].param3)
+                    return formChanges[i].targetSpecies;
+            }
+            break;
+        case FORM_CHANGE_BATTLE_AFTER_MOVE:
+        case FORM_CHANGE_MOVE:
+            if (formChanges[i].param1 == param1
+             && (method != FORM_CHANGE_MOVE || formChanges[i].param2 == param2))
+                return formChanges[i].targetSpecies;
+            break;
+        case FORM_CHANGE_BATTLE_SWITCH_OUT:
+        case FORM_CHANGE_FAINT:
+        case FORM_CHANGE_END_BATTLE:
+            if (formChanges[i].param1 == ABILITY_NONE || formChanges[i].param1 == param1)
+                return formChanges[i].targetSpecies;
+            break;
+        case FORM_CHANGE_END_BATTLE_ENVIRONMENT:
+            if (formChanges[i].param1 == param1)
+                return formChanges[i].targetSpecies;
+            break;
+        }
     }
 
     return SPECIES_NONE;
@@ -6054,7 +6111,21 @@ bool8 CanItemUseFormChange(struct Pokemon *mon, u16 itemId)
     if (species == SPECIES_NONE)
         return FALSE;
 
-    return GetItemFormChangeTargetSpecies(species, itemId) != SPECIES_NONE;
+    return GetFormChangeTargetSpeciesByMethod(species, FORM_CHANGE_ITEM_USE, itemId, 0, 0) != SPECIES_NONE;
+}
+
+bool8 CanItemUseFormChangeWithSelection(struct Pokemon *mon, u16 itemId, u16 selection)
+{
+    u16 species;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG, NULL))
+        return FALSE;
+
+    species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    if (species == SPECIES_NONE)
+        return FALSE;
+
+    return GetFormChangeTargetSpeciesByMethod(species, FORM_CHANGE_ITEM_USE_MULTICHOICE, itemId, selection, 0) != SPECIES_NONE;
 }
 
 bool8 TryItemUseFormChange(struct Pokemon *mon, u16 itemId)
@@ -6066,7 +6137,70 @@ bool8 TryItemUseFormChange(struct Pokemon *mon, u16 itemId)
         return FALSE;
 
     species = GetMonData(mon, MON_DATA_SPECIES, NULL);
-    targetSpecies = GetItemFormChangeTargetSpecies(species, itemId);
+    targetSpecies = GetFormChangeTargetSpeciesByMethod(species, FORM_CHANGE_ITEM_USE, itemId, 0, 0);
+    if (targetSpecies == SPECIES_NONE)
+        return FALSE;
+
+    SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);
+    CalculateMonStats(mon);
+    return TRUE;
+}
+
+bool8 TryItemUseFormChangeWithSelection(struct Pokemon *mon, u16 itemId, u16 selection)
+{
+    u16 species;
+    u16 targetSpecies;
+
+    if (!CanItemUseFormChangeWithSelection(mon, itemId, selection))
+        return FALSE;
+
+    species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    targetSpecies = GetFormChangeTargetSpeciesByMethod(species, FORM_CHANGE_ITEM_USE_MULTICHOICE, itemId, selection, 0);
+    if (targetSpecies == SPECIES_NONE)
+        return FALSE;
+
+    SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);
+    CalculateMonStats(mon);
+    return TRUE;
+}
+
+bool8 TryHeldItemFormChange(struct Pokemon *mon)
+{
+    u16 species;
+    u16 heldItem;
+    u16 targetSpecies;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG, NULL))
+        return FALSE;
+
+    species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    if (species == SPECIES_NONE)
+        return FALSE;
+
+    heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, NULL);
+    targetSpecies = GetFormChangeTargetSpeciesByMethod(species, FORM_CHANGE_ITEM_HOLD, heldItem, 0, 0);
+    if (targetSpecies == SPECIES_NONE)
+        return FALSE;
+
+    SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);
+    CalculateMonStats(mon);
+    return TRUE;
+}
+
+bool8 TryMoveFormChange(struct Pokemon *mon, u16 move, bool8 moveLearned)
+{
+    u16 species;
+    u16 targetSpecies;
+    u16 moveState = moveLearned ? FORM_CHANGE_MOVE_WHEN_LEARNED : FORM_CHANGE_MOVE_WHEN_FORGOTTEN;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG, NULL))
+        return FALSE;
+
+    species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    if (species == SPECIES_NONE)
+        return FALSE;
+
+    targetSpecies = GetFormChangeTargetSpeciesByMethod(species, FORM_CHANGE_MOVE, move, moveState, 0);
     if (targetSpecies == SPECIES_NONE)
         return FALSE;
 

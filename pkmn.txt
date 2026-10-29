@@ -435,6 +435,12 @@ spdef:	60 -> 80
 - WHISCASH
 atk:	78 -> 88
 
+- BALTOY
+hp:	40 -> 50
+
+- CLAYDOL
+hp:	60 -> 80
+
 - CRADILY
 def:	97 -> 102
 spatk:	81 -> 96

@@ -182,6 +182,12 @@ static void CursorCB_Store(u8 taskId);
 static void CursorCB_Register(u8 taskId);
 static void CursorCB_Trade1(u8 taskId);
 static void CursorCB_Trade2(u8 taskId);
+static void CursorCB_RotomBase(u8 taskId);
+static void CursorCB_RotomHeat(u8 taskId);
+static void CursorCB_RotomWash(u8 taskId);
+static void CursorCB_RotomFrost(u8 taskId);
+static void CursorCB_RotomFan(u8 taskId);
+static void CursorCB_RotomMow(u8 taskId);
 static void CursorCB_FieldMove(u8 taskId);
 static bool8 SetUpFieldMove_Fly(void);
 static bool8 SetUpFieldMove_Waterfall(void);
@@ -1366,6 +1372,8 @@ static bool8 TryDoPartyItemMove(u8 sourceSlot, u8 targetSlot)
 
     SetMonData(&gPlayerParty[sourceSlot], MON_DATA_HELD_ITEM, &targetItem);
     SetMonData(&gPlayerParty[targetSlot], MON_DATA_HELD_ITEM, &sourceItem);
+    TryHeldItemFormChange(&gPlayerParty[sourceSlot]);
+    TryHeldItemFormChange(&gPlayerParty[targetSlot]);
     UpdatePartyMonHeldItemSprite(&gPlayerParty[sourceSlot], &sPartyMenuBoxes[sourceSlot]);
     UpdatePartyMonHeldItemSprite(&gPlayerParty[targetSlot], &sPartyMenuBoxes[targetSlot]);
     return TRUE;
@@ -2094,6 +2102,7 @@ static void GiveItemToMon(struct Pokemon *mon, u16 item)
     itemBytes[0] = item;
     itemBytes[1] = item >> 8;
     SetMonData(mon, MON_DATA_HELD_ITEM, itemBytes);
+    TryHeldItemFormChange(mon);
 }
 
 static u8 TryTakeMonItem(struct Pokemon *mon)
@@ -2106,6 +2115,7 @@ static u8 TryTakeMonItem(struct Pokemon *mon)
         return 1;
     item = ITEM_NONE;
     SetMonData(mon, MON_DATA_HELD_ITEM, &item);
+    TryHeldItemFormChange(mon);
     return 2;
 }
 
@@ -6311,9 +6321,37 @@ void ItemUseCB_EvolutionStone(u8 taskId, TaskFunc func)
         Task_DoUseItemAnim(taskId);
 }
 
+#define tFormChoice data[1]
+#define tHasFormChoice data[2]
+
 void ItemUseCB_FormChange(u8 taskId, TaskFunc func)
 {
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    gTasks[taskId].tHasFormChoice = FALSE;
+
+    if (gSpecialVar_ItemId == ITEM_ROTOM_CATALOG)
+    {
+        if (!CanItemUseFormChange(mon, gSpecialVar_ItemId))
+        {
+            gPartyMenuUseExitCallback = FALSE;
+            DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = func;
+            return;
+        }
+
+        PlaySE(SE_SELECT);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+        SetPartyMonSelectionActions(gPlayerParty, gPartyMenu.slotId, ACTIONS_ROTOM_CATALOG);
+        DisplaySelectionWindow(SELECTWINDOW_ACTIONS);
+        DisplayPartyMenuMessage(gText_ChooseAnAppliance, FALSE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].data[0] = (u8)MENU_B_PRESSED;
+        gTasks[taskId].func = Task_HandleSelectionMenuInput;
+        return;
+    }
 
     PlaySE(SE_SELECT);
     if (!CanItemUseFormChange(mon, gSpecialVar_ItemId))
@@ -6332,8 +6370,15 @@ void ItemUseCB_FormChange(u8 taskId, TaskFunc func)
 static void ItemUseCB_FormChangeStep(u8 taskId, TaskFunc func)
 {
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    bool8 changedForm;
 
-    if (!TryItemUseFormChange(mon, gSpecialVar_ItemId))
+    if (gTasks[taskId].tHasFormChoice)
+        changedForm = TryItemUseFormChangeWithSelection(mon, gSpecialVar_ItemId, gTasks[taskId].tFormChoice);
+    else
+        changedForm = TryItemUseFormChange(mon, gSpecialVar_ItemId);
+
+    gTasks[taskId].tHasFormChoice = FALSE;
+    if (!changedForm)
     {
         gPartyMenuUseExitCallback = FALSE;
         DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
@@ -6352,6 +6397,51 @@ static void ItemUseCB_FormChangeStep(u8 taskId, TaskFunc func)
     ScheduleBgCopyTilemapToVram(2);
     gTasks[taskId].func = func;
 }
+
+static void TryRotomCatalogFormChangeSelection(u8 taskId, u16 selection)
+{
+    PlaySE(SE_SELECT);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[2]);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+    gTasks[taskId].tFormChoice = selection;
+    gTasks[taskId].tHasFormChoice = TRUE;
+    Task_DoUseItemAnim(taskId);
+    gItemUseCB = ItemUseCB_FormChangeStep;
+}
+
+static void CursorCB_RotomBase(u8 taskId)
+{
+    TryRotomCatalogFormChangeSelection(taskId, 0);
+}
+
+static void CursorCB_RotomHeat(u8 taskId)
+{
+    TryRotomCatalogFormChangeSelection(taskId, 1);
+}
+
+static void CursorCB_RotomWash(u8 taskId)
+{
+    TryRotomCatalogFormChangeSelection(taskId, 2);
+}
+
+static void CursorCB_RotomFrost(u8 taskId)
+{
+    TryRotomCatalogFormChangeSelection(taskId, 3);
+}
+
+static void CursorCB_RotomFan(u8 taskId)
+{
+    TryRotomCatalogFormChangeSelection(taskId, 4);
+}
+
+static void CursorCB_RotomMow(u8 taskId)
+{
+    TryRotomCatalogFormChangeSelection(taskId, 5);
+}
+
+#undef tFormChoice
+#undef tHasFormChoice
 
 static void CB2_UseEvolutionStone(void)
 {
