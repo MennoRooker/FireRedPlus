@@ -1796,6 +1796,11 @@ Adrian is in Pokémon Tower 7F. Current party: Ariados &
 Ampharos. New party: Hisuian Typhlosion, Lucario, Ariados.
 Dialogue: 52 BOMBOCLAT PUSSYWAGON CHICKEN NUGGET!
 
+From gen 8 onwards the TMs have been replaced by TRs, which
+stands for Technical Records. These can fill in the gaps of
+the extra TMs I want to add without adding any TMs to the 
+rigid codebase.
+
 TO DO:
 x Force SET mode
 x EV berries
