@@ -1489,8 +1489,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "BLANK PLATE",
+      "itemId": "ITEM_BLANK_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1505,8 +1505,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "ICICLE PLATE",
+      "itemId": "ITEM_ICICLE_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1521,8 +1521,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "FIST PLATE",
+      "itemId": "ITEM_FIST_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1537,8 +1537,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "TOXIC PLATE",
+      "itemId": "ITEM_TOXIC_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1553,8 +1553,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "EARTH PLATE",
+      "itemId": "ITEM_EARTH_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1569,8 +1569,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "SKY PLATE",
+      "itemId": "ITEM_SKY_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1585,8 +1585,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "MIND PLATE",
+      "itemId": "ITEM_MIND_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1601,8 +1601,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "INSECT PLATE",
+      "itemId": "ITEM_INSECT_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1617,8 +1617,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "STONE PLATE",
+      "itemId": "ITEM_STONE_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1633,8 +1633,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "SPOOKY PLATE",
+      "itemId": "ITEM_SPOOKY_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1649,8 +1649,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "DRACO PLATE",
+      "itemId": "ITEM_DRACO_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1665,8 +1665,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "DREAD PLATE",
+      "itemId": "ITEM_DREAD_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1681,8 +1681,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "IRON PLATE",
+      "itemId": "ITEM_IRON_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1697,8 +1697,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "FLAME PLATE",
+      "itemId": "ITEM_FLAME_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1713,8 +1713,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "SPLASH PLATE",
+      "itemId": "ITEM_SPLASH_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1729,8 +1729,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "ZAP PLATE",
+      "itemId": "ITEM_ZAP_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1745,8 +1745,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "MEADOW PLATE",
+      "itemId": "ITEM_MEADOW_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1761,8 +1761,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "PIXIE PLATE",
+      "itemId": "ITEM_PIXIE_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1777,8 +1777,8 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "LEGEND PLATE",
+      "itemId": "ITEM_LEGEND_PLATE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
@@ -1793,12 +1793,28 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "REVEAL GLASS",
+      "itemId": "ITEM_REVEAL_GLASS",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "?????",
+      "description_english": "A mysterious mirror that changes\\ncertain POK\u00e9MON between\\ntheir alternate forms.",
+      "importance": 1,
+      "registrability": 1,
+      "pocket": "POCKET_KEY_ITEMS",
+      "type": "ITEM_TYPE_FIELD",
+      "fieldUseFunc": "FieldUseFunc_FormChange",
+      "battleUsage": 0,
+      "battleUseFunc": "NULL",
+      "secondaryId": 0
+    },
+    {
+      "english": "DOUSE DRIVE",
+      "itemId": "ITEM_DOUSE_DRIVE",
+      "price": 1000,
+      "holdEffect": "HOLD_EFFECT_NONE",
+      "holdEffectParam": 0,
+      "description_english": "A cassette to be held by GENESECT.\\nIt changes TECHNOBLAST to\\nWATER type and changes form.",
       "importance": 0,
       "registrability": 0,
       "pocket": "POCKET_ITEMS",
@@ -1809,12 +1825,12 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
-      "price": 0,
+      "english": "SHOCK DRIVE",
+      "itemId": "ITEM_SHOCK_DRIVE",
+      "price": 1000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "?????",
+      "description_english": "A cassette to be held by GENESECT.\\nIt changes TECHNOBLAST to\\nELECTRIC type and changes form.",
       "importance": 0,
       "registrability": 0,
       "pocket": "POCKET_ITEMS",
@@ -1825,12 +1841,12 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
-      "price": 0,
+      "english": "BURN DRIVE",
+      "itemId": "ITEM_BURN_DRIVE",
+      "price": 1000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "?????",
+      "description_english": "A cassette to be held by GENESECT.\\nIt changes TECHNOBLAST to\\nFIRE type and changes form.",
       "importance": 0,
       "registrability": 0,
       "pocket": "POCKET_ITEMS",
@@ -1841,12 +1857,12 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
-      "price": 0,
+      "english": "CHILL DRIVE",
+      "itemId": "ITEM_CHILL_DRIVE",
+      "price": 1000,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "?????",
+      "description_english": "A cassette to be held by GENESECT.\\nIt changes TECHNOBLAST to\\nICE type and changes form.",
       "importance": 0,
       "registrability": 0,
       "pocket": "POCKET_ITEMS",
@@ -1857,12 +1873,12 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
-      "price": 0,
-      "holdEffect": "HOLD_EFFECT_NONE",
+      "english": "ADAMANT ORB",
+      "itemId": "ITEM_ADAMANT_ORB",
+      "price": 10000,
+      "holdEffect": "HOLD_EFFECT_SOUL_ORB",
       "holdEffectParam": 0,
-      "description_english": "?????",
+      "description_english": "An orb to be held by DIALGA.\\nIt raises the power of\\nDRAGON and STEEL moves.",
       "importance": 0,
       "registrability": 0,
       "pocket": "POCKET_ITEMS",
@@ -1873,12 +1889,12 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
-      "price": 0,
-      "holdEffect": "HOLD_EFFECT_NONE",
+      "english": "LUSTROUS ORB",
+      "itemId": "ITEM_LUSTROUS_ORB",
+      "price": 10000,
+      "holdEffect": "HOLD_EFFECT_SOUL_ORB",
       "holdEffectParam": 0,
-      "description_english": "?????",
+      "description_english": "An orb to be held by PALKIA.\\nIt raises the power of\\nDRAGON and WATER moves.",
       "importance": 0,
       "registrability": 0,
       "pocket": "POCKET_ITEMS",
@@ -1889,49 +1905,33 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "ADAMANT XTL",
+      "itemId": "ITEM_ADAMANT_CRYSTAL",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "?????",
-      "importance": 0,
+      "description_english": "A clear crystal that lets\\nDIALGA change forms\\nwhen used from the BAG.",
+      "importance": 1,
       "registrability": 0,
-      "pocket": "POCKET_ITEMS",
+      "pocket": "POCKET_KEY_ITEMS",
       "type": "ITEM_TYPE_BAG_MENU",
-      "fieldUseFunc": "FieldUseFunc_OakStopsYou",
+      "fieldUseFunc": "FieldUseFunc_FormChange",
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "LUSTROUS GLB",
+      "itemId": "ITEM_LUSTROUS_GLOBE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "?????",
-      "importance": 0,
+      "description_english": "A shining globe that lets\\nPALKIA change forms\\nwhen used from the BAG.",
+      "importance": 1,
       "registrability": 0,
-      "pocket": "POCKET_ITEMS",
+      "pocket": "POCKET_KEY_ITEMS",
       "type": "ITEM_TYPE_BAG_MENU",
-      "fieldUseFunc": "FieldUseFunc_OakStopsYou",
-      "battleUsage": 0,
-      "battleUseFunc": "NULL",
-      "secondaryId": 0
-    },
-    {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
-      "price": 0,
-      "holdEffect": "HOLD_EFFECT_NONE",
-      "holdEffectParam": 0,
-      "description_english": "?????",
-      "importance": 0,
-      "registrability": 0,
-      "pocket": "POCKET_ITEMS",
-      "type": "ITEM_TYPE_BAG_MENU",
-      "fieldUseFunc": "FieldUseFunc_OakStopsYou",
+      "fieldUseFunc": "FieldUseFunc_FormChange",
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0
@@ -3876,9 +3876,9 @@
       "english": "GRISEOUS ORB",
       "itemId": "ITEM_GRISEOUS_ORB",
       "price": 10000,
-      "holdEffect": "HOLD_EFFECT_NONE",
+      "holdEffect": "HOLD_EFFECT_SOUL_ORB",
       "holdEffectParam": 0,
-      "description_english": "A glowing orb that lets\\nGIRATINA change form when held.",
+      "description_english": "An orb to be held by GIRATINA.\\nIt raises the power of\\nDRAGON and GHOST moves.",
       "importance": 0,
       "registrability": 0,
       "pocket": "POCKET_ITEMS",
@@ -3953,33 +3953,33 @@
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "GRISEOUS CORE",
+      "itemId": "ITEM_GRISEOUS_CORE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "?????",
-      "importance": 0,
+      "description_english": "A mysterious core that lets\\nGIRATINA change forms\\nwhen used from the BAG.",
+      "importance": 1,
       "registrability": 0,
-      "pocket": "POCKET_ITEMS",
+      "pocket": "POCKET_KEY_ITEMS",
       "type": "ITEM_TYPE_BAG_MENU",
-      "fieldUseFunc": "FieldUseFunc_OakStopsYou",
+      "fieldUseFunc": "FieldUseFunc_FormChange",
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0
     },
     {
-      "english": "????????",
-      "itemId": "ITEM_NONE",
+      "english": "GRACIDEA",
+      "itemId": "ITEM_GRACIDEA",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "?????",
-      "importance": 0,
+      "description_english": "A flower bouquet that lets\\nSHAYMIN change forms\\nwhen used from the BAG.",
+      "importance": 1,
       "registrability": 0,
-      "pocket": "POCKET_ITEMS",
+      "pocket": "POCKET_KEY_ITEMS",
       "type": "ITEM_TYPE_BAG_MENU",
-      "fieldUseFunc": "FieldUseFunc_OakStopsYou",
+      "fieldUseFunc": "FieldUseFunc_FormChange",
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0

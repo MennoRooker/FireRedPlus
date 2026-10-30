@@ -3248,8 +3248,25 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         spAttack = (150 * spAttack) / 100;
     if (defenderHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER)) && (defender->species == SPECIES_LATIAS || defender->species == SPECIES_LATIOS))
         spDefense = (150 * spDefense) / 100;
-    if ((attackerHoldEffect == HOLD_EFFECT_SOUL_ORB && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER)) && (attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS)) && (type == TYPE_PSYCHIC || type == TYPE_DRAGON))
-        gBattleMovePower = (4915 * gBattleMovePower) / 4096;
+    if (attackerHoldEffect == HOLD_EFFECT_SOUL_ORB && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER)))
+    {
+        if (attacker->item == ITEM_SOUL_ORB
+         && (attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS)
+         && (type == TYPE_PSYCHIC || type == TYPE_DRAGON))
+            gBattleMovePower = (4915 * gBattleMovePower) / 4096;
+        else if (attacker->item == ITEM_ADAMANT_ORB
+              && (attacker->species == SPECIES_DIALGA || attacker->species == SPECIES_DIALGA_ORIGIN)
+              && (type == TYPE_STEEL || type == TYPE_DRAGON))
+            gBattleMovePower = (4915 * gBattleMovePower) / 4096;
+        else if (attacker->item == ITEM_LUSTROUS_ORB
+              && (attacker->species == SPECIES_PALKIA || attacker->species == SPECIES_PALKIA_ORIGIN)
+              && (type == TYPE_WATER || type == TYPE_DRAGON))
+            gBattleMovePower = (4915 * gBattleMovePower) / 4096;
+        else if (attacker->item == ITEM_GRISEOUS_ORB
+              && (attacker->species == SPECIES_GIRATINA || attacker->species == SPECIES_GIRATINA_ORIGIN)
+              && (type == TYPE_GHOST || type == TYPE_DRAGON))
+            gBattleMovePower = (4915 * gBattleMovePower) / 4096;
+    }
     if (attackerHoldEffect == HOLD_EFFECT_DEEP_SEA_TOOTH && attacker->species == SPECIES_CLAMPERL)
         spAttack *= 2;
     if (defenderHoldEffect == HOLD_EFFECT_DEEP_SEA_SCALE && defender->species == SPECIES_CLAMPERL)

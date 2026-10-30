@@ -132,16 +132,16 @@
 #define ITEM_PIXIE_PLATE 110
 #define ITEM_LEGEND_PLATE 111
 
-// ????????
-#define ITEM_070 112
-#define ITEM_071 113
-#define ITEM_072 114
-#define ITEM_073 115
-#define ITEM_074 116
-#define ITEM_075 117
-#define ITEM_076 118
-#define ITEM_077 119
-#define ITEM_078 120
+// Form-change items
+#define ITEM_REVEAL_GLASS 112
+#define ITEM_DOUSE_DRIVE 113
+#define ITEM_SHOCK_DRIVE 114
+#define ITEM_BURN_DRIVE 115
+#define ITEM_CHILL_DRIVE 116
+#define ITEM_ADAMANT_CRYSTAL 117
+#define ITEM_LUSTROUS_GLOBE 118
+#define ITEM_GRISEOUS_CORE 119
+#define ITEM_GRACIDEA 120
 
 // Mail
 #define ITEM_ORANGE_MAIL 121
@@ -278,10 +278,10 @@
 #define ITEM_SOUL_ORB 244
 #define ITEM_FOCUS_SASH 245
 #define ITEM_LOADED_DICE 246
+#define ITEM_ADAMANT_ORB 247
+#define ITEM_LUSTROUS_ORB 248
 
 // ????????
-#define ITEM_0F7 247
-#define ITEM_0F8 248
 #define ITEM_0F9 249
 #define ITEM_0FA 250
 #define ITEM_0FB 251
