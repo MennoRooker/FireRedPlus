@@ -88,12 +88,12 @@
 #define ITEM_FLUFFY_TAIL 74
 
 // Field items
-#define ITEM_SUPER_REPEL 75
-#define ITEM_MAX_REPEL 76
-#define ITEM_ESCAPE_ROPE 77
-#define ITEM_REPEL 78
+#define ITEM_ESCAPE_ROPE 75
 
 // Evolution stones
+#define ITEM_DAWN_STONE 76
+#define ITEM_SHINY_STONE 77
+#define ITEM_DUSK_STONE 78
 #define ITEM_SUN_STONE 79
 #define ITEM_MOON_STONE 80
 #define ITEM_FIRE_STONE 81
@@ -476,8 +476,9 @@
 #define ITEM_RUBY 373
 #define ITEM_SAPPHIRE 374
 #define ITEM_BUGSYS_NET 375
+#define ITEM_REPEL 376
 
-#define ITEMS_COUNT 376
+#define ITEMS_COUNT 377
 
 #define ITEM_TO_BERRY(itemId)(((itemId - FIRST_BERRY_INDEX) + 1))
 #define MAIL_NONE 0xFF
