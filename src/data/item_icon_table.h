@@ -81,11 +81,11 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_POKE_DOLL]        = {gItemIcon_PokeDoll, gItemIconPalette_PokeDoll},
     [ITEM_FLUFFY_TAIL]      = {gItemIcon_FluffyTail, gItemIconPalette_FluffyTail},
     // Field items
-    [ITEM_SUPER_REPEL]      = {gItemIcon_Repel, gItemIconPalette_SuperRepel},
-    [ITEM_MAX_REPEL]        = {gItemIcon_Repel, gItemIconPalette_MaxRepel},
     [ITEM_ESCAPE_ROPE]      = {gItemIcon_EscapeRope, gItemIconPalette_EscapeRope},
-    [ITEM_REPEL]            = {gItemIcon_Repel, gItemIconPalette_Repel},
     // Evolution stones
+    [ITEM_DAWN_STONE]       = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_SHINY_STONE]      = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_DUSK_STONE]       = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_SUN_STONE]        = {gItemIcon_SunStone, gItemIconPalette_SunStone},
     [ITEM_MOON_STONE]       = {gItemIcon_MoonStone, gItemIconPalette_MoonStone},
     [ITEM_FIRE_STONE]       = {gItemIcon_FireStone, gItemIconPalette_FireStone},
@@ -393,6 +393,7 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_RUBY]             = {gItemIcon_Gem, gItemIconPalette_Ruby},
     [ITEM_SAPPHIRE]         = {gItemIcon_Gem, gItemIconPalette_Sapphire},
     [ITEM_BUGSYS_NET]       = {gItemIcon_BugsysNet, gItemIconPalette_BugsysNet},
+    [ITEM_REPEL]            = {gItemIcon_Repel, gItemIconPalette_Repel},
     // Return to field arrow
     [ITEMS_COUNT]         = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},
 };
