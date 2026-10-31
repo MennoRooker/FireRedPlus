@@ -4122,6 +4122,23 @@ static void TryEvolvePokemon(void)
             }
         }
     }
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        u16 species;
+
+        if (GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+            continue;
+
+        species = GetBattleSpecialEvolutionTargetSpecies(&gPlayerParty[i], i);
+        if (species != SPECIES_NONE)
+        {
+            gBattleMainFunc = WaitForEvoSceneToFinish;
+            EvolutionScene(&gPlayerParty[i], species, FALSE, i);
+            return;
+        }
+    }
+
     gBattleMainFunc = ReturnFromBattleToOverworld;
 }
 

@@ -1823,6 +1823,18 @@ I can just make enough space for the 3 extra evolution
 stonesin items.h if I remove the repels. Need to then move 
 repel itself to key items and add to the items count.
 
+I am thinking of returning the trade evolutions into the
+game and putting their evos behind a paywall when playing
+solo. Some shady looking guy should go up to the player
+at some point past the halfway mark and offer a back-and-
+forth trade for a large sum of money. It should be quite
+a well considered decision if you want to pay this sum.
+I want to make money farming accessible only after 
+defeating the game so that you must spend you money wisely
+when doing something like a nuzlocke. I think Fuchsia City
+is a decent checkpoint for finding this guy, but perhaps
+even later than that.
+
 TO DO:
 x Force SET mode
 x EV berries
