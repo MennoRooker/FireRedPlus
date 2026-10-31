@@ -1055,6 +1055,9 @@ enum
     CURSOR_OPTION_ROTOM_FROST,
     CURSOR_OPTION_ROTOM_FAN,
     CURSOR_OPTION_ROTOM_MOW,
+    CURSOR_OPTION_KYUREM_BASE,
+    CURSOR_OPTION_KYUREM_WHITE,
+    CURSOR_OPTION_KYUREM_BLACK,
     CURSOR_OPTION_FIELD_MOVES,
 };
 
@@ -1088,6 +1091,9 @@ static struct
     [CURSOR_OPTION_ROTOM_FROST]                          = {gText_Refrigerator,           CursorCB_RotomFrost},
     [CURSOR_OPTION_ROTOM_FAN]                            = {gText_ElectricFan,            CursorCB_RotomFan  },
     [CURSOR_OPTION_ROTOM_MOW]                            = {gText_LawnMower,              CursorCB_RotomMow  },
+    [CURSOR_OPTION_KYUREM_BASE]                          = {gText_RegularKyurem,          CursorCB_KyuremBase },
+    [CURSOR_OPTION_KYUREM_WHITE]                         = {gText_WhiteKyurem,            CursorCB_KyuremWhite},
+    [CURSOR_OPTION_KYUREM_BLACK]                         = {gText_BlackKyurem,            CursorCB_KyuremBlack},
     [CURSOR_OPTION_FIELD_MOVES + FIELD_MOVE_FLASH]       = {gMoveNames[MOVE_FLASH],       CursorCB_FieldMove },
     [CURSOR_OPTION_FIELD_MOVES + FIELD_MOVE_CUT]         = {gMoveNames[MOVE_CUT],         CursorCB_FieldMove },
     [CURSOR_OPTION_FIELD_MOVES + FIELD_MOVE_FLY]         = {gMoveNames[MOVE_FLY],         CursorCB_FieldMove },
@@ -1115,6 +1121,7 @@ static const u8 sPartyMenuAction_RegisterSummaryCancel[] = {CURSOR_OPTION_REGIST
 static const u8 sPartyMenuAction_TradeSummaryCancel1[]   = {CURSOR_OPTION_TRADE1,     CURSOR_OPTION_SUMMARY,    CURSOR_OPTION_CANCEL1};
 static const u8 sPartyMenuAction_TradeSummaryCancel2[]   = {CURSOR_OPTION_TRADE2,     CURSOR_OPTION_SUMMARY,    CURSOR_OPTION_CANCEL1};
 static const u8 sPartyMenuAction_RotomCatalog[]          = {CURSOR_OPTION_ROTOM_BASE, CURSOR_OPTION_ROTOM_HEAT, CURSOR_OPTION_ROTOM_WASH, CURSOR_OPTION_ROTOM_FROST, CURSOR_OPTION_ROTOM_FAN, CURSOR_OPTION_ROTOM_MOW, CURSOR_OPTION_CANCEL1};
+static const u8 sPartyMenuAction_KyuremFusion[]          = {CURSOR_OPTION_KYUREM_BASE, CURSOR_OPTION_KYUREM_WHITE, CURSOR_OPTION_KYUREM_BLACK, CURSOR_OPTION_CANCEL1};
 
 // IDs for the action lists that appear when a party mon is selected
 enum
@@ -1133,6 +1140,7 @@ enum
     ACTIONS_TRADE,
     ACTIONS_SPIN_TRADE,
     ACTIONS_ROTOM_CATALOG,
+    ACTIONS_KYUREM_FUSION,
 };
 
 static const u8 *const sPartyMenuActions[] =
@@ -1151,6 +1159,7 @@ static const u8 *const sPartyMenuActions[] =
     [ACTIONS_TRADE]         = sPartyMenuAction_TradeSummaryCancel1,
     [ACTIONS_SPIN_TRADE]    = sPartyMenuAction_TradeSummaryCancel2,
     [ACTIONS_ROTOM_CATALOG] = sPartyMenuAction_RotomCatalog,
+    [ACTIONS_KYUREM_FUSION] = sPartyMenuAction_KyuremFusion,
 };
 
 static const u8 sPartyMenuActionCounts[] =
@@ -1169,6 +1178,7 @@ static const u8 sPartyMenuActionCounts[] =
     [ACTIONS_TRADE]         = NELEMS(sPartyMenuAction_TradeSummaryCancel1),
     [ACTIONS_SPIN_TRADE]    = NELEMS(sPartyMenuAction_TradeSummaryCancel2),
     [ACTIONS_ROTOM_CATALOG] = NELEMS(sPartyMenuAction_RotomCatalog),
+    [ACTIONS_KYUREM_FUSION] = NELEMS(sPartyMenuAction_KyuremFusion),
 };
 
 static const u16 sFieldMoves[] =

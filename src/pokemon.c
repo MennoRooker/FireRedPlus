@@ -3248,8 +3248,25 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         spAttack = (150 * spAttack) / 100;
     if (defenderHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER)) && (defender->species == SPECIES_LATIAS || defender->species == SPECIES_LATIOS))
         spDefense = (150 * spDefense) / 100;
-    if ((attackerHoldEffect == HOLD_EFFECT_SOUL_ORB && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER)) && (attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS)) && (type == TYPE_PSYCHIC || type == TYPE_DRAGON))
-        gBattleMovePower = (4915 * gBattleMovePower) / 4096;
+    if (attackerHoldEffect == HOLD_EFFECT_SOUL_ORB && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER)))
+    {
+        if (attacker->item == ITEM_SOUL_ORB
+         && (attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS)
+         && (type == TYPE_PSYCHIC || type == TYPE_DRAGON))
+            gBattleMovePower = (4915 * gBattleMovePower) / 4096;
+        else if (attacker->item == ITEM_ADAMANT_ORB
+              && (attacker->species == SPECIES_DIALGA || attacker->species == SPECIES_DIALGA_ORIGIN)
+              && (type == TYPE_STEEL || type == TYPE_DRAGON))
+            gBattleMovePower = (4915 * gBattleMovePower) / 4096;
+        else if (attacker->item == ITEM_LUSTROUS_ORB
+              && (attacker->species == SPECIES_PALKIA || attacker->species == SPECIES_PALKIA_ORIGIN)
+              && (type == TYPE_WATER || type == TYPE_DRAGON))
+            gBattleMovePower = (4915 * gBattleMovePower) / 4096;
+        else if (attacker->item == ITEM_GRISEOUS_ORB
+              && (attacker->species == SPECIES_GIRATINA || attacker->species == SPECIES_GIRATINA_ORIGIN)
+              && (type == TYPE_GHOST || type == TYPE_DRAGON))
+            gBattleMovePower = (4915 * gBattleMovePower) / 4096;
+    }
     if (attackerHoldEffect == HOLD_EFFECT_DEEP_SEA_TOOTH && attacker->species == SPECIES_CLAMPERL)
         spAttack *= 2;
     if (defenderHoldEffect == HOLD_EFFECT_DEEP_SEA_SCALE && defender->species == SPECIES_CLAMPERL)
@@ -6040,6 +6057,50 @@ static const struct FormChange *GetSpeciesFormChanges(u16 species)
     return NULL;
 }
 
+static void SwapKyuremMovePair(struct Pokemon *mon, u16 oldMove, u16 newMove)
+{
+    u32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = GetMonData(mon, MON_DATA_MOVE1 + i, NULL);
+        if (move == oldMove)
+        {
+            u8 pp = gBattleMoves[newMove].pp;
+            SetMonData(mon, MON_DATA_MOVE1 + i, &newMove);
+            SetMonData(mon, MON_DATA_PP1 + i, &pp);
+        }
+    }
+}
+
+static void ApplyKyuremMoveSwaps(struct Pokemon *mon, u16 fromSpecies, u16 toSpecies)
+{
+    if (fromSpecies == toSpecies)
+        return;
+
+    if (fromSpecies == SPECIES_KYUREM_WHITE)
+    {
+        SwapKyuremMovePair(mon, MOVE_FUSION_FLARE, MOVE_SCARY_FACE);
+        SwapKyuremMovePair(mon, MOVE_ICE_BURN, MOVE_GLACIATE);
+    }
+    else if (fromSpecies == SPECIES_KYUREM_BLACK)
+    {
+        SwapKyuremMovePair(mon, MOVE_FUSION_BOLT, MOVE_SCARY_FACE);
+        SwapKyuremMovePair(mon, MOVE_FREEZE_SHOCK, MOVE_GLACIATE);
+    }
+
+    if (toSpecies == SPECIES_KYUREM_WHITE)
+    {
+        SwapKyuremMovePair(mon, MOVE_SCARY_FACE, MOVE_FUSION_FLARE);
+        SwapKyuremMovePair(mon, MOVE_GLACIATE, MOVE_ICE_BURN);
+    }
+    else if (toSpecies == SPECIES_KYUREM_BLACK)
+    {
+        SwapKyuremMovePair(mon, MOVE_SCARY_FACE, MOVE_FUSION_BOLT);
+        SwapKyuremMovePair(mon, MOVE_GLACIATE, MOVE_FREEZE_SHOCK);
+    }
+}
+
 u16 GetFormChangeTargetSpeciesByMethod(u16 species, u8 method, u16 param1, u16 param2, u16 param3)
 {
     u32 i;
@@ -6158,6 +6219,9 @@ bool8 TryItemUseFormChangeWithSelection(struct Pokemon *mon, u16 itemId, u16 sel
     targetSpecies = GetFormChangeTargetSpeciesByMethod(species, FORM_CHANGE_ITEM_USE_MULTICHOICE, itemId, selection, 0);
     if (targetSpecies == SPECIES_NONE)
         return FALSE;
+
+    if (itemId == ITEM_DNA_SPLICERS)
+        ApplyKyuremMoveSwaps(mon, species, targetSpecies);
 
     SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);
     CalculateMonStats(mon);

@@ -1801,6 +1801,28 @@ stands for Technical Records. These can fill in the gaps of
 the extra TMs I want to add without adding any TMs to the 
 rigid codebase.
 
+I think I want to curb EV training a bit. When you switch
+several mons into a mon that yields 1 EV in something you
+get this 1 EV on every mon that fought the mon. I think 
+this can be exploited a little bit too much  during a
+regular playthrough, even accidentally. If we make it so
+that only the mon that gets the KO gets the EV we can 
+guarantee that an opponent will always give out a fixed 
+amount of EVs. If a mon gives out more that 1 EV we can
+split it by the 2 mons that last fought the mon. Then
+each gets 1 EV. If it gives 3 EVs we default to the mon
+that gets the KO to get 2 of those and the other to get 
+1 EV, and if 3 mons were used each gets 1 EV. If a mon 
+yields EVs in different stats they are randomly chosen
+and distributed to the mons. If you are using an Exp.
+Share the mon with the Exp. Share defaults to being the
+last mon out, but not the KO mon so it would get 1 EV 
+from a 3 EV mon if it did nothing in a fight.
+
+I can just make enough space for the 3 extra evolution 
+stonesin items.h if I remove the repels. Need to then move 
+repel itself to key items and add to the items count.
+
 TO DO:
 x Force SET mode
 x EV berries
@@ -1847,11 +1869,14 @@ x Fewer trainer battles
 x 100 HP potion (Mega)
 x Documentation
 ---------------------------------------
-- Reorder stats
+x Reorder stats
+/ Improved AI
+/ Gens 4 & 5 + AltForms
 - Add Fairy type
 - Agatha's Flutter Mane
+- Curb EV training
+- Submission trapping
 - Max rematch
-- National Dex (Gens IV & V)
 - Paul Champion
 - Physical/special split
 - Pokedex:
@@ -1882,10 +1907,8 @@ x Documentation
 - Custom move animations
 - 2 NPC double battle
 - Gym leaders rematches
-- Improved AI
 - Roamers
 - Events
-- Deoxys forms
 
 
 
