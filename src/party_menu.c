@@ -188,6 +188,9 @@ static void CursorCB_RotomWash(u8 taskId);
 static void CursorCB_RotomFrost(u8 taskId);
 static void CursorCB_RotomFan(u8 taskId);
 static void CursorCB_RotomMow(u8 taskId);
+static void CursorCB_KyuremBase(u8 taskId);
+static void CursorCB_KyuremWhite(u8 taskId);
+static void CursorCB_KyuremBlack(u8 taskId);
 static void CursorCB_FieldMove(u8 taskId);
 static bool8 SetUpFieldMove_Fly(void);
 static bool8 SetUpFieldMove_Waterfall(void);
@@ -6332,7 +6335,12 @@ void ItemUseCB_FormChange(u8 taskId, TaskFunc func)
 
     if (gSpecialVar_ItemId == ITEM_ROTOM_CATALOG)
     {
-        if (!CanItemUseFormChange(mon, gSpecialVar_ItemId))
+        if (!CanItemUseFormChangeWithSelection(mon, gSpecialVar_ItemId, 0)
+         && !CanItemUseFormChangeWithSelection(mon, gSpecialVar_ItemId, 1)
+         && !CanItemUseFormChangeWithSelection(mon, gSpecialVar_ItemId, 2)
+         && !CanItemUseFormChangeWithSelection(mon, gSpecialVar_ItemId, 3)
+         && !CanItemUseFormChangeWithSelection(mon, gSpecialVar_ItemId, 4)
+         && !CanItemUseFormChangeWithSelection(mon, gSpecialVar_ItemId, 5))
         {
             gPartyMenuUseExitCallback = FALSE;
             DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
@@ -6347,6 +6355,30 @@ void ItemUseCB_FormChange(u8 taskId, TaskFunc func)
         SetPartyMonSelectionActions(gPlayerParty, gPartyMenu.slotId, ACTIONS_ROTOM_CATALOG);
         DisplaySelectionWindow(SELECTWINDOW_ACTIONS);
         DisplayPartyMenuMessage(gText_ChooseAnAppliance, FALSE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].data[0] = (u8)MENU_B_PRESSED;
+        gTasks[taskId].func = Task_HandleSelectionMenuInput;
+        return;
+    }
+    else if (gSpecialVar_ItemId == ITEM_DNA_SPLICERS)
+    {
+        if (!CanItemUseFormChangeWithSelection(mon, gSpecialVar_ItemId, 0)
+         && !CanItemUseFormChangeWithSelection(mon, gSpecialVar_ItemId, 1)
+         && !CanItemUseFormChangeWithSelection(mon, gSpecialVar_ItemId, 2))
+        {
+            gPartyMenuUseExitCallback = FALSE;
+            DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = func;
+            return;
+        }
+
+        PlaySE(SE_SELECT);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+        SetPartyMonSelectionActions(gPlayerParty, gPartyMenu.slotId, ACTIONS_KYUREM_FUSION);
+        DisplaySelectionWindow(SELECTWINDOW_ACTIONS);
+        DisplayPartyMenuMessage(gText_ChooseAFusion, FALSE);
         ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].data[0] = (u8)MENU_B_PRESSED;
         gTasks[taskId].func = Task_HandleSelectionMenuInput;
@@ -6438,6 +6470,21 @@ static void CursorCB_RotomFan(u8 taskId)
 static void CursorCB_RotomMow(u8 taskId)
 {
     TryRotomCatalogFormChangeSelection(taskId, 5);
+}
+
+static void CursorCB_KyuremBase(u8 taskId)
+{
+    TryRotomCatalogFormChangeSelection(taskId, 0);
+}
+
+static void CursorCB_KyuremWhite(u8 taskId)
+{
+    TryRotomCatalogFormChangeSelection(taskId, 1);
+}
+
+static void CursorCB_KyuremBlack(u8 taskId)
+{
+    TryRotomCatalogFormChangeSelection(taskId, 2);
 }
 
 #undef tFormChoice

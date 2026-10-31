@@ -82,7 +82,6 @@ static const struct FormChange sArceusFormChangeTable[] =
     {FORM_CHANGE_ITEM_HOLD, SPECIES_ARCEUS_DRAGON, ITEM_DRACO_PLATE, 0, 0},
     {FORM_CHANGE_ITEM_HOLD, SPECIES_ARCEUS_DARK, ITEM_DREAD_PLATE, 0, 0},
     {FORM_CHANGE_ITEM_HOLD, SPECIES_ARCEUS_FAIRY, ITEM_PIXIE_PLATE, 0, 0},
-    {FORM_CHANGE_ITEM_HOLD, SPECIES_ARCEUS, ITEM_LEGEND_PLATE, 0, 0},
     {FORM_CHANGE_TERMINATOR, SPECIES_NONE, ITEM_NONE, 0, 0},
 };
 
@@ -177,6 +176,14 @@ static const struct FormChange sKeldeoFormChangeTable[] =
     {FORM_CHANGE_TERMINATOR, SPECIES_NONE, ITEM_NONE, 0, 0},
 };
 
+static const struct FormChange sKyuremFormChangeTable[] =
+{
+    {FORM_CHANGE_ITEM_USE_MULTICHOICE, SPECIES_KYUREM, ITEM_DNA_SPLICERS, 0, 0},
+    {FORM_CHANGE_ITEM_USE_MULTICHOICE, SPECIES_KYUREM_WHITE, ITEM_DNA_SPLICERS, 1, 0},
+    {FORM_CHANGE_ITEM_USE_MULTICHOICE, SPECIES_KYUREM_BLACK, ITEM_DNA_SPLICERS, 2, 0},
+    {FORM_CHANGE_TERMINATOR, SPECIES_NONE, ITEM_NONE, 0, 0},
+};
+
 static const struct
 {
     u16 species;
@@ -243,4 +250,7 @@ static const struct
     {SPECIES_BURMY_TRASH, sBurmyFormChangeTable},
     {SPECIES_KELDEO, sKeldeoFormChangeTable},
     {SPECIES_KELDEO_RESOLUTE, sKeldeoFormChangeTable},
+    {SPECIES_KYUREM, sKyuremFormChangeTable},
+    {SPECIES_KYUREM_WHITE, sKyuremFormChangeTable},
+    {SPECIES_KYUREM_BLACK, sKyuremFormChangeTable},
 };

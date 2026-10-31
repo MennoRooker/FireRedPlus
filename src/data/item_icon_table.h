@@ -120,7 +120,6 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_ZAP_PLATE]        = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_MEADOW_PLATE]     = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_PIXIE_PLATE]      = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_LEGEND_PLATE]     = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     // ????????
     [ITEM_REVEAL_GLASS]     = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_DOUSE_DRIVE]      = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},

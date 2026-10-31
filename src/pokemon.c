@@ -6057,6 +6057,50 @@ static const struct FormChange *GetSpeciesFormChanges(u16 species)
     return NULL;
 }
 
+static void SwapKyuremMovePair(struct Pokemon *mon, u16 oldMove, u16 newMove)
+{
+    u32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = GetMonData(mon, MON_DATA_MOVE1 + i, NULL);
+        if (move == oldMove)
+        {
+            u8 pp = gBattleMoves[newMove].pp;
+            SetMonData(mon, MON_DATA_MOVE1 + i, &newMove);
+            SetMonData(mon, MON_DATA_PP1 + i, &pp);
+        }
+    }
+}
+
+static void ApplyKyuremMoveSwaps(struct Pokemon *mon, u16 fromSpecies, u16 toSpecies)
+{
+    if (fromSpecies == toSpecies)
+        return;
+
+    if (fromSpecies == SPECIES_KYUREM_WHITE)
+    {
+        SwapKyuremMovePair(mon, MOVE_FUSION_FLARE, MOVE_SCARY_FACE);
+        SwapKyuremMovePair(mon, MOVE_ICE_BURN, MOVE_GLACIATE);
+    }
+    else if (fromSpecies == SPECIES_KYUREM_BLACK)
+    {
+        SwapKyuremMovePair(mon, MOVE_FUSION_BOLT, MOVE_SCARY_FACE);
+        SwapKyuremMovePair(mon, MOVE_FREEZE_SHOCK, MOVE_GLACIATE);
+    }
+
+    if (toSpecies == SPECIES_KYUREM_WHITE)
+    {
+        SwapKyuremMovePair(mon, MOVE_SCARY_FACE, MOVE_FUSION_FLARE);
+        SwapKyuremMovePair(mon, MOVE_GLACIATE, MOVE_ICE_BURN);
+    }
+    else if (toSpecies == SPECIES_KYUREM_BLACK)
+    {
+        SwapKyuremMovePair(mon, MOVE_SCARY_FACE, MOVE_FUSION_BOLT);
+        SwapKyuremMovePair(mon, MOVE_GLACIATE, MOVE_FREEZE_SHOCK);
+    }
+}
+
 u16 GetFormChangeTargetSpeciesByMethod(u16 species, u8 method, u16 param1, u16 param2, u16 param3)
 {
     u32 i;
@@ -6175,6 +6219,9 @@ bool8 TryItemUseFormChangeWithSelection(struct Pokemon *mon, u16 itemId, u16 sel
     targetSpecies = GetFormChangeTargetSpeciesByMethod(species, FORM_CHANGE_ITEM_USE_MULTICHOICE, itemId, selection, 0);
     if (targetSpecies == SPECIES_NONE)
         return FALSE;
+
+    if (itemId == ITEM_DNA_SPLICERS)
+        ApplyKyuremMoveSwaps(mon, species, targetSpecies);
 
     SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);
     CalculateMonStats(mon);
