@@ -5941,11 +5941,13 @@ static bool8 IsSpeciesInPlayerParty(u16 species)
     return FALSE;
 }
 
-static bool8 IsEvolutionConditionMet(struct Pokemon *mon, const struct EvolutionCondition *condition, u16 evolutionItem)
+static bool8 IsEvolutionConditionMet(struct Pokemon *mon, const struct EvolutionCondition *condition, u8 evoType, u16 evolutionItem)
 {
     u16 heldItem;
     s32 attack;
     s32 defense;
+    u8 partySlot;
+    s32 i;
 
     switch (condition->condition)
     {
@@ -5983,12 +5985,46 @@ static bool8 IsEvolutionConditionMet(struct Pokemon *mon, const struct Evolution
     case EVO_CONDITION_NOT_REGION:
     case EVO_CONDITION_IN_MAP:
     case EVO_CONDITION_TRADE_PARTNER_SPECIES:
-    case EVO_CONDITION_CRITICAL_HITS_GE:
-    case EVO_CONDITION_USED_MOVE_X_TIMES:
-    case EVO_CONDITION_RECOIL_DAMAGE_GE:
-    case EVO_CONDITION_DEFEAT_X_WITH_ITEMS:
     case EVO_CONDITION_BAG_ITEM_COUNT:
         return FALSE;
+    case EVO_CONDITION_CRITICAL_HITS_GE:
+        if (evoType != EVO_MODE_BATTLE_SPECIAL || evolutionItem >= PARTY_SIZE)
+            return FALSE;
+        partySlot = evolutionItem;
+        return gPartyCriticalHits[partySlot] >= condition->param;
+    case EVO_CONDITION_USED_MOVE_X_TIMES:
+        if (evoType != EVO_MODE_BATTLE_SPECIAL || evolutionItem >= PARTY_SIZE)
+            return FALSE;
+        partySlot = evolutionItem;
+        if (condition->param == MOVE_NONE)
+        {
+            u16 totalUses = 0;
+            for (i = 0; i < MAX_MON_MOVES; i++)
+                totalUses += gPartyUsedMoveCounters[partySlot][i];
+            return totalUses >= condition->param2;
+        }
+        for (i = 0; i < MAX_MON_MOVES; i++)
+        {
+            if (GetMonData(mon, MON_DATA_MOVE1 + i, NULL) == condition->param)
+                return gPartyUsedMoveCounters[partySlot][i] >= condition->param2;
+        }
+        return FALSE;
+    case EVO_CONDITION_DEFEAT_X_WITH_ITEMS:
+        if (evoType != EVO_MODE_BATTLE_SPECIAL || evolutionItem >= PARTY_SIZE)
+            return FALSE;
+        partySlot = evolutionItem;
+        if (condition->param != ITEM_NONE)
+        {
+            heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, NULL);
+            if (heldItem != condition->param)
+                return FALSE;
+        }
+        return gPartyDefeatCounts[partySlot] >= condition->param2;
+    case EVO_CONDITION_RECOIL_DAMAGE_GE:
+        if (evoType != EVO_MODE_BATTLE_SPECIAL || evolutionItem >= PARTY_SIZE)
+            return FALSE;
+        partySlot = evolutionItem;
+        return gPartyRecoilDamage[partySlot] >= condition->param;
     case EVO_CONDITION_NONE:
         return TRUE;
     default:
@@ -5996,7 +6032,7 @@ static bool8 IsEvolutionConditionMet(struct Pokemon *mon, const struct Evolution
     }
 }
 
-static bool8 DoesMonMeetEvolutionConditions(struct Pokemon *mon, const struct Evolution *evolution, u16 evolutionItem)
+static bool8 DoesMonMeetEvolutionConditions(struct Pokemon *mon, const struct Evolution *evolution, u8 evoType, u16 evolutionItem)
 {
     s32 i;
     const struct EvolutionCondition *conditions = evolution->conditions;
@@ -6006,7 +6042,7 @@ static bool8 DoesMonMeetEvolutionConditions(struct Pokemon *mon, const struct Ev
 
     for (i = 0; conditions[i].condition != EVO_CONDITION_NONE; i++)
     {
-        if (!IsEvolutionConditionMet(mon, &conditions[i], evolutionItem))
+        if (!IsEvolutionConditionMet(mon, &conditions[i], evoType, evolutionItem))
             return FALSE;
     }
 
@@ -6048,7 +6084,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
         {
             const struct Evolution *evolution = &gEvolutionTable[species][i];
 
-            if (!DoesMonMeetEvolutionConditions(mon, evolution, evolutionItem))
+            if (!DoesMonMeetEvolutionConditions(mon, evolution, type, evolutionItem))
                 continue;
 
             switch (evolution->method)
@@ -6117,7 +6153,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
         {
             const struct Evolution *evolution = &gEvolutionTable[species][i];
 
-            if (!DoesMonMeetEvolutionConditions(mon, evolution, evolutionItem))
+            if (!DoesMonMeetEvolutionConditions(mon, evolution, type, evolutionItem))
                 continue;
 
             switch (evolution->method)
@@ -6148,7 +6184,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
         {
             const struct Evolution *evolution = &gEvolutionTable[species][i];
 
-            if (!DoesMonMeetEvolutionConditions(mon, evolution, evolutionItem))
+            if (!DoesMonMeetEvolutionConditions(mon, evolution, type, evolutionItem))
                 continue;
 
             if (evolution->method == EVO_ITEM
@@ -6165,7 +6201,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
             const struct Evolution *evolution = &gEvolutionTable[species][i];
 
             if (evolution->method == EVO_BATTLE_END
-             && DoesMonMeetEvolutionConditions(mon, evolution, evolutionItem))
+             && DoesMonMeetEvolutionConditions(mon, evolution, type, evolutionItem))
             {
                 targetSpecies = evolution->targetSpecies;
                 break;
@@ -6179,7 +6215,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
 
             if (evolution->method == EVO_SCRIPT_TRIGGER
              && evolution->param == evolutionItem
-             && DoesMonMeetEvolutionConditions(mon, evolution, evolutionItem))
+             && DoesMonMeetEvolutionConditions(mon, evolution, type, evolutionItem))
             {
                 targetSpecies = evolution->targetSpecies;
                 break;

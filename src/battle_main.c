@@ -201,6 +201,10 @@ EWRAM_DATA u8 gBattleOutcome = 0;
 EWRAM_DATA struct ProtectStruct gProtectStructs[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA struct SpecialStatus gSpecialStatuses[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gBattleWeather = 0;
+EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
+EWRAM_DATA u8 gPartyDefeatCounts[PARTY_SIZE] = {0};
+EWRAM_DATA u8 gPartyUsedMoveCounters[PARTY_SIZE][MAX_MON_MOVES] = {0};
+EWRAM_DATA u16 gPartyRecoilDamage[PARTY_SIZE] = {0};
 EWRAM_DATA struct WishFutureKnock gWishFutureKnock = {0};
 EWRAM_DATA u16 gIntroSlideFlags = 0;
 static EWRAM_DATA bool8 sEarlyWildRunPromptShown = FALSE;
@@ -2370,7 +2374,14 @@ static void BattleStartClearSetData(void)
         *(i + 3 * 8 + (u8 *)(gBattleStruct->lastTakenMoveFrom) + 0) = 0;
     }
     for (i = 0; i < PARTY_SIZE; i++)
+    {
         gBattleStruct->usedHeldItemsByParty[i] = ITEM_NONE;
+        gPartyCriticalHits[i] = 0;
+        gPartyDefeatCounts[i] = 0;
+        gPartyRecoilDamage[i] = 0;
+        for (j = 0; j < MAX_MON_MOVES; j++)
+            gPartyUsedMoveCounters[i][j] = 0;
+    }
     *(gBattleStruct->AI_monToSwitchIntoId + 0) = PARTY_SIZE;
     *(gBattleStruct->AI_monToSwitchIntoId + 1) = PARTY_SIZE;
     *(&gBattleStruct->givenExpMons) = 0;

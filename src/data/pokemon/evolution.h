@@ -89,6 +89,44 @@ static const struct EvolutionCondition sSneaselEvoConditions[] =
     {EVO_CONDITION_NONE, 0, 0},
 };
 
+static const struct EvolutionCondition sUrsaringEvoConditions[] =
+{
+    {EVO_CONDITION_TIME_OF_DAY, EVO_TIME_NIGHT, 0},
+    {EVO_CONDITION_NONE, 0, 0},
+};
+
+static const struct EvolutionCondition sStantlerWyrdeerEvoConditions[] =
+{
+    {EVO_CONDITION_USED_MOVE_X_TIMES, MOVE_NONE, 20},
+    {EVO_CONDITION_NONE, 0, 0},
+};
+
+static const struct EvolutionCondition sPrimeapeAnnihilapeEvoConditions[] =
+{
+    {EVO_CONDITION_USED_MOVE_X_TIMES, MOVE_NONE, 20},
+    {EVO_CONDITION_NONE, 0, 0},
+};
+
+static const struct EvolutionCondition sBisharpKingambitEvoConditions[] =
+{
+    {EVO_CONDITION_DEFEAT_X_WITH_ITEMS, ITEM_NONE, 3},
+    {EVO_CONDITION_NONE, 0, 0},
+};
+
+static const struct EvolutionCondition sBasculinWhiteStripedBasculegionMConditions[] =
+{
+    {EVO_CONDITION_RECOIL_DAMAGE_GE, 294, 0},
+    {EVO_CONDITION_GENDER, MON_MALE, 0},
+    {EVO_CONDITION_NONE, 0, 0},
+};
+
+static const struct EvolutionCondition sBasculinWhiteStripedBasculegionFConditions[] =
+{
+    {EVO_CONDITION_RECOIL_DAMAGE_GE, 294, 0},
+    {EVO_CONDITION_GENDER, MON_FEMALE, 0},
+    {EVO_CONDITION_NONE, 0, 0},
+};
+
 const struct Evolution gEvolutionTable[NUM_SPECIES_WITH_FORMS][EVOS_PER_MON] =
 {
     [SPECIES_BULBASAUR]  = {{EVO_LEVEL, 16, SPECIES_IVYSAUR}},
@@ -126,6 +164,7 @@ const struct Evolution gEvolutionTable[NUM_SPECIES_WITH_FORMS][EVOS_PER_MON] =
     [SPECIES_MEOWTH]     = {{EVO_LEVEL, 28, SPECIES_PERSIAN}},
     [SPECIES_PSYDUCK]    = {{EVO_LEVEL, 33, SPECIES_GOLDUCK}},
     [SPECIES_MANKEY]     = {{EVO_LEVEL, 28, SPECIES_PRIMEAPE}},
+    [SPECIES_PRIMEAPE]   = {{EVO_BATTLE_END, 0, SPECIES_ANNIHILAPE, sPrimeapeAnnihilapeEvoConditions}},
     [SPECIES_GROWLITHE]  = {{EVO_ITEM, ITEM_FIRE_STONE, SPECIES_ARCANINE}},
     [SPECIES_POLIWAG]    = {{EVO_LEVEL, 25, SPECIES_POLIWHIRL}},
     [SPECIES_POLIWHIRL]  = {{EVO_ITEM, ITEM_WATER_STONE, SPECIES_POLIWRATH},
@@ -205,11 +244,13 @@ const struct Evolution gEvolutionTable[NUM_SPECIES_WITH_FORMS][EVOS_PER_MON] =
     [SPECIES_PINECO]     = {{EVO_LEVEL, 31, SPECIES_FORRETRESS}},
     [SPECIES_SNUBBULL]   = {{EVO_LEVEL, 23, SPECIES_GRANBULL}},
     [SPECIES_TEDDIURSA]  = {{EVO_LEVEL, 30, SPECIES_URSARING}},
+    [SPECIES_URSARING]   = {{EVO_LEVEL, 0, SPECIES_URSALUNA, sUrsaringEvoConditions}},
     [SPECIES_SLUGMA]     = {{EVO_LEVEL, 38, SPECIES_MAGCARGO}},
     [SPECIES_SWINUB]     = {{EVO_LEVEL, 33, SPECIES_PILOSWINE}},
     [SPECIES_PILOSWINE]  = {{EVO_LEVEL, 0, SPECIES_MAMOSWINE, sPiloswineEvoConditions}},
     [SPECIES_GLIGAR]     = {{EVO_LEVEL, 0, SPECIES_GLISCOR, sGligarEvoConditions}},
     [SPECIES_SNEASEL]    = {{EVO_LEVEL, 0, SPECIES_WEAVILE, sSneaselEvoConditions}},
+    [SPECIES_STANTLER]   = {{EVO_BATTLE_END, 0, SPECIES_WYRDEER, sStantlerWyrdeerEvoConditions}},
     [SPECIES_REMORAID]   = {{EVO_LEVEL, 25, SPECIES_OCTILLERY}},
     [SPECIES_HOUNDOUR]   = {{EVO_LEVEL, 24, SPECIES_HOUNDOOM}},
     [SPECIES_PHANPY]     = {{EVO_LEVEL, 25, SPECIES_DONPHAN}},
@@ -301,6 +342,8 @@ const struct Evolution gEvolutionTable[NUM_SPECIES_WITH_FORMS][EVOS_PER_MON] =
     [SPECIES_RATTATA_ALOLA] = {{EVO_LEVEL, 20, SPECIES_RATICATE_ALOLA, sRattataAlolaEvoConditions}},
     [SPECIES_ARCHEN] = {{EVO_LEVEL, 37, SPECIES_ARCHEOPS}},
     [SPECIES_AXEW] = {{EVO_LEVEL, 38, SPECIES_FRAXURE}},
+    [SPECIES_BASCULIN_WHITE_STRIPED] = {{EVO_BATTLE_END, 0, SPECIES_BASCULEGION, sBasculinWhiteStripedBasculegionMConditions},
+                                        {EVO_BATTLE_END, 0, SPECIES_BASCULEGION_F, sBasculinWhiteStripedBasculegionFConditions}},
     [SPECIES_BIDOOF] = {{EVO_LEVEL, 15, SPECIES_BIBAREL}},
     [SPECIES_BLITZLE] = {{EVO_LEVEL, 27, SPECIES_ZEBSTRIKA}},
     [SPECIES_BOLDORE] = {{EVO_TRADE, 0, SPECIES_GIGALITH}},
@@ -369,6 +412,7 @@ const struct Evolution gEvolutionTable[NUM_SPECIES_WITH_FORMS][EVOS_PER_MON] =
     [SPECIES_PANSEAR] = {{EVO_ITEM, ITEM_FIRE_STONE, SPECIES_SIMISEAR}},
     [SPECIES_PATRAT] = {{EVO_LEVEL, 20, SPECIES_WATCHOG}},
     [SPECIES_PAWNIARD] = {{EVO_LEVEL, 52, SPECIES_BISHARP}},
+    [SPECIES_BISHARP] = {{EVO_BATTLE_END, 0, SPECIES_KINGAMBIT, sBisharpKingambitEvoConditions}},
     [SPECIES_PIDOVE] = {{EVO_LEVEL, 21, SPECIES_TRANQUILL}},
     [SPECIES_PIGNITE] = {{EVO_LEVEL, 36, SPECIES_EMBOAR}},
     [SPECIES_PIPLUP] = {{EVO_LEVEL, 16, SPECIES_PRINPLUP}},
@@ -413,7 +457,4 @@ const struct Evolution gEvolutionTable[NUM_SPECIES_WITH_FORMS][EVOS_PER_MON] =
     [SPECIES_ZORUA_HISUI] = {{EVO_LEVEL, 30, SPECIES_ZOROARK_HISUI}},
     [SPECIES_ZWEILOUS] = {{EVO_LEVEL, 64, SPECIES_HYDREIGON}},
 
-    // Deferred: evolutions gated by time/region/map-specific conditions beyond MAPSEC checks,
-    // tracker conditions (critical hits, recoil, move-use counts), and entries requiring
-    // item constants not yet available in this repo (for example protector/electirizer family items).
 };

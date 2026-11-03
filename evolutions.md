@@ -21,7 +21,7 @@
 - Rattata (Alola) -> Raticate (Alola) (time-of-day condition)
 - Gligar -> Gliscor (time-of-day condition)
 - Sneasel -> Weavile (time-of-day condition)
-- Farfetch'd (Galar) -> Sirfetch'd (critical-hit tracker condition)
+- Ursaring -> Ursaluna (level up at night)
 
 ## 3) Species present in `species.h` but omitted from `evolution.h` under deferred-condition scope
 
@@ -30,7 +30,3 @@
 - Chingling -> Chimecho (friendship + time-of-day condition)
 - Happiny -> Chansey (Oval Stone + time-of-day condition)
 - Sneasel (Hisui) -> Sneasler (time-of-day condition)
-- Ursaring -> Ursaluna (region/time-gated special item condition)
-- Stantler -> Wyrdeer (used-move-X-times tracker condition)
-- Primeape -> Annihilape (used-move-X-times tracker condition)
-- Bisharp -> Kingambit (defeat-tracker condition)
