@@ -280,13 +280,11 @@
 #define ITEM_LOADED_DICE 246
 #define ITEM_ADAMANT_ORB 247
 #define ITEM_LUSTROUS_ORB 248
-
-// ????????
-#define ITEM_0F9 249
-#define ITEM_0FA 250
-#define ITEM_0FB 251
-#define ITEM_0FC 252
-#define ITEM_0FD 253
+#define ITEM_PROTECTOR 249
+#define ITEM_ELECTIRIZER 250
+#define ITEM_MAGMARIZER 251
+#define ITEM_DUBIOUS_DISC 252
+#define ITEM_REAPER_CLOTH 253
 
 // Contest hold items
 #define ITEM_RED_SCARF 254

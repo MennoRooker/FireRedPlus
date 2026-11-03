@@ -36,6 +36,7 @@
 #include "constants/battle_move_effects.h"
 #include "constants/union_room.h"
 #include "constants/daycare.h"
+#include "constants/region_map_sections.h"
 
 #define SPECIES_TO_HOENN(name)      [SPECIES_##name - 1] = HOENN_DEX_##name
 #define SPECIES_TO_NATIONAL(name)   [SPECIES_##name - 1] = NATIONAL_DEX_##name
@@ -5975,11 +5976,12 @@ static bool8 IsEvolutionConditionMet(struct Pokemon *mon, const struct Evolution
         return IsSpeciesInPlayerParty(condition->param);
     case EVO_CONDITION_CURRENT_DAMAGE_GE:
         return (GetMonData(mon, MON_DATA_MAX_HP, NULL) - GetMonData(mon, MON_DATA_HP, NULL)) >= condition->param;
+    case EVO_CONDITION_IN_MAPSEC:
+        return GetCurrentRegionMapSectionId() == condition->param;
     case EVO_CONDITION_TIME_OF_DAY:
     case EVO_CONDITION_REGION:
     case EVO_CONDITION_NOT_REGION:
     case EVO_CONDITION_IN_MAP:
-    case EVO_CONDITION_IN_MAPSEC:
     case EVO_CONDITION_TRADE_PARTNER_SPECIES:
     case EVO_CONDITION_CRITICAL_HITS_GE:
     case EVO_CONDITION_USED_MOVE_X_TIMES:
