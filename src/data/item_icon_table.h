@@ -262,11 +262,11 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     // ????????
     [ITEM_ADAMANT_ORB]      = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_LUSTROUS_ORB]     = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0F9]              = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0FA]              = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0FB]              = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0FC]              = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0FD]              = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_PROTECTOR]        = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_ELECTIRIZER]      = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_MAGMARIZER]       = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_DUBIOUS_DISC]     = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_REAPER_CLOTH]     = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     // Contest hold items
     [ITEM_RED_SCARF]        = {gItemIcon_Scarf, gItemIconPalette_RedScarf},
     [ITEM_BLUE_SCARF]       = {gItemIcon_Scarf, gItemIconPalette_BlueScarf},

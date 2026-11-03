@@ -1144,8 +1144,28 @@ static void Cmd_accuracycheck(void)
 
 static void Cmd_attackstring(void)
 {
+    u8 partySlot;
+    s32 i;
+
     if (gBattleControllerExecFlags)
         return;
+
+    if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
+    {
+        partySlot = gBattlerPartyIndexes[gBattlerAttacker];
+        if (partySlot < PARTY_SIZE)
+        {
+            for (i = 0; i < MAX_MON_MOVES; i++)
+            {
+                if (GetMonData(&gPlayerParty[partySlot], MON_DATA_MOVE1 + i) == gCurrentMove)
+                {
+                    if (gPartyUsedMoveCounters[partySlot][i] < 255)
+                        gPartyUsedMoveCounters[partySlot][i]++;
+                    break;
+                }
+            }
+        }
+    }
 
     if (!(gHitMarker & (HITMARKER_NO_ATTACKSTRING | HITMARKER_ATTACKSTRING_PRINTED)))
     {
@@ -1240,6 +1260,13 @@ static void Cmd_critcalc(void)
         gIsCriticalHit = TRUE;
     else
         gIsCriticalHit = FALSE;
+
+    if (gIsCriticalHit && GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
+    {
+        u8 partySlot = gBattlerPartyIndexes[gBattlerAttacker];
+        if (partySlot < PARTY_SIZE && gPartyCriticalHits[partySlot] < 255)
+            gPartyCriticalHits[partySlot]++;
+    }
 
     gBattlescriptCurrInstr++;
 }
@@ -2810,6 +2837,16 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 if (gBattleMoveDamage == 0)
                     gBattleMoveDamage = 1;
 
+                if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER && gBattleMons[gBattlerAttacker].hp > gBattleMoveDamage)
+                {
+                    u8 partySlot = gBattlerPartyIndexes[gBattlerAttacker];
+                    if (partySlot < PARTY_SIZE)
+                    {
+                        u16 newDamage = gPartyRecoilDamage[partySlot] + gBattleMoveDamage;
+                        gPartyRecoilDamage[partySlot] = (newDamage < gPartyRecoilDamage[partySlot]) ? 0xFFFF : newDamage;
+                    }
+                }
+
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleCommunication[MOVE_EFFECT_BYTE]];
                 break;
@@ -3024,6 +3061,16 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 if (gBattleMoveDamage == 0)
                     gBattleMoveDamage = 1;
 
+                if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER && gBattleMons[gBattlerAttacker].hp > gBattleMoveDamage)
+                {
+                    u8 partySlot = gBattlerPartyIndexes[gBattlerAttacker];
+                    if (partySlot < PARTY_SIZE)
+                    {
+                        u16 newDamage = gPartyRecoilDamage[partySlot] + gBattleMoveDamage;
+                        gPartyRecoilDamage[partySlot] = (newDamage < gPartyRecoilDamage[partySlot]) ? 0xFFFF : newDamage;
+                    }
+                }
+
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleCommunication[MOVE_EFFECT_BYTE]];
                 break;
@@ -3195,6 +3242,13 @@ static void Cmd_tryfaintmon(void)
                     gBattleResults.opponentFaintCounter++;
                 gBattleResults.lastOpponentSpecies = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_SPECIES);
                 *(u8 *)(&gBattleStruct->lastAttackerToFaintOpponent) = gBattlerAttacker;
+
+                if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
+                {
+                    u8 partySlot = gBattlerPartyIndexes[gBattlerAttacker];
+                    if (partySlot < PARTY_SIZE && gPartyDefeatCounts[partySlot] < 255)
+                        gPartyDefeatCounts[partySlot]++;
+                }
             }
             if ((gHitMarker & HITMARKER_DESTINYBOND) && gBattleMons[gBattlerAttacker].hp != 0)
             {

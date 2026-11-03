@@ -267,6 +267,7 @@
 #define BODY_COLOR_PINK     9
 
 // Evolution types
+#define EVO_NONE             0  // Sentinel/non-evolving metadata entry
 #define EVO_FRIENDSHIP       1  // Pokémon levels up with friendship ≥ 220
 #define EVO_FRIENDSHIP_DAY   2  // Pokémon levels up during the day with friendship ≥ 220
 #define EVO_FRIENDSHIP_NIGHT 3  // Pokémon levels up at night with friendship ≥ 220
@@ -282,6 +283,9 @@
 #define EVO_LEVEL_NINJASK    13 // Pokémon reaches the specified level (special value for Ninjask)
 #define EVO_LEVEL_SHEDINJA   14 // Pokémon reaches the specified level (special value for Shedinja)
 #define EVO_BEAUTY           15 // Pokémon levels up with beauty ≥ specified value
+#define EVO_BATTLE_END       16 // Pokémon evolves after battle when conditions are met
+#define EVO_SCRIPT_TRIGGER   17 // Pokémon evolves when a script trigger is activated
+#define EVO_SPLIT_FROM_EVO   18 // Pokémon evolves as a secondary split from another evolution result
 
 #define EVOS_PER_MON 8
 
@@ -289,6 +293,38 @@
 #define EVO_MODE_TRADE      1
 #define EVO_MODE_ITEM_USE   2
 #define EVO_MODE_ITEM_CHECK 3 // If an Everstone is being held, still want to show that the stone *could* be used on that Pokémon to evolve
+#define EVO_MODE_BATTLE_SPECIAL 4
+#define EVO_MODE_SCRIPT_TRIGGER 5
+
+// Evolution trigger values used with EVO_SCRIPT_TRIGGER.
+#define EVO_TRIGGER_TABLET_CURSE 1
+
+// Evolution condition types.
+#define EVO_CONDITION_NONE                0
+#define EVO_CONDITION_MIN_FRIENDSHIP      1
+#define EVO_CONDITION_KNOWS_MOVE          2
+#define EVO_CONDITION_GENDER              3
+#define EVO_CONDITION_MIN_BEAUTY          4
+#define EVO_CONDITION_HOLD_ITEM           5
+#define EVO_CONDITION_ATK_LT_DEF          6
+#define EVO_CONDITION_ATK_EQ_DEF          7
+#define EVO_CONDITION_ATK_GT_DEF          8
+#define EVO_CONDITION_SPECIES_IN_PARTY    9
+#define EVO_CONDITION_CURRENT_DAMAGE_GE   10
+#define EVO_CONDITION_TIME_OF_DAY         11 // Deferred in FireRedPlus.
+#define EVO_CONDITION_REGION              12 // Deferred in FireRedPlus.
+#define EVO_CONDITION_NOT_REGION          13 // Deferred in FireRedPlus.
+#define EVO_CONDITION_IN_MAP              14 // Deferred in FireRedPlus.
+#define EVO_CONDITION_IN_MAPSEC           15 // Deferred in FireRedPlus.
+#define EVO_CONDITION_TRADE_PARTNER_SPECIES 16 // Deferred in FireRedPlus.
+#define EVO_CONDITION_CRITICAL_HITS_GE    17 // Deferred in FireRedPlus.
+#define EVO_CONDITION_USED_MOVE_X_TIMES   18 // Deferred in FireRedPlus.
+#define EVO_CONDITION_RECOIL_DAMAGE_GE    19 // Deferred in FireRedPlus.
+#define EVO_CONDITION_DEFEAT_X_WITH_ITEMS 20 // Deferred in FireRedPlus.
+#define EVO_CONDITION_BAG_ITEM_COUNT      21 // Deferred in FireRedPlus.
+
+#define EVO_TIME_DAY   0
+#define EVO_TIME_NIGHT 1
 
 // Form change methods
 #define FORM_CHANGE_TERMINATOR 0

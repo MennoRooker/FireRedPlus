@@ -274,11 +274,19 @@ struct __attribute__((packed)) LevelUpMove
     u16 level:7;
 };
 
+struct EvolutionCondition
+{
+    u16 condition;
+    u16 param;
+    u16 param2;
+};
+
 struct Evolution
 {
     u16 method;
     u16 param;
     u16 targetSpecies;
+    const struct EvolutionCondition *conditions;
 };
 
 #define NUM_UNOWN_FORMS 28
@@ -387,6 +395,8 @@ const u8 *Battle_PrintStatBoosterEffectMessage(u16 itemId);
 u8 GetNature(struct Pokemon *mon);
 s8 GetNatureStatModifier(u8 nature, u8 statIndex);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem);
+u16 GetBattleSpecialEvolutionTargetSpecies(struct Pokemon *mon, u8 partySlot);
+u16 GetScriptTriggeredEvolutionTargetSpecies(struct Pokemon *mon, u16 triggerId);
 bool8 CanItemUseFormChange(struct Pokemon *mon, u16 itemId);
 bool8 CanItemUseFormChangeWithSelection(struct Pokemon *mon, u16 itemId, u16 selection);
 bool8 TryItemUseFormChange(struct Pokemon *mon, u16 itemId);
