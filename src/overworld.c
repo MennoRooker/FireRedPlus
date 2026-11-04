@@ -14,6 +14,7 @@
 #include "field_player_avatar.h"
 #include "field_screen_effect.h"
 #include "field_specials.h"
+#include "day_night.h"
 #include "field_tasks.h"
 #include "field_weather.h"
 #include "fieldmap.h"
@@ -479,6 +480,7 @@ static void InitMapView(void)
     move_tilemap_camera_to_upper_left_corner();
     CopyMapTilesetsToVram(gMapHeader.mapLayout);
     LoadMapTilesetPalettes(gMapHeader.mapLayout);
+    ApplyDayNightTintToMapPalettes();
     DrawWholeMapView();
     InitTilesetAnimations();
 }
@@ -1461,6 +1463,7 @@ static void OverworldBasic(void)
     UpdateCameraPanning();
     BuildOamBuffer();
     UpdatePaletteFade();
+    UpdateDayNightVisuals();
     UpdateTilesetAnimations();
     DoScheduledBgTilemapCopiesToVram();
 }
@@ -1809,6 +1812,7 @@ static bool32 LoadMapInStepsLink(u8 *state)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
+            ApplyDayNightTintToMapPalettes();
             (*state)++;
         }
         break;
@@ -1894,6 +1898,7 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 inLink)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
+            ApplyDayNightTintToMapPalettes();
             (*state)++;
         }
         break;
@@ -2000,6 +2005,7 @@ static bool32 ReturnToFieldLink(u8 *state)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
+            ApplyDayNightTintToMapPalettes();
             (*state)++;
         }
         break;
@@ -2296,6 +2302,7 @@ static bool32 LoadMap_QLPlayback(u8 *state)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
+            ApplyDayNightTintToMapPalettes();
             (*state)++;
         }
         break;

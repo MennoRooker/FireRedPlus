@@ -3,13 +3,7 @@
 #include "util.h"
 #include "decompress.h"
 #include "task.h"
-
-enum
-{
-    NORMAL_FADE,
-    FAST_FADE,
-    HARDWARE_FADE,
-};
+#include "palette.h"
 
 // These are structs for some unused palette system.
 // The full functionality of this system is unknown.

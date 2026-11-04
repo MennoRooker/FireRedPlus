@@ -24,6 +24,7 @@
 #include "party_menu.h"
 #include "field_specials.h"
 #include "berry.h"
+#include "day_night.h"
 #include "constants/items.h"
 #include "constants/item_effects.h"
 #include "constants/pokemon.h"
@@ -5981,6 +5982,7 @@ static bool8 IsEvolutionConditionMet(struct Pokemon *mon, const struct Evolution
     case EVO_CONDITION_IN_MAPSEC:
         return GetCurrentRegionMapSectionId() == condition->param;
     case EVO_CONDITION_TIME_OF_DAY:
+        return GetDayNightTimeOfDay() == condition->param;
     case EVO_CONDITION_REGION:
     case EVO_CONDITION_NOT_REGION:
     case EVO_CONDITION_IN_MAP:
@@ -6095,20 +6097,13 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                 if (friendship >= 220)
                     targetSpecies = evolution->targetSpecies;
                 break;
-            // FR/LG removed the time of day evolutions due to having no RTC.
             case EVO_FRIENDSHIP_DAY:
-                /*
-                RtcCalcLocalTime();
-                if (gLocalTime.hours >= 12 && gLocalTime.hours < 24 && friendship >= 220)
+                if (friendship >= 220 && IsDayTime())
                     targetSpecies = evolution->targetSpecies;
-                */
                 break;
             case EVO_FRIENDSHIP_NIGHT:
-                /*
-                RtcCalcLocalTime();
-                if (gLocalTime.hours >= 0 && gLocalTime.hours < 12 && friendship >= 220)
+                if (friendship >= 220 && IsNightTime())
                     targetSpecies = evolution->targetSpecies;
-                */
                 break;
             case EVO_LEVEL:
                 if (evolution->param <= level)

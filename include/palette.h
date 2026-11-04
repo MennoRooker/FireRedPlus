@@ -34,6 +34,13 @@ enum
     FAST_FADE_OUT_TO_BLACK,
 };
 
+enum PaletteFadeMode
+{
+    NORMAL_FADE,
+    FAST_FADE,
+    HARDWARE_FADE,
+};
+
 struct PaletteFadeControl
 {
     u32 multipurpose1;
