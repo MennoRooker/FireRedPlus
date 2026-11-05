@@ -171,6 +171,9 @@ These are not required to *create* the day/night clock, but should be implemente
    - Script/engine integration notes:
      - Use the outside-safe fade path equivalent to `fadescreenswapbuffers` where alpha blending and DNS tint overlap.
      - Recheck weather and popup alpha-blend interactions after enabling DNS-style tinting.
+     - During wild-encounter intro pulses, temporarily yield OBJ palette ownership to the transition task so vanilla fade/flash timing is preserved (avoid per-frame OBJ day/night re-blend writes in that window).
+     - During outdoor-target warp exits, defer visible day/night palette writes until the transition fade ownership window has passed; keep transition frames in charge of `gPlttBufferFaded`, then reapply day/night immediately after.
+     - For first-time night outdoor warps, begin suppression at warp fade-out (source side) and keep strict blackout until destination palette/tilemap state is coherent to avoid mixed indoor/outdoor palette frames.
    - Validation targets for this phase:
      - Outdoor transitions: day <-> night tint appears and clears correctly.
      - Indoor/cave maps remain untinted.

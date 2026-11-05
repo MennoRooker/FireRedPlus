@@ -480,7 +480,7 @@ static void InitMapView(void)
     move_tilemap_camera_to_upper_left_corner();
     CopyMapTilesetsToVram(gMapHeader.mapLayout);
     LoadMapTilesetPalettes(gMapHeader.mapLayout);
-    ApplyDayNightTintToMapPalettes();
+    ApplyDayNightTintToMapPalettesForMapLoad();
     DrawWholeMapView();
     InitTilesetAnimations();
 }
@@ -1812,7 +1812,7 @@ static bool32 LoadMapInStepsLink(u8 *state)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
-            ApplyDayNightTintToMapPalettes();
+            ApplyDayNightTintToMapPalettesForMapLoad();
             (*state)++;
         }
         break;
@@ -1898,7 +1898,7 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 inLink)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
-            ApplyDayNightTintToMapPalettes();
+            ApplyDayNightTintToMapPalettesForMapLoad();
             (*state)++;
         }
         break;
@@ -2005,7 +2005,7 @@ static bool32 ReturnToFieldLink(u8 *state)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
-            ApplyDayNightTintToMapPalettes();
+            ApplyDayNightTintToMapPalettesForMapLoad();
             (*state)++;
         }
         break;
@@ -2302,7 +2302,7 @@ static bool32 LoadMap_QLPlayback(u8 *state)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
-            ApplyDayNightTintToMapPalettes();
+            ApplyDayNightTintToMapPalettesForMapLoad();
             (*state)++;
         }
         break;
