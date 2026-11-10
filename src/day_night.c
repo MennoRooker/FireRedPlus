@@ -51,6 +51,34 @@ static u8 GetDayNightBlendForStep(u8 step)
     return (step * DAY_NIGHT_MAX_BLEND + (DAY_NIGHT_TRANSITION_STEPS / 2)) / DAY_NIGHT_TRANSITION_STEPS;
 }
 
+static void EnsureVisualStateInitialized(void)
+{
+    if (!sVisualStateInitialized)
+    {
+        u32 totalMinutes = gSaveBlock2Ptr->playTimeHours * 60 + gSaveBlock2Ptr->playTimeMinutes;
+        u8 timeOfDay = ((totalMinutes % DAY_NIGHT_CYCLE_MINUTES) < DAY_NIGHT_DAY_MINUTES)
+                         ? EVO_TIME_DAY : EVO_TIME_NIGHT;
+        sTargetTransitionStep = (timeOfDay == EVO_TIME_NIGHT) ? DAY_NIGHT_TRANSITION_STEPS : 0;
+        sCurrentTransitionStep = sTargetTransitionStep;
+        sVisualStateInitialized = TRUE;
+    }
+}
+
+static bool8 TryGetBattleNightBlendCoeff(u8 *blendCoeff)
+{
+    // Called from battle startup paths where gMain.inBattle is not yet set.
+    if (gGlobalFieldTintMode != QL_TINT_NONE)
+        return FALSE;
+
+    EnsureVisualStateInitialized();
+
+    if (!IsMapTypeOutdoors(GetCurrentMapType()))
+        return FALSE;
+
+    *blendCoeff = GetDayNightBlendForStep(sCurrentTransitionStep);
+    return (*blendCoeff != 0);
+}
+
 // Tint one range of BG palette entries.
 // Reads raw colours from gPlttBufferUnfaded (which must still hold ROM values),
 // writes the tinted result to BOTH buffers.
@@ -170,15 +198,7 @@ static void ApplyDayNightTintToMapPalettesInternal(void)
     if (gGlobalFieldTintMode != QL_TINT_NONE)
         return;
 
-    if (!sVisualStateInitialized)
-    {
-        u32 totalMinutes = gSaveBlock2Ptr->playTimeHours * 60 + gSaveBlock2Ptr->playTimeMinutes;
-        u8 timeOfDay = ((totalMinutes % DAY_NIGHT_CYCLE_MINUTES) < DAY_NIGHT_DAY_MINUTES)
-                         ? EVO_TIME_DAY : EVO_TIME_NIGHT;
-        sTargetTransitionStep = (timeOfDay == EVO_TIME_NIGHT) ? DAY_NIGHT_TRANSITION_STEPS : 0;
-        sCurrentTransitionStep = sTargetTransitionStep;
-        sVisualStateInitialized = TRUE;
-    }
+    EnsureVisualStateInitialized();
 
     if (!IsMapTypeOutdoors(GetCurrentMapType()))
         return;
@@ -231,8 +251,7 @@ void ApplyDayNightTintToSecondaryMapPalette(void)
 
     if (gGlobalFieldTintMode != QL_TINT_NONE)
         return;
-    if (!sVisualStateInitialized)
-        return;
+    EnsureVisualStateInitialized();
     if (!IsMapTypeOutdoors(GetCurrentMapType()))
         return;
 
@@ -279,8 +298,7 @@ void ApplyDayNightTintToObjPaletteSlot(u8 paletteSlot)
 
     if (gGlobalFieldTintMode != QL_TINT_NONE)
         return;
-    if (!sVisualStateInitialized)
-        return;
+    EnsureVisualStateInitialized();
     if (!IsMapTypeOutdoors(GetCurrentMapType()))
         return;
 
@@ -301,6 +319,16 @@ void ApplyDayNightTintToObjPaletteSlot(u8 paletteSlot)
     // FadeInFromBlack (called later in the state machine) will zero faded
     // before the VBlank callback is restored, so the warp path is also safe.
     TintObjSlotFromBackup(paletteSlot, blendCoeff);
+}
+
+void ApplyDayNightTintToBattlePaletteRange(u16 paletteOffset, u16 count)
+{
+    u8 blendCoeff;
+
+    if (!TryGetBattleNightBlendCoeff(&blendCoeff))
+        return;
+
+    TintBgPaletteEntries(paletteOffset, count, blendCoeff);
 }
 
 void UpdateDayNightVisuals(void)
