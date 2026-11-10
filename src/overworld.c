@@ -770,6 +770,7 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     InitMap();
     CopySecondaryTilesetToVramUsingHeap(gMapHeader.mapLayout);
     LoadSecondaryTilesetPalette(gMapHeader.mapLayout);
+    ApplyDayNightTintToSecondaryMapPalette();
     for (paletteIndex = 7; paletteIndex < 13; paletteIndex++)
         ApplyWeatherGammaShiftToPal(paletteIndex);
     InitSecondaryTilesetAnimation();

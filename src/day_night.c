@@ -11,7 +11,9 @@
 #define DAY_NIGHT_CYCLE_MINUTES     2
 #define DAY_NIGHT_DAY_MINUTES       1
 
-#define DAY_NIGHT_BG_PALETTES       0x00001FFF
+#define DAY_NIGHT_BG_PALETTES           0x00001FFF
+// Bits for only the secondary tileset's BG palette slots (7-12).
+#define DAY_NIGHT_SECONDARY_BG_PALETTES 0x00001F80
 #define DAY_NIGHT_MAX_BLEND         5
 #define DAY_NIGHT_TRANSITION_STEPS  5
 #define DAY_NIGHT_STEP_FRAMES       30
@@ -206,6 +208,51 @@ void ApplyDayNightTintToMapPalettes(void)
 void ApplyDayNightTintToMapPalettesForMapLoad(void)
 {
     ApplyDayNightTintToMapPalettesInternal();
+}
+
+// Called from LoadMapFromCameraTransition immediately after
+// LoadSecondaryTilesetPalette writes raw (day) colors into
+// gPlttBufferUnfaded[slots 7-12] AND gPlttBufferFaded[slots 7-12].
+//
+// Unlike the full-map load path, the VBlank callback is ACTIVE during a
+// camera-scroll route transition (no fade to black), so the first VBlank
+// after LoadSecondaryTilesetPalette would copy the raw day palette to CGRAM
+// and cause a visible flash.  This function tints those slots before that
+// VBlank fires.
+//
+// Calling before ApplyWeatherGammaShiftToPal is intentional: that function
+// reads gPlttBufferUnfaded (now tinted) and writes the combined
+// weather+night result to gPlttBufferFaded, which is the correct behavior.
+void ApplyDayNightTintToSecondaryMapPalette(void)
+{
+    u32 selectedPalettes;
+    u16 paletteOffset;
+    u8 blendCoeff;
+
+    if (gGlobalFieldTintMode != QL_TINT_NONE)
+        return;
+    if (!sVisualStateInitialized)
+        return;
+    if (!IsMapTypeOutdoors(GetCurrentMapType()))
+        return;
+
+    // Mark the BG step as applied for the whole map so UpdateDayNightVisuals
+    // does not schedule an unnecessary full-palette reload.
+    sLastAppliedBgStep = sCurrentTransitionStep;
+
+    blendCoeff = GetDayNightBlendForStep(sCurrentTransitionStep);
+    if (blendCoeff == 0)
+        return;
+
+    selectedPalettes = DAY_NIGHT_SECONDARY_BG_PALETTES;
+    paletteOffset = 0;
+    while (selectedPalettes)
+    {
+        if (selectedPalettes & 1)
+            TintBgPaletteEntries(paletteOffset, 16, blendCoeff);
+        selectedPalettes >>= 1;
+        paletteOffset += 16;
+    }
 }
 
 // Called by PatchObjectPalette right after loading raw OBJ palette data.
