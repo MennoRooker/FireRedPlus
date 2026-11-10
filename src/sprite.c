@@ -1,5 +1,6 @@
 #include "global.h"
 #include "gflib.h"
+#include "day_night.h"
 
 #define MAX_SPRITE_COPY_REQUESTS 64
 
@@ -1589,6 +1590,7 @@ u8 LoadSpritePalette(const struct SpritePalette *palette)
     {
         sSpritePaletteTags[index] = palette->tag;
         DoLoadSpritePalette(palette->data, PLTT_ID(index));
+        ApplyDayNightTintToObjPaletteSlot(index);
         return index;
     }
 }
