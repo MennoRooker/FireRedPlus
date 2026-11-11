@@ -15,8 +15,8 @@
 // Bits for only the secondary tileset's BG palette slots (7-12).
 #define DAY_NIGHT_SECONDARY_BG_PALETTES 0x00001F80
 #define DAY_NIGHT_MAX_BLEND         5
-#define DAY_NIGHT_TRANSITION_STEPS  5
-#define DAY_NIGHT_STEP_FRAMES       30
+#define DAY_NIGHT_TRANSITION_STEPS  10
+#define DAY_NIGHT_STEP_FRAMES       15
 #define DAY_NIGHT_NIGHT_COLOR       RGB(8, 10, 20)
 #define OBJ_PALETTE_COUNT           16
 
@@ -155,6 +155,11 @@ static void ReapplyAllObjTint(u8 blendCoeff)
 
 void DayNight_BeginWarpTransition(bool8 destinationIsOutdoors)
 {
+    EnsureVisualStateInitialized();
+    sTargetTransitionStep = sCurrentTransitionStep;
+    sTransitionFrameCounter = 0;
+    sLastAppliedBgStep = sCurrentTransitionStep;
+    sLastAppliedObjStep = sCurrentTransitionStep;
     sWarpInProgress = TRUE;
     sWarpTransitionSuppressed = destinationIsOutdoors;
 }
@@ -339,6 +344,13 @@ void UpdateDayNightVisuals(void)
     u8 blendCoeff;
 
     if (gGlobalFieldTintMode != QL_TINT_NONE)
+        return;
+
+    // Freeze the cycle at the exact palette we were showing when the warp
+    // started.  This prevents a mid-warp step tick from re-tinting objects while
+    // old sprites are still on-screen and keeps the palette stable until the
+    // fade completes.
+    if (sWarpInProgress)
         return;
 
     timeOfDay = GetDayNightTimeOfDay();

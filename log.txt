@@ -1852,6 +1852,26 @@ already part of the route refresh logic in the sense
 that the card indicates that you have entered a new route
 and therefore have refreshed the encounter table.
 
+Come to think of it I think I want to allow the player to
+skip to day/night whenever they have access to a bed. The
+in-game clock should reflect the time of day, but what if
+I made it so that whatever mechanism counts playtime also
+counts towards the day-night cycle directly and whenever
+the player decides to skip a few hours (10 max) they can
+see this on the clocks in-game. That means we cannot use
+playtime to set the in-game time, at least not as it is
+right now. Probably set another 10 hour in-game timer 
+before a bed can be used again to increase the time.
+Perhaps heal all mons as well. 
+
+!NOTE: having an in-game clock tied to the actions of the 
+player will require yet another risky SaveBlock update.
+
+!BUG (FIXED!): I just so happened to enter a building while 
+the environment was switching from day to night and there
+was a warp flash where the NPC in the screen was black.
+
+!BUG (NOT FIXED!): Party menu has night palette mons.
 
 TO DO:
 x Force SET mode
