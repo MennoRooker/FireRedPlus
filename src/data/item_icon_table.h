@@ -259,7 +259,6 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_SOUL_ORB]         = {gItemIcon_SoulDew, gItemIconPalette_DeepSeaScale},
     [ITEM_FOCUS_SASH]       = {gItemIcon_FocusSash, gItemIconPalette_FocusSash},
     [ITEM_LOADED_DICE]      = {gItemIcon_LoadedDice, gItemIconPalette_LoadedDice},
-    // ????????
     [ITEM_ADAMANT_ORB]      = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_LUSTROUS_ORB]     = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_PROTECTOR]        = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
@@ -267,12 +266,12 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_MAGMARIZER]       = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_DUBIOUS_DISC]     = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_REAPER_CLOTH]     = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    // Contest hold items
-    [ITEM_RED_SCARF]        = {gItemIcon_Scarf, gItemIconPalette_RedScarf},
-    [ITEM_BLUE_SCARF]       = {gItemIcon_Scarf, gItemIconPalette_BlueScarf},
-    [ITEM_PINK_SCARF]       = {gItemIcon_Scarf, gItemIconPalette_PinkScarf},
-    [ITEM_GREEN_SCARF]      = {gItemIcon_Scarf, gItemIconPalette_GreenScarf},
-    [ITEM_YELLOW_SCARF]     = {gItemIcon_Scarf, gItemIconPalette_YellowScarf},
+    [ITEM_RAZOR_CLAW]       = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_RAZOR_FANG]       = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    // ????????
+    [ITEM_100]              = {gItemIcon_Scarf, gItemIconPalette_PinkScarf},
+    [ITEM_101]              = {gItemIcon_Scarf, gItemIconPalette_GreenScarf},
+    [ITEM_102]              = {gItemIcon_Scarf, gItemIconPalette_YellowScarf},
     // Key items
     [ITEM_MACH_BIKE]        = {gItemIcon_MachBike, gItemIconPalette_MachBike},
     [ITEM_COIN_CASE]        = {gItemIcon_CoinCase, gItemIconPalette_CoinCase},

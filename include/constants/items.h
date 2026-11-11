@@ -285,13 +285,13 @@
 #define ITEM_MAGMARIZER 251
 #define ITEM_DUBIOUS_DISC 252
 #define ITEM_REAPER_CLOTH 253
+#define ITEM_RAZOR_CLAW 254
+#define ITEM_RAZOR_FANG 255
 
-// Contest hold items
-#define ITEM_RED_SCARF 254
-#define ITEM_BLUE_SCARF 255
-#define ITEM_PINK_SCARF 256
-#define ITEM_GREEN_SCARF 257
-#define ITEM_YELLOW_SCARF 258
+// ????????
+#define ITEM_100 256
+#define ITEM_101 257
+#define ITEM_102 258
 
 // Key items
 #define ITEM_MACH_BIKE 259
