@@ -1,6 +1,7 @@
 #include "global.h"
 #include "gflib.h"
 #include "day_night.h"
+#include "overworld.h"
 
 #define MAX_SPRITE_COPY_REQUESTS 64
 
@@ -1590,7 +1591,10 @@ u8 LoadSpritePalette(const struct SpritePalette *palette)
     {
         sSpritePaletteTags[index] = palette->tag;
         DoLoadSpritePalette(palette->data, PLTT_ID(index));
-        ApplyDayNightTintToObjPaletteSlot(index);
+        // Only tint while the overworld field loop is running (not in menus
+        // such as the party screen, which open while still on an outdoor map).
+        if (Overworld_IsFieldCallback())
+            ApplyDayNightTintToObjPaletteSlot(index);
         return index;
     }
 }

@@ -1234,6 +1234,15 @@ bool8 IsMapTypeOutdoors(u8 mapType)
         return FALSE;
 }
 
+// Returns TRUE only while one of the overworld field callbacks is active.
+// Used by the day-night sprite-tinting hook in sprite.c to prevent field-effect
+// palette tinting from bleeding into menus (party screen, bag, etc.) that are
+// opened while on an outdoor map.
+bool8 Overworld_IsFieldCallback(void)
+{
+    return gMain.callback2 == CB2_Overworld || gMain.callback2 == CB2_OverworldBasic;
+}
+
 bool8 Overworld_MapTypeAllowsTeleportAndFly(u8 mapType)
 {
     if (mapType == MAP_TYPE_ROUTE

@@ -1871,7 +1871,7 @@ player will require yet another risky SaveBlock update.
 the environment was switching from day to night and there
 was a warp flash where the NPC in the screen was black.
 
-!BUG (NOT FIXED!): Party menu has night palette mons.
+!BUG (FIXED!): Party menu has night palette mons.
 
 TO DO:
 x Force SET mode
