@@ -4,6 +4,7 @@
 #include "battle_bg.h"
 #include "battle_message.h"
 #include "decompress.h"
+#include "day_night.h"
 #include "graphics.h"
 #include "link.h"
 #include "new_menu_helpers.h"
@@ -722,6 +723,7 @@ void LoadBattleTextboxAndBackground(void)
     LoadCompressedPalette(gBattleInterface_Textbox_Pal, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
     LoadBattleMenuWindowGfx();
     DrawMainBattleBackground();
+    ApplyDayNightTintToBattlePaletteRange(BG_PLTT_ID(0), 16 * 16);
 }
 
 static void DrawLinkBattleParticipantPokeballs(u8 taskId, u8 multiplayerId, u8 bgId, u8 destX, u8 destY)

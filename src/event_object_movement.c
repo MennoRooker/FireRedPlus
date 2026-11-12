@@ -1,5 +1,6 @@
 #include "global.h"
 #include "gflib.h"
+#include "day_night.h"
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "field_camera.h"
@@ -1923,6 +1924,10 @@ static void SpawnObjectEventOnReturnToField(u8 objectEventId, s16 x, s16 y)
         {
             SetPlayerAvatarObjectEventIdAndObjectId(objectEventId, spriteId);
             objectEvent->warpArrowSpriteId = CreateWarpArrowSprite();
+            // Set the correct facing animation right away. Non-player object events
+            // already get StartSpriteAnim below; the player branch omitted it, leaving
+            // the sprite at frame 0 (south-facing) until the player moved.
+            StartSpriteAnim(sprite, GetFaceDirectionAnimNum(objectEvent->facingDirection));
         }
         if (subspriteTables != NULL)
             SetSubspriteTables(sprite, subspriteTables);
@@ -2182,6 +2187,7 @@ void PatchObjectPalette(u16 paletteTag, u8 paletteSlot)
 
     LoadPalette(sObjectEventSpritePalettes[paletteIndex].data, OBJ_PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
     ApplyGlobalFieldPaletteTint(paletteSlot);
+    ApplyDayNightTintToObjPaletteSlot(paletteSlot);
 }
 
 void PatchObjectPaletteRange(const u16 *paletteTags, u8 minSlot, u8 maxSlot)

@@ -9,6 +9,7 @@
 #include "sound.h"
 #include "decompress.h"
 #include "gpu_regs.h"
+#include "battle.h"
 #include "battle_transition.h"
 #include "field_effect.h"
 #include "field_weather.h"
@@ -72,6 +73,7 @@ struct TransitionData
 };
 
 static EWRAM_DATA struct TransitionData *sTransitionData = NULL;
+static bool8 sWildEncounterTransitionActive;
 
 static bool8 TransitionIntro_FadeToGray(struct Task *task);
 static bool8 TransitionIntro_FadeFromGray(struct Task *task);
@@ -612,6 +614,7 @@ static const u16 sMugshotsTilemap[] = INCBIN_U16("graphics/battle_transitions/vs
 void BattleTransition_StartOnField(u8 transitionId)
 {
     sTransitionData = AllocZeroed(sizeof(*sTransitionData));
+    sWildEncounterTransitionActive = ((gBattleTypeFlags & BATTLE_TYPE_TRAINER) == 0);
     gMain.callback2 = CB2_OverworldBasic;
     LaunchBattleTransitionTask(transitionId);
 }
@@ -632,6 +635,7 @@ bool8 IsBattleTransitionDone(void)
     {
         InitTransitionData();
         FREE_AND_SET_NULL(sTransitionData);
+        sWildEncounterTransitionActive = FALSE;
         DestroyTask(taskId);
         return TRUE;
     }
@@ -639,6 +643,14 @@ bool8 IsBattleTransitionDone(void)
     {
         return FALSE;
     }
+}
+
+bool8 IsWildBattleTransitionIntroActive(void)
+{
+    if (!sWildEncounterTransitionActive)
+        return FALSE;
+
+    return FindTaskIdByFunc(Task_BattleTransition_Intro) != TASK_NONE;
 }
 
 static void LaunchBattleTransitionTask(u8 transitionId)

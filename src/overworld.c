@@ -14,6 +14,7 @@
 #include "field_player_avatar.h"
 #include "field_screen_effect.h"
 #include "field_specials.h"
+#include "day_night.h"
 #include "field_tasks.h"
 #include "field_weather.h"
 #include "fieldmap.h"
@@ -479,6 +480,7 @@ static void InitMapView(void)
     move_tilemap_camera_to_upper_left_corner();
     CopyMapTilesetsToVram(gMapHeader.mapLayout);
     LoadMapTilesetPalettes(gMapHeader.mapLayout);
+    ApplyDayNightTintToMapPalettesForMapLoad();
     DrawWholeMapView();
     InitTilesetAnimations();
 }
@@ -768,6 +770,7 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     InitMap();
     CopySecondaryTilesetToVramUsingHeap(gMapHeader.mapLayout);
     LoadSecondaryTilesetPalette(gMapHeader.mapLayout);
+    ApplyDayNightTintToSecondaryMapPalette();
     for (paletteIndex = 7; paletteIndex < 13; paletteIndex++)
         ApplyWeatherGammaShiftToPal(paletteIndex);
     InitSecondaryTilesetAnimation();
@@ -1231,6 +1234,15 @@ bool8 IsMapTypeOutdoors(u8 mapType)
         return FALSE;
 }
 
+// Returns TRUE only while one of the overworld field callbacks is active.
+// Used by the day-night sprite-tinting hook in sprite.c to prevent field-effect
+// palette tinting from bleeding into menus (party screen, bag, etc.) that are
+// opened while on an outdoor map.
+bool8 Overworld_IsFieldCallback(void)
+{
+    return gMain.callback2 == CB2_Overworld || gMain.callback2 == CB2_OverworldBasic;
+}
+
 bool8 Overworld_MapTypeAllowsTeleportAndFly(u8 mapType)
 {
     if (mapType == MAP_TYPE_ROUTE
@@ -1461,6 +1473,7 @@ static void OverworldBasic(void)
     UpdateCameraPanning();
     BuildOamBuffer();
     UpdatePaletteFade();
+    UpdateDayNightVisuals();
     UpdateTilesetAnimations();
     DoScheduledBgTilemapCopiesToVram();
 }
@@ -1809,6 +1822,7 @@ static bool32 LoadMapInStepsLink(u8 *state)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
+            ApplyDayNightTintToMapPalettesForMapLoad();
             (*state)++;
         }
         break;
@@ -1894,6 +1908,7 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 inLink)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
+            ApplyDayNightTintToMapPalettesForMapLoad();
             (*state)++;
         }
         break;
@@ -2000,6 +2015,7 @@ static bool32 ReturnToFieldLink(u8 *state)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
+            ApplyDayNightTintToMapPalettesForMapLoad();
             (*state)++;
         }
         break;
@@ -2296,6 +2312,7 @@ static bool32 LoadMap_QLPlayback(u8 *state)
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
+            ApplyDayNightTintToMapPalettesForMapLoad();
             (*state)++;
         }
         break;

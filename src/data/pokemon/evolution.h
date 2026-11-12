@@ -80,10 +80,24 @@ static const struct EvolutionCondition sSnoruntFroslassConditions[] =
 static const struct EvolutionCondition sGligarEvoConditions[] =
 {
     {EVO_CONDITION_TIME_OF_DAY, EVO_TIME_NIGHT, 0},
+    {EVO_CONDITION_HOLD_ITEM, ITEM_RAZOR_FANG, 0},
+    {EVO_CONDITION_NONE, 0, 0},
+};
+
+static const struct EvolutionCondition sGligarEvoItemConditions[] =
+{
+    {EVO_CONDITION_TIME_OF_DAY, EVO_TIME_NIGHT, 0},
     {EVO_CONDITION_NONE, 0, 0},
 };
 
 static const struct EvolutionCondition sSneaselEvoConditions[] =
+{
+    {EVO_CONDITION_TIME_OF_DAY, EVO_TIME_NIGHT, 0},
+    {EVO_CONDITION_HOLD_ITEM, ITEM_RAZOR_CLAW, 0},
+    {EVO_CONDITION_NONE, 0, 0},
+};
+
+static const struct EvolutionCondition sSneaselEvoItemConditions[] =
 {
     {EVO_CONDITION_TIME_OF_DAY, EVO_TIME_NIGHT, 0},
     {EVO_CONDITION_NONE, 0, 0},
@@ -248,8 +262,10 @@ const struct Evolution gEvolutionTable[NUM_SPECIES_WITH_FORMS][EVOS_PER_MON] =
     [SPECIES_SLUGMA]     = {{EVO_LEVEL, 38, SPECIES_MAGCARGO}},
     [SPECIES_SWINUB]     = {{EVO_LEVEL, 33, SPECIES_PILOSWINE}},
     [SPECIES_PILOSWINE]  = {{EVO_LEVEL, 0, SPECIES_MAMOSWINE, sPiloswineEvoConditions}},
-    [SPECIES_GLIGAR]     = {{EVO_LEVEL, 0, SPECIES_GLISCOR, sGligarEvoConditions}},
-    [SPECIES_SNEASEL]    = {{EVO_LEVEL, 0, SPECIES_WEAVILE, sSneaselEvoConditions}},
+    [SPECIES_GLIGAR]     = {{EVO_LEVEL, 0, SPECIES_GLISCOR, sGligarEvoConditions},
+                            {EVO_ITEM, ITEM_RAZOR_FANG, SPECIES_GLISCOR, sGligarEvoItemConditions}},
+    [SPECIES_SNEASEL]    = {{EVO_LEVEL, 0, SPECIES_WEAVILE, sSneaselEvoConditions},
+                            {EVO_ITEM, ITEM_RAZOR_CLAW, SPECIES_WEAVILE, sSneaselEvoItemConditions}},
     [SPECIES_STANTLER]   = {{EVO_BATTLE_END, 0, SPECIES_WYRDEER, sStantlerWyrdeerEvoConditions}},
     [SPECIES_REMORAID]   = {{EVO_LEVEL, 25, SPECIES_OCTILLERY}},
     [SPECIES_HOUNDOUR]   = {{EVO_LEVEL, 24, SPECIES_HOUNDOOM}},

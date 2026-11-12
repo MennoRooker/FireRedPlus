@@ -11,6 +11,7 @@
 #include "party_menu.h"
 #include "battle.h"
 #include "battle_main.h"
+#include "day_night.h"
 #include "battle_anim.h"
 #include "battle_interface.h"
 #include "constants/battle_anim.h"
@@ -375,6 +376,9 @@ void BattleLoadOpponentMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
         BlendPalette(paletteOffset, 16, 6, RGB_WHITE);
         CpuCopy32(&gPlttBufferFaded[paletteOffset], &gPlttBufferUnfaded[paletteOffset], PLTT_SIZE_4BPP);
     }
+
+    ApplyDayNightTintToBattlePaletteRange(OBJ_PLTT_ID(battlerId), 16);
+    ApplyDayNightTintToBattlePaletteRange(BG_PLTT_ID(8) + BG_PLTT_ID(battlerId), 16);
 }
 
 void BattleLoadPlayerMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
@@ -429,6 +433,9 @@ void BattleLoadPlayerMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
         BlendPalette(paletteOffset, 16, 6, RGB_WHITE);
         CpuCopy32(&gPlttBufferFaded[paletteOffset], &gPlttBufferUnfaded[paletteOffset], PLTT_SIZE_4BPP);
     }
+
+    ApplyDayNightTintToBattlePaletteRange(OBJ_PLTT_ID(battlerId), 16);
+    ApplyDayNightTintToBattlePaletteRange(BG_PLTT_ID(8) + BG_PLTT_ID(battlerId), 16);
 }
 
 void DecompressGhostFrontPic(struct Pokemon *unused, u8 battlerId)
@@ -444,6 +451,8 @@ void DecompressGhostFrontPic(struct Pokemon *unused, u8 battlerId)
     LoadPalette(buffer, palOffset, PLTT_SIZE_4BPP);
     LoadPalette(buffer, BG_PLTT_ID(8) + BG_PLTT_ID(battlerId), PLTT_SIZE_4BPP);
     Free(buffer);
+    ApplyDayNightTintToBattlePaletteRange(OBJ_PLTT_ID(battlerId), 16);
+    ApplyDayNightTintToBattlePaletteRange(BG_PLTT_ID(8) + BG_PLTT_ID(battlerId), 16);
 }
 
 void DecompressTrainerFrontPic(u16 frontPicId, u8 battlerId)
@@ -462,6 +471,7 @@ void DecompressTrainerFrontPic(u16 frontPicId, u8 battlerId)
 void DecompressTrainerBackPalette(u16 index, u8 palette)
 {
     LoadCompressedPalette(gTrainerBackPicPaletteTable[index].data, OBJ_PLTT_ID2(palette), PLTT_SIZE_4BPP);
+    ApplyDayNightTintToBattlePaletteRange(OBJ_PLTT_ID2(palette), 16);
 }
 
 void BattleGfxSfxDummy3(u8 gender)

@@ -311,7 +311,7 @@
 #define EVO_CONDITION_ATK_GT_DEF          8
 #define EVO_CONDITION_SPECIES_IN_PARTY    9
 #define EVO_CONDITION_CURRENT_DAMAGE_GE   10
-#define EVO_CONDITION_TIME_OF_DAY         11 // Deferred in FireRedPlus.
+#define EVO_CONDITION_TIME_OF_DAY         11
 #define EVO_CONDITION_REGION              12 // Deferred in FireRedPlus.
 #define EVO_CONDITION_NOT_REGION          13 // Deferred in FireRedPlus.
 #define EVO_CONDITION_IN_MAP              14 // Deferred in FireRedPlus.

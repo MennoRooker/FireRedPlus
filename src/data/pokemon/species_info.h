@@ -7200,11 +7200,11 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_LUGIA /* 249 */] =
     {
         .baseHP = 106,
-        .baseAttack = 90,
+        .baseAttack = 80,
         .baseDefense = 130,
         .baseSpAttack = 110,
         .baseSpDefense = 154,
-        .baseSpeed = 110,
+        .baseSpeed = 100,
         .types = {TYPE_WATER, TYPE_FLYING},
         .catchRate = 3,
         .expYield = 220,
@@ -7228,12 +7228,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
     },
     [SPECIES_HO_OH /* 250 */] =
     {
-        .baseHP = 106,
-        .baseAttack = 130,
+        .baseHP = 96,
+        .baseAttack = 110,
         .baseDefense = 90,
-        .baseSpAttack = 115,
+        .baseSpAttack = 130,
         .baseSpDefense = 154,
-        .baseSpeed = 110,
+        .baseSpeed = 100,
         .types = {TYPE_FIRE, TYPE_FLYING},
         .catchRate = 3,
         .expYield = 220,
@@ -11056,10 +11056,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
     },
     [SPECIES_KYOGRE /* 382 */] =
     {
-        .baseHP = 110,
+        .baseHP = 100,
         .baseAttack = 100,
         .baseDefense = 90,
-        .baseSpAttack = 160,
+        .baseSpAttack = 150,
         .baseSpDefense = 140,
         .baseSpeed = 90,
         .types = {TYPE_WATER, TYPE_WATER},
@@ -11085,8 +11085,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
     },
     [SPECIES_GROUDON /* 383 */] =
     {
-        .baseHP = 110,
-        .baseAttack = 160,
+        .baseHP = 100,
+        .baseAttack = 150,
         .baseDefense = 140,
         .baseSpAttack = 100,
         .baseSpDefense = 90,

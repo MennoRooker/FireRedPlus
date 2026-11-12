@@ -18,6 +18,7 @@
 #include "field_effect.h"
 #include "field_screen_effect.h"
 #include "field_specials.h"
+#include "day_night.h"
 #include "event_object_lock.h"
 #include "start_menu.h"
 #include "constants/songs.h"
@@ -96,6 +97,7 @@ void FadeInFromBlack(void)
 void WarpFadeOutScreen(void)
 {
     const struct MapHeader *header = GetDestinationWarpMapHeader();
+    DayNight_BeginWarpTransition(IsMapTypeOutdoors(header->mapType));
     if (header->regionMapSectionId != gMapHeader.regionMapSectionId && MapHasPreviewScreen(header->regionMapSectionId, MPS_TYPE_CAVE))
         FadeScreen(FADE_TO_BLACK, 0);
     else
@@ -114,6 +116,8 @@ void WarpFadeOutScreen(void)
 
 static void WarpFadeOutScreenWithDelay(void) // Unused
 {
+    const struct MapHeader *header = GetDestinationWarpMapHeader();
+    DayNight_BeginWarpTransition(IsMapTypeOutdoors(header->mapType));
     switch (MapTransitionIsEnter(GetCurrentMapType(), GetDestinationWarpMapHeader()->mapType))
     {
     case FALSE:
@@ -407,6 +411,7 @@ static void Task_ExitDoor(u8 taskId)
             task->data[0] = 4;
         break;
     case 4:
+        DayNight_EndWarpTransition();
         UnfreezeObjectEvents();
         UnlockPlayerFieldControls();
         DestroyTask(taskId);
@@ -443,6 +448,7 @@ static void Task_ExitNonAnimDoor(u8 taskId)
         }
         break;
     case 3:
+        DayNight_EndWarpTransition();
         UnfreezeObjectEvents();
         UnlockPlayerFieldControls();
         DestroyTask(taskId);
@@ -462,6 +468,7 @@ static void Task_ExitNonDoor(u8 taskId)
     case 1:
         if (FieldFadeTransitionBackgroundEffectIsFinished())
         {
+            DayNight_EndWarpTransition();
             UnfreezeObjectEvents();
             UnlockPlayerFieldControls();
             DestroyTask(taskId);
@@ -483,6 +490,7 @@ static void Task_TeleportWarpIn(u8 taskId)
     case 1:
         if (FieldFadeTransitionBackgroundEffectIsFinished() && WaitTeleportInPlayerAnim() != TRUE)
         {
+            DayNight_EndWarpTransition();
             UnfreezeObjectEvents();
             UnlockPlayerFieldControls();
             DestroyTask(taskId);
@@ -912,6 +920,7 @@ static void Task_ExitStairs(u8 taskId)
     default:
         if (FieldFadeTransitionBackgroundEffectIsFinished() == TRUE)
         {
+            DayNight_EndWarpTransition();
             CameraObjectReset1();
             UnlockPlayerFieldControls();
             DestroyTask(taskId);

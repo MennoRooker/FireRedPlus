@@ -1835,6 +1835,44 @@ when doing something like a nuzlocke. I think Fuchsia City
 is a decent checkpoint for finding this guy, but perhaps
 even later than that.
 
+When adding night and morning encounters I think the best
+and easiest way is to override species in specific slots
+in the encounter tables instead of writing entire tables
+again. So for route 1 we can just have the day encounters
+as default and then override a slot at night. I am thinking
+of doing this to the last slot (Zigzagoon) first. Day has
+regular Kantonian Zigzagoon and when it hits night this 
+slot gets overriden to Galarian Zigzagoon. I must make sure
+to allow night time to refresh the route's encounters so
+as to not get stale encounter tables. As soon as the game 
+switches to night and the player stays on a route, they
+should get night encounters. This is where the top-right 
+symbols could come in handy, since the Route cards are 
+already part of the route refresh logic in the sense
+that the card indicates that you have entered a new route
+and therefore have refreshed the encounter table.
+
+Come to think of it I think I want to allow the player to
+skip to day/night whenever they have access to a bed. The
+in-game clock should reflect the time of day, but what if
+I made it so that whatever mechanism counts playtime also
+counts towards the day-night cycle directly and whenever
+the player decides to skip a few hours (10 max) they can
+see this on the clocks in-game. That means we cannot use
+playtime to set the in-game time, at least not as it is
+right now. Probably set another 10 hour in-game timer 
+before a bed can be used again to increase the time.
+Perhaps heal all mons as well. 
+
+!NOTE: having an in-game clock tied to the actions of the 
+player will require yet another risky SaveBlock update.
+
+!BUG (FIXED!): I just so happened to enter a building while 
+the environment was switching from day to night and there
+was a warp flash where the NPC in the screen was black.
+
+!BUG (FIXED!): Party menu has night palette mons.
+
 TO DO:
 x Force SET mode
 x EV berries
@@ -1886,7 +1924,6 @@ x Reorder stats
 / Gens 4 & 5 + AltForms
 - Add Fairy type
 - Agatha's Flutter Mane
-- Curb EV training
 - Submission trapping
 - Max rematch
 - Paul Champion

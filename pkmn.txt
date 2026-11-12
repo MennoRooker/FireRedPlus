@@ -305,12 +305,15 @@ spatk:	90 -> 110
 
 - LUGIA
 PSYCHIC/FLYING -> WATER/FLYING
+atk:	90 -> 80
 spatk:	90 -> 110
-
+spd:	110-> 100
 
 - HO-OH
-spatk:	110-> 115
-spd:	90 -> 105
+hp:	106-> 96
+atk:	130-> 110
+spatk:	110-> 130
+spd:	90 -> 100
 
 - TREECKO
 Overgrow -> Overgrow/Lightning Rod
@@ -492,13 +495,7 @@ spatk:	100-> 120
 atk:	75 -> 85
 spd:	50 -> 60
 
-- KYOGRE
-hp:	100-> 110
-spatk:	150-> 160
-
 - GROUDON
-hp:	100-> 110
-atk:	150-> 160
 GROUND -> GROUND/FIRE
 
 - RAYQUAZA
