@@ -1871,7 +1871,17 @@ player will require yet another risky SaveBlock update.
 the environment was switching from day to night and there
 was a warp flash where the NPC in the screen was black.
 
-!BUG (FIXED!): Party menu has night palette mons.
+!BUG (NOT FIXED!): Party menu has night palette mons.
+
+I want to allow the player to get gen 5+ mons after beating
+the league once and then change the league to include a new
+E4, where we have Steven as one of the E4 and Paul as the 
+Champion. Then the player has nothing left to do in Kanto
+and the Sinnoh region opens up to them. I think I can try
+porting some more stuff from pokeplatinum into the project
+to try and get the map layouts at least. I have no idea how
+the gen 4 NDS maps are going to translate to GBA at all,
+but I guess we'll find out.
 
 TO DO:
 x Force SET mode
