@@ -1234,12 +1234,15 @@ bool8 IsMapTypeOutdoors(u8 mapType)
         return FALSE;
 }
 
-// Returns TRUE only while one of the overworld field callbacks is active.
-// Used by the day-night sprite-tinting hook in sprite.c to prevent field-effect
-// palette tinting from bleeding into menus (party screen, bag, etc.) that are
-// opened while on an outdoor map.
+// Returns TRUE when OBJ sprite palette tinting should be applied.
+// This is true while the overworld field loop is active, OR while in a battle
+// (which the user wants to be night-tinted).
+// It is FALSE for menus opened on top of an outdoor map (party/summary/bag)
+// unless those menus are opened from within a battle.
 bool8 Overworld_IsFieldCallback(void)
 {
+    if (gMain.inBattle)
+        return TRUE;
     return gMain.callback2 == CB2_Overworld || gMain.callback2 == CB2_OverworldBasic;
 }
 
