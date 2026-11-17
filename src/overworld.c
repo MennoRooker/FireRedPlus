@@ -769,10 +769,20 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     TryRegenerateRenewableHiddenItems();
     InitMap();
     CopySecondaryTilesetToVramUsingHeap(gMapHeader.mapLayout);
-    LoadSecondaryTilesetPalette(gMapHeader.mapLayout);
-    ApplyDayNightTintToSecondaryMapPalette();
-    for (paletteIndex = 7; paletteIndex < 13; paletteIndex++)
-        ApplyWeatherGammaShiftToPal(paletteIndex);
+    // Atomically reload and re-tint the secondary tileset palette.
+    // bufferTransferDisabled prevents a VBlank from firing between
+    // LoadSecondaryTilesetPalette (raw day colours in gPlttBufferFaded)
+    // and ApplyDayNightTintToSecondaryMapPalette (night tint applied),
+    // which would cause a one-frame day-colour flash on the origin map.
+    {
+        bool8 prevDisabled = gPaletteFade.bufferTransferDisabled;
+        gPaletteFade.bufferTransferDisabled = TRUE;
+        LoadSecondaryTilesetPalette(gMapHeader.mapLayout);
+        ApplyDayNightTintToSecondaryMapPalette();
+        for (paletteIndex = 7; paletteIndex < 13; paletteIndex++)
+            ApplyWeatherGammaShiftToPal(paletteIndex);
+        gPaletteFade.bufferTransferDisabled = prevDisabled;
+    }
     InitSecondaryTilesetAnimation();
     UpdateLocationHistoryForRoamer();
     RoamerMove();
