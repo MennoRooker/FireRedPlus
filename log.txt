@@ -1883,6 +1883,13 @@ to try and get the map layouts at least. I have no idea how
 the gen 4 NDS maps are going to translate to GBA at all,
 but I guess we'll find out.
 
+species_info struct in pokemon.h still has old stats order
+and include/graphics.h still has old order of species,
+where Chimecho is at the end. Should fix this in codebase-
+improvements branch.
+
+
+
 TO DO:
 x Force SET mode
 x EV berries
