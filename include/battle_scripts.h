@@ -253,4 +253,17 @@ extern const u8 *const gBattlescriptsForRunningByItem[];
 extern const u8 *const gBattlescriptsForUsingItem[];
 extern const u8 *const gBattlescriptsForSafariActions[];
 
+// Gen 4 end-of-turn / field-condition scripts
+extern const u8 BattleScript_AquaRingHeal[];
+extern const u8 BattleScript_TrickRoomEnds[];
+extern const u8 BattleScript_GravityEnds[];
+extern const u8 BattleScript_TailwindEnds[];
+extern const u8 BattleScript_LuckyChantEnds[];
+extern const u8 BattleScript_MagnetRiseEnds[];
+extern const u8 BattleScript_EmbargoEnds[];
+// Stealth Rock switch-in scripts
+extern const u8 BattleScript_StealthRockOnAttacker[];
+extern const u8 BattleScript_StealthRockOnTarget[];
+extern const u8 BattleScript_StealthRockOnFaintedBattler[];
+
 #endif // GUARD_BATTLE_SCRIPTS_H

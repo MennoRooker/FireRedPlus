@@ -5825,3 +5825,92 @@ BattleScript_SnowWarningActivates::
 	playanimation BS_BATTLER_0, B_ANIM_HAIL_CONTINUES, NULL
 	call BattleScript_WeatherFormChanges
 	end3
+
+@ Gen 4 end-of-turn / field-condition scripts
+
+BattleScript_AquaRingHeal::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_PKMNREGAINEDHEALTH
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_TrickRoomEnds::
+	printstring STRINGID_TRICKROOMENDS
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_GravityEnds::
+	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: add "Gravity returned to normal!" string
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_TailwindEnds::
+	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: add "X's Tailwind petered out!" string
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_LuckyChantEnds::
+	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: add "Lucky Chant wore off!" string
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_MagnetRiseEnds::
+	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: add "X is no longer floating!" string
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_EmbargoEnds::
+	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: add "X can use items again!" string
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+@ Stealth Rock switch-in damage
+BattleScript_StealthRockOnAttacker::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_POINTEDSTONESFLOAT @ TODO: add "Pointed stones dug into X!" string
+	waitmessage B_WAIT_TIME_LONG
+	tryfaintmon BS_ATTACKER
+	tryfaintmon_spikes BS_ATTACKER, BattleScript_StealthRockAttackerFainted
+	return
+
+BattleScript_StealthRockAttackerFainted::
+	setbyte sGIVEEXP_STATE, 0
+	getexp BS_ATTACKER
+	moveendall
+	goto BattleScript_HandleFaintedMon
+
+BattleScript_StealthRockOnTarget::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_TARGET
+	datahpupdate BS_TARGET
+	printstring STRINGID_POINTEDSTONESFLOAT @ TODO: add "Pointed stones dug into X!" string
+	waitmessage B_WAIT_TIME_LONG
+	tryfaintmon BS_TARGET
+	tryfaintmon_spikes BS_TARGET, BattleScript_StealthRockTargetFainted
+	return
+
+BattleScript_StealthRockTargetFainted::
+	setbyte sGIVEEXP_STATE, 0
+	getexp BS_TARGET
+	moveendall
+	goto BattleScript_HandleFaintedMon
+
+BattleScript_StealthRockOnFaintedBattler::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_FAINTED
+	datahpupdate BS_FAINTED
+	printstring STRINGID_POINTEDSTONESFLOAT
+	waitmessage B_WAIT_TIME_LONG
+	tryfaintmon BS_FAINTED
+	tryfaintmon_spikes BS_FAINTED, BattleScript_StealthRockFaintedBattlerFainted
+	return
+
+BattleScript_StealthRockFaintedBattlerFainted::
+	setbyte sGIVEEXP_STATE, 0
+	getexp BS_FAINTED
+	moveendall
+	goto BattleScript_HandleFaintedMon

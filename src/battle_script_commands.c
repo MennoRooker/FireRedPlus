@@ -1253,6 +1253,7 @@ static void Cmd_critcalc(void)
 
     if ((gBattleMons[gBattlerTarget].ability != ABILITY_BATTLE_ARMOR && gBattleMons[gBattlerTarget].ability != ABILITY_SHELL_ARMOR)
      && !(gStatuses3[gBattlerAttacker] & STATUS3_CANT_SCORE_A_CRIT)
+     && !(gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)] & SIDE_STATUS_LUCKY_CHANT) // Lucky Chant prevents crits
      && !(gBattleTypeFlags & BATTLE_TYPE_OLD_MAN_TUTORIAL)
      && !(Random() % sCriticalHitChance[critChance])
      && (!(gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE) || BtlCtrl_OakOldMan_TestState2Flag(1))
@@ -1369,6 +1370,7 @@ static void Cmd_typecalc(void)
 {
     s32 i = 0;
     u8 moveType;
+    u8 defType1, defType2;
 
     if (gCurrentMove == MOVE_STRUGGLE)
     {
@@ -1381,14 +1383,73 @@ static void Cmd_typecalc(void)
 
     GET_MOVE_TYPE(gCurrentMove, moveType);
 
-    // check stab
-    if (IS_BATTLER_OF_TYPE(gBattlerAttacker, moveType))
+    // Roost: the ROOSTED user (target) temporarily has no Flying type this turn.
+    // Compute their effective defending types accordingly.
+    defType1 = gBattleMons[gBattlerTarget].type1;
+    defType2 = gBattleMons[gBattlerTarget].type2;
+    if (gStatuses3[gBattlerTarget] & STATUS3_ROOST)
+    {
+        if (defType1 == TYPE_FLYING && defType2 == TYPE_FLYING)
+        {
+            // Mono-Flying → becomes Normal (vanilla Roost behaviour)
+            defType1 = TYPE_NORMAL;
+            defType2 = TYPE_NORMAL;
+        }
+        else
+        {
+            if (defType1 == TYPE_FLYING) defType1 = defType2;
+            if (defType2 == TYPE_FLYING) defType2 = defType1;
+        }
+    }
+
+    // check stab — Roost removes Flying-type STAB for the user this turn
+    if (IS_BATTLER_OF_TYPE(gBattlerAttacker, moveType)
+     && !(moveType == TYPE_FLYING && (gStatuses3[gBattlerAttacker] & STATUS3_ROOST)))
     {
         gBattleMoveDamage = gBattleMoveDamage * 15;
         gBattleMoveDamage = gBattleMoveDamage / 10;
     }
 
-    if (gBattleMons[gBattlerTarget].ability == ABILITY_LEVITATE && moveType == TYPE_GROUND)
+    // Gravity: grounds all battlers — Levitate ability and Flying-type Ground immunity are ignored.
+    if (moveType == TYPE_GROUND && (gFieldStatuses & STATUS_FIELD_GRAVITY))
+    {
+        // Run normal type table but skip Levitate ability check above.
+        while (TYPE_EFFECT_ATK_TYPE(i) != TYPE_ENDTABLE)
+        {
+            if (TYPE_EFFECT_ATK_TYPE(i) == TYPE_FORESIGHT)
+            {
+                if (gBattleMons[gBattlerTarget].status2 & STATUS2_FORESIGHT)
+                    break;
+                i += 3;
+                continue;
+            }
+            if (TYPE_EFFECT_ATK_TYPE(i) == TYPE_MIRACLE_EYE)
+            {
+                i += 3;
+                continue; // skip Miracle Eye marker
+            }
+            if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
+            {
+                if (TYPE_EFFECT_DEF_TYPE(i) == defType1)
+                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
+                if (TYPE_EFFECT_DEF_TYPE(i) == defType2 && defType1 != defType2)
+                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
+            }
+            i += 3;
+        }
+    }
+    // Magnet Rise and Telekinesis: immune to Ground (unless Gravity active).
+    else if (moveType == TYPE_GROUND
+          && (gStatuses3[gBattlerTarget] & STATUS3_MAGNET_RISE
+           || gStatuses3[gBattlerTarget] & STATUS3_TELEKINESIS))
+    {
+        gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+        gLastLandedMoves[gBattlerTarget] = 0;
+        gLastHitByType[gBattlerTarget] = 0;
+        gBattleCommunication[MISS_TYPE] = B_MSG_GROUND_MISS;
+    }
+    // Levitate ability: immune to Ground.
+    else if (gBattleMons[gBattlerTarget].ability == ABILITY_LEVITATE && moveType == TYPE_GROUND)
     {
         gLastUsedAbility = gBattleMons[gBattlerTarget].ability;
         gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
@@ -1408,14 +1469,20 @@ static void Cmd_typecalc(void)
                 i += 3;
                 continue;
             }
-            else if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
+            // Miracle Eye marker: if Psychic move vs a target with Miracle Eye, skip
+            // the Psychic-is-immune-to-Dark entry that immediately follows.
+            if (TYPE_EFFECT_ATK_TYPE(i) == TYPE_MIRACLE_EYE)
             {
-                // check type1
-                if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type1)
+                if (moveType == TYPE_PSYCHIC && (gStatuses3[gBattlerTarget] & STATUS3_MIRACLE_EYE))
+                    break; // break before TYPE_PSYCHIC vs TYPE_DARK immunity
+                i += 3;
+                continue;
+            }
+            if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
+            {
+                if (TYPE_EFFECT_DEF_TYPE(i) == defType1)
                     ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
-                // check type2
-                if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type2 &&
-                    gBattleMons[gBattlerTarget].type1 != gBattleMons[gBattlerTarget].type2)
+                if (TYPE_EFFECT_DEF_TYPE(i) == defType2 && defType1 != defType2)
                     ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
             }
             i += 3;
@@ -1423,7 +1490,7 @@ static void Cmd_typecalc(void)
     }
 
     if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
-     && ShouldApplySkyUppercutFlyingBonus(gCurrentMove, gBattleMons[gBattlerTarget].type1, gBattleMons[gBattlerTarget].type2))
+     && ShouldApplySkyUppercutFlyingBonus(gCurrentMove, defType1, defType2))
     {
         ModulateDmgByType(TYPE_MUL_SUPER_EFFECTIVE);
         ModulateDmgByType(TYPE_MUL_SUPER_EFFECTIVE);
@@ -5384,10 +5451,54 @@ static void Cmd_switchineffects(void)
     gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
     UpdateSentPokesToOpponentValue(gActiveBattler);
 
+    gBattleStruct->field_8D = 0; // reset per-switch-in hazard tracking
+
     gHitMarker &= ~HITMARKER_FAINTED(gActiveBattler);
     gSpecialStatuses[gActiveBattler].faintedHasReplacement = FALSE;
 
+    // Stealth Rock: deal type-effectiveness-modified Rock damage on switch-in
     if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES_DAMAGED)
+        && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEALTH_ROCK))
+    {
+        u8 type1 = gBattleMons[gActiveBattler].type1;
+        u8 type2 = gBattleMons[gActiveBattler].type2;
+        s32 j = 0;
+        u16 mult = 10; // 1.0x in fixed-point (10 = 1.0, 20 = 2.0, 5 = 0.5)
+
+        // Walk the type table to compute Rock effectiveness vs the switching Pokemon
+        while (TYPE_EFFECT_ATK_TYPE(j) != TYPE_ENDTABLE)
+        {
+            if (TYPE_EFFECT_ATK_TYPE(j) == TYPE_FORESIGHT || TYPE_EFFECT_ATK_TYPE(j) == TYPE_MIRACLE_EYE)
+            {
+                j += 3;
+                continue;
+            }
+            if (TYPE_EFFECT_ATK_TYPE(j) == TYPE_ROCK)
+            {
+                if (TYPE_EFFECT_DEF_TYPE(j) == type1)
+                    mult = mult * TYPE_EFFECT_MULTIPLIER(j) / 10;
+                if (type2 != type1 && TYPE_EFFECT_DEF_TYPE(j) == type2)
+                    mult = mult * TYPE_EFFECT_MULTIPLIER(j) / 10;
+            }
+            j += 3;
+        }
+
+        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_SPIKES_DAMAGED;
+        // Base 1/8 HP damage multiplied by type effectiveness
+        gBattleMoveDamage = (gBattleMons[gActiveBattler].maxHP * mult) / 80;
+        if (gBattleMoveDamage == 0)
+            gBattleMoveDamage = 1;
+
+        gBattleScripting.battler = gActiveBattler;
+        BattleScriptPushCursor();
+        if (gBattlescriptCurrInstr[1] == BS_TARGET)
+            gBattlescriptCurrInstr = BattleScript_StealthRockOnTarget;
+        else if (gBattlescriptCurrInstr[1] == BS_ATTACKER)
+            gBattlescriptCurrInstr = BattleScript_StealthRockOnAttacker;
+        else
+            gBattlescriptCurrInstr = BattleScript_StealthRockOnFaintedBattler;
+    }
+    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES_DAMAGED)
         && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES)
         && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
         && gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE)
@@ -7208,6 +7319,13 @@ static void Cmd_tryhealhalfhealth(void)
     if (gBattlescriptCurrInstr[5] == BS_ATTACKER)
         gBattlerTarget = gBattlerAttacker;
 
+    // Heal Block prevents the user from using healing moves
+    if (gStatuses3[gBattlerTarget] & STATUS3_HEAL_BLOCK)
+    {
+        gBattlescriptCurrInstr = failPtr;
+        return;
+    }
+
     gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 2;
     if (gBattleMoveDamage == 0)
         gBattleMoveDamage = 1;
@@ -8619,7 +8737,7 @@ static void Cmd_settypetorandomresistance(void)
 
         for (rands = 0; rands < 1000; rands++)
         {
-            while (((i = Random() % 128) > sizeof(gTypeEffectiveness) / 3));
+            while (((i = Random() % 128) > BATTLE_TYPE_EFFECTIVENESS_SIZE / 3));
 
             i *= 3;
 
@@ -8635,7 +8753,7 @@ static void Cmd_settypetorandomresistance(void)
             }
         }
 
-        for (j = 0, rands = 0; rands < sizeof(gTypeEffectiveness); j += 3, rands += 3)
+        for (j = 0, rands = 0; rands < BATTLE_TYPE_EFFECTIVENESS_SIZE; j += 3, rands += 3)
         {
             switch (TYPE_EFFECT_ATK_TYPE(j))
             {

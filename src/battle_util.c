@@ -526,6 +526,11 @@ enum
     ENDTURN_SANDSTORM,
     ENDTURN_SUN,
     ENDTURN_HAIL,
+    // Gen 4 field conditions
+    ENDTURN_TRICK_ROOM,
+    ENDTURN_GRAVITY,
+    ENDTURN_TAILWIND,
+    ENDTURN_LUCKY_CHANT,
     ENDTURN_FIELD_COUNT,
 };
 
@@ -778,7 +783,82 @@ u8 DoFieldEndTurnEffects(void)
         case ENDTURN_FIELD_COUNT:
             effect++;
             break;
-        }
+        // Gen 4 field conditions handled below (unreachable via fall-through, need explicit cases)
+        case ENDTURN_TRICK_ROOM:
+            if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+            {
+                if (--gTrickRoomTimer == 0)
+                {
+                    gFieldStatuses &= ~STATUS_FIELD_TRICK_ROOM;
+                    gActiveBattler = gBattlerAttacker = 0;
+                    BattleScriptExecute(BattleScript_TrickRoomEnds);
+                    effect++;
+                }
+            }
+            gBattleStruct->turnCountersTracker++;
+            break;
+        case ENDTURN_GRAVITY:
+            if (gFieldStatuses & STATUS_FIELD_GRAVITY)
+            {
+                if (--gGravityTimer == 0)
+                {
+                    gFieldStatuses &= ~STATUS_FIELD_GRAVITY;
+                    gActiveBattler = gBattlerAttacker = 0;
+                    BattleScriptExecute(BattleScript_GravityEnds);
+                    effect++;
+                }
+            }
+            gBattleStruct->turnCountersTracker++;
+            break;
+        case ENDTURN_TAILWIND:
+            while (gBattleStruct->turnSideTracker < 2)
+            {
+                side = gBattleStruct->turnSideTracker;
+                if (gSideStatuses[side] & SIDE_STATUS_TAILWIND)
+                {
+                    if (--gTailwindTimers(side) == 0)
+                    {
+                        gSideStatuses[side] &= ~SIDE_STATUS_TAILWIND;
+                        gActiveBattler = gBattlerAttacker = GetBattlerAtPosition(side == B_SIDE_PLAYER ? B_POSITION_PLAYER_LEFT : B_POSITION_OPPONENT_LEFT);
+                        BattleScriptExecute(BattleScript_TailwindEnds);
+                        effect++;
+                    }
+                }
+                gBattleStruct->turnSideTracker++;
+                if (effect != 0)
+                    break;
+            }
+            if (effect == 0)
+            {
+                gBattleStruct->turnCountersTracker++;
+                gBattleStruct->turnSideTracker = 0;
+            }
+            break;
+        case ENDTURN_LUCKY_CHANT:
+            while (gBattleStruct->turnSideTracker < 2)
+            {
+                side = gBattleStruct->turnSideTracker;
+                if (gSideStatuses[side] & SIDE_STATUS_LUCKY_CHANT)
+                {
+                    if (--gLuckyChantTimers(side) == 0)
+                    {
+                        gSideStatuses[side] &= ~SIDE_STATUS_LUCKY_CHANT;
+                        gActiveBattler = gBattlerAttacker = GetBattlerAtPosition(side == B_SIDE_PLAYER ? B_POSITION_PLAYER_LEFT : B_POSITION_OPPONENT_LEFT);
+                        BattleScriptExecute(BattleScript_LuckyChantEnds);
+                        effect++;
+                    }
+                }
+                gBattleStruct->turnSideTracker++;
+                if (effect != 0)
+                    break;
+            }
+            if (effect == 0)
+            {
+                gBattleStruct->turnCountersTracker++;
+                gBattleStruct->turnSideTracker = 0;
+            }
+            break;
+        } // end switch
     } while (effect == 0);
     return (gBattleMainFunc != BattleTurnPassed);
 }
@@ -805,6 +885,11 @@ enum
     ENDTURN_TAUNT,
     ENDTURN_YAWN,
     ENDTURN_ITEMS2,
+    // Gen 4 per-battler volatile effects
+    ENDTURN_AQUA_RING,
+    ENDTURN_MAGNET_RISE,
+    ENDTURN_EMBARGO,
+    ENDTURN_ROOST,
     ENDTURN_BATTLER_COUNT
 };
 
@@ -1214,7 +1299,52 @@ u8 DoBattlerEndTurnEffects(void)
                 gBattleStruct->turnEffectsTracker = 0;
                 gBattleStruct->turnEffectsBattlerId++;
                 break;
-            }
+
+            // Gen 4 per-battler volatile effects
+            case ENDTURN_AQUA_RING:
+                if ((gStatuses3[gActiveBattler] & STATUS3_AQUA_RING)
+                 && gBattleMons[gActiveBattler].hp != 0
+                 && gBattleMons[gActiveBattler].hp != gBattleMons[gActiveBattler].maxHP)
+                {
+                    gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
+                    if (gBattleMoveDamage == 0)
+                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage *= -1;
+                    BattleScriptExecute(BattleScript_AquaRingHeal);
+                    effect++;
+                }
+                gBattleStruct->turnEffectsTracker++;
+                break;
+            case ENDTURN_MAGNET_RISE:
+                if (gStatuses3[gActiveBattler] & STATUS3_MAGNET_RISE)
+                {
+                    if (--gMagnetRiseTimers(gActiveBattler) == 0)
+                    {
+                        gStatuses3[gActiveBattler] &= ~STATUS3_MAGNET_RISE;
+                        BattleScriptExecute(BattleScript_MagnetRiseEnds);
+                        effect++;
+                    }
+                }
+                gBattleStruct->turnEffectsTracker++;
+                break;
+            case ENDTURN_EMBARGO:
+                if (gStatuses3[gActiveBattler] & STATUS3_EMBARGO)
+                {
+                    if (--gEmbargoTimers(gActiveBattler) == 0)
+                    {
+                        gStatuses3[gActiveBattler] &= ~STATUS3_EMBARGO;
+                        BattleScriptExecute(BattleScript_EmbargoEnds);
+                        effect++;
+                    }
+                }
+                gBattleStruct->turnEffectsTracker++;
+                break;
+            case ENDTURN_ROOST:
+                // Roost's Flying-type removal only lasts until end of turn.
+                gStatuses3[gActiveBattler] &= ~STATUS3_ROOST;
+                gBattleStruct->turnEffectsTracker++;
+                break;
+            } // end switch
             if (effect != 0)
                 return effect;
         }
@@ -1949,6 +2079,16 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
             move = gCurrentMove;
 
         GET_MOVE_TYPE(move, moveType);
+
+        // Gastro Acid suppresses all in-battle ability effects for the affected battler.
+        // Switch-in effects (ABILITYEFFECT_ON_SWITCHIN) are exempt since the ability
+        // was already given when Gastro Acid takes effect.
+        if (caseID != ABILITYEFFECT_ON_SWITCHIN
+         && caseID != ABILITYEFFECT_INTIMIDATE1
+         && caseID != ABILITYEFFECT_INTIMIDATE2
+         && caseID != ABILITYEFFECT_TRACE
+         && (gStatuses3[battler] & STATUS3_GASTRO_ACID))
+            return effect;
 
         if (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags)
          && (gLastUsedAbility == ABILITY_INTIMIDATE || gLastUsedAbility == ABILITY_TRACE))
@@ -2851,6 +2991,10 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
     u8 battlerHoldEffect, atkHoldEffect, defHoldEffect;
     u8 battlerHoldEffectParam, atkHoldEffectParam, defHoldEffectParam;
     u16 atkItem, defItem;
+
+    // Embargo: suppress all held item effects for the battler
+    if (gStatuses3[battlerId] & STATUS3_EMBARGO)
+        return ITEM_NO_EFFECT;
 
     gLastUsedItem = gBattleMons[battlerId].item;
     if (gLastUsedItem == ITEM_ENIGMA_BERRY)
