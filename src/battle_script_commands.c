@@ -6666,6 +6666,423 @@ static void Cmd_various(void)
         if (!IsFanfareTaskInactive())
             return;
         break;
+
+    // --- Gen 4+ move-effect helpers ---
+
+    case VARIOUS_SET_AQUA_RING: // Set Aqua Ring on attacker
+        if (gStatuses3[gActiveBattler] & STATUS3_AQUA_RING)
+        {
+            gBattleCommunication[0] = 0; // already active
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_AQUA_RING;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_SET_MAGNET_RISE: // Set Magnet Rise on attacker
+        if ((gStatuses3[gActiveBattler] & STATUS3_MAGNET_RISE)
+            || (gStatuses3[gActiveBattler] & STATUS3_ROOTED))
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_MAGNET_RISE;
+            gMagnetRiseTimers(gActiveBattler) = 5;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_SET_EMBARGO: // Set Embargo on target
+    {
+        u8 target = gBattlerTarget;
+        if (gStatuses3[target] & STATUS3_EMBARGO)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[target] |= STATUS3_EMBARGO;
+            gEmbargoTimers(target) = 5;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_HEAL_BLOCK: // Set Heal Block on target
+        if (gStatuses3[gActiveBattler] & STATUS3_HEAL_BLOCK)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_HEAL_BLOCK;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_SET_GASTRO_ACID: // Suppress target's ability
+        if (gStatuses3[gActiveBattler] & STATUS3_GASTRO_ACID)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else if (gBattleMons[gActiveBattler].ability == ABILITY_MULTITYPE
+              || gBattleMons[gActiveBattler].ability == ABILITY_TRUANT
+              || gBattleMons[gActiveBattler].ability == ABILITY_NONE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_GASTRO_ACID;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_MIRACLE_EYE: // Set Miracle Eye on target
+        if (gStatuses3[gActiveBattler] & STATUS3_MIRACLE_EYE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_MIRACLE_EYE;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_SET_ROOST: // Mark attacker as roosting (loses Flying type until end of turn)
+        gStatuses3[gActiveBattler] |= STATUS3_ROOST;
+        break;
+
+    case VARIOUS_SET_LUCKY_CHANT: // Set Lucky Chant on user's side
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler);
+        if (gSideStatuses[side] & SIDE_STATUS_LUCKY_CHANT)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gSideStatuses[side] |= SIDE_STATUS_LUCKY_CHANT;
+            gLuckyChantTimers(side) = 5;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_TAILWIND: // Set Tailwind on user's side
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler);
+        if (gSideStatuses[side] & SIDE_STATUS_TAILWIND)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gSideStatuses[side] |= SIDE_STATUS_TAILWIND;
+            gTailwindTimers(side) = 3;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_STEALTH_ROCK: // Set Stealth Rock on the opponent's side
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler) ^ BIT_SIDE;
+        if (gSideStatuses[side] & SIDE_STATUS_STEALTH_ROCK)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gSideStatuses[side] |= SIDE_STATUS_STEALTH_ROCK;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_TOXIC_SPIKES: // Add a Toxic Spikes layer on the opponent's side
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler) ^ BIT_SIDE;
+        if (gToxicSpikesCount(side) >= 2)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gToxicSpikesCount(side)++;
+            gSideStatuses[side] |= SIDE_STATUS_TOXIC_SPIKES;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_TRICK_ROOM: // Toggle Trick Room
+        if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+        {
+            gFieldStatuses &= ~STATUS_FIELD_TRICK_ROOM;
+            gTrickRoomTimer = 0;
+            gBattleCommunication[0] = 2; // ended
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_TRICK_ROOM;
+            gTrickRoomTimer = 5;
+            gBattleCommunication[0] = 1; // set
+        }
+        break;
+
+    case VARIOUS_SET_GRAVITY: // Set Gravity
+        if (gFieldStatuses & STATUS_FIELD_GRAVITY)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_GRAVITY;
+            gGravityTimer = 5;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_POWER_TRICK: // Swap attacker's Attack and Defense
+    {
+        u16 temp = gBattleMons[gActiveBattler].attack;
+        gBattleMons[gActiveBattler].attack = gBattleMons[gActiveBattler].defense;
+        gBattleMons[gActiveBattler].defense = temp;
+        gStatuses3[gActiveBattler] ^= STATUS3_POWER_TRICK;
+        break;
+    }
+
+    case VARIOUS_POWER_SWAP: // Swap ATK and SPATK stages between user and target
+    {
+        s8 temp;
+        temp = gBattleMons[gBattlerAttacker].statStages[STAT_ATK];
+        gBattleMons[gBattlerAttacker].statStages[STAT_ATK] = gBattleMons[gBattlerTarget].statStages[STAT_ATK];
+        gBattleMons[gBattlerTarget].statStages[STAT_ATK] = temp;
+        temp = gBattleMons[gBattlerAttacker].statStages[STAT_SPATK];
+        gBattleMons[gBattlerAttacker].statStages[STAT_SPATK] = gBattleMons[gBattlerTarget].statStages[STAT_SPATK];
+        gBattleMons[gBattlerTarget].statStages[STAT_SPATK] = temp;
+        break;
+    }
+
+    case VARIOUS_GUARD_SWAP: // Swap DEF and SPDEF stages between user and target
+    {
+        s8 temp;
+        temp = gBattleMons[gBattlerAttacker].statStages[STAT_DEF];
+        gBattleMons[gBattlerAttacker].statStages[STAT_DEF] = gBattleMons[gBattlerTarget].statStages[STAT_DEF];
+        gBattleMons[gBattlerTarget].statStages[STAT_DEF] = temp;
+        temp = gBattleMons[gBattlerAttacker].statStages[STAT_SPDEF];
+        gBattleMons[gBattlerAttacker].statStages[STAT_SPDEF] = gBattleMons[gBattlerTarget].statStages[STAT_SPDEF];
+        gBattleMons[gBattlerTarget].statStages[STAT_SPDEF] = temp;
+        break;
+    }
+
+    case VARIOUS_HEART_SWAP: // Swap all stat stages between user and target
+    {
+        s8 temp;
+        int statId;
+        for (statId = STAT_ATK; statId <= STAT_EVASION; statId++)
+        {
+            temp = gBattleMons[gBattlerAttacker].statStages[statId];
+            gBattleMons[gBattlerAttacker].statStages[statId] = gBattleMons[gBattlerTarget].statStages[statId];
+            gBattleMons[gBattlerTarget].statStages[statId] = temp;
+        }
+        break;
+    }
+
+    case VARIOUS_OVERWRITE_ABILITY: // Change target's ability (Worry Seed / Simple Beam / Entrainment)
+    {
+        u8 newAbility;
+        if (gCurrentMove == MOVE_WORRY_SEED)
+            newAbility = ABILITY_INSOMNIA;
+        else if (gCurrentMove == MOVE_SIMPLE_BEAM)
+            newAbility = ABILITY_SIMPLE;
+        else // Entrainment: copy user's ability
+            newAbility = gBattleMons[gBattlerAttacker].ability;
+
+        if (gStatuses3[gActiveBattler] & STATUS3_GASTRO_ACID)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else if (gBattleMons[gActiveBattler].ability == ABILITY_MULTITYPE
+              || gBattleMons[gActiveBattler].ability == ABILITY_WONDER_GUARD
+              || gBattleMons[gActiveBattler].ability == ABILITY_FORECAST
+              || newAbility == ABILITY_NONE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gBattleMons[gActiveBattler].ability = newAbility;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_PSYCHO_SHIFT: // Transfer attacker's status condition to target
+    {
+        u32 statusToTransfer = gBattleMons[gBattlerAttacker].status1;
+
+        if (!statusToTransfer
+            || gBattleMons[gBattlerTarget].status1 != 0)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            // Copy status1 to target, then cure attacker
+            gBattleMons[gBattlerTarget].status1 = statusToTransfer & STATUS1_ANY;
+            gBattleMons[gBattlerAttacker].status1 = 0;
+            gBattleScripting.statChanger = 0; // used for status animation
+            gEffectBattler = gBattlerTarget;
+            BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gBattlerTarget].status1);
+            MarkBattlerForControllerExec(gBattlerTarget);
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_ACUPRESSURE: // Randomly raise one stat by 2 stages; store chosen stat in gBattleScripting.statChanger
+    {
+        u8 statId;
+        u8 validStats[NUM_BATTLE_STATS];
+        u8 validCount = 0;
+        for (statId = STAT_ATK; statId < NUM_BATTLE_STATS; statId++)
+        {
+            if (gBattleMons[gActiveBattler].statStages[statId] < MAX_STAT_STAGE)
+                validStats[validCount++] = statId;
+        }
+        if (validCount == 0)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            statId = validStats[Random() % validCount];
+            gBattleMons[gActiveBattler].statStages[statId] += 2;
+            if (gBattleMons[gActiveBattler].statStages[statId] > MAX_STAT_STAGE)
+                gBattleMons[gActiveBattler].statStages[statId] = MAX_STAT_STAGE;
+            gBattleScripting.statChanger = statId | (2 << 4); // +2 stages
+            gBattleCommunication[MULTISTRING_CHOOSER] = 0; // show "sharply rose" message
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_HEALING_WISH: // Set healing wish flag on the battler's slot
+        gBattleStruct->field_8C |= gBitTable[gActiveBattler]; // mark that healing wish is pending
+        break;
+
+    case VARIOUS_HIT_ESCAPE: // Allow attacker to pivot out after damaging
+        gBattleScripting.battler = gActiveBattler;
+        gBattleCommunication[0] = 1;
+        break;
+
+    case VARIOUS_DEFOG: // Clear opponent's entry hazards; also lower target's evasion
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler) ^ BIT_SIDE;
+        gSideStatuses[side] &= ~(SIDE_STATUS_STEALTH_ROCK | SIDE_STATUS_TOXIC_SPIKES | SIDE_STATUS_STICKY_WEB | SIDE_STATUS_SPIKES);
+        gToxicSpikesCount(side) = 0;
+        gSideTimers[side].spikesAmount = 0;
+        gBattleCommunication[0] = 1;
+        break;
+    }
+
+    case VARIOUS_CAPTIVATE_CHECK: // Fail if same gender as attacker or genderless
+    {
+        u32 atkPersonality = gBattleMons[gBattlerAttacker].personality;
+        u32 defPersonality = gBattleMons[gBattlerTarget].personality;
+        u16 atkSpecies = gBattleMons[gBattlerAttacker].species;
+        u16 defSpecies = gBattleMons[gBattlerTarget].species;
+        u8 atkGender = GetGenderFromSpeciesAndPersonality(atkSpecies, atkPersonality);
+        u8 defGender = GetGenderFromSpeciesAndPersonality(defSpecies, defPersonality);
+
+        if (atkGender == MON_GENDERLESS || defGender == MON_GENDERLESS || atkGender == defGender)
+            gBattleCommunication[0] = 0;
+        else
+            gBattleCommunication[0] = 1;
+        break;
+    }
+
+    case VARIOUS_SET_TELEKINESIS: // Levitate target, always-hit, immune to Ground
+        if (gStatuses3[gActiveBattler] & STATUS3_TELEKINESIS
+            || gStatuses3[gActiveBattler] & STATUS3_ROOTED)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_TELEKINESIS;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_REFLECT_TYPE: // Copy target's types to user
+        gBattleMons[gBattlerAttacker].type1 = gBattleMons[gBattlerTarget].type1;
+        gBattleMons[gBattlerAttacker].type2 = gBattleMons[gBattlerTarget].type2;
+        gBattleCommunication[0] = 1;
+        break;
+
+    case VARIOUS_SOAK: // Change target's types to Water-only
+        if (gBattleMons[gActiveBattler].ability == ABILITY_MULTITYPE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else if (gBattleMons[gActiveBattler].type1 == TYPE_WATER
+              && gBattleMons[gActiveBattler].type2 == TYPE_WATER)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gBattleMons[gActiveBattler].type1 = TYPE_WATER;
+            gBattleMons[gActiveBattler].type2 = TYPE_WATER;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_TOPSY_TURVY: // Invert target's stat stages
+    {
+        u8 statId;
+        bool8 anyChanged = FALSE;
+        for (statId = STAT_ATK; statId < NUM_BATTLE_STATS; statId++)
+        {
+            s8 stage = gBattleMons[gActiveBattler].statStages[statId];
+            if (stage != DEFAULT_STAT_STAGE)
+            {
+                gBattleMons[gActiveBattler].statStages[statId] = MAX_STAT_STAGE - stage;
+                anyChanged = TRUE;
+            }
+        }
+        gBattleCommunication[0] = anyChanged ? 1 : 0;
+        break;
+    }
+
+    case VARIOUS_POWER_SPLIT: // Average ATK and SPATK between user and target
+    {
+        u16 atkAvg  = (gBattleMons[gBattlerAttacker].attack   + gBattleMons[gBattlerTarget].attack)   / 2;
+        u16 spAtkAvg = (gBattleMons[gBattlerAttacker].spAttack + gBattleMons[gBattlerTarget].spAttack) / 2;
+        gBattleMons[gBattlerAttacker].attack   = atkAvg;
+        gBattleMons[gBattlerTarget].attack     = atkAvg;
+        gBattleMons[gBattlerAttacker].spAttack = spAtkAvg;
+        gBattleMons[gBattlerTarget].spAttack   = spAtkAvg;
+        break;
+    }
+
+    case VARIOUS_GUARD_SPLIT: // Average DEF and SPDEF between user and target
+    {
+        u16 defAvg   = (gBattleMons[gBattlerAttacker].defense  + gBattleMons[gBattlerTarget].defense)  / 2;
+        u16 spDefAvg = (gBattleMons[gBattlerAttacker].spDefense + gBattleMons[gBattlerTarget].spDefense) / 2;
+        gBattleMons[gBattlerAttacker].defense   = defAvg;
+        gBattleMons[gBattlerTarget].defense     = defAvg;
+        gBattleMons[gBattlerAttacker].spDefense = spDefAvg;
+        gBattleMons[gBattlerTarget].spDefense   = spDefAvg;
+        break;
+    }
     }
 
     gBattlescriptCurrInstr += 3;

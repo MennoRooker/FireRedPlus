@@ -151,6 +151,15 @@
 #define STATUS3_UNDERWATER              (1 << 18)
 #define STATUS3_INTIMIDATE_POKES        (1 << 19)
 #define STATUS3_TRACE                   (1 << 20)
+#define STATUS3_AQUA_RING               (1 << 21) // Heals 1/16 HP each turn
+#define STATUS3_MAGNET_RISE             (1 << 22) // Immune to Ground-type moves
+#define STATUS3_EMBARGO                 (1 << 23) // Cannot use held item
+#define STATUS3_HEAL_BLOCK              (1 << 24) // Cannot use healing moves
+#define STATUS3_GASTRO_ACID             (1 << 25) // Ability suppressed
+#define STATUS3_MIRACLE_EYE             (1 << 26) // Psychic hits Dark-types; evasion stages ignored
+#define STATUS3_ROOST                   (1 << 27) // User loses Flying-type until end of turn
+#define STATUS3_POWER_TRICK             (1 << 28) // Atk and Def stats swapped
+#define STATUS3_TELEKINESIS             (1 << 29) // Always hit; immune to Ground; can't switch
 #define STATUS3_SEMI_INVULNERABLE       (STATUS3_UNDERGROUND | STATUS3_ON_AIR | STATUS3_UNDERWATER)
 
 // Not really sure what a "hitmarker" is.
@@ -190,6 +199,15 @@
 #define SIDE_STATUS_FUTUREATTACK     (1 << 6)
 #define SIDE_STATUS_MIST             (1 << 8)
 #define SIDE_STATUS_SPIKES_DAMAGED   (1 << 9)
+#define SIDE_STATUS_STEALTH_ROCK     (1 << 10) // Entry hazard: fraction of HP lost on switch-in
+#define SIDE_STATUS_TOXIC_SPIKES     (1 << 11) // Entry hazard: poisons switch-ins (toxic at 2 layers)
+#define SIDE_STATUS_STICKY_WEB       (1 << 12) // Entry hazard: lowers Speed on switch-in
+#define SIDE_STATUS_TAILWIND         (1 << 13) // Doubles Speed for the user's side for 3 turns
+#define SIDE_STATUS_LUCKY_CHANT      (1 << 14) // Prevents critical hits on the user's side
+
+// Whole-field status conditions
+#define STATUS_FIELD_TRICK_ROOM      (1 << 0) // Slower Pokémon move first for 5 turns
+#define STATUS_FIELD_GRAVITY         (1 << 1) // All Pokémon grounded; Flying-types lose immunity
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)

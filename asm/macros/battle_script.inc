@@ -1302,7 +1302,143 @@
 	various \battler, VARIOUS_WAIT_FANFARE
 	.endm
 
-@ helpful macros
+@ Gen 4+ move-effect macros
+	.macro setaquaring battler:req, failptr:req
+	various \battler, VARIOUS_SET_AQUA_RING
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro setmagnetrise battler:req, failptr:req
+	various \battler, VARIOUS_SET_MAGNET_RISE
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro setembargo battler:req, failptr:req
+	various \battler, VARIOUS_SET_EMBARGO
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro sethealblock battler:req, failptr:req
+	various \battler, VARIOUS_SET_HEAL_BLOCK
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro setgastroacid battler:req, failptr:req
+	various \battler, VARIOUS_SET_GASTRO_ACID
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro setmiracleye battler:req, failptr:req
+	various \battler, VARIOUS_MIRACLE_EYE
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro setroost battler:req
+	various \battler, VARIOUS_SET_ROOST
+	.endm
+
+	.macro setluckychant battler:req, failptr:req
+	various \battler, VARIOUS_SET_LUCKY_CHANT
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro settailwind battler:req, failptr:req
+	various \battler, VARIOUS_SET_TAILWIND
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro setstealthrock battler:req, failptr:req
+	various \battler, VARIOUS_SET_STEALTH_ROCK
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro settoxicspikes battler:req, failptr:req
+	various \battler, VARIOUS_SET_TOXIC_SPIKES
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro settrickroom failptr:req
+	various BS_ATTACKER, VARIOUS_SET_TRICK_ROOM
+	.endm
+
+	.macro setgravity failptr:req
+	various BS_ATTACKER, VARIOUS_SET_GRAVITY
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro powertrick battler:req
+	various \battler, VARIOUS_POWER_TRICK
+	.endm
+
+	.macro swapstatstages_power
+	various BS_ATTACKER, VARIOUS_POWER_SWAP
+	.endm
+
+	.macro swapstatstages_guard
+	various BS_ATTACKER, VARIOUS_GUARD_SWAP
+	.endm
+
+	.macro swapstatstages_heart
+	various BS_ATTACKER, VARIOUS_HEART_SWAP
+	.endm
+
+	.macro tryoverwriteability battler:req, failptr:req
+	various \battler, VARIOUS_OVERWRITE_ABILITY
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro trypsychoshift failptr:req
+	various BS_ATTACKER, VARIOUS_PSYCHO_SHIFT
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro acupressure battler:req, failptr:req
+	various \battler, VARIOUS_ACUPRESSURE
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro storehealingwish battler:req
+	various \battler, VARIOUS_HEALING_WISH
+	.endm
+
+	.macro defog failptr:req
+	various BS_ATTACKER, VARIOUS_DEFOG
+	.endm
+
+	.macro captivatecheck failptr:req
+	various BS_ATTACKER, VARIOUS_CAPTIVATE_CHECK
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro settelekinesis battler:req, failptr:req
+	various \battler, VARIOUS_SET_TELEKINESIS
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro tryreflecttype failptr:req
+	various BS_ATTACKER, VARIOUS_REFLECT_TYPE
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro trysoak battler:req, failptr:req
+	various \battler, VARIOUS_SOAK
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro topsyturvy battler:req, failptr:req
+	various \battler, VARIOUS_TOPSY_TURVY
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, \failptr
+	.endm
+
+	.macro powersplit
+	various BS_ATTACKER, VARIOUS_POWER_SPLIT
+	.endm
+
+	.macro guardsplit
+	various BS_ATTACKER, VARIOUS_GUARD_SPLIT
+	.endm
+
+
 	.macro setstatchanger stat:req, stages:req, down:req
 	setbyte sSTATCHANGER \stat | \stages << 4 | \down << 7
 	.endm

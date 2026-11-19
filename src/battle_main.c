@@ -190,6 +190,7 @@ static EWRAM_DATA u8 sUnusedBattlersArray[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gTakenDmgByBattler[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gUnusedFirstBattleVar2 = 0;
 EWRAM_DATA u16 gSideStatuses[2] = {0};
+EWRAM_DATA u16 gFieldStatuses = 0;
 EWRAM_DATA struct SideTimer gSideTimers[2] = {0};
 EWRAM_DATA u32 gStatuses3[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT] = {0};
@@ -2321,6 +2322,9 @@ static void BattleStartClearSetData(void)
     gBattlerAttacker = 0;
     gBattlerTarget = 0;
     gBattleWeather = 0;
+    gFieldStatuses = 0;
+    for (i = 0; i < (int)sizeof(gBattleStruct->padding_1E4); i++)
+        gBattleStruct->padding_1E4[i] = 0;
 
     dataPtr = (u8 *)&gWishFutureKnock;
     for (i = 0; i < sizeof(struct WishFutureKnock); i++)

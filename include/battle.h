@@ -566,6 +566,15 @@ struct BattleStruct
 
 extern struct BattleStruct *gBattleStruct;
 
+// Accessors for the padding bytes repurposed as Gen 4 field-effect timers.
+#define gTrickRoomTimer            (gBattleStruct->padding_1E4[0])
+#define gGravityTimer              (gBattleStruct->padding_1E4[1])
+#define gTailwindTimers(side)      (gBattleStruct->padding_1E4[2 + (side)])
+#define gLuckyChantTimers(side)    (gBattleStruct->padding_1E4[4 + (side)])
+#define gMagnetRiseTimers(battler) (gBattleStruct->padding_1E4[6 + (battler)])
+#define gEmbargoTimers(battler)    (gBattleStruct->padding_1E4[10 + (battler)])
+#define gToxicSpikesCount(side)    (gBattleStruct->padding_1E4[14 + (side)])
+
 #define F_DYNAMIC_TYPE_1 (1 << 6)
 #define F_DYNAMIC_TYPE_2 (1 << 7)
 #define DYNAMIC_TYPE_MASK (F_DYNAMIC_TYPE_1 - 1)
@@ -800,6 +809,7 @@ extern u16 gLastMoves[MAX_BATTLERS_COUNT];
 extern u8 gBattlerByTurnOrder[MAX_BATTLERS_COUNT];
 extern u8 gBattleCommunication[BATTLE_COMMUNICATION_ENTRIES_COUNT];
 extern u16 gSideStatuses[2];
+extern u16 gFieldStatuses; // Field-wide status conditions (STATUS_FIELD_*)
 extern u32 gHitMarker;
 extern u16 gChosenMoveByBattler[MAX_BATTLERS_COUNT];
 extern u16 gMoveResultFlags;
