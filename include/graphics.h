@@ -5905,6 +5905,12 @@ extern const u32 gBattleAnimSpritePal_Bird[];
 extern const u32 gBattleAnimSpritePal_CrossImpact[];
 extern const u32 gBattleAnimSpritePal_Slash2[];
 extern const u32 gBattleAnimSpritePal_NightSlash[];
+extern const u32 gBattleAnimSpriteGfx_WaterGun[];
+extern const u32 gBattleAnimSpriteGfx_SeedBrown[];
+extern const u32 gBattleAnimSpriteGfx_Feint[];
+extern const u32 gBattleAnimSpritePal_WaterGun[];
+extern const u32 gBattleAnimSpritePal_SeedBrown[];
+extern const u32 gBattleAnimSpritePal_Feint[];
 extern const u32 gBattleAnimSpritePal_WhipHit[];
 extern const u32 gBattleAnimSpritePal_BlueRing2[];
 

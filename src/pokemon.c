@@ -3151,6 +3151,27 @@ static void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 mo
     (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_EREADER_TRAINER)) && FlagGet(flag) && GetBattlerSide(battler) == B_SIDE_PLAYER)
 
 
+static u8 GetNaturalGiftTypeAndPower(u16 item, u16 *power)
+{
+    u8 berryType = ItemIdToBerryType(item);
+    u8 typeIndex = (berryType - 1) % 15;
+    static const u8 types[15] =
+    {
+        TYPE_FIRE, TYPE_WATER, TYPE_ELECTRIC, TYPE_GRASS, TYPE_ICE,
+        TYPE_FIGHTING, TYPE_POISON, TYPE_GROUND, TYPE_FLYING, TYPE_PSYCHIC,
+        TYPE_BUG, TYPE_ROCK, TYPE_GHOST, TYPE_DRAGON, TYPE_DARK
+    };
+
+    if (berryType >= 16 && berryType <= 30)
+        *power = 90;
+    else if (berryType >= 31 && berryType <= 45)
+        *power = 100;
+    else
+        *power = 80;
+
+    return types[typeIndex];
+}
+
 s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u16 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
 {
     u32 i;
@@ -3173,6 +3194,38 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         type = gBattleMoves[move].type;
     else
         type = typeOverride & DYNAMIC_TYPE_MASK;
+
+    switch (gBattleMoves[move].effect)
+    {
+    case EFFECT_DOUBLE_POWER_ON_ARG_STATUS:
+        if (defender->status1 & STATUS1_SLEEP)
+            gBattleMovePower = 140;
+        break;
+    case EFFECT_BRINE:
+        if (defender->hp * 2 <= defender->maxHP)
+            gBattleMovePower = 130;
+        break;
+    case EFFECT_GYRO_BALL:
+        if (attacker->speed)
+        {
+            gBattleMovePower = (25 * defender->speed) / attacker->speed;
+            if (gBattleMovePower < 25)
+                gBattleMovePower = 25;
+            if (gBattleMovePower > 150)
+                gBattleMovePower = 150;
+        }
+        break;
+    case EFFECT_NATURAL_GIFT:
+        if (ItemId_GetPocket(attacker->item) == POCKET_BERRY_POUCH)
+        {
+            u16 naturalGiftPower = 80;
+            type = GetNaturalGiftTypeAndPower(attacker->item, &naturalGiftPower);
+            gBattleMovePower = naturalGiftPower;
+        }
+        break;
+    default:
+        break;
+    }
 
     attack = attacker->attack;
     defense = defender->defense;

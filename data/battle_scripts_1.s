@@ -338,6 +338,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectTwoTurnsAttack        @ EFFECT_TWO_TURNS_ATTACK
 	.4byte BattleScript_EffectTwoTypedMove          @ EFFECT_TWO_TYPED_MOVE
 	.4byte BattleScript_EffectWonderRoom            @ EFFECT_WONDER_ROOM
+	.4byte BattleScript_EffectHammerArm             @ EFFECT_HAMMER_ARM
 
 BattleScript_EffectAcrobatics::
 	goto BattleScript_EffectHit
@@ -546,6 +547,9 @@ BattleScript_EffectGuardSwap::
 	printstring STRINGID_PKMNSWITCHEDSTATCHANGES
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
+BattleScript_EffectHammerArm::
+	setmoveeffect MOVE_EFFECT_SPD_MINUS_1 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+	goto BattleScript_EffectHit
 BattleScript_EffectGyroBall::
 	goto BattleScript_EffectHit
 BattleScript_EffectHealingWish::
