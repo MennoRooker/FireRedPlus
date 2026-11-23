@@ -16,6 +16,7 @@
 #include "evolution_scene.h"
 #include "battle_message.h"
 #include "battle_util.h"
+#include "battle_script_commands.h"
 #include "link.h"
 #include "m4a.h"
 #include "pokedex.h"
@@ -3198,22 +3199,161 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     switch (gBattleMoves[move].effect)
     {
     case EFFECT_DOUBLE_POWER_ON_ARG_STATUS:
-        if (defender->status1 & STATUS1_SLEEP)
-            gBattleMovePower = 140;
+        // Venoshock: doubles if target is poisoned
+        // Hex: doubles if target has any status condition
+        if (move == MOVE_VENOSHOCK)
+        {
+            if (defender->status1 & STATUS1_PSN_ANY)
+                gBattleMovePower *= 2;
+        }
+        else // Hex
+        {
+            if (defender->status1)
+                gBattleMovePower *= 2;
+        }
         break;
     case EFFECT_BRINE:
         if (defender->hp * 2 <= defender->maxHP)
-            gBattleMovePower = 130;
+            gBattleMovePower *= 2;
         break;
     case EFFECT_GYRO_BALL:
         if (attacker->speed)
         {
             gBattleMovePower = (25 * defender->speed) / attacker->speed;
-            if (gBattleMovePower < 25)
-                gBattleMovePower = 25;
+            if (gBattleMovePower < 1)
+                gBattleMovePower = 1;
             if (gBattleMovePower > 150)
                 gBattleMovePower = 150;
         }
+        break;
+    case EFFECT_ELECTRO_BALL:
+    {
+        // Power = 40/60/80/120/150 based on how many times faster the user is than target
+        static const u8 sElectroBallPowerTable[] = { 40, 60, 80, 120, 150 };
+        u8 speedRatio;
+        if (!defender->speed)
+            speedRatio = 4; // max power if target speed is 0
+        else
+        {
+            speedRatio = attacker->speed / defender->speed;
+            if (speedRatio >= ARRAY_COUNT(sElectroBallPowerTable))
+                speedRatio = ARRAY_COUNT(sElectroBallPowerTable) - 1;
+        }
+        gBattleMovePower = sElectroBallPowerTable[speedRatio];
+        break;
+    }
+    case EFFECT_HEAT_CRASH:
+    {
+        // Power based on ratio of attacker weight to defender weight
+        static const u8 sHeatCrashPowerTable[] = { 40, 40, 60, 80, 100, 120 };
+        u32 attackerWeight = GetPokedexHeightWeight(SpeciesToNationalPokedexNum(gBattleMons[battlerIdAtk].species), 1);
+        u32 defenderWeight = GetPokedexHeightWeight(SpeciesToNationalPokedexNum(gBattleMons[battlerIdDef].species), 1);
+        u8 ratio;
+        if (!defenderWeight)
+            ratio = ARRAY_COUNT(sHeatCrashPowerTable) - 1;
+        else
+        {
+            ratio = attackerWeight / defenderWeight;
+            if (ratio >= ARRAY_COUNT(sHeatCrashPowerTable))
+                ratio = ARRAY_COUNT(sHeatCrashPowerTable) - 1;
+        }
+        gBattleMovePower = sHeatCrashPowerTable[ratio];
+        break;
+    }
+    case EFFECT_STORED_POWER:
+    {
+        // 20 + 20 × sum of user's positive stat stages
+        u8 stat;
+        s32 bonus = 0;
+        for (stat = STAT_ATK; stat < NUM_BATTLE_STATS; stat++)
+        {
+            if (attacker->statStages[stat] > DEFAULT_STAT_STAGE)
+                bonus += attacker->statStages[stat] - DEFAULT_STAT_STAGE;
+        }
+        gBattleMovePower = 20 + 20 * bonus;
+        if (gBattleMovePower > 860)
+            gBattleMovePower = 860;
+        break;
+    }
+    case EFFECT_PUNISHMENT:
+    {
+        // 60 + 20 × sum of target's positive stat stages, capped at 200
+        u8 stat;
+        s32 bonus = 0;
+        for (stat = STAT_ATK; stat < NUM_BATTLE_STATS; stat++)
+        {
+            if (defender->statStages[stat] > DEFAULT_STAT_STAGE)
+                bonus += defender->statStages[stat] - DEFAULT_STAT_STAGE;
+        }
+        gBattleMovePower = 60 + 20 * bonus;
+        if (gBattleMovePower > 200)
+            gBattleMovePower = 200;
+        break;
+    }
+    case EFFECT_POWER_BASED_ON_TARGET_HP:
+        // Wring Out / Crush Grip: power = 120 × target HP / target max HP
+        if (defender->maxHP)
+        {
+            gBattleMovePower = (120 * defender->hp) / defender->maxHP;
+            if (gBattleMovePower < 1)
+                gBattleMovePower = 1;
+        }
+        break;
+    case EFFECT_TRUMP_CARD:
+    {
+        // Power depends on remaining PP: 1=200, 2=80, 3=60, 4=50, 5+=40
+        static const u8 sTrumpCardPowerTable[] = { 200, 80, 60, 50, 40 };
+        u8 ppSlot, ppVal = 5;
+        for (ppSlot = 0; ppSlot < MAX_MON_MOVES; ppSlot++)
+        {
+            if (gBattleMons[battlerIdAtk].moves[ppSlot] == move)
+            {
+                ppVal = gBattleMons[battlerIdAtk].pp[ppSlot];
+                break;
+            }
+        }
+        if (ppVal == 0)
+            ppVal = 1;
+        if (ppVal > ARRAY_COUNT(sTrumpCardPowerTable))
+            ppVal = ARRAY_COUNT(sTrumpCardPowerTable);
+        gBattleMovePower = sTrumpCardPowerTable[ppVal - 1];
+        break;
+    }
+    case EFFECT_ECHOED_VOICE:
+        // Power increases by 40 each turn it's used: 40, 80, 120, 160, 200
+        gBattleMovePower = gBattleMoves[move].power + (gBattleStruct->echoedVoiceCounter * 40);
+        if (gBattleMovePower > 200)
+            gBattleMovePower = 200;
+        break;
+    case EFFECT_PAYBACK:
+        // Double power if the user moves after the target
+        if (GetBattlerTurnOrderNum(battlerIdAtk) > GetBattlerTurnOrderNum(battlerIdDef))
+            gBattleMovePower *= 2;
+        break;
+    case EFFECT_ASSURANCE:
+        // Double power if the target was already damaged this turn
+        if (gSpecialStatuses[battlerIdDef].physicalDmg != 0 || gSpecialStatuses[battlerIdDef].specialDmg != 0)
+            gBattleMovePower *= 2;
+        break;
+    case EFFECT_RETALIATE:
+        // Double power if an ally fainted last turn (same side)
+        if (gBattleStruct->retaliateFainted & gBitTable[GetBattlerSide(battlerIdAtk)])
+            gBattleMovePower *= 2;
+        break;
+    case EFFECT_FUSION_COMBO:
+        // Double power if the partner's fusion move was used this turn (last action)
+        if ((move == MOVE_FUSION_FLARE && gLastResultingMoves[battlerIdAtk ^ BIT_SIDE] == MOVE_FUSION_BOLT)
+         || (move == MOVE_FUSION_BOLT  && gLastResultingMoves[battlerIdAtk ^ BIT_SIDE] == MOVE_FUSION_FLARE))
+            gBattleMovePower *= 2;
+        break;
+    case EFFECT_ACROBATICS:
+        // Double power if the user holds no item
+        if (attacker->item == ITEM_NONE)
+            gBattleMovePower *= 2;
+        break;
+    case EFFECT_FINAL_GAMBIT:
+        // Damage equals user's current HP; set gBattleMovePower to yield that after formula
+        // Handled separately in Cmd_damagecalc; mark here so type calc can skip it
         break;
     case EFFECT_NATURAL_GIFT:
         if (ItemId_GetPocket(attacker->item) == POCKET_BERRY_POUCH)
@@ -3231,6 +3371,14 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     defense = defender->defense;
     spAttack = attacker->spAttack;
     spDefense = defender->spDefense;
+
+    // Psyshock / Psystrike / Secret Sword: SpAtk-based but hits physical Defense
+    if (gBattleMoves[move].effect == EFFECT_PSYSHOCK)
+        spDefense = defender->defense;
+
+    // Foul Play: uses the target's Attack stat for damage calculation
+    if (gBattleMoves[move].effect == EFFECT_FOUL_PLAY)
+        attack = defender->attack;
 
     // Gen 4+ weather stat boosts
     if ((gBattleWeather & B_WEATHER_SANDSTORM)

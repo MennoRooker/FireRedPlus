@@ -272,5 +272,7 @@ extern const u8 BattleScript_WonderRoomEnds[];
 extern const u8 BattleScript_MagicRoomEnds[];
 extern const u8 BattleScript_TerrainEnds[];
 extern const u8 BattleScript_FairyLockEnds[];
+extern const u8 BattleScript_KingsShieldContact[];
+extern const u8 BattleScript_SpikyShieldContact[];
 
 #endif // GUARD_BATTLE_SCRIPTS_H

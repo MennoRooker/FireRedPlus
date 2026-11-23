@@ -131,6 +131,7 @@
 #define VARIOUS_SET_ELECTRIFY                   50
 #define VARIOUS_SET_FAIRY_LOCK                  51
 #define VARIOUS_BESTOW                          52
+#define VARIOUS_SET_ION_DELUGE                  53
 
 // Cmd_manipulatedmg
 #define DMG_CHANGE_SIGN            0

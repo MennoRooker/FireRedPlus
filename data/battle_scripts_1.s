@@ -345,6 +345,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectSpecialAttackUpHit    @ EFFECT_SPECIAL_ATTACK_UP_HIT
 	.4byte BattleScript_EffectVCreate               @ EFFECT_V_CREATE
 	.4byte BattleScript_EffectSleepHit              @ EFFECT_SLEEP_HIT
+	.4byte BattleScript_EffectDefenseUp2Hit         @ EFFECT_DEFENSE_UP_2_HIT
 
 BattleScript_EffectSpeedUpHit::
 	setmoveeffect MOVE_EFFECT_SPD_PLUS_1 | MOVE_EFFECT_AFFECTS_USER
@@ -360,6 +361,9 @@ BattleScript_EffectVCreate::
 	goto BattleScript_EffectHit
 BattleScript_EffectSleepHit::
 	setmoveeffect MOVE_EFFECT_SLEEP
+	goto BattleScript_EffectHit
+BattleScript_EffectDefenseUp2Hit::
+	setmoveeffect MOVE_EFFECT_DEF_PLUS_2 | MOVE_EFFECT_AFFECTS_USER
 	goto BattleScript_EffectHit
 BattleScript_EffectAcrobatics::
 	goto BattleScript_EffectHit
@@ -4106,9 +4110,11 @@ BattleScript_EffectIonDeluge::
 	attackcanceler
 	attackstring
 	ppreduce
+	various BS_ATTACKER, VARIOUS_SET_ION_DELUGE
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, BattleScript_ButItFailed
 	attackanimation
 	waitanimation
-	printstring STRINGID_BUTNOTHINGHAPPENED
+	printstring STRINGID_ELECTRIFIED
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
@@ -6074,4 +6080,33 @@ BattleScript_TerrainEnds::
 
 BattleScript_FairyLockEnds::
 	end2
+
+@ King's Shield: lowers attacker's Attack by 2 on contact
+BattleScript_KingsShieldContact::
+	setstatchanger STAT_ATK, 2, TRUE
+	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_CERTAIN, BattleScript_KingsShieldContactEnd
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_KingsShieldContactEnd
+	setgraphicalstatchangevalues
+	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_KingsShieldContactEnd::
+	return
+
+@ Spiky Shield: deals 1/8 HP passive damage to attacker on contact
+BattleScript_SpikyShieldContact::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_PKMNHURTBYSPIKES
+	waitmessage B_WAIT_TIME_LONG
+	tryfaintmon BS_ATTACKER
+	tryfaintmon_spikes BS_ATTACKER, BattleScript_SpikyShieldAttackerFainted
+	return
+
+BattleScript_SpikyShieldAttackerFainted::
+	setbyte sGIVEEXP_STATE, 0
+	getexp BS_ATTACKER
+	moveendall
+	goto BattleScript_HandleFaintedMon
 

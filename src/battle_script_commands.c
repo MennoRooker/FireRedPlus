@@ -879,6 +879,15 @@ static void Cmd_attackcanceler(void)
 
     gHitMarker &= ~HITMARKER_ALLOW_NO_PP;
 
+    // Belch: can only be used if the user has eaten a Berry during this battle
+    if (gCurrentMove == MOVE_BELCH
+     && ItemId_GetPocket(gBattleStruct->usedHeldItems[gBattlerAttacker]) != POCKET_BERRY_POUCH)
+    {
+        gMoveResultFlags |= MOVE_RESULT_MISSED;
+        gBattlescriptCurrInstr = BattleScript_PrintMoveMissed;
+        return;
+    }
+
     if (!(gHitMarker & HITMARKER_OBEYS) && !(gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS))
     {
         i = IsMonDisobedient(); // why use the 'i' variable...?
@@ -936,6 +945,28 @@ static void Cmd_attackcanceler(void)
         gLastLandedMoves[gBattlerTarget] = 0;
         gLastHitByType[gBattlerTarget] = 0;
         gBattleCommunication[MISS_TYPE] = B_MSG_PROTECTED;
+
+        // King's Shield: lower attacker's Attack by 2 on contact
+        if (gProtectStructs[gBattlerTarget].kingsShield
+         && (gBattleMoves[gCurrentMove].flags & FLAG_MAKES_CONTACT))
+        {
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_KingsShieldContact;
+            return;
+        }
+        // Spiky Shield: deal 1/8 HP damage to attacker on contact
+        if (gProtectStructs[gBattlerTarget].spikyShield
+         && (gBattleMoves[gCurrentMove].flags & FLAG_MAKES_CONTACT)
+         && gBattleMons[gBattlerAttacker].hp != 0)
+        {
+            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
+            if (gBattleMoveDamage == 0)
+                gBattleMoveDamage = 1;
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_SpikyShieldContact;
+            return;
+        }
+
         gBattlescriptCurrInstr++;
     }
     else
@@ -1025,6 +1056,7 @@ static bool8 AccuracyCalcHelper(u16 move)
     gHitMarker &= ~HITMARKER_IGNORE_UNDERWATER;
 
     if ((WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_RAIN) && gBattleMoves[move].effect == EFFECT_THUNDER)
+     || (WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_RAIN) && move == MOVE_HURRICANE)
      || (WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_HAIL) && move == MOVE_BLIZZARD)
      || (gBattleMoves[move].effect == EFFECT_ALWAYS_HIT || gBattleMoves[move].effect == EFFECT_VITAL_THROW)
      || gBattleMons[gBattlerAttacker].ability == ABILITY_NO_GUARD
@@ -1096,8 +1128,10 @@ static void Cmd_accuracycheck(void)
             buff = MAX_STAT_STAGE;
 
         moveAcc = gBattleMoves[move].accuracy;
-        // check Thunder on sunny weather
+        // Thunder in sun: 50% accuracy; Hurricane in sun: 50% accuracy
         if (WEATHER_HAS_EFFECT && gBattleWeather & B_WEATHER_SUN && gBattleMoves[move].effect == EFFECT_THUNDER)
+            moveAcc = 50;
+        if (WEATHER_HAS_EFFECT && gBattleWeather & B_WEATHER_SUN && move == MOVE_HURRICANE)
             moveAcc = 50;
 
         calc = sAccuracyStageRatios[buff].dividend * moveAcc;
@@ -1290,6 +1324,22 @@ static void Cmd_damagecalc(void)
     if (gProtectStructs[gBattlerAttacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
 
+    // Final Gambit: damage equals user's current HP; user faints
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_FINAL_GAMBIT)
+        gBattleMoveDamage = gBattleMons[gBattlerAttacker].hp;
+
+    // Echoed Voice: increment counter after each use (power increases next turn)
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_ECHOED_VOICE)
+    {
+        if (gBattleStruct->echoedVoiceCounter < 4)
+            gBattleStruct->echoedVoiceCounter++;
+    }
+    else
+    {
+        // Different move used: reset the counter
+        gBattleStruct->echoedVoiceCounter = 0;
+    }
+
     gBattlescriptCurrInstr++;
 }
 
@@ -1381,10 +1431,29 @@ static void Cmd_typecalc(void)
         return;
     }
 
+    // Synchronoise: fails if the target doesn't share a type with the attacker
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_SYNCHRONOISE)
+    {
+        if (!IS_BATTLER_OF_TYPE(gBattlerTarget, gBattleMons[gBattlerAttacker].type1)
+         && !IS_BATTLER_OF_TYPE(gBattlerTarget, gBattleMons[gBattlerAttacker].type2))
+        {
+            gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
+            gLastLandedMoves[gBattlerTarget] = 0;
+            gLastHitByType[gBattlerTarget] = 0;
+            gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_DMG;
+            gBattlescriptCurrInstr++;
+            return;
+        }
+    }
+
     // Reset type effectiveness multiplier to 1.0 (10 in fixed point)
     gTypeEffectivenessMultiplier = 10;
 
     GET_MOVE_TYPE(gCurrentMove, moveType);
+
+    // Ion Deluge: convert Normal-type moves to Electric for the rest of the turn
+    if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE) && moveType == TYPE_NORMAL)
+        moveType = TYPE_ELECTRIC;
 
     // Roost: the ROOSTED user (target) temporarily has no Flying type this turn.
     // Compute their effective defending types accordingly.
@@ -1497,6 +1566,52 @@ static void Cmd_typecalc(void)
     {
         ModulateDmgByType(TYPE_MUL_SUPER_EFFECTIVE);
         ModulateDmgByType(TYPE_MUL_SUPER_EFFECTIVE);
+    }
+
+    // Flying Press: applies BOTH Fighting AND Flying type effectiveness
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_TWO_TYPED_MOVE && gCurrentMove == MOVE_FLYING_PRESS
+     && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
+    {
+        s32 j = 0;
+        while (TYPE_EFFECT_ATK_TYPE(j) != TYPE_ENDTABLE)
+        {
+            if (TYPE_EFFECT_ATK_TYPE(j) == TYPE_FORESIGHT || TYPE_EFFECT_ATK_TYPE(j) == TYPE_MIRACLE_EYE)
+            {
+                j += 3;
+                continue;
+            }
+            if (TYPE_EFFECT_ATK_TYPE(j) == TYPE_FLYING)
+            {
+                if (TYPE_EFFECT_DEF_TYPE(j) == defType1)
+                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(j));
+                if (TYPE_EFFECT_DEF_TYPE(j) == defType2 && defType1 != defType2)
+                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(j));
+            }
+            j += 3;
+        }
+    }
+
+    // Freeze-Dry: super effective against Water-type regardless of Ice's normal table entry
+    if (gCurrentMove == MOVE_FREEZE_DRY && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
+    {
+        if (defType1 == TYPE_WATER || defType2 == TYPE_WATER)
+        {
+            // Neutralise any existing multiplier for Water that the Ice table already set,
+            // then force super-effective.  Walk the table to find the actual Ice-vs-Water entry.
+            s32 j = 0;
+            while (TYPE_EFFECT_ATK_TYPE(j) != TYPE_ENDTABLE)
+            {
+                if (TYPE_EFFECT_ATK_TYPE(j) == TYPE_ICE && TYPE_EFFECT_DEF_TYPE(j) == TYPE_WATER)
+                {
+                    // Ice is normally ×0.5 vs Water; undo that then apply ×2
+                    gBattleMoveDamage = gBattleMoveDamage * 10 / TYPE_EFFECT_MULTIPLIER(j);
+                    gTypeEffectivenessMultiplier = gTypeEffectivenessMultiplier * 10 / TYPE_EFFECT_MULTIPLIER(j);
+                    break;
+                }
+                j += 3;
+            }
+            ModulateDmgByType(TYPE_MUL_SUPER_EFFECTIVE);
+        }
     }
 
     if (gBattleMons[gBattlerTarget].ability == ABILITY_WONDER_GUARD && AttacksThisTurn(gBattlerAttacker, gCurrentMove) == 2
@@ -3301,6 +3416,8 @@ static void Cmd_tryfaintmon(void)
         {
             TryBattleFormChange(gActiveBattler, FORM_CHANGE_FAINT, gBattleMons[gActiveBattler].ability, 0, 0);
             gHitMarker |= HITMARKER_FAINTED(gActiveBattler);
+            // Track for Retaliate: record which side had a faint this turn
+            gBattleStruct->retaliateFainted |= gBitTable[GetBattlerSide(gActiveBattler)];
             BattleScriptPush(gBattlescriptCurrInstr + 7);
             gBattlescriptCurrInstr = BS_ptr;
             if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
@@ -7145,6 +7262,7 @@ static void Cmd_various(void)
         else
         {
             gStatuses3[gActiveBattler] |= STATUS3_TELEKINESIS;
+            gTelekinesisTimers(gActiveBattler) = 3;
             gBattleCommunication[0] = 1;
         }
         break;
@@ -7406,6 +7524,18 @@ static void Cmd_various(void)
         }
         break;
     }
+
+    case VARIOUS_SET_ION_DELUGE: // Convert Normal-type moves to Electric for the rest of the turn
+        if (gFieldStatuses & STATUS_FIELD_ION_DELUGE)
+        {
+            gBattleCommunication[0] = 0; // already active
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_ION_DELUGE;
+            gBattleCommunication[0] = 1;
+        }
+        break;
     }
 
     gBattlescriptCurrInstr += 3;
@@ -7429,6 +7559,11 @@ static void Cmd_setprotectlike(void)
         {
             gProtectStructs[gBattlerAttacker].protected = 1;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PROTECTED_ITSELF;
+            // Set King's Shield / Spiky Shield flags
+            if (gCurrentMove == MOVE_KINGS_SHIELD)
+                gProtectStructs[gBattlerAttacker].kingsShield = 1;
+            else if (gCurrentMove == MOVE_SPIKY_SHIELD)
+                gProtectStructs[gBattlerAttacker].spikyShield = 1;
         }
         if (gBattleMoves[gCurrentMove].effect == EFFECT_ENDURE)
         {
@@ -7849,7 +7984,14 @@ static void Cmd_stockpiletohpheal(void)
 
 static void Cmd_negativedamage(void)
 {
-    gBattleMoveDamage = -(gHpDealt / 2);
+    // Draining Kiss, Oblivion Wing, Parabolic Charge: drain 75% of damage dealt
+    if (gCurrentMove == MOVE_DRAINING_KISS
+     || gCurrentMove == MOVE_OBLIVION_WING
+     || gCurrentMove == MOVE_PARABOLIC_CHARGE)
+        gBattleMoveDamage = -(gHpDealt * 3 / 4);
+    else
+        gBattleMoveDamage = -(gHpDealt / 2);
+
     if (gBattleMoveDamage == 0)
         gBattleMoveDamage = -1;
 

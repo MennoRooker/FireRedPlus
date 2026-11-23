@@ -214,6 +214,7 @@
 #define STATUS_FIELD_MISTY_TERRAIN      (1 << 5) // Prevents status conditions on grounded Pokémon for 5 turns
 #define STATUS_FIELD_ELECTRIC_TERRAIN   (1 << 6) // Prevents sleep on grounded Pokémon; boosts Electric moves for 5 turns
 #define STATUS_FIELD_FAIRY_LOCK         (1 << 7) // Prevents all Pokémon from fleeing or switching for 1 turn
+#define STATUS_FIELD_ION_DELUGE         (1 << 8) // Normal-type moves become Electric-type until end of turn
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)

@@ -290,8 +290,8 @@ struct ProtectStruct
     u32 flag2Unknown:1;         // 0x2
     u32 flinchImmobility:1;     // 0x4
     u32 notFirstStrike:1;       // 0x8
-    u32 flag_x10 : 1;           // 0x10
-    u32 flag_x20 : 1;           // 0x20
+    u32 kingsShield:1;          // 0x10 - set when King's Shield is active
+    u32 spikyShield:1;          // 0x20 - set when Spiky Shield is active
     u32 flag_x40 : 1;           // 0x40
     u32 flag_x80 : 1;           // 0x80
     u32 field3 : 8;
@@ -516,8 +516,8 @@ struct BattleStruct
     u8 formToChangeInto;
     u8 chosenMovePositions[MAX_BATTLERS_COUNT];
     u8 stateIdAfterSelScript[MAX_BATTLERS_COUNT];
-    u8 field_88; // unused
-    u8 field_89; // unused
+    u8 echoedVoiceCounter;  // number of consecutive turns Echoed Voice has been used
+    u8 retaliateFainted;    // bitmask of battlers that fainted last turn (for Retaliate)
     u8 field_8A; // unused
     u8 playerPartyIdx;
     u8 field_8C; // unused
@@ -578,6 +578,7 @@ extern struct BattleStruct *gBattleStruct;
 #define gMagicRoomTimer            (gBattleStruct->padding_1E4[17])
 #define gTerrainTimer              (gBattleStruct->padding_1E4[18])
 #define gFairyLockTimer            (gBattleStruct->padding_1E4[19])
+#define gTelekinesisTimers(battler)(gBattleStruct->padding_1E4[20 + (battler)])
 
 #define F_DYNAMIC_TYPE_1 (1 << 6)
 #define F_DYNAMIC_TYPE_2 (1 << 7)

@@ -536,6 +536,7 @@ enum
     ENDTURN_MAGIC_ROOM,
     ENDTURN_TERRAIN,
     ENDTURN_FAIRY_LOCK,
+    ENDTURN_ION_DELUGE,
     ENDTURN_FIELD_COUNT,
 };
 
@@ -915,6 +916,11 @@ u8 DoFieldEndTurnEffects(void)
             }
             gBattleStruct->turnCountersTracker++;
             break;
+        case ENDTURN_ION_DELUGE:
+            // Ion Deluge lasts only for the rest of the current turn; clear it at turn end
+            gFieldStatuses &= ~STATUS_FIELD_ION_DELUGE;
+            gBattleStruct->turnCountersTracker++;
+            break;
         } // end switch
     } while (effect == 0);
     return (gBattleMainFunc != BattleTurnPassed);
@@ -947,6 +953,8 @@ enum
     ENDTURN_MAGNET_RISE,
     ENDTURN_EMBARGO,
     ENDTURN_ROOST,
+    // Gen 5 per-battler volatile effects
+    ENDTURN_TELEKINESIS,
     ENDTURN_BATTLER_COUNT
 };
 
@@ -1399,6 +1407,14 @@ u8 DoBattlerEndTurnEffects(void)
             case ENDTURN_ROOST:
                 // Roost's Flying-type removal only lasts until end of turn.
                 gStatuses3[gActiveBattler] &= ~STATUS3_ROOST;
+                gBattleStruct->turnEffectsTracker++;
+                break;
+            case ENDTURN_TELEKINESIS:
+                if (gStatuses3[gActiveBattler] & STATUS3_TELEKINESIS)
+                {
+                    if (--gTelekinesisTimers(gActiveBattler) == 0)
+                        gStatuses3[gActiveBattler] &= ~STATUS3_TELEKINESIS;
+                }
                 gBattleStruct->turnEffectsTracker++;
                 break;
             } // end switch

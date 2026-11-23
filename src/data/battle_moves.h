@@ -7334,7 +7334,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_PARABOLIC_CHARGE] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_ABSORB,
         .power = 65,
         .type = TYPE_ELECTRIC,
         .accuracy = 100,
@@ -7425,7 +7425,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DRAINING_KISS] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_ABSORB,
         .power = 50,
         .type = TYPE_FAIRY,
         .accuracy = 100,
@@ -7607,7 +7607,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DIAMOND_STORM] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_DEFENSE_UP_2_HIT,
         .power = 100,
         .type = TYPE_ROCK,
         .accuracy = 95,
@@ -7893,7 +7893,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_OBLIVION_WING] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_ABSORB,
         .power = 80,
         .type = TYPE_FLYING,
         .accuracy = 100,

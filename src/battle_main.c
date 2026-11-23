@@ -3898,6 +3898,8 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
     }
     TryClearRageStatuses();
     gCurrentTurnActionNumber = 0;
+    // Clear per-turn Gen 5 tracking at the start of each new turn
+    gBattleStruct->retaliateFainted = 0;
     {
         // something stupid needed to match
         u8 zero;
