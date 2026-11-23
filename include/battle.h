@@ -561,8 +561,8 @@ struct BattleStruct
         struct LinkBattlerHeader linkBattlerHeader;
         struct MultiBattlePokemonTx multiBattleMons[3];
     } multiBuffer;
-    u8 padding_1E4[0x10];
-}; // size == 0x200 bytes
+    u8 padding_1E4[0x20]; // expanded from 0x10 to hold gen5/6 field-effect timers
+}; // size == 0x208 bytes
 
 extern struct BattleStruct *gBattleStruct;
 
@@ -574,6 +574,10 @@ extern struct BattleStruct *gBattleStruct;
 #define gMagnetRiseTimers(battler) (gBattleStruct->padding_1E4[6 + (battler)])
 #define gEmbargoTimers(battler)    (gBattleStruct->padding_1E4[10 + (battler)])
 #define gToxicSpikesCount(side)    (gBattleStruct->padding_1E4[14 + (side)])
+#define gWonderRoomTimer           (gBattleStruct->padding_1E4[16])
+#define gMagicRoomTimer            (gBattleStruct->padding_1E4[17])
+#define gTerrainTimer              (gBattleStruct->padding_1E4[18])
+#define gFairyLockTimer            (gBattleStruct->padding_1E4[19])
 
 #define F_DYNAMIC_TYPE_1 (1 << 6)
 #define F_DYNAMIC_TYPE_2 (1 << 7)

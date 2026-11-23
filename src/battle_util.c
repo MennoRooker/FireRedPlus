@@ -531,6 +531,11 @@ enum
     ENDTURN_GRAVITY,
     ENDTURN_TAILWIND,
     ENDTURN_LUCKY_CHANT,
+    // Gen 5/6 field conditions
+    ENDTURN_WONDER_ROOM,
+    ENDTURN_MAGIC_ROOM,
+    ENDTURN_TERRAIN,
+    ENDTURN_FAIRY_LOCK,
     ENDTURN_FIELD_COUNT,
 };
 
@@ -857,6 +862,58 @@ u8 DoFieldEndTurnEffects(void)
                 gBattleStruct->turnCountersTracker++;
                 gBattleStruct->turnSideTracker = 0;
             }
+            break;
+        case ENDTURN_WONDER_ROOM:
+            if (gFieldStatuses & STATUS_FIELD_WONDER_ROOM)
+            {
+                if (--gWonderRoomTimer == 0)
+                {
+                    gFieldStatuses &= ~STATUS_FIELD_WONDER_ROOM;
+                    gActiveBattler = gBattlerAttacker = 0;
+                    BattleScriptExecute(BattleScript_WonderRoomEnds);
+                    effect++;
+                }
+            }
+            gBattleStruct->turnCountersTracker++;
+            break;
+        case ENDTURN_MAGIC_ROOM:
+            if (gFieldStatuses & STATUS_FIELD_MAGIC_ROOM)
+            {
+                if (--gMagicRoomTimer == 0)
+                {
+                    gFieldStatuses &= ~STATUS_FIELD_MAGIC_ROOM;
+                    gActiveBattler = gBattlerAttacker = 0;
+                    BattleScriptExecute(BattleScript_MagicRoomEnds);
+                    effect++;
+                }
+            }
+            gBattleStruct->turnCountersTracker++;
+            break;
+        case ENDTURN_TERRAIN:
+            if (gFieldStatuses & (STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN))
+            {
+                if (--gTerrainTimer == 0)
+                {
+                    gFieldStatuses &= ~(STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN);
+                    gActiveBattler = gBattlerAttacker = 0;
+                    BattleScriptExecute(BattleScript_TerrainEnds);
+                    effect++;
+                }
+            }
+            gBattleStruct->turnCountersTracker++;
+            break;
+        case ENDTURN_FAIRY_LOCK:
+            if (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)
+            {
+                if (--gFairyLockTimer == 0)
+                {
+                    gFieldStatuses &= ~STATUS_FIELD_FAIRY_LOCK;
+                    gActiveBattler = gBattlerAttacker = 0;
+                    BattleScriptExecute(BattleScript_FairyLockEnds);
+                    effect++;
+                }
+            }
+            gBattleStruct->turnCountersTracker++;
             break;
         } // end switch
     } while (effect == 0);

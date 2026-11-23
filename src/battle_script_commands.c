@@ -1248,6 +1248,9 @@ static void Cmd_critcalc(void)
                 + 2 * (holdEffect == HOLD_EFFECT_LUCKY_PUNCH && gBattleMons[gBattlerAttacker].species == SPECIES_CHANSEY)
                 + 2 * (holdEffect == HOLD_EFFECT_STICK && gBattleMons[gBattlerAttacker].species == SPECIES_FARFETCHD);
 
+    if (gBattleMoves[gCurrentMove].flags & FLAG_ALWAYS_CRIT)
+        critChance = ARRAY_COUNT(sCriticalHitChance) - 1;
+
     if (critChance >= ARRAY_COUNT(sCriticalHitChance))
         critChance = ARRAY_COUNT(sCriticalHitChance) - 1;
 
@@ -3122,6 +3125,10 @@ void SetMoveEffect(bool8 primary, u8 certain)
             case MOVE_EFFECT_ATK_DEF_DOWN: // SuperPower
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_AtkDefDown;
+                break;
+            case MOVE_EFFECT_DEF_SPDEF_SPD_DOWN: // V-create
+                BattleScriptPush(gBattlescriptCurrInstr + 1);
+                gBattlescriptCurrInstr = BattleScript_DefSpDefSpdDown;
                 break;
             case MOVE_EFFECT_RECOIL_33: // Double Edge
                 gBattleMoveDamage = gHpDealt / 3;
@@ -5526,6 +5533,16 @@ static void Cmd_switchineffects(void)
         else
             gBattlescriptCurrInstr = BattleScript_SpikesOnFaintedBattler;
     }
+    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES_DAMAGED)
+        && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STICKY_WEB)
+        && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
+        && gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE)
+    {
+        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_SPIKES_DAMAGED;
+        gBattleScripting.battler = gActiveBattler;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_StickyWebOnSwitchIn;
+    }
     else
     {
         // There is a hack here in pokeemerald to ensure the truant counter will be 0 when the battler's next turn starts.
@@ -7192,6 +7209,201 @@ static void Cmd_various(void)
         gBattleMons[gBattlerTarget].defense     = defAvg;
         gBattleMons[gBattlerAttacker].spDefense = spDefAvg;
         gBattleMons[gBattlerTarget].spDefense   = spDefAvg;
+        break;
+    }
+
+    case VARIOUS_SET_STICKY_WEB: // Set Sticky Web on the opponent's side
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler) ^ BIT_SIDE;
+        if (gSideStatuses[side] & SIDE_STATUS_STICKY_WEB)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gSideStatuses[side] |= SIDE_STATUS_STICKY_WEB;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_THIRD_TYPE: // Add Ghost or Grass type to target (Trick-or-Treat / Forest's Curse)
+    {
+        u8 addType = gBattleMoves[gCurrentMove].type; // Ghost for ToT, Grass for Forest's Curse
+        if (gBattleMons[gActiveBattler].ability == ABILITY_MULTITYPE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else if (gBattleMons[gActiveBattler].type1 == addType
+              && gBattleMons[gActiveBattler].type2 == addType)
+        {
+            // Already pure that type
+            gBattleCommunication[0] = 0;
+        }
+        else if (gBattleMons[gActiveBattler].type2 == addType)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            // Replace type2 with the new type (simplified third-type addition)
+            gBattleMons[gActiveBattler].type2 = addType;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_FLOWER_SHIELD: // Raise Def by 1 for all Grass-type Pokémon on the field
+    {
+        u8 i;
+        bool8 anyChanged = FALSE;
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            if (!gAbsentBattlerFlags || !(gAbsentBattlerFlags & gBitTable[i]))
+            {
+                if (IS_BATTLER_OF_TYPE(i, TYPE_GRASS))
+                {
+                    if (gBattleMons[i].statStages[STAT_DEF] < MAX_STAT_STAGE)
+                    {
+                        gBattleMons[i].statStages[STAT_DEF]++;
+                        anyChanged = TRUE;
+                    }
+                }
+            }
+        }
+        gBattleCommunication[0] = anyChanged ? 1 : 0;
+        break;
+    }
+
+    case VARIOUS_ROTOTILLER: // Raise Atk and SpAtk by 1 for all grounded Grass-type Pokémon
+    {
+        u8 i;
+        bool8 anyChanged = FALSE;
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            if (!gAbsentBattlerFlags || !(gAbsentBattlerFlags & gBitTable[i]))
+            {
+                if (IS_BATTLER_OF_TYPE(i, TYPE_GRASS)
+                    && !(gStatuses3[i] & (STATUS3_ON_AIR | STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS)))
+                {
+                    if (gBattleMons[i].statStages[STAT_ATK] < MAX_STAT_STAGE)
+                    {
+                        gBattleMons[i].statStages[STAT_ATK]++;
+                        anyChanged = TRUE;
+                    }
+                    if (gBattleMons[i].statStages[STAT_SPATK] < MAX_STAT_STAGE)
+                    {
+                        gBattleMons[i].statStages[STAT_SPATK]++;
+                        anyChanged = TRUE;
+                    }
+                }
+            }
+        }
+        gBattleCommunication[0] = anyChanged ? 1 : 0;
+        break;
+    }
+
+    case VARIOUS_SET_MAGIC_ROOM: // Toggle Magic Room (items have no effect)
+        if (gFieldStatuses & STATUS_FIELD_MAGIC_ROOM)
+        {
+            gFieldStatuses &= ~STATUS_FIELD_MAGIC_ROOM;
+            gMagicRoomTimer = 0;
+            gBattleCommunication[0] = 2; // ended
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_MAGIC_ROOM;
+            gMagicRoomTimer = 5;
+            gBattleCommunication[0] = 1; // set
+        }
+        break;
+
+    case VARIOUS_SET_WONDER_ROOM: // Toggle Wonder Room (Def and SpDef swapped)
+        if (gFieldStatuses & STATUS_FIELD_WONDER_ROOM)
+        {
+            gFieldStatuses &= ~STATUS_FIELD_WONDER_ROOM;
+            gWonderRoomTimer = 0;
+            gBattleCommunication[0] = 2; // ended
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_WONDER_ROOM;
+            gWonderRoomTimer = 5;
+            gBattleCommunication[0] = 1; // set
+        }
+        break;
+
+    case VARIOUS_SET_TERRAIN: // Set terrain based on move type
+    {
+        u8 moveType = gBattleMoves[gCurrentMove].type;
+
+        // Clear any existing terrain
+        gFieldStatuses &= ~(STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN);
+        gTerrainTimer = 0;
+
+        if (moveType == TYPE_GRASS)
+        {
+            gFieldStatuses |= STATUS_FIELD_GRASSY_TERRAIN;
+            gTerrainTimer = 5;
+            gBattleCommunication[MULTISTRING_CHOOSER] = 0; // Grassy Terrain
+            gBattleCommunication[0] = 1;
+        }
+        else if (moveType == TYPE_FAIRY)
+        {
+            gFieldStatuses |= STATUS_FIELD_MISTY_TERRAIN;
+            gTerrainTimer = 5;
+            gBattleCommunication[MULTISTRING_CHOOSER] = 1; // Misty Terrain
+            gBattleCommunication[0] = 1;
+        }
+        else if (moveType == TYPE_ELECTRIC)
+        {
+            gFieldStatuses |= STATUS_FIELD_ELECTRIC_TERRAIN;
+            gTerrainTimer = 5;
+            gBattleCommunication[MULTISTRING_CHOOSER] = 2; // Electric Terrain
+            gBattleCommunication[0] = 1;
+        }
+        else
+        {
+            gBattleCommunication[0] = 0;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_ELECTRIFY: // Electrify: next move used by target becomes Electric-type
+        // Stored in dynamicMoveType field via per-battler volatile; for simplicity set a flag
+        // that causes the next move to be treated as Electric
+        gBattleStruct->dynamicMoveType = TYPE_ELECTRIC | F_DYNAMIC_TYPE_1;
+        gBattleCommunication[0] = 1;
+        break;
+
+    case VARIOUS_SET_FAIRY_LOCK: // Prevent all Pokémon from switching for 1 turn
+        if (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_FAIRY_LOCK;
+            gFairyLockTimer = 2; // lasts until end of next turn
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_BESTOW: // Transfer user's held item to target
+    {
+        if (gBattleMons[gBattlerAttacker].item == ITEM_NONE
+            || gBattleMons[gBattlerTarget].item != ITEM_NONE
+            || gBattleMons[gBattlerAttacker].ability == ABILITY_MULTITYPE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gLastUsedItem = gBattleMons[gBattlerAttacker].item;
+            gBattleMons[gBattlerTarget].item = gBattleMons[gBattlerAttacker].item;
+            gBattleMons[gBattlerAttacker].item = ITEM_NONE;
+            gBattleCommunication[0] = 1;
+        }
         break;
     }
     }

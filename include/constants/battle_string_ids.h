@@ -416,8 +416,26 @@
 #define STRINGID_HEALINGWISHCAMETRUE             413
 #define STRINGID_PKMNABSORBINGPOWER              414
 #define STRINGID_PKMNTOOKAIMETARGET              415
+// Gen 5/6 strings
+#define STRINGID_STICKYWEBSCATTERED              416
+#define STRINGID_PKMNSLOWEDDOWNBYWEB             417
+#define STRINGID_PKMNLIFTEDWITHTELEKINESISTOO    418
+#define STRINGID_STATCHANGESREVERTED             419
+#define STRINGID_PKMNSHAREDGUARD                 420
+#define STRINGID_PKMNSHAREDPOWER                 421
+#define STRINGID_PKMNCHANGEDTOTHIRDTYPE          422
+#define STRINGID_GRASSYTERRAINACTIVATED          423
+#define STRINGID_MISTYTERRAINACTIVATED           424
+#define STRINGID_ELECTRICTERRAINACTIVATED        425
+#define STRINGID_TERRAINENDS                     426
+#define STRINGID_WONDERROOMINEFFECT              427
+#define STRINGID_WONDERROOMENDS                  428
+#define STRINGID_MAGICROOMACTIVATED              429
+#define STRINGID_MAGICROOMENDS                   430
+#define STRINGID_ELECTRIFIED                     431
+#define STRINGID_FAIRYLOCKED                     432
 
-#define BATTLESTRINGS_COUNT     416
+#define BATTLESTRINGS_COUNT     433
 
 // This is the string id that gBattleStringsTable starts with.
 // String ids before this (e.g. STRINGID_INTROMSG) are not in the table,

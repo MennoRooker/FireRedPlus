@@ -339,7 +339,28 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectTwoTypedMove          @ EFFECT_TWO_TYPED_MOVE
 	.4byte BattleScript_EffectWonderRoom            @ EFFECT_WONDER_ROOM
 	.4byte BattleScript_EffectHammerArm             @ EFFECT_HAMMER_ARM
+	@ Gen 5/6 new hit+secondary effects
+	.4byte BattleScript_EffectSpeedUpHit            @ EFFECT_SPEED_UP_HIT
+	.4byte BattleScript_EffectSpecialDefDown2Hit    @ EFFECT_SPECIAL_DEFENSE_DOWN_2_HIT
+	.4byte BattleScript_EffectSpecialAttackUpHit    @ EFFECT_SPECIAL_ATTACK_UP_HIT
+	.4byte BattleScript_EffectVCreate               @ EFFECT_V_CREATE
+	.4byte BattleScript_EffectSleepHit              @ EFFECT_SLEEP_HIT
 
+BattleScript_EffectSpeedUpHit::
+	setmoveeffect MOVE_EFFECT_SPD_PLUS_1 | MOVE_EFFECT_AFFECTS_USER
+	goto BattleScript_EffectHit
+BattleScript_EffectSpecialDefDown2Hit::
+	setmoveeffect MOVE_EFFECT_SP_DEF_MINUS_2 | MOVE_EFFECT_CERTAIN
+	goto BattleScript_EffectHit
+BattleScript_EffectSpecialAttackUpHit::
+	setmoveeffect MOVE_EFFECT_SP_ATK_PLUS_1 | MOVE_EFFECT_AFFECTS_USER
+	goto BattleScript_EffectHit
+BattleScript_EffectVCreate::
+	setmoveeffect MOVE_EFFECT_DEF_SPDEF_SPD_DOWN | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+	goto BattleScript_EffectHit
+BattleScript_EffectSleepHit::
+	setmoveeffect MOVE_EFFECT_SLEEP
+	goto BattleScript_EffectHit
 BattleScript_EffectAcrobatics::
 	goto BattleScript_EffectHit
 BattleScript_EffectAcupressure::
@@ -375,7 +396,16 @@ BattleScript_EffectAutotomize::
 BattleScript_EffectBelch::
 	goto BattleScript_EffectHit
 BattleScript_EffectBestow::
-	goto BattleScript_ButItFailed @ TODO: implement item transfer
+	attackcanceler
+	attackstring
+	ppreduce
+	various BS_ATTACKER, VARIOUS_BESTOW
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	printstring STRINGID_XFOUNDONEY
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
 BattleScript_EffectBrine::
 	goto BattleScript_EffectHit
 BattleScript_EffectCaptivate::
@@ -426,7 +456,15 @@ BattleScript_EffectDoublePowerOnArgStatus::
 BattleScript_EffectEchoedVoice::
 	goto BattleScript_EffectHit
 BattleScript_EffectElectrify::
-	goto BattleScript_ButItFailed @ TODO: implement electrify field condition
+	attackcanceler
+	attackstring
+	ppreduce
+	various BS_TARGET, VARIOUS_SET_ELECTRIFY
+	attackanimation
+	waitanimation
+	printstring STRINGID_ELECTRIFIED
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
 BattleScript_EffectElectroBall::
 	goto BattleScript_EffectHit
 BattleScript_EffectEmbargo::
@@ -454,7 +492,16 @@ BattleScript_EffectEntrainment::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 BattleScript_EffectFairyLock::
-	goto BattleScript_ButItFailed @ TODO: implement fairy lock field condition
+	attackcanceler
+	attackstring
+	ppreduce
+	various BS_ATTACKER, VARIOUS_SET_FAIRY_LOCK
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	printstring STRINGID_FAIRYLOCKED
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
 BattleScript_EffectFellStinger::
 	goto BattleScript_EffectHit
 BattleScript_EffectFinalGambit::
@@ -462,7 +509,14 @@ BattleScript_EffectFinalGambit::
 BattleScript_EffectFling::
 	goto BattleScript_EffectHit
 BattleScript_EffectFlowerShield::
-	goto BattleScript_ButItFailed @ TODO: implement multi-target Grass-type stat boost
+	attackcanceler
+	attackstring
+	ppreduce
+	various BS_ATTACKER, VARIOUS_FLOWER_SHIELD
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	goto BattleScript_MoveEnd
 BattleScript_EffectFoulPlay::
 	goto BattleScript_EffectHit
 BattleScript_EffectFusionCombo::
@@ -534,7 +588,7 @@ BattleScript_EffectGuardSplit::
 	guardsplit
 	attackanimation
 	waitanimation
-	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: add "shared its guard" string
+	printstring STRINGID_PKMNSHAREDGUARD
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 BattleScript_EffectGuardSwap::
@@ -713,9 +767,15 @@ BattleScript_EffectMagicRoom::
 	attackcanceler
 	attackstring
 	ppreduce
+	various BS_ATTACKER, VARIOUS_SET_MAGIC_ROOM
 	attackanimation
 	waitanimation
-	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: implement Magic Room
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 2, BattleScript_MagicRoomEnd
+	printstring STRINGID_MAGICROOMACTIVATED
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
+BattleScript_MagicRoomEnd::
+	printstring STRINGID_MAGICROOMENDS
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 BattleScript_EffectMagnetRise::
@@ -806,7 +866,7 @@ BattleScript_EffectPowerSplit::
 	powersplit
 	attackanimation
 	waitanimation
-	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: add "shared its power" string
+	printstring STRINGID_PKMNSHAREDPOWER
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 BattleScript_EffectPowerSwap::
@@ -882,7 +942,14 @@ BattleScript_EffectRoost::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 BattleScript_EffectRototiller::
-	goto BattleScript_ButItFailed @ TODO: implement multi-target Grass-type stat boost
+	attackcanceler
+	attackstring
+	ppreduce
+	various BS_ATTACKER, VARIOUS_ROTOTILLER
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	goto BattleScript_MoveEnd
 BattleScript_EffectRound::
 	goto BattleScript_EffectHit
 BattleScript_EffectSkyDrop::
@@ -929,9 +996,11 @@ BattleScript_EffectStickyWeb::
 	attackcanceler
 	attackstring
 	ppreduce
+	various BS_ATTACKER, VARIOUS_SET_STICKY_WEB
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, BattleScript_ButItFailed
 	attackanimation
 	waitanimation
-	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: implement sticky web entry hazard
+	printstring STRINGID_STICKYWEBSCATTERED
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 BattleScript_EffectStoredPower::
@@ -962,13 +1031,33 @@ BattleScript_EffectTelekinesis::
 	settelekinesis BS_TARGET, BattleScript_ButItFailed
 	attackanimation
 	waitanimation
-	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: add telekinesis levitate string
+	printstring STRINGID_PKMNLIFTEDWITHTELEKINESISTOO
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 BattleScript_EffectTerrain::
-	goto BattleScript_ButItFailed @ TODO: implement terrain field condition
+	attackcanceler
+	attackstring
+	ppreduce
+	various BS_ATTACKER, VARIOUS_SET_TERRAIN
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	printfromtable gTerrainStringIds
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
 BattleScript_EffectThirdType::
-	goto BattleScript_ButItFailed @ TODO: implement third type addition
+	attackcanceler
+	jumpifstatus2 BS_TARGET, STATUS2_SUBSTITUTE, BattleScript_ButItFailedAtkStringPpReduce
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	attackstring
+	ppreduce
+	various BS_TARGET, VARIOUS_SET_THIRD_TYPE
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 0, BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	printstring STRINGID_PKMNCHANGEDTOTHIRDTYPE
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
 BattleScript_EffectTopsyTurvy::
 	attackcanceler
 	jumpifstatus2 BS_TARGET, STATUS2_SUBSTITUTE, BattleScript_ButItFailedAtkStringPpReduce
@@ -978,7 +1067,7 @@ BattleScript_EffectTopsyTurvy::
 	topsyturvy BS_TARGET, BattleScript_ButItFailed
 	attackanimation
 	waitanimation
-	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: add "stat changes were reversed" string
+	printstring STRINGID_STATCHANGESREVERTED
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 BattleScript_EffectToxicSpikes::
@@ -1023,9 +1112,15 @@ BattleScript_EffectWonderRoom::
 	attackcanceler
 	attackstring
 	ppreduce
+	various BS_ATTACKER, VARIOUS_SET_WONDER_ROOM
 	attackanimation
 	waitanimation
-	printstring STRINGID_BUTNOTHINGHAPPENED @ TODO: implement Wonder Room
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 2, BattleScript_WonderRoomEnd
+	printstring STRINGID_WONDERROOMINEFFECT
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
+BattleScript_WonderRoomEnd::
+	printstring STRINGID_WONDERROOMENDS
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
@@ -5918,3 +6013,65 @@ BattleScript_StealthRockFaintedBattlerFainted::
 	getexp BS_FAINTED
 	moveendall
 	goto BattleScript_HandleFaintedMon
+
+@ V-create: lower Def/SpDef/Speed for user (like AtkDefDown but for the right stats)
+BattleScript_DefSpDefSpdDown::
+	setbyte sSTAT_ANIM_PLAYED, FALSE
+	playstatchangeanimation BS_ATTACKER, BIT_DEF | BIT_SPDEF | BIT_SPEED, STAT_CHANGE_CANT_PREVENT | STAT_CHANGE_NEGATIVE | STAT_CHANGE_MULTIPLE_STATS
+	playstatchangeanimation BS_ATTACKER, BIT_DEF, STAT_CHANGE_CANT_PREVENT | STAT_CHANGE_NEGATIVE
+	setstatchanger STAT_DEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN | STAT_CHANGE_ALLOW_PTR, BattleScript_DefSpDefSpdDownDefFail
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_DefSpDefSpdDownDefFail
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_DefSpDefSpdDownDefFail::
+	playstatchangeanimation BS_ATTACKER, BIT_SPDEF, STAT_CHANGE_NEGATIVE | STAT_CHANGE_CANT_PREVENT
+	setstatchanger STAT_SPDEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_CERTAIN, BattleScript_DefSpDefSpdDownSpDefFail
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_DefSpDefSpdDownSpDefFail
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_DefSpDefSpdDownSpDefFail::
+	playstatchangeanimation BS_ATTACKER, BIT_SPEED, STAT_CHANGE_NEGATIVE | STAT_CHANGE_CANT_PREVENT
+	setstatchanger STAT_SPEED, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_CERTAIN, BattleScript_DefSpDefSpdDownEnd
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_DefSpDefSpdDownEnd
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_DefSpDefSpdDownEnd::
+	return
+
+@ Sticky Web: lower Speed by 1 on switch-in (non-Flying, non-Levitate)
+BattleScript_StickyWebOnSwitchIn::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
+	printstring STRINGID_PKMNSLOWEDDOWNBYWEB
+	waitmessage B_WAIT_TIME_LONG
+	setstatchanger STAT_SPEED, 1, TRUE
+	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_CERTAIN, BattleScript_StickyWebSpeedDropEnd
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_StickyWebSpeedDropEnd
+	setgraphicalstatchangevalues
+	playanimation BS_SCRIPTING, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_StickyWebSpeedDropEnd::
+	return
+
+@ Gen 5/6 field condition end-of-turn scripts
+BattleScript_WonderRoomEnds::
+	printstring STRINGID_WONDERROOMENDS
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_MagicRoomEnds::
+	printstring STRINGID_MAGICROOMENDS
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_TerrainEnds::
+	printstring STRINGID_TERRAINENDS
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_FairyLockEnds::
+	end2
+

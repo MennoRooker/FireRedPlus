@@ -265,5 +265,12 @@ extern const u8 BattleScript_EmbargoEnds[];
 extern const u8 BattleScript_StealthRockOnAttacker[];
 extern const u8 BattleScript_StealthRockOnTarget[];
 extern const u8 BattleScript_StealthRockOnFaintedBattler[];
+// Gen 5/6 effect scripts
+extern const u8 BattleScript_DefSpDefSpdDown[];
+extern const u8 BattleScript_StickyWebOnSwitchIn[];
+extern const u8 BattleScript_WonderRoomEnds[];
+extern const u8 BattleScript_MagicRoomEnds[];
+extern const u8 BattleScript_TerrainEnds[];
+extern const u8 BattleScript_FairyLockEnds[];
 
 #endif // GUARD_BATTLE_SCRIPTS_H

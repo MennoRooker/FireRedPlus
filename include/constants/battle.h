@@ -206,8 +206,14 @@
 #define SIDE_STATUS_LUCKY_CHANT      (1 << 14) // Prevents critical hits on the user's side
 
 // Whole-field status conditions
-#define STATUS_FIELD_TRICK_ROOM      (1 << 0) // Slower Pokémon move first for 5 turns
-#define STATUS_FIELD_GRAVITY         (1 << 1) // All Pokémon grounded; Flying-types lose immunity
+#define STATUS_FIELD_TRICK_ROOM         (1 << 0) // Slower Pokémon move first for 5 turns
+#define STATUS_FIELD_GRAVITY            (1 << 1) // All Pokémon grounded; Flying-types lose immunity
+#define STATUS_FIELD_MAGIC_ROOM         (1 << 2) // Held items have no effect for 5 turns
+#define STATUS_FIELD_WONDER_ROOM        (1 << 3) // Def and Sp. Def are swapped for 5 turns
+#define STATUS_FIELD_GRASSY_TERRAIN     (1 << 4) // Heals grounded Pokémon; boosts Grass moves for 5 turns
+#define STATUS_FIELD_MISTY_TERRAIN      (1 << 5) // Prevents status conditions on grounded Pokémon for 5 turns
+#define STATUS_FIELD_ELECTRIC_TERRAIN   (1 << 6) // Prevents sleep on grounded Pokémon; boosts Electric moves for 5 turns
+#define STATUS_FIELD_FAIRY_LOCK         (1 << 7) // Prevents all Pokémon from fleeing or switching for 1 turn
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)
@@ -298,7 +304,7 @@
 #define MOVE_EFFECT_NOTHING_37          55
 #define MOVE_EFFECT_NOTHING_38          56
 #define MOVE_EFFECT_NOTHING_39          57
-#define MOVE_EFFECT_NOTHING_3A          58
+#define MOVE_EFFECT_DEF_SPDEF_SPD_DOWN  58 // V-create: lower user's Def/Sp.Def/Speed by 1
 #define MOVE_EFFECT_SP_ATK_TWO_DOWN     59
 #define NUM_MOVE_EFFECTS                60
 

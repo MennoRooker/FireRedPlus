@@ -321,4 +321,11 @@
 #define EFFECT_WONDER_ROOM 316
 #define EFFECT_HAMMER_ARM 317
 
+// Gen 5/6 hit+secondary effects
+#define EFFECT_SPEED_UP_HIT              318 // Hit + raise user's Speed by 1 (Flame Charge)
+#define EFFECT_SPECIAL_DEFENSE_DOWN_2_HIT 319 // Hit + lower target's Sp. Def by 2 (Acid Spray)
+#define EFFECT_SPECIAL_ATTACK_UP_HIT     320 // Hit + raise user's Sp. Atk by 1 (Fiery Dance)
+#define EFFECT_V_CREATE                  321 // Hit + lower user's Def/Sp. Def/Speed by 1 (V-create)
+#define EFFECT_SLEEP_HIT                 322 // Hit + 10% sleep chance (Relic Song)
+
 #endif  // GUARD_CONSTANTS_BATTLE_MOVE_EFFECTS_H

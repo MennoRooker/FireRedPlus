@@ -120,6 +120,17 @@
 #define VARIOUS_TOPSY_TURVY                     40
 #define VARIOUS_POWER_SPLIT                     41
 #define VARIOUS_GUARD_SPLIT                     42
+// Gen 5/6
+#define VARIOUS_SET_STICKY_WEB                  43
+#define VARIOUS_SET_THIRD_TYPE                  44
+#define VARIOUS_FLOWER_SHIELD                   45
+#define VARIOUS_ROTOTILLER                      46
+#define VARIOUS_SET_MAGIC_ROOM                  47
+#define VARIOUS_SET_WONDER_ROOM                 48
+#define VARIOUS_SET_TERRAIN                     49
+#define VARIOUS_SET_ELECTRIFY                   50
+#define VARIOUS_SET_FAIRY_LOCK                  51
+#define VARIOUS_BESTOW                          52
 
 // Cmd_manipulatedmg
 #define DMG_CHANGE_SIGN            0
