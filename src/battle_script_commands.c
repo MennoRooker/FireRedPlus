@@ -879,6 +879,15 @@ static void Cmd_attackcanceler(void)
 
     gHitMarker &= ~HITMARKER_ALLOW_NO_PP;
 
+    // Belch: can only be used if the user has eaten a Berry during this battle
+    if (gCurrentMove == MOVE_BELCH
+     && ItemId_GetPocket(gBattleStruct->usedHeldItems[gBattlerAttacker]) != POCKET_BERRY_POUCH)
+    {
+        gMoveResultFlags |= MOVE_RESULT_MISSED;
+        gBattlescriptCurrInstr = BattleScript_PrintMoveMissed;
+        return;
+    }
+
     if (!(gHitMarker & HITMARKER_OBEYS) && !(gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS))
     {
         i = IsMonDisobedient(); // why use the 'i' variable...?
@@ -936,6 +945,28 @@ static void Cmd_attackcanceler(void)
         gLastLandedMoves[gBattlerTarget] = 0;
         gLastHitByType[gBattlerTarget] = 0;
         gBattleCommunication[MISS_TYPE] = B_MSG_PROTECTED;
+
+        // King's Shield: lower attacker's Attack by 2 on contact
+        if (gProtectStructs[gBattlerTarget].kingsShield
+         && (gBattleMoves[gCurrentMove].flags & FLAG_MAKES_CONTACT))
+        {
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_KingsShieldContact;
+            return;
+        }
+        // Spiky Shield: deal 1/8 HP damage to attacker on contact
+        if (gProtectStructs[gBattlerTarget].spikyShield
+         && (gBattleMoves[gCurrentMove].flags & FLAG_MAKES_CONTACT)
+         && gBattleMons[gBattlerAttacker].hp != 0)
+        {
+            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
+            if (gBattleMoveDamage == 0)
+                gBattleMoveDamage = 1;
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_SpikyShieldContact;
+            return;
+        }
+
         gBattlescriptCurrInstr++;
     }
     else
@@ -1025,6 +1056,7 @@ static bool8 AccuracyCalcHelper(u16 move)
     gHitMarker &= ~HITMARKER_IGNORE_UNDERWATER;
 
     if ((WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_RAIN) && gBattleMoves[move].effect == EFFECT_THUNDER)
+     || (WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_RAIN) && move == MOVE_HURRICANE)
      || (WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_HAIL) && move == MOVE_BLIZZARD)
      || (gBattleMoves[move].effect == EFFECT_ALWAYS_HIT || gBattleMoves[move].effect == EFFECT_VITAL_THROW)
      || gBattleMons[gBattlerAttacker].ability == ABILITY_NO_GUARD
@@ -1096,8 +1128,10 @@ static void Cmd_accuracycheck(void)
             buff = MAX_STAT_STAGE;
 
         moveAcc = gBattleMoves[move].accuracy;
-        // check Thunder on sunny weather
+        // Thunder in sun: 50% accuracy; Hurricane in sun: 50% accuracy
         if (WEATHER_HAS_EFFECT && gBattleWeather & B_WEATHER_SUN && gBattleMoves[move].effect == EFFECT_THUNDER)
+            moveAcc = 50;
+        if (WEATHER_HAS_EFFECT && gBattleWeather & B_WEATHER_SUN && move == MOVE_HURRICANE)
             moveAcc = 50;
 
         calc = sAccuracyStageRatios[buff].dividend * moveAcc;
@@ -1248,11 +1282,15 @@ static void Cmd_critcalc(void)
                 + 2 * (holdEffect == HOLD_EFFECT_LUCKY_PUNCH && gBattleMons[gBattlerAttacker].species == SPECIES_CHANSEY)
                 + 2 * (holdEffect == HOLD_EFFECT_STICK && gBattleMons[gBattlerAttacker].species == SPECIES_FARFETCHD);
 
+    if (gBattleMoves[gCurrentMove].flags & FLAG_ALWAYS_CRIT)
+        critChance = ARRAY_COUNT(sCriticalHitChance) - 1;
+
     if (critChance >= ARRAY_COUNT(sCriticalHitChance))
         critChance = ARRAY_COUNT(sCriticalHitChance) - 1;
 
     if ((gBattleMons[gBattlerTarget].ability != ABILITY_BATTLE_ARMOR && gBattleMons[gBattlerTarget].ability != ABILITY_SHELL_ARMOR)
      && !(gStatuses3[gBattlerAttacker] & STATUS3_CANT_SCORE_A_CRIT)
+     && !(gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)] & SIDE_STATUS_LUCKY_CHANT) // Lucky Chant prevents crits
      && !(gBattleTypeFlags & BATTLE_TYPE_OLD_MAN_TUTORIAL)
      && !(Random() % sCriticalHitChance[critChance])
      && (!(gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE) || BtlCtrl_OakOldMan_TestState2Flag(1))
@@ -1285,6 +1323,22 @@ static void Cmd_damagecalc(void)
         gBattleMoveDamage *= 2;
     if (gProtectStructs[gBattlerAttacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
+
+    // Final Gambit: damage equals user's current HP; user faints
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_FINAL_GAMBIT)
+        gBattleMoveDamage = gBattleMons[gBattlerAttacker].hp;
+
+    // Echoed Voice: increment counter after each use (power increases next turn)
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_ECHOED_VOICE)
+    {
+        if (gBattleStruct->echoedVoiceCounter < 4)
+            gBattleStruct->echoedVoiceCounter++;
+    }
+    else
+    {
+        // Different move used: reset the counter
+        gBattleStruct->echoedVoiceCounter = 0;
+    }
 
     gBattlescriptCurrInstr++;
 }
@@ -1369,6 +1423,7 @@ static void Cmd_typecalc(void)
 {
     s32 i = 0;
     u8 moveType;
+    u8 defType1, defType2;
 
     if (gCurrentMove == MOVE_STRUGGLE)
     {
@@ -1376,19 +1431,97 @@ static void Cmd_typecalc(void)
         return;
     }
 
+    // Synchronoise: fails if the target doesn't share a type with the attacker
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_SYNCHRONOISE)
+    {
+        if (!IS_BATTLER_OF_TYPE(gBattlerTarget, gBattleMons[gBattlerAttacker].type1)
+         && !IS_BATTLER_OF_TYPE(gBattlerTarget, gBattleMons[gBattlerAttacker].type2))
+        {
+            gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
+            gLastLandedMoves[gBattlerTarget] = 0;
+            gLastHitByType[gBattlerTarget] = 0;
+            gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_DMG;
+            gBattlescriptCurrInstr++;
+            return;
+        }
+    }
+
     // Reset type effectiveness multiplier to 1.0 (10 in fixed point)
     gTypeEffectivenessMultiplier = 10;
 
     GET_MOVE_TYPE(gCurrentMove, moveType);
 
-    // check stab
-    if (IS_BATTLER_OF_TYPE(gBattlerAttacker, moveType))
+    // Ion Deluge: convert Normal-type moves to Electric for the rest of the turn
+    if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE) && moveType == TYPE_NORMAL)
+        moveType = TYPE_ELECTRIC;
+
+    // Roost: the ROOSTED user (target) temporarily has no Flying type this turn.
+    // Compute their effective defending types accordingly.
+    defType1 = gBattleMons[gBattlerTarget].type1;
+    defType2 = gBattleMons[gBattlerTarget].type2;
+    if (gStatuses3[gBattlerTarget] & STATUS3_ROOST)
+    {
+        if (defType1 == TYPE_FLYING && defType2 == TYPE_FLYING)
+        {
+            // Mono-Flying → becomes Normal (vanilla Roost behaviour)
+            defType1 = TYPE_NORMAL;
+            defType2 = TYPE_NORMAL;
+        }
+        else
+        {
+            if (defType1 == TYPE_FLYING) defType1 = defType2;
+            if (defType2 == TYPE_FLYING) defType2 = defType1;
+        }
+    }
+
+    // check stab — Roost removes Flying-type STAB for the user this turn
+    if (IS_BATTLER_OF_TYPE(gBattlerAttacker, moveType)
+     && !(moveType == TYPE_FLYING && (gStatuses3[gBattlerAttacker] & STATUS3_ROOST)))
     {
         gBattleMoveDamage = gBattleMoveDamage * 15;
         gBattleMoveDamage = gBattleMoveDamage / 10;
     }
 
-    if (gBattleMons[gBattlerTarget].ability == ABILITY_LEVITATE && moveType == TYPE_GROUND)
+    // Gravity: grounds all battlers — Levitate ability and Flying-type Ground immunity are ignored.
+    if (moveType == TYPE_GROUND && (gFieldStatuses & STATUS_FIELD_GRAVITY))
+    {
+        // Run normal type table but skip Levitate ability check above.
+        while (TYPE_EFFECT_ATK_TYPE(i) != TYPE_ENDTABLE)
+        {
+            if (TYPE_EFFECT_ATK_TYPE(i) == TYPE_FORESIGHT)
+            {
+                if (gBattleMons[gBattlerTarget].status2 & STATUS2_FORESIGHT)
+                    break;
+                i += 3;
+                continue;
+            }
+            if (TYPE_EFFECT_ATK_TYPE(i) == TYPE_MIRACLE_EYE)
+            {
+                i += 3;
+                continue; // skip Miracle Eye marker
+            }
+            if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
+            {
+                if (TYPE_EFFECT_DEF_TYPE(i) == defType1)
+                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
+                if (TYPE_EFFECT_DEF_TYPE(i) == defType2 && defType1 != defType2)
+                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
+            }
+            i += 3;
+        }
+    }
+    // Magnet Rise and Telekinesis: immune to Ground (unless Gravity active).
+    else if (moveType == TYPE_GROUND
+          && (gStatuses3[gBattlerTarget] & STATUS3_MAGNET_RISE
+           || gStatuses3[gBattlerTarget] & STATUS3_TELEKINESIS))
+    {
+        gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+        gLastLandedMoves[gBattlerTarget] = 0;
+        gLastHitByType[gBattlerTarget] = 0;
+        gBattleCommunication[MISS_TYPE] = B_MSG_GROUND_MISS;
+    }
+    // Levitate ability: immune to Ground.
+    else if (gBattleMons[gBattlerTarget].ability == ABILITY_LEVITATE && moveType == TYPE_GROUND)
     {
         gLastUsedAbility = gBattleMons[gBattlerTarget].ability;
         gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
@@ -1408,14 +1541,20 @@ static void Cmd_typecalc(void)
                 i += 3;
                 continue;
             }
-            else if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
+            // Miracle Eye marker: if Psychic move vs a target with Miracle Eye, skip
+            // the Psychic-is-immune-to-Dark entry that immediately follows.
+            if (TYPE_EFFECT_ATK_TYPE(i) == TYPE_MIRACLE_EYE)
             {
-                // check type1
-                if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type1)
+                if (moveType == TYPE_PSYCHIC && (gStatuses3[gBattlerTarget] & STATUS3_MIRACLE_EYE))
+                    break; // break before TYPE_PSYCHIC vs TYPE_DARK immunity
+                i += 3;
+                continue;
+            }
+            if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
+            {
+                if (TYPE_EFFECT_DEF_TYPE(i) == defType1)
                     ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
-                // check type2
-                if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type2 &&
-                    gBattleMons[gBattlerTarget].type1 != gBattleMons[gBattlerTarget].type2)
+                if (TYPE_EFFECT_DEF_TYPE(i) == defType2 && defType1 != defType2)
                     ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
             }
             i += 3;
@@ -1423,10 +1562,56 @@ static void Cmd_typecalc(void)
     }
 
     if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
-     && ShouldApplySkyUppercutFlyingBonus(gCurrentMove, gBattleMons[gBattlerTarget].type1, gBattleMons[gBattlerTarget].type2))
+     && ShouldApplySkyUppercutFlyingBonus(gCurrentMove, defType1, defType2))
     {
         ModulateDmgByType(TYPE_MUL_SUPER_EFFECTIVE);
         ModulateDmgByType(TYPE_MUL_SUPER_EFFECTIVE);
+    }
+
+    // Flying Press: applies BOTH Fighting AND Flying type effectiveness
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_TWO_TYPED_MOVE && gCurrentMove == MOVE_FLYING_PRESS
+     && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
+    {
+        s32 j = 0;
+        while (TYPE_EFFECT_ATK_TYPE(j) != TYPE_ENDTABLE)
+        {
+            if (TYPE_EFFECT_ATK_TYPE(j) == TYPE_FORESIGHT || TYPE_EFFECT_ATK_TYPE(j) == TYPE_MIRACLE_EYE)
+            {
+                j += 3;
+                continue;
+            }
+            if (TYPE_EFFECT_ATK_TYPE(j) == TYPE_FLYING)
+            {
+                if (TYPE_EFFECT_DEF_TYPE(j) == defType1)
+                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(j));
+                if (TYPE_EFFECT_DEF_TYPE(j) == defType2 && defType1 != defType2)
+                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(j));
+            }
+            j += 3;
+        }
+    }
+
+    // Freeze-Dry: super effective against Water-type regardless of Ice's normal table entry
+    if (gCurrentMove == MOVE_FREEZE_DRY && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
+    {
+        if (defType1 == TYPE_WATER || defType2 == TYPE_WATER)
+        {
+            // Neutralise any existing multiplier for Water that the Ice table already set,
+            // then force super-effective.  Walk the table to find the actual Ice-vs-Water entry.
+            s32 j = 0;
+            while (TYPE_EFFECT_ATK_TYPE(j) != TYPE_ENDTABLE)
+            {
+                if (TYPE_EFFECT_ATK_TYPE(j) == TYPE_ICE && TYPE_EFFECT_DEF_TYPE(j) == TYPE_WATER)
+                {
+                    // Ice is normally ×0.5 vs Water; undo that then apply ×2
+                    gBattleMoveDamage = gBattleMoveDamage * 10 / TYPE_EFFECT_MULTIPLIER(j);
+                    gTypeEffectivenessMultiplier = gTypeEffectivenessMultiplier * 10 / TYPE_EFFECT_MULTIPLIER(j);
+                    break;
+                }
+                j += 3;
+            }
+            ModulateDmgByType(TYPE_MUL_SUPER_EFFECTIVE);
+        }
     }
 
     if (gBattleMons[gBattlerTarget].ability == ABILITY_WONDER_GUARD && AttacksThisTurn(gBattlerAttacker, gCurrentMove) == 2
@@ -3056,6 +3241,10 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_AtkDefDown;
                 break;
+            case MOVE_EFFECT_DEF_SPDEF_SPD_DOWN: // V-create
+                BattleScriptPush(gBattlescriptCurrInstr + 1);
+                gBattlescriptCurrInstr = BattleScript_DefSpDefSpdDown;
+                break;
             case MOVE_EFFECT_RECOIL_33: // Double Edge
                 gBattleMoveDamage = gHpDealt / 3;
                 if (gBattleMoveDamage == 0)
@@ -3227,6 +3416,8 @@ static void Cmd_tryfaintmon(void)
         {
             TryBattleFormChange(gActiveBattler, FORM_CHANGE_FAINT, gBattleMons[gActiveBattler].ability, 0, 0);
             gHitMarker |= HITMARKER_FAINTED(gActiveBattler);
+            // Track for Retaliate: record which side had a faint this turn
+            gBattleStruct->retaliateFainted |= gBitTable[GetBattlerSide(gActiveBattler)];
             BattleScriptPush(gBattlescriptCurrInstr + 7);
             gBattlescriptCurrInstr = BS_ptr;
             if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
@@ -5384,10 +5575,54 @@ static void Cmd_switchineffects(void)
     gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
     UpdateSentPokesToOpponentValue(gActiveBattler);
 
+    gBattleStruct->field_8D = 0; // reset per-switch-in hazard tracking
+
     gHitMarker &= ~HITMARKER_FAINTED(gActiveBattler);
     gSpecialStatuses[gActiveBattler].faintedHasReplacement = FALSE;
 
+    // Stealth Rock: deal type-effectiveness-modified Rock damage on switch-in
     if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES_DAMAGED)
+        && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEALTH_ROCK))
+    {
+        u8 type1 = gBattleMons[gActiveBattler].type1;
+        u8 type2 = gBattleMons[gActiveBattler].type2;
+        s32 j = 0;
+        u16 mult = 10; // 1.0x in fixed-point (10 = 1.0, 20 = 2.0, 5 = 0.5)
+
+        // Walk the type table to compute Rock effectiveness vs the switching Pokemon
+        while (TYPE_EFFECT_ATK_TYPE(j) != TYPE_ENDTABLE)
+        {
+            if (TYPE_EFFECT_ATK_TYPE(j) == TYPE_FORESIGHT || TYPE_EFFECT_ATK_TYPE(j) == TYPE_MIRACLE_EYE)
+            {
+                j += 3;
+                continue;
+            }
+            if (TYPE_EFFECT_ATK_TYPE(j) == TYPE_ROCK)
+            {
+                if (TYPE_EFFECT_DEF_TYPE(j) == type1)
+                    mult = mult * TYPE_EFFECT_MULTIPLIER(j) / 10;
+                if (type2 != type1 && TYPE_EFFECT_DEF_TYPE(j) == type2)
+                    mult = mult * TYPE_EFFECT_MULTIPLIER(j) / 10;
+            }
+            j += 3;
+        }
+
+        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_SPIKES_DAMAGED;
+        // Base 1/8 HP damage multiplied by type effectiveness
+        gBattleMoveDamage = (gBattleMons[gActiveBattler].maxHP * mult) / 80;
+        if (gBattleMoveDamage == 0)
+            gBattleMoveDamage = 1;
+
+        gBattleScripting.battler = gActiveBattler;
+        BattleScriptPushCursor();
+        if (gBattlescriptCurrInstr[1] == BS_TARGET)
+            gBattlescriptCurrInstr = BattleScript_StealthRockOnTarget;
+        else if (gBattlescriptCurrInstr[1] == BS_ATTACKER)
+            gBattlescriptCurrInstr = BattleScript_StealthRockOnAttacker;
+        else
+            gBattlescriptCurrInstr = BattleScript_StealthRockOnFaintedBattler;
+    }
+    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES_DAMAGED)
         && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES)
         && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
         && gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE)
@@ -5414,6 +5649,16 @@ static void Cmd_switchineffects(void)
             gBattlescriptCurrInstr = BattleScript_SpikesOnAttacker;
         else
             gBattlescriptCurrInstr = BattleScript_SpikesOnFaintedBattler;
+    }
+    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES_DAMAGED)
+        && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STICKY_WEB)
+        && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
+        && gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE)
+    {
+        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_SPIKES_DAMAGED;
+        gBattleScripting.battler = gActiveBattler;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_StickyWebOnSwitchIn;
     }
     else
     {
@@ -6666,6 +6911,631 @@ static void Cmd_various(void)
         if (!IsFanfareTaskInactive())
             return;
         break;
+
+    // --- Gen 4+ move-effect helpers ---
+
+    case VARIOUS_SET_AQUA_RING: // Set Aqua Ring on attacker
+        if (gStatuses3[gActiveBattler] & STATUS3_AQUA_RING)
+        {
+            gBattleCommunication[0] = 0; // already active
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_AQUA_RING;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_SET_MAGNET_RISE: // Set Magnet Rise on attacker
+        if ((gStatuses3[gActiveBattler] & STATUS3_MAGNET_RISE)
+            || (gStatuses3[gActiveBattler] & STATUS3_ROOTED))
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_MAGNET_RISE;
+            gMagnetRiseTimers(gActiveBattler) = 5;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_SET_EMBARGO: // Set Embargo on target
+    {
+        u8 target = gBattlerTarget;
+        if (gStatuses3[target] & STATUS3_EMBARGO)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[target] |= STATUS3_EMBARGO;
+            gEmbargoTimers(target) = 5;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_HEAL_BLOCK: // Set Heal Block on target
+        if (gStatuses3[gActiveBattler] & STATUS3_HEAL_BLOCK)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_HEAL_BLOCK;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_SET_GASTRO_ACID: // Suppress target's ability
+        if (gStatuses3[gActiveBattler] & STATUS3_GASTRO_ACID)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else if (gBattleMons[gActiveBattler].ability == ABILITY_MULTITYPE
+              || gBattleMons[gActiveBattler].ability == ABILITY_TRUANT
+              || gBattleMons[gActiveBattler].ability == ABILITY_NONE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_GASTRO_ACID;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_MIRACLE_EYE: // Set Miracle Eye on target
+        if (gStatuses3[gActiveBattler] & STATUS3_MIRACLE_EYE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_MIRACLE_EYE;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_SET_ROOST: // Mark attacker as roosting (loses Flying type until end of turn)
+        gStatuses3[gActiveBattler] |= STATUS3_ROOST;
+        break;
+
+    case VARIOUS_SET_LUCKY_CHANT: // Set Lucky Chant on user's side
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler);
+        if (gSideStatuses[side] & SIDE_STATUS_LUCKY_CHANT)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gSideStatuses[side] |= SIDE_STATUS_LUCKY_CHANT;
+            gLuckyChantTimers(side) = 5;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_TAILWIND: // Set Tailwind on user's side
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler);
+        if (gSideStatuses[side] & SIDE_STATUS_TAILWIND)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gSideStatuses[side] |= SIDE_STATUS_TAILWIND;
+            gTailwindTimers(side) = 3;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_STEALTH_ROCK: // Set Stealth Rock on the opponent's side
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler) ^ BIT_SIDE;
+        if (gSideStatuses[side] & SIDE_STATUS_STEALTH_ROCK)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gSideStatuses[side] |= SIDE_STATUS_STEALTH_ROCK;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_TOXIC_SPIKES: // Add a Toxic Spikes layer on the opponent's side
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler) ^ BIT_SIDE;
+        if (gToxicSpikesCount(side) >= 2)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gToxicSpikesCount(side)++;
+            gSideStatuses[side] |= SIDE_STATUS_TOXIC_SPIKES;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_TRICK_ROOM: // Toggle Trick Room
+        if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+        {
+            gFieldStatuses &= ~STATUS_FIELD_TRICK_ROOM;
+            gTrickRoomTimer = 0;
+            gBattleCommunication[0] = 2; // ended
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_TRICK_ROOM;
+            gTrickRoomTimer = 5;
+            gBattleCommunication[0] = 1; // set
+        }
+        break;
+
+    case VARIOUS_SET_GRAVITY: // Set Gravity
+        if (gFieldStatuses & STATUS_FIELD_GRAVITY)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_GRAVITY;
+            gGravityTimer = 5;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_POWER_TRICK: // Swap attacker's Attack and Defense
+    {
+        u16 temp = gBattleMons[gActiveBattler].attack;
+        gBattleMons[gActiveBattler].attack = gBattleMons[gActiveBattler].defense;
+        gBattleMons[gActiveBattler].defense = temp;
+        gStatuses3[gActiveBattler] ^= STATUS3_POWER_TRICK;
+        break;
+    }
+
+    case VARIOUS_POWER_SWAP: // Swap ATK and SPATK stages between user and target
+    {
+        s8 temp;
+        temp = gBattleMons[gBattlerAttacker].statStages[STAT_ATK];
+        gBattleMons[gBattlerAttacker].statStages[STAT_ATK] = gBattleMons[gBattlerTarget].statStages[STAT_ATK];
+        gBattleMons[gBattlerTarget].statStages[STAT_ATK] = temp;
+        temp = gBattleMons[gBattlerAttacker].statStages[STAT_SPATK];
+        gBattleMons[gBattlerAttacker].statStages[STAT_SPATK] = gBattleMons[gBattlerTarget].statStages[STAT_SPATK];
+        gBattleMons[gBattlerTarget].statStages[STAT_SPATK] = temp;
+        break;
+    }
+
+    case VARIOUS_GUARD_SWAP: // Swap DEF and SPDEF stages between user and target
+    {
+        s8 temp;
+        temp = gBattleMons[gBattlerAttacker].statStages[STAT_DEF];
+        gBattleMons[gBattlerAttacker].statStages[STAT_DEF] = gBattleMons[gBattlerTarget].statStages[STAT_DEF];
+        gBattleMons[gBattlerTarget].statStages[STAT_DEF] = temp;
+        temp = gBattleMons[gBattlerAttacker].statStages[STAT_SPDEF];
+        gBattleMons[gBattlerAttacker].statStages[STAT_SPDEF] = gBattleMons[gBattlerTarget].statStages[STAT_SPDEF];
+        gBattleMons[gBattlerTarget].statStages[STAT_SPDEF] = temp;
+        break;
+    }
+
+    case VARIOUS_HEART_SWAP: // Swap all stat stages between user and target
+    {
+        s8 temp;
+        int statId;
+        for (statId = STAT_ATK; statId <= STAT_EVASION; statId++)
+        {
+            temp = gBattleMons[gBattlerAttacker].statStages[statId];
+            gBattleMons[gBattlerAttacker].statStages[statId] = gBattleMons[gBattlerTarget].statStages[statId];
+            gBattleMons[gBattlerTarget].statStages[statId] = temp;
+        }
+        break;
+    }
+
+    case VARIOUS_OVERWRITE_ABILITY: // Change target's ability (Worry Seed / Simple Beam / Entrainment)
+    {
+        u8 newAbility;
+        if (gCurrentMove == MOVE_WORRY_SEED)
+            newAbility = ABILITY_INSOMNIA;
+        else if (gCurrentMove == MOVE_SIMPLE_BEAM)
+            newAbility = ABILITY_SIMPLE;
+        else // Entrainment: copy user's ability
+            newAbility = gBattleMons[gBattlerAttacker].ability;
+
+        if (gStatuses3[gActiveBattler] & STATUS3_GASTRO_ACID)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else if (gBattleMons[gActiveBattler].ability == ABILITY_MULTITYPE
+              || gBattleMons[gActiveBattler].ability == ABILITY_WONDER_GUARD
+              || gBattleMons[gActiveBattler].ability == ABILITY_FORECAST
+              || newAbility == ABILITY_NONE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gBattleMons[gActiveBattler].ability = newAbility;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_PSYCHO_SHIFT: // Transfer attacker's status condition to target
+    {
+        u32 statusToTransfer = gBattleMons[gBattlerAttacker].status1;
+
+        if (!statusToTransfer
+            || gBattleMons[gBattlerTarget].status1 != 0)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            // Copy status1 to target, then cure attacker
+            gBattleMons[gBattlerTarget].status1 = statusToTransfer & STATUS1_ANY;
+            gBattleMons[gBattlerAttacker].status1 = 0;
+            gBattleScripting.statChanger = 0; // used for status animation
+            gEffectBattler = gBattlerTarget;
+            BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gBattlerTarget].status1);
+            MarkBattlerForControllerExec(gBattlerTarget);
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_ACUPRESSURE: // Randomly raise one stat by 2 stages; store chosen stat in gBattleScripting.statChanger
+    {
+        u8 statId;
+        u8 validStats[NUM_BATTLE_STATS];
+        u8 validCount = 0;
+        for (statId = STAT_ATK; statId < NUM_BATTLE_STATS; statId++)
+        {
+            if (gBattleMons[gActiveBattler].statStages[statId] < MAX_STAT_STAGE)
+                validStats[validCount++] = statId;
+        }
+        if (validCount == 0)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            statId = validStats[Random() % validCount];
+            gBattleMons[gActiveBattler].statStages[statId] += 2;
+            if (gBattleMons[gActiveBattler].statStages[statId] > MAX_STAT_STAGE)
+                gBattleMons[gActiveBattler].statStages[statId] = MAX_STAT_STAGE;
+            gBattleScripting.statChanger = statId | (2 << 4); // +2 stages
+            gBattleCommunication[MULTISTRING_CHOOSER] = 0; // show "sharply rose" message
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_HEALING_WISH: // Set healing wish flag on the battler's slot
+        gBattleStruct->field_8C |= gBitTable[gActiveBattler]; // mark that healing wish is pending
+        break;
+
+    case VARIOUS_HIT_ESCAPE: // Allow attacker to pivot out after damaging
+        gBattleScripting.battler = gActiveBattler;
+        gBattleCommunication[0] = 1;
+        break;
+
+    case VARIOUS_DEFOG: // Clear opponent's entry hazards; also lower target's evasion
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler) ^ BIT_SIDE;
+        gSideStatuses[side] &= ~(SIDE_STATUS_STEALTH_ROCK | SIDE_STATUS_TOXIC_SPIKES | SIDE_STATUS_STICKY_WEB | SIDE_STATUS_SPIKES);
+        gToxicSpikesCount(side) = 0;
+        gSideTimers[side].spikesAmount = 0;
+        gBattleCommunication[0] = 1;
+        break;
+    }
+
+    case VARIOUS_CAPTIVATE_CHECK: // Fail if same gender as attacker or genderless
+    {
+        u32 atkPersonality = gBattleMons[gBattlerAttacker].personality;
+        u32 defPersonality = gBattleMons[gBattlerTarget].personality;
+        u16 atkSpecies = gBattleMons[gBattlerAttacker].species;
+        u16 defSpecies = gBattleMons[gBattlerTarget].species;
+        u8 atkGender = GetGenderFromSpeciesAndPersonality(atkSpecies, atkPersonality);
+        u8 defGender = GetGenderFromSpeciesAndPersonality(defSpecies, defPersonality);
+
+        if (atkGender == MON_GENDERLESS || defGender == MON_GENDERLESS || atkGender == defGender)
+            gBattleCommunication[0] = 0;
+        else
+            gBattleCommunication[0] = 1;
+        break;
+    }
+
+    case VARIOUS_SET_TELEKINESIS: // Levitate target, always-hit, immune to Ground
+        if (gStatuses3[gActiveBattler] & STATUS3_TELEKINESIS
+            || gStatuses3[gActiveBattler] & STATUS3_ROOTED)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_TELEKINESIS;
+            gTelekinesisTimers(gActiveBattler) = 3;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_REFLECT_TYPE: // Copy target's types to user
+        gBattleMons[gBattlerAttacker].type1 = gBattleMons[gBattlerTarget].type1;
+        gBattleMons[gBattlerAttacker].type2 = gBattleMons[gBattlerTarget].type2;
+        gBattleCommunication[0] = 1;
+        break;
+
+    case VARIOUS_SOAK: // Change target's types to Water-only
+        if (gBattleMons[gActiveBattler].ability == ABILITY_MULTITYPE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else if (gBattleMons[gActiveBattler].type1 == TYPE_WATER
+              && gBattleMons[gActiveBattler].type2 == TYPE_WATER)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gBattleMons[gActiveBattler].type1 = TYPE_WATER;
+            gBattleMons[gActiveBattler].type2 = TYPE_WATER;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_TOPSY_TURVY: // Invert target's stat stages
+    {
+        u8 statId;
+        bool8 anyChanged = FALSE;
+        for (statId = STAT_ATK; statId < NUM_BATTLE_STATS; statId++)
+        {
+            s8 stage = gBattleMons[gActiveBattler].statStages[statId];
+            if (stage != DEFAULT_STAT_STAGE)
+            {
+                gBattleMons[gActiveBattler].statStages[statId] = MAX_STAT_STAGE - stage;
+                anyChanged = TRUE;
+            }
+        }
+        gBattleCommunication[0] = anyChanged ? 1 : 0;
+        break;
+    }
+
+    case VARIOUS_POWER_SPLIT: // Average ATK and SPATK between user and target
+    {
+        u16 atkAvg  = (gBattleMons[gBattlerAttacker].attack   + gBattleMons[gBattlerTarget].attack)   / 2;
+        u16 spAtkAvg = (gBattleMons[gBattlerAttacker].spAttack + gBattleMons[gBattlerTarget].spAttack) / 2;
+        gBattleMons[gBattlerAttacker].attack   = atkAvg;
+        gBattleMons[gBattlerTarget].attack     = atkAvg;
+        gBattleMons[gBattlerAttacker].spAttack = spAtkAvg;
+        gBattleMons[gBattlerTarget].spAttack   = spAtkAvg;
+        break;
+    }
+
+    case VARIOUS_GUARD_SPLIT: // Average DEF and SPDEF between user and target
+    {
+        u16 defAvg   = (gBattleMons[gBattlerAttacker].defense  + gBattleMons[gBattlerTarget].defense)  / 2;
+        u16 spDefAvg = (gBattleMons[gBattlerAttacker].spDefense + gBattleMons[gBattlerTarget].spDefense) / 2;
+        gBattleMons[gBattlerAttacker].defense   = defAvg;
+        gBattleMons[gBattlerTarget].defense     = defAvg;
+        gBattleMons[gBattlerAttacker].spDefense = spDefAvg;
+        gBattleMons[gBattlerTarget].spDefense   = spDefAvg;
+        break;
+    }
+
+    case VARIOUS_SET_STICKY_WEB: // Set Sticky Web on the opponent's side
+    {
+        u8 side = GET_BATTLER_SIDE(gActiveBattler) ^ BIT_SIDE;
+        if (gSideStatuses[side] & SIDE_STATUS_STICKY_WEB)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gSideStatuses[side] |= SIDE_STATUS_STICKY_WEB;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_THIRD_TYPE: // Add Ghost or Grass type to target (Trick-or-Treat / Forest's Curse)
+    {
+        u8 addType = gBattleMoves[gCurrentMove].type; // Ghost for ToT, Grass for Forest's Curse
+        if (gBattleMons[gActiveBattler].ability == ABILITY_MULTITYPE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else if (gBattleMons[gActiveBattler].type1 == addType
+              && gBattleMons[gActiveBattler].type2 == addType)
+        {
+            // Already pure that type
+            gBattleCommunication[0] = 0;
+        }
+        else if (gBattleMons[gActiveBattler].type2 == addType)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            // Replace type2 with the new type (simplified third-type addition)
+            gBattleMons[gActiveBattler].type2 = addType;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_FLOWER_SHIELD: // Raise Def by 1 for all Grass-type Pokémon on the field
+    {
+        u8 i;
+        bool8 anyChanged = FALSE;
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            if (!gAbsentBattlerFlags || !(gAbsentBattlerFlags & gBitTable[i]))
+            {
+                if (IS_BATTLER_OF_TYPE(i, TYPE_GRASS))
+                {
+                    if (gBattleMons[i].statStages[STAT_DEF] < MAX_STAT_STAGE)
+                    {
+                        gBattleMons[i].statStages[STAT_DEF]++;
+                        anyChanged = TRUE;
+                    }
+                }
+            }
+        }
+        gBattleCommunication[0] = anyChanged ? 1 : 0;
+        break;
+    }
+
+    case VARIOUS_ROTOTILLER: // Raise Atk and SpAtk by 1 for all grounded Grass-type Pokémon
+    {
+        u8 i;
+        bool8 anyChanged = FALSE;
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            if (!gAbsentBattlerFlags || !(gAbsentBattlerFlags & gBitTable[i]))
+            {
+                if (IS_BATTLER_OF_TYPE(i, TYPE_GRASS)
+                    && !(gStatuses3[i] & (STATUS3_ON_AIR | STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS)))
+                {
+                    if (gBattleMons[i].statStages[STAT_ATK] < MAX_STAT_STAGE)
+                    {
+                        gBattleMons[i].statStages[STAT_ATK]++;
+                        anyChanged = TRUE;
+                    }
+                    if (gBattleMons[i].statStages[STAT_SPATK] < MAX_STAT_STAGE)
+                    {
+                        gBattleMons[i].statStages[STAT_SPATK]++;
+                        anyChanged = TRUE;
+                    }
+                }
+            }
+        }
+        gBattleCommunication[0] = anyChanged ? 1 : 0;
+        break;
+    }
+
+    case VARIOUS_SET_MAGIC_ROOM: // Toggle Magic Room (items have no effect)
+        if (gFieldStatuses & STATUS_FIELD_MAGIC_ROOM)
+        {
+            gFieldStatuses &= ~STATUS_FIELD_MAGIC_ROOM;
+            gMagicRoomTimer = 0;
+            gBattleCommunication[0] = 2; // ended
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_MAGIC_ROOM;
+            gMagicRoomTimer = 5;
+            gBattleCommunication[0] = 1; // set
+        }
+        break;
+
+    case VARIOUS_SET_WONDER_ROOM: // Toggle Wonder Room (Def and SpDef swapped)
+        if (gFieldStatuses & STATUS_FIELD_WONDER_ROOM)
+        {
+            gFieldStatuses &= ~STATUS_FIELD_WONDER_ROOM;
+            gWonderRoomTimer = 0;
+            gBattleCommunication[0] = 2; // ended
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_WONDER_ROOM;
+            gWonderRoomTimer = 5;
+            gBattleCommunication[0] = 1; // set
+        }
+        break;
+
+    case VARIOUS_SET_TERRAIN: // Set terrain based on move type
+    {
+        u8 moveType = gBattleMoves[gCurrentMove].type;
+
+        // Clear any existing terrain
+        gFieldStatuses &= ~(STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN);
+        gTerrainTimer = 0;
+
+        if (moveType == TYPE_GRASS)
+        {
+            gFieldStatuses |= STATUS_FIELD_GRASSY_TERRAIN;
+            gTerrainTimer = 5;
+            gBattleCommunication[MULTISTRING_CHOOSER] = 0; // Grassy Terrain
+            gBattleCommunication[0] = 1;
+        }
+        else if (moveType == TYPE_FAIRY)
+        {
+            gFieldStatuses |= STATUS_FIELD_MISTY_TERRAIN;
+            gTerrainTimer = 5;
+            gBattleCommunication[MULTISTRING_CHOOSER] = 1; // Misty Terrain
+            gBattleCommunication[0] = 1;
+        }
+        else if (moveType == TYPE_ELECTRIC)
+        {
+            gFieldStatuses |= STATUS_FIELD_ELECTRIC_TERRAIN;
+            gTerrainTimer = 5;
+            gBattleCommunication[MULTISTRING_CHOOSER] = 2; // Electric Terrain
+            gBattleCommunication[0] = 1;
+        }
+        else
+        {
+            gBattleCommunication[0] = 0;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_ELECTRIFY: // Electrify: next move used by target becomes Electric-type
+        // Stored in dynamicMoveType field via per-battler volatile; for simplicity set a flag
+        // that causes the next move to be treated as Electric
+        gBattleStruct->dynamicMoveType = TYPE_ELECTRIC | F_DYNAMIC_TYPE_1;
+        gBattleCommunication[0] = 1;
+        break;
+
+    case VARIOUS_SET_FAIRY_LOCK: // Prevent all Pokémon from switching for 1 turn
+        if (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_FAIRY_LOCK;
+            gFairyLockTimer = 2; // lasts until end of next turn
+            gBattleCommunication[0] = 1;
+        }
+        break;
+
+    case VARIOUS_BESTOW: // Transfer user's held item to target
+    {
+        if (gBattleMons[gBattlerAttacker].item == ITEM_NONE
+            || gBattleMons[gBattlerTarget].item != ITEM_NONE
+            || gBattleMons[gBattlerAttacker].ability == ABILITY_MULTITYPE)
+        {
+            gBattleCommunication[0] = 0;
+        }
+        else
+        {
+            gLastUsedItem = gBattleMons[gBattlerAttacker].item;
+            gBattleMons[gBattlerTarget].item = gBattleMons[gBattlerAttacker].item;
+            gBattleMons[gBattlerAttacker].item = ITEM_NONE;
+            gBattleCommunication[0] = 1;
+        }
+        break;
+    }
+
+    case VARIOUS_SET_ION_DELUGE: // Convert Normal-type moves to Electric for the rest of the turn
+        if (gFieldStatuses & STATUS_FIELD_ION_DELUGE)
+        {
+            gBattleCommunication[0] = 0; // already active
+        }
+        else
+        {
+            gFieldStatuses |= STATUS_FIELD_ION_DELUGE;
+            gBattleCommunication[0] = 1;
+        }
+        break;
     }
 
     gBattlescriptCurrInstr += 3;
@@ -6689,6 +7559,11 @@ static void Cmd_setprotectlike(void)
         {
             gProtectStructs[gBattlerAttacker].protected = 1;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PROTECTED_ITSELF;
+            // Set King's Shield / Spiky Shield flags
+            if (gCurrentMove == MOVE_KINGS_SHIELD)
+                gProtectStructs[gBattlerAttacker].kingsShield = 1;
+            else if (gCurrentMove == MOVE_SPIKY_SHIELD)
+                gProtectStructs[gBattlerAttacker].spikyShield = 1;
         }
         if (gBattleMoves[gCurrentMove].effect == EFFECT_ENDURE)
         {
@@ -6790,6 +7665,13 @@ static void Cmd_tryhealhalfhealth(void)
 
     if (gBattlescriptCurrInstr[5] == BS_ATTACKER)
         gBattlerTarget = gBattlerAttacker;
+
+    // Heal Block prevents the user from using healing moves
+    if (gStatuses3[gBattlerTarget] & STATUS3_HEAL_BLOCK)
+    {
+        gBattlescriptCurrInstr = failPtr;
+        return;
+    }
 
     gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 2;
     if (gBattleMoveDamage == 0)
@@ -7102,7 +7984,14 @@ static void Cmd_stockpiletohpheal(void)
 
 static void Cmd_negativedamage(void)
 {
-    gBattleMoveDamage = -(gHpDealt / 2);
+    // Draining Kiss, Oblivion Wing, Parabolic Charge: drain 75% of damage dealt
+    if (gCurrentMove == MOVE_DRAINING_KISS
+     || gCurrentMove == MOVE_OBLIVION_WING
+     || gCurrentMove == MOVE_PARABOLIC_CHARGE)
+        gBattleMoveDamage = -(gHpDealt * 3 / 4);
+    else
+        gBattleMoveDamage = -(gHpDealt / 2);
+
     if (gBattleMoveDamage == 0)
         gBattleMoveDamage = -1;
 
@@ -8202,7 +9091,7 @@ static void Cmd_settypetorandomresistance(void)
 
         for (rands = 0; rands < 1000; rands++)
         {
-            while (((i = Random() % 128) > sizeof(gTypeEffectiveness) / 3));
+            while (((i = Random() % 128) > BATTLE_TYPE_EFFECTIVENESS_SIZE / 3));
 
             i *= 3;
 
@@ -8218,7 +9107,7 @@ static void Cmd_settypetorandomresistance(void)
             }
         }
 
-        for (j = 0, rands = 0; rands < sizeof(gTypeEffectiveness); j += 3, rands += 3)
+        for (j = 0, rands = 0; rands < BATTLE_TYPE_EFFECTIVENESS_SIZE; j += 3, rands += 3)
         {
             switch (TYPE_EFFECT_ATK_TYPE(j))
             {

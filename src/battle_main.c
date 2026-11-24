@@ -190,6 +190,7 @@ static EWRAM_DATA u8 sUnusedBattlersArray[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gTakenDmgByBattler[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gUnusedFirstBattleVar2 = 0;
 EWRAM_DATA u16 gSideStatuses[2] = {0};
+EWRAM_DATA u16 gFieldStatuses = 0;
 EWRAM_DATA struct SideTimer gSideTimers[2] = {0};
 EWRAM_DATA u32 gStatuses3[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT] = {0};
@@ -319,7 +320,7 @@ static const s8 sPlayerThrowXTranslation[] = { -32, -16, -16, -32, -32, 0, 0, 0 
 // 10 is ×1.0 TYPE_MUL_NORMAL
 // 05 is ×0.5 TYPE_MUL_NOT_EFFECTIVE
 // 00 is ×0.0 TYPE_MUL_NO_EFFECT
-const u8 gTypeEffectiveness[336] =
+const u8 gTypeEffectiveness[] =
 {
     TYPE_NORMAL, TYPE_ROCK, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_NORMAL, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
@@ -393,6 +394,7 @@ const u8 gTypeEffectiveness[336] =
     TYPE_PSYCHIC, TYPE_FIGHTING, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_PSYCHIC, TYPE_POISON, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_PSYCHIC, TYPE_PSYCHIC, TYPE_MUL_NOT_EFFECTIVE,
+    TYPE_MIRACLE_EYE, TYPE_MIRACLE_EYE, TYPE_MUL_NO_EFFECT, // Miracle Eye: Psychic hits Dark when active
     TYPE_PSYCHIC, TYPE_DARK, TYPE_MUL_NO_EFFECT,
     TYPE_PSYCHIC, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_BUG, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,
@@ -2321,6 +2323,9 @@ static void BattleStartClearSetData(void)
     gBattlerAttacker = 0;
     gBattlerTarget = 0;
     gBattleWeather = 0;
+    gFieldStatuses = 0;
+    for (i = 0; i < (int)sizeof(gBattleStruct->padding_1E4); i++)
+        gBattleStruct->padding_1E4[i] = 0;
 
     dataPtr = (u8 *)&gWishFutureKnock;
     for (i = 0; i < sizeof(struct WishFutureKnock); i++)
@@ -3644,6 +3649,9 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
         speedBattler1 = UINT_MAX;
     if (holdEffect == HOLD_EFFECT_CHOICE_SCARF)
         speedBattler1 = (speedBattler1 * 150) / 100;
+    // Tailwind doubles speed for the user's side
+    if (gSideStatuses[GET_BATTLER_SIDE(battler1)] & SIDE_STATUS_TAILWIND)
+        speedBattler1 *= 2;
     // check second battlerId's speed
     speedBattler2 = (gBattleMons[battler2].speed * speedMultiplierBattler2)
                     * (gStatStageRatios[gBattleMons[battler2].statStages[STAT_SPEED]][0])
@@ -3669,6 +3677,16 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
         speedBattler2 = UINT_MAX;
     if (holdEffect == HOLD_EFFECT_CHOICE_SCARF)
         speedBattler2 = (speedBattler2 * 150) / 100;
+    // Tailwind doubles speed for battler2's side
+    if (gSideStatuses[GET_BATTLER_SIDE(battler2)] & SIDE_STATUS_TAILWIND)
+        speedBattler2 *= 2;
+    // Trick Room: invert the speed comparison (slower Pokémon move first)
+    if ((gFieldStatuses & STATUS_FIELD_TRICK_ROOM) && speedBattler1 != UINT_MAX && speedBattler2 != UINT_MAX)
+    {
+        u32 tmp = speedBattler1;
+        speedBattler1 = speedBattler2;
+        speedBattler2 = tmp;
+    }
     if (ignoreChosenMoves)
     {
         moveBattler1 = MOVE_NONE;
@@ -3880,6 +3898,8 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
     }
     TryClearRageStatuses();
     gCurrentTurnActionNumber = 0;
+    // Clear per-turn Gen 5 tracking at the start of each new turn
+    gBattleStruct->retaliateFainted = 0;
     {
         // something stupid needed to match
         u8 zero;

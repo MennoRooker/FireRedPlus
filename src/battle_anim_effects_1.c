@@ -118,6 +118,11 @@ static void AnimHornHit(struct Sprite *);
 static void AnimHornHit_Step(struct Sprite *);
 static void AnimTask_DoubleTeam_Step(u8);
 static void AnimDoubleTeam(struct Sprite *);
+static void AnimMoveFeintSwipe(struct Sprite *);
+static void AnimMoveFeintSwipeStep(struct Sprite *);
+static void AnimMoveFeintZoom(struct Sprite *);
+static void AnimPluck(struct Sprite *);
+static void AnimPluckParticle(struct Sprite *);
 static void AnimWavyMusicNotes(struct Sprite *);
 static void AnimWavyMusicNotes_CalcVelocity(s16, s16, s16 *, s16 *, s8);
 static void AnimWavyMusicNotes_Step(struct Sprite *);
@@ -402,6 +407,121 @@ const struct SpriteTemplate gLeechSeedSpriteTemplate =
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimLeechSeed,
 };
+
+const union AffineAnimCmd sFeintAffineZoom[] =
+{
+    AFFINEANIMCMD_FRAME(0x200, 0x200, 0, 0),
+    AFFINEANIMCMD_FRAME(-30, -30, 0, 10),
+    AFFINEANIMCMD_END,
+};
+
+const union AffineAnimCmd *const sFeintAffineAnims[] =
+{
+    sFeintAffineZoom,
+};
+
+const struct SpriteTemplate gFeintSwipeSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_FEINT,
+    .paletteTag = ANIM_TAG_FEINT,
+    .oam = &gOamData_AffineNormal_ObjNormal_64x64,
+    .callback = AnimMoveFeintSwipe,
+};
+
+const struct SpriteTemplate gFeintZoomSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_FEINT,
+    .paletteTag = ANIM_TAG_FEINT,
+    .oam = &gOamData_AffineNormal_ObjNormal_64x64,
+    .affineAnims = sFeintAffineAnims,
+    .callback = AnimMoveFeintZoom,
+};
+
+const struct SpriteTemplate gPluckParticleSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_SEED_BROWN,
+    .paletteTag = ANIM_TAG_SEED_BROWN,
+    .oam = &gOamData_AffineOff_ObjNormal_16x16,
+    .callback = AnimPluck,
+};
+
+static void AnimPluckParticle(struct Sprite *sprite)
+{
+    if (sprite->data[0] > 0)
+    {
+        s16 yVelocity = sprite->data[5];
+
+        sprite->y -= yVelocity;
+        sprite->x += sprite->data[2];
+        if ((sprite->data[0] % 7) == 0)
+            sprite->data[5] = yVelocity - 1;
+        sprite->data[0]--;
+    }
+    else
+    {
+        sprite->callback = DestroyAnimSprite;
+    }
+}
+
+static void AnimPluck(struct Sprite *sprite)
+{
+    InitSpritePosToAnimTarget(sprite, TRUE);
+    sprite->data[0] = gBattleAnimArgs[2];
+    sprite->data[5] = gBattleAnimArgs[3];
+    sprite->data[2] = gBattleAnimArgs[4];
+    sprite->x += gBattleAnimArgs[0];
+    sprite->y += gBattleAnimArgs[1];
+    sprite->callback = AnimPluckParticle;
+}
+
+static void AnimMoveFeintSwipeStep(struct Sprite *sprite)
+{
+    switch (sprite->data[5])
+    {
+    case 0:
+        if (AnimTranslateLinear(sprite))
+        {
+            sprite->x2 = 0;
+            sprite->x += 64;
+            sprite->data[5]++;
+            sprite->data[0] = sprite->data[6];
+            sprite->data[1] = sprite->x;
+            sprite->data[2] = sprite->x - 64;
+            sprite->data[3] = sprite->y;
+            sprite->data[4] = sprite->y;
+            InitAnimLinearTranslation(sprite);
+        }
+        break;
+    case 1:
+        if (AnimTranslateLinear(sprite))
+            sprite->callback = DestroyAnimSprite;
+        break;
+    }
+}
+
+static void AnimMoveFeintSwipe(struct Sprite *sprite)
+{
+    if (GetBattlerSide(gBattleAnimAttacker) != B_SIDE_PLAYER)
+        gBattleAnimArgs[0] = -gBattleAnimArgs[0];
+
+    InitSpritePosToAnimTarget(sprite, TRUE);
+    sprite->data[0] = gBattleAnimArgs[2];
+    sprite->data[6] = gBattleAnimArgs[2];
+    sprite->data[1] = sprite->x;
+    sprite->data[2] = sprite->x + 64;
+    sprite->data[3] = sprite->y;
+    sprite->data[4] = sprite->y;
+    sprite->data[5] = 0;
+    InitAnimLinearTranslation(sprite);
+    sprite->callback = AnimMoveFeintSwipeStep;
+}
+
+static void AnimMoveFeintZoom(struct Sprite *sprite)
+{
+    InitSpritePosToAnimTarget(sprite, TRUE);
+    StoreSpriteCallbackInData6(sprite, DestroySpriteAndMatrix);
+    sprite->callback = RunStoredCallbackWhenAffineAnimEnds;
+}
 
 static const union AnimCmd sSporeParticleAnimCmds1[] =
 {

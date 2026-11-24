@@ -290,8 +290,8 @@ struct ProtectStruct
     u32 flag2Unknown:1;         // 0x2
     u32 flinchImmobility:1;     // 0x4
     u32 notFirstStrike:1;       // 0x8
-    u32 flag_x10 : 1;           // 0x10
-    u32 flag_x20 : 1;           // 0x20
+    u32 kingsShield:1;          // 0x10 - set when King's Shield is active
+    u32 spikyShield:1;          // 0x20 - set when Spiky Shield is active
     u32 flag_x40 : 1;           // 0x40
     u32 flag_x80 : 1;           // 0x80
     u32 field3 : 8;
@@ -516,8 +516,8 @@ struct BattleStruct
     u8 formToChangeInto;
     u8 chosenMovePositions[MAX_BATTLERS_COUNT];
     u8 stateIdAfterSelScript[MAX_BATTLERS_COUNT];
-    u8 field_88; // unused
-    u8 field_89; // unused
+    u8 echoedVoiceCounter;  // number of consecutive turns Echoed Voice has been used
+    u8 retaliateFainted;    // bitmask of battlers that fainted last turn (for Retaliate)
     u8 field_8A; // unused
     u8 playerPartyIdx;
     u8 field_8C; // unused
@@ -561,10 +561,24 @@ struct BattleStruct
         struct LinkBattlerHeader linkBattlerHeader;
         struct MultiBattlePokemonTx multiBattleMons[3];
     } multiBuffer;
-    u8 padding_1E4[0x10];
-}; // size == 0x200 bytes
+    u8 padding_1E4[0x20]; // expanded from 0x10 to hold gen5/6 field-effect timers
+}; // size == 0x208 bytes
 
 extern struct BattleStruct *gBattleStruct;
+
+// Accessors for the padding bytes repurposed as Gen 4 field-effect timers.
+#define gTrickRoomTimer            (gBattleStruct->padding_1E4[0])
+#define gGravityTimer              (gBattleStruct->padding_1E4[1])
+#define gTailwindTimers(side)      (gBattleStruct->padding_1E4[2 + (side)])
+#define gLuckyChantTimers(side)    (gBattleStruct->padding_1E4[4 + (side)])
+#define gMagnetRiseTimers(battler) (gBattleStruct->padding_1E4[6 + (battler)])
+#define gEmbargoTimers(battler)    (gBattleStruct->padding_1E4[10 + (battler)])
+#define gToxicSpikesCount(side)    (gBattleStruct->padding_1E4[14 + (side)])
+#define gWonderRoomTimer           (gBattleStruct->padding_1E4[16])
+#define gMagicRoomTimer            (gBattleStruct->padding_1E4[17])
+#define gTerrainTimer              (gBattleStruct->padding_1E4[18])
+#define gFairyLockTimer            (gBattleStruct->padding_1E4[19])
+#define gTelekinesisTimers(battler)(gBattleStruct->padding_1E4[20 + (battler)])
 
 #define F_DYNAMIC_TYPE_1 (1 << 6)
 #define F_DYNAMIC_TYPE_2 (1 << 7)
@@ -800,6 +814,7 @@ extern u16 gLastMoves[MAX_BATTLERS_COUNT];
 extern u8 gBattlerByTurnOrder[MAX_BATTLERS_COUNT];
 extern u8 gBattleCommunication[BATTLE_COMMUNICATION_ENTRIES_COUNT];
 extern u16 gSideStatuses[2];
+extern u16 gFieldStatuses; // Field-wide status conditions (STATUS_FIELD_*)
 extern u32 gHitMarker;
 extern u16 gChosenMoveByBattler[MAX_BATTLERS_COUNT];
 extern u16 gMoveResultFlags;

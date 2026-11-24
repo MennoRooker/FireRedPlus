@@ -1883,6 +1883,18 @@ to try and get the map layouts at least. I have no idea how
 the gen 4 NDS maps are going to translate to GBA at all,
 but I guess we'll find out.
 
+species_info struct in pokemon.h still has old stats order
+and include/graphics.h still has old order of species,
+where Chimecho is at the end. Should fix this in codebase-
+improvements branch.
+
+I can add HM09 and HM10 as Defog and Rock Climb to complete
+the gen 3 + gen 4 overworld navigation HMs. Defog is also a
+pretty decent move in competitive. I just have to make Rock
+Climb a ROCK type move like I did with Strength.
+
+
+
 TO DO:
 x Force SET mode
 x EV berries

@@ -151,6 +151,15 @@
 #define STATUS3_UNDERWATER              (1 << 18)
 #define STATUS3_INTIMIDATE_POKES        (1 << 19)
 #define STATUS3_TRACE                   (1 << 20)
+#define STATUS3_AQUA_RING               (1 << 21) // Heals 1/16 HP each turn
+#define STATUS3_MAGNET_RISE             (1 << 22) // Immune to Ground-type moves
+#define STATUS3_EMBARGO                 (1 << 23) // Cannot use held item
+#define STATUS3_HEAL_BLOCK              (1 << 24) // Cannot use healing moves
+#define STATUS3_GASTRO_ACID             (1 << 25) // Ability suppressed
+#define STATUS3_MIRACLE_EYE             (1 << 26) // Psychic hits Dark-types; evasion stages ignored
+#define STATUS3_ROOST                   (1 << 27) // User loses Flying-type until end of turn
+#define STATUS3_POWER_TRICK             (1 << 28) // Atk and Def stats swapped
+#define STATUS3_TELEKINESIS             (1 << 29) // Always hit; immune to Ground; can't switch
 #define STATUS3_SEMI_INVULNERABLE       (STATUS3_UNDERGROUND | STATUS3_ON_AIR | STATUS3_UNDERWATER)
 
 // Not really sure what a "hitmarker" is.
@@ -190,6 +199,22 @@
 #define SIDE_STATUS_FUTUREATTACK     (1 << 6)
 #define SIDE_STATUS_MIST             (1 << 8)
 #define SIDE_STATUS_SPIKES_DAMAGED   (1 << 9)
+#define SIDE_STATUS_STEALTH_ROCK     (1 << 10) // Entry hazard: fraction of HP lost on switch-in
+#define SIDE_STATUS_TOXIC_SPIKES     (1 << 11) // Entry hazard: poisons switch-ins (toxic at 2 layers)
+#define SIDE_STATUS_STICKY_WEB       (1 << 12) // Entry hazard: lowers Speed on switch-in
+#define SIDE_STATUS_TAILWIND         (1 << 13) // Doubles Speed for the user's side for 3 turns
+#define SIDE_STATUS_LUCKY_CHANT      (1 << 14) // Prevents critical hits on the user's side
+
+// Whole-field status conditions
+#define STATUS_FIELD_TRICK_ROOM         (1 << 0) // Slower Pokémon move first for 5 turns
+#define STATUS_FIELD_GRAVITY            (1 << 1) // All Pokémon grounded; Flying-types lose immunity
+#define STATUS_FIELD_MAGIC_ROOM         (1 << 2) // Held items have no effect for 5 turns
+#define STATUS_FIELD_WONDER_ROOM        (1 << 3) // Def and Sp. Def are swapped for 5 turns
+#define STATUS_FIELD_GRASSY_TERRAIN     (1 << 4) // Heals grounded Pokémon; boosts Grass moves for 5 turns
+#define STATUS_FIELD_MISTY_TERRAIN      (1 << 5) // Prevents status conditions on grounded Pokémon for 5 turns
+#define STATUS_FIELD_ELECTRIC_TERRAIN   (1 << 6) // Prevents sleep on grounded Pokémon; boosts Electric moves for 5 turns
+#define STATUS_FIELD_FAIRY_LOCK         (1 << 7) // Prevents all Pokémon from fleeing or switching for 1 turn
+#define STATUS_FIELD_ION_DELUGE         (1 << 8) // Normal-type moves become Electric-type until end of turn
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)
@@ -280,7 +305,7 @@
 #define MOVE_EFFECT_NOTHING_37          55
 #define MOVE_EFFECT_NOTHING_38          56
 #define MOVE_EFFECT_NOTHING_39          57
-#define MOVE_EFFECT_NOTHING_3A          58
+#define MOVE_EFFECT_DEF_SPDEF_SPD_DOWN  58 // V-create: lower user's Def/Sp.Def/Speed by 1
 #define MOVE_EFFECT_SP_ATK_TWO_DOWN     59
 #define NUM_MOVE_EFFECTS                60
 

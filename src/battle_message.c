@@ -526,6 +526,45 @@ static const u8 sText_PkmnHungOnWithSturdy[] = _("{B_DEF_NAME_WITH_PREFIX} hung 
 static const u8 sText_PkmnsItemWeakenedTypeMove[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_LAST_ITEM}\nweakened the {B_BUFF1}-type move!");
 static const u8 sText_PkmnTookDamageFromItem[] = _("{B_ATK_NAME_WITH_PREFIX} took damage\nfrom {B_LAST_ITEM}.");
 
+// Gen 4 move-effect strings
+static const u8 sText_PkmnSurroundedWithVeilOfWater[] = _("{B_ATK_NAME_WITH_PREFIX} surrounded\nitself with a veil of water!");
+static const u8 sText_PkmnLevitatedOnElectromagnetism[] = _("{B_ATK_NAME_WITH_PREFIX} levitated\nwith electromagnetism!");
+static const u8 sText_PkmnCantUseItemsAnymore[] = _("{B_DEF_NAME_WITH_PREFIX} can't use\nitems anymore!");
+static const u8 sText_PkmnPreventedFromHealing[] = _("{B_DEF_NAME_WITH_PREFIX} was prevented\nfrom healing!");
+static const u8 sText_PkmnsAbilitySuppressed[] = _("{B_DEF_NAME_WITH_PREFIX}'s\nAbility was suppressed!");
+static const u8 sText_ShieldedFromCriticalHits[] = _("LUCKY CHANT shielded the\nuser's side from critical hits!");
+static const u8 sText_TailwindBlew[] = _("A tailwind started blowing\non the user's side!");
+static const u8 sText_GravityIntensified[] = _("Gravity intensified!");
+static const u8 sText_PkmnTwistedDimensions[] = _("{B_ATK_NAME_WITH_PREFIX} twisted\nthe dimensions!");
+static const u8 sText_TrickRoomEnds[] = _("The twisted dimensions\nreturned to normal!");
+static const u8 sText_PointedStonesFloat[] = _("Pointed stones float in\nthe air around the foe!");
+static const u8 sText_PoisonSpikesScattered[] = _("Toxic spikes were scattered\naround the foe's feet!");
+static const u8 sText_PkmnSwitchedAtkAndDef[] = _("{B_ATK_NAME_WITH_PREFIX} switched\nits Attack and Defense!");
+static const u8 sText_PkmnSwitchedStatChanges[] = _("{B_ATK_NAME_WITH_PREFIX} switched\nstat changes with the target!");
+static const u8 sText_PkmnAcquiredAbility[] = _("{B_DEF_NAME_WITH_PREFIX} acquired\n{B_DEF_ABILITY}!");
+static const u8 sText_HealingWishHealed[] = _("{B_ATK_NAME_WITH_PREFIX}\nregained health!");
+static const u8 sText_HealingWishCameTrue[] = _("The healing wish\ncame true!");
+static const u8 sText_PkmnAbsorbingPower[] = _("{B_ATK_NAME_WITH_PREFIX} is absorbing\npower!");
+static const u8 sText_PkmnTookAimAtTarget[] = _("{B_ATK_NAME_WITH_PREFIX} took aim\nat {B_DEF_NAME_WITH_PREFIX}!");
+// Gen 5/6 message strings
+static const u8 sText_StickyWebScattered[] = _("A sticky web has been\nlaid out around the foe!");
+static const u8 sText_PkmnSlowedDownByWeb[] = _("{B_ATK_NAME_WITH_PREFIX} was slowed\ndown by the sticky web!");
+static const u8 sText_PkmnLiftedWithTelekinesisToo[] = _("{B_DEF_NAME_WITH_PREFIX} was lifted\nby telekinesis!");
+static const u8 sText_StatChangesReverted[] = _("{B_DEF_NAME_WITH_PREFIX}'s stat\nchanges were reversed!");
+static const u8 sText_PkmnSharedGuard[] = _("{B_ATK_NAME_WITH_PREFIX} shared\nits guard with the target!");
+static const u8 sText_PkmnSharedPower[] = _("{B_ATK_NAME_WITH_PREFIX} shared\nits power with the target!");
+static const u8 sText_PkmnChangedToThirdType[] = _("{B_DEF_NAME_WITH_PREFIX} had a\ntype added to it!");
+static const u8 sText_GrassyTerrainActivated[] = _("Grassy terrain appeared!");
+static const u8 sText_MistyTerrainActivated[] = _("Misty terrain spread across\nthe battlefield!");
+static const u8 sText_ElectricTerrainActivated[] = _("An electric current ran\nthrough the battlefield!");
+static const u8 sText_TerrainEnds[] = _("The terrain returned\nto normal!");
+static const u8 sText_WonderRoomInEffect[] = _("{B_ATK_NAME_WITH_PREFIX} created\na bizarre area in which\lDEF and SP. DEF are swapped!");
+static const u8 sText_WonderRoomEnds[] = _("The battlefield's wonder\nroom faded!");
+static const u8 sText_MagicRoomActivated[] = _("{B_ATK_NAME_WITH_PREFIX} created\na bizarre area in which\litems have no effect!");
+static const u8 sText_MagicRoomEnds[] = _("The battlefield's magic\nroom faded!");
+static const u8 sText_Electrified[] = _("The battlefield was\nelectrified!");
+static const u8 sText_FairyLocked[] = _("No one will be able\nto run away!");
+
 const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_START] = {
     [STRINGID_TRAINER1LOSETEXT - BATTLESTRINGS_TABLE_START]              = sText_Trainer1LoseText,
     [STRINGID_PKMNGAINEDEXP - BATTLESTRINGS_TABLE_START]                 = sText_PkmnGainedEXP,
@@ -912,6 +951,44 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_TARGETNOLONGERTRAPPEDBYSPIDERWEB - BATTLESTRINGS_TABLE_START] = sText_TargetNoLongerTrappedBySpiderWeb,
     [STRINGID_PKMNRAISEDATTACKWITH - BATTLESTRINGS_TABLE_START]          = sText_PkmnRaisedAttackWith,
     [STRINGID_PKMNTOOKDAMAGEFROMITEM - BATTLESTRINGS_TABLE_START]        = sText_PkmnTookDamageFromItem,
+    // Gen 4 move-effect strings
+    [STRINGID_PKMNSURROUNDEDWITHVEILOFWATER - BATTLESTRINGS_TABLE_START]  = sText_PkmnSurroundedWithVeilOfWater,
+    [STRINGID_PKMNLEVITATEDONELECTROMAGNETISM - BATTLESTRINGS_TABLE_START] = sText_PkmnLevitatedOnElectromagnetism,
+    [STRINGID_PKMNCANTUSEITEMSANYMORE - BATTLESTRINGS_TABLE_START]        = sText_PkmnCantUseItemsAnymore,
+    [STRINGID_PKMNPREVENTEDFROMHEALING - BATTLESTRINGS_TABLE_START]       = sText_PkmnPreventedFromHealing,
+    [STRINGID_PKMNSABILITYSUPPRESSED - BATTLESTRINGS_TABLE_START]         = sText_PkmnsAbilitySuppressed,
+    [STRINGID_SHIELDEDFROMCRITICALHITS - BATTLESTRINGS_TABLE_START]       = sText_ShieldedFromCriticalHits,
+    [STRINGID_TAILWINDBLEW - BATTLESTRINGS_TABLE_START]                   = sText_TailwindBlew,
+    [STRINGID_GRAVITYINTENSIFIED - BATTLESTRINGS_TABLE_START]             = sText_GravityIntensified,
+    [STRINGID_PKMNTWISTEDDIMENSIONS - BATTLESTRINGS_TABLE_START]          = sText_PkmnTwistedDimensions,
+    [STRINGID_TRICKROOMENDS - BATTLESTRINGS_TABLE_START]                  = sText_TrickRoomEnds,
+    [STRINGID_POINTEDSTONESFLOAT - BATTLESTRINGS_TABLE_START]             = sText_PointedStonesFloat,
+    [STRINGID_POISONSPIKESSCATTERED - BATTLESTRINGS_TABLE_START]          = sText_PoisonSpikesScattered,
+    [STRINGID_PKMNSWITCHEDATKANDDEF - BATTLESTRINGS_TABLE_START]          = sText_PkmnSwitchedAtkAndDef,
+    [STRINGID_PKMNSWITCHEDSTATCHANGES - BATTLESTRINGS_TABLE_START]        = sText_PkmnSwitchedStatChanges,
+    [STRINGID_PKMNACQUIREDABILITY - BATTLESTRINGS_TABLE_START]            = sText_PkmnAcquiredAbility,
+    [STRINGID_HEALINGWISHHEALED - BATTLESTRINGS_TABLE_START]              = sText_HealingWishHealed,
+    [STRINGID_HEALINGWISHCAMETRUE - BATTLESTRINGS_TABLE_START]            = sText_HealingWishCameTrue,
+    [STRINGID_PKMNABSORBINGPOWER - BATTLESTRINGS_TABLE_START]             = sText_PkmnAbsorbingPower,
+    [STRINGID_PKMNTOOKAIMETARGET - BATTLESTRINGS_TABLE_START]             = sText_PkmnTookAimAtTarget,
+    // Gen 5/6
+    [STRINGID_STICKYWEBSCATTERED - BATTLESTRINGS_TABLE_START]             = sText_StickyWebScattered,
+    [STRINGID_PKMNSLOWEDDOWNBYWEB - BATTLESTRINGS_TABLE_START]            = sText_PkmnSlowedDownByWeb,
+    [STRINGID_PKMNLIFTEDWITHTELEKINESISTOO - BATTLESTRINGS_TABLE_START]   = sText_PkmnLiftedWithTelekinesisToo,
+    [STRINGID_STATCHANGESREVERTED - BATTLESTRINGS_TABLE_START]            = sText_StatChangesReverted,
+    [STRINGID_PKMNSHAREDGUARD - BATTLESTRINGS_TABLE_START]                = sText_PkmnSharedGuard,
+    [STRINGID_PKMNSHAREDPOWER - BATTLESTRINGS_TABLE_START]                = sText_PkmnSharedPower,
+    [STRINGID_PKMNCHANGEDTOTHIRDTYPE - BATTLESTRINGS_TABLE_START]         = sText_PkmnChangedToThirdType,
+    [STRINGID_GRASSYTERRAINACTIVATED - BATTLESTRINGS_TABLE_START]         = sText_GrassyTerrainActivated,
+    [STRINGID_MISTYTERRAINACTIVATED - BATTLESTRINGS_TABLE_START]          = sText_MistyTerrainActivated,
+    [STRINGID_ELECTRICTERRAINACTIVATED - BATTLESTRINGS_TABLE_START]       = sText_ElectricTerrainActivated,
+    [STRINGID_TERRAINENDS - BATTLESTRINGS_TABLE_START]                    = sText_TerrainEnds,
+    [STRINGID_WONDERROOMINEFFECT - BATTLESTRINGS_TABLE_START]             = sText_WonderRoomInEffect,
+    [STRINGID_WONDERROOMENDS - BATTLESTRINGS_TABLE_START]                 = sText_WonderRoomEnds,
+    [STRINGID_MAGICROOMACTIVATED - BATTLESTRINGS_TABLE_START]             = sText_MagicRoomActivated,
+    [STRINGID_MAGICROOMENDS - BATTLESTRINGS_TABLE_START]                  = sText_MagicRoomEnds,
+    [STRINGID_ELECTRIFIED - BATTLESTRINGS_TABLE_START]                    = sText_Electrified,
+    [STRINGID_FAIRYLOCKED - BATTLESTRINGS_TABLE_START]                    = sText_FairyLocked,
 };
 
 const u16 gMissStringIds[] =
@@ -1058,7 +1135,9 @@ const u16 gFirstTurnOfTwoStringIds[] =
     [B_MSG_TURN1_FLY]        = STRINGID_PKMNFLEWHIGH,
     [B_MSG_TURN1_DIG]        = STRINGID_PKMNDUGHOLE,
     [B_MSG_TURN1_DIVE]       = STRINGID_PKMNHIDUNDERWATER,
-    [B_MSG_TURN1_BOUNCE]     = STRINGID_PKMNSPRANGUP
+    [B_MSG_TURN1_BOUNCE]     = STRINGID_PKMNSPRANGUP,
+    [B_MSG_TURN1_GEOMANCY]   = STRINGID_PKMNABSORBINGPOWER,
+    [B_MSG_TURN1_SKY_DROP]   = STRINGID_PKMNTOOKAIMETARGET,
 };
 
 // Index copied from move's index in gTrappingMoves
@@ -1076,6 +1155,14 @@ const u16 gMistUsedStringIds[] =
 {
     [B_MSG_SET_MIST]    = STRINGID_PKMNSHROUDEDINMIST,
     [B_MSG_MIST_FAILED] = STRINGID_BUTITFAILED
+};
+
+// 0=Grassy, 1=Misty, 2=Electric
+const u16 gTerrainStringIds[] =
+{
+    STRINGID_GRASSYTERRAINACTIVATED,
+    STRINGID_MISTYTERRAINACTIVATED,
+    STRINGID_ELECTRICTERRAINACTIVATED,
 };
 
 const u16 gFocusEnergyUsedStringIds[] =

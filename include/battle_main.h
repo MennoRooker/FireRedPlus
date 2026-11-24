@@ -38,7 +38,8 @@ struct MultiBattlePokemonTx
 #define TYPE_MUL_SUPER_EFFECTIVE    20
 
 // special type table Ids
-#define TYPE_FORESIGHT  0xFE
+#define TYPE_FORESIGHT    0xFE
+#define TYPE_MIRACLE_EYE  0xFD
 #define TYPE_ENDTABLE   0xFF
 
 // defines for the 'DoBounceEffect' function
@@ -57,7 +58,8 @@ extern const u8 gStatusConditionString_IceJpn[8];
 extern const u8 gStatusConditionString_ConfusionJpn[8];
 extern const u8 gStatusConditionString_LoveJpn[8];
 extern const u8 *const gStatusConditionStringsTable[7][2];
-extern const u8 gTypeEffectiveness[336];
+extern const u8 gTypeEffectiveness[]; // size grows with new type markers
+#define BATTLE_TYPE_EFFECTIVENESS_SIZE 339 // 336 original + 3 for TYPE_MIRACLE_EYE checkpoint
 extern const struct TrainerMoney gTrainerMoneyTable[];
 extern const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT];
 extern const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1];
