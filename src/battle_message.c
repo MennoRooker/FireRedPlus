@@ -564,6 +564,9 @@ static const u8 sText_MagicRoomActivated[] = _("{B_ATK_NAME_WITH_PREFIX} created
 static const u8 sText_MagicRoomEnds[] = _("The battlefield's magic\nroom faded!");
 static const u8 sText_Electrified[] = _("The battlefield was\nelectrified!");
 static const u8 sText_FairyLocked[] = _("No one will be able\nto run away!");
+static const u8 sText_PkmnShudderedWithAnticipation[] = _("{B_ATK_NAME_WITH_PREFIX}\nshuddered with anticipation!");
+static const u8 sText_ForewarnAlert[] = _("{B_ATK_NAME_WITH_PREFIX}'s Forewarn alerted it\nto {B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}!");
+static const u8 sText_PkmnWasFrisked[] = _("{B_DEF_NAME_WITH_PREFIX} was frisked,\nrevealing its {B_LAST_ITEM}!");
 
 const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_START] = {
     [STRINGID_TRAINER1LOSETEXT - BATTLESTRINGS_TABLE_START]              = sText_Trainer1LoseText,
@@ -989,6 +992,9 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_MAGICROOMENDS - BATTLESTRINGS_TABLE_START]                  = sText_MagicRoomEnds,
     [STRINGID_ELECTRIFIED - BATTLESTRINGS_TABLE_START]                    = sText_Electrified,
     [STRINGID_FAIRYLOCKED - BATTLESTRINGS_TABLE_START]                    = sText_FairyLocked,
+    [STRINGID_PKMNSHUDDEREDWITHANTICIPATION - BATTLESTRINGS_TABLE_START]  = sText_PkmnShudderedWithAnticipation,
+    [STRINGID_FOREWARNALERT - BATTLESTRINGS_TABLE_START]                  = sText_ForewarnAlert,
+    [STRINGID_PKMNWASFRISKED - BATTLESTRINGS_TABLE_START]                 = sText_PkmnWasFrisked,
 };
 
 const u16 gMissStringIds[] =

@@ -931,7 +931,10 @@ static void Cmd_attackcanceler(void)
     if (gSpecialStatuses[gBattlerTarget].lightningRodRedirected)
     {
         gSpecialStatuses[gBattlerTarget].lightningRodRedirected = FALSE;
-        gLastUsedAbility = ABILITY_LIGHTNING_ROD;
+        if (gBattleMons[gBattlerTarget].ability == ABILITY_STORM_DRAIN)
+            gLastUsedAbility = ABILITY_STORM_DRAIN;
+        else
+            gLastUsedAbility = ABILITY_LIGHTNING_ROD;
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_TookAttack;
         RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
@@ -1120,7 +1123,11 @@ static void Cmd_accuracycheck(void)
         if (AccuracyCalcHelper(move))
             return;
 
-        if (gBattleMons[gBattlerTarget].status2 & STATUS2_FORESIGHT)
+        if (gBattleMons[gBattlerAttacker].ability == ABILITY_UNAWARE)
+        {
+            buff = DEFAULT_STAT_STAGE;
+        }
+        else if (gBattleMons[gBattlerTarget].status2 & STATUS2_FORESIGHT)
         {
             u8 acc = gBattleMons[gBattlerAttacker].statStages[STAT_ACC];
             buff = acc;
@@ -1130,6 +1137,9 @@ static void Cmd_accuracycheck(void)
             u8 acc = gBattleMons[gBattlerAttacker].statStages[STAT_ACC];
             buff = acc + DEFAULT_STAT_STAGE - gBattleMons[gBattlerTarget].statStages[STAT_EVASION];
         }
+
+        if (gBattleMons[gBattlerTarget].ability == ABILITY_UNAWARE)
+            buff = DEFAULT_STAT_STAGE;
 
         if (buff < MIN_STAT_STAGE)
             buff = MIN_STAT_STAGE;
@@ -1502,7 +1512,11 @@ static void Cmd_typecalc(void)
       || gBattleMons[gBattlerTarget].ability == ABILITY_SOLID_ROCK)
      && gBattleMons[gBattlerAttacker].ability != ABILITY_MOLD_BREAKER
      && gTypeEffectivenessMultiplier >= 20)
+    {
         gBattleMoveDamage = (75 * gBattleMoveDamage) / 100;
+        gLastUsedAbility = gBattleMons[gBattlerTarget].ability;
+        RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
+    }
 
     // Gravity: grounds all battlers — Levitate ability and Flying-type Ground immunity are ignored.
     if (moveType == TYPE_GROUND && (gFieldStatuses & STATUS_FIELD_GRAVITY))
@@ -1524,10 +1538,16 @@ static void Cmd_typecalc(void)
             }
             if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
             {
+                u8 multiplier = TYPE_EFFECT_MULTIPLIER(i);
+                if (multiplier == TYPE_MUL_NO_EFFECT
+                 && (moveType == TYPE_NORMAL || moveType == TYPE_FIGHTING)
+                 && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST
+                 && gBattleMons[gBattlerAttacker].ability == ABILITY_SCRAPPY)
+                    multiplier = TYPE_MUL_NORMAL;
                 if (TYPE_EFFECT_DEF_TYPE(i) == defType1)
-                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
+                    ModulateDmgByType(multiplier);
                 if (TYPE_EFFECT_DEF_TYPE(i) == defType2 && defType1 != defType2)
-                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
+                    ModulateDmgByType(multiplier);
             }
             i += 3;
         }
@@ -1576,14 +1596,25 @@ static void Cmd_typecalc(void)
             }
             if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
             {
+                u8 multiplier = TYPE_EFFECT_MULTIPLIER(i);
+                if (multiplier == TYPE_MUL_NO_EFFECT
+                 && (moveType == TYPE_NORMAL || moveType == TYPE_FIGHTING)
+                 && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST
+                 && gBattleMons[gBattlerAttacker].ability == ABILITY_SCRAPPY)
+                    multiplier = TYPE_MUL_NORMAL;
                 if (TYPE_EFFECT_DEF_TYPE(i) == defType1)
-                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
+                    ModulateDmgByType(multiplier);
                 if (TYPE_EFFECT_DEF_TYPE(i) == defType2 && defType1 != defType2)
-                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
+                    ModulateDmgByType(multiplier);
             }
             i += 3;
         }
     }
+
+    if ((moveType == TYPE_NORMAL || moveType == TYPE_FIGHTING)
+     && gBattleMons[gBattlerAttacker].ability == ABILITY_SCRAPPY
+     && (defType1 == TYPE_GHOST || defType2 == TYPE_GHOST))
+        RecordAbilityBattle(gBattlerAttacker, ABILITY_SCRAPPY);
 
     if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
      && ShouldApplySkyUppercutFlyingBonus(gCurrentMove, defType1, defType2))
@@ -1613,6 +1644,14 @@ static void Cmd_typecalc(void)
             }
             j += 3;
         }
+    }
+
+    if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+     && gBattleMons[gBattlerAttacker].ability == ABILITY_TINTED_LENS
+     && gTypeEffectivenessMultiplier <= 5)
+    {
+        gBattleMoveDamage *= 2;
+        RecordAbilityBattle(gBattlerAttacker, ABILITY_TINTED_LENS);
     }
 
     // Freeze-Dry: super effective against Water-type regardless of Ice's normal table entry
@@ -1670,19 +1709,7 @@ static void Cmd_typecalc(void)
     }
 
     gBattlescriptCurrInstr++;
-
-        if (gBattleMons[gBattlerTarget].ability == ABILITY_SOLID_ROCK
-         && gTypeEffectivenessMultiplier >= 20
-         && gBattleMoves[gCurrentMove].power != 0
-         && !(gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE))
-        {
-            gLastUsedAbility = ABILITY_SOLID_ROCK;
-            RecordAbilityBattle(gBattlerTarget, ABILITY_SOLID_ROCK);
-            gBattleMoveDamage = (3 * gBattleMovePower) / 4; // Solid rock reduces damage by 25%
-            if (gBattleMoveDamage == 0)
-                gBattleMoveDamage = 1;
-        }
-    }
+}
 
 static void CheckWonderGuardAndLevitate(void)
 {
@@ -1714,35 +1741,42 @@ static void CheckWonderGuardAndLevitate(void)
         }
         if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
         {
+            u8 multiplier = TYPE_EFFECT_MULTIPLIER(i);
+            if (multiplier == TYPE_MUL_NO_EFFECT
+             && (moveType == TYPE_NORMAL || moveType == TYPE_FIGHTING)
+             && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST
+             && gBattleMons[gBattlerAttacker].ability == ABILITY_SCRAPPY)
+                multiplier = TYPE_MUL_NORMAL;
+
             // check no effect
             if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type1
-                && TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NO_EFFECT)
+                && multiplier == TYPE_MUL_NO_EFFECT)
             {
                 gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
                 gProtectStructs[gBattlerAttacker].targetNotAffected = 1;
             }
             if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type2 &&
                 gBattleMons[gBattlerTarget].type1 != gBattleMons[gBattlerTarget].type2 &&
-                TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NO_EFFECT)
+                multiplier == TYPE_MUL_NO_EFFECT)
             {
                 gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
                 gProtectStructs[gBattlerAttacker].targetNotAffected = 1;
             }
 
             // check super effective
-            if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type1 && TYPE_EFFECT_MULTIPLIER(i) == 20)
+            if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type1 && multiplier == 20)
                 flags |= 1;
             if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type2
              && gBattleMons[gBattlerTarget].type1 != gBattleMons[gBattlerTarget].type2
-             && TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_SUPER_EFFECTIVE)
+             && multiplier == TYPE_MUL_SUPER_EFFECTIVE)
                 flags |= 1;
 
             // check not very effective
-            if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type1 && TYPE_EFFECT_MULTIPLIER(i) == 5)
+            if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type1 && multiplier == 5)
                 flags |= 2;
             if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].type2
              && gBattleMons[gBattlerTarget].type1 != gBattleMons[gBattlerTarget].type2
-             && TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NOT_EFFECTIVE)
+             && multiplier == TYPE_MUL_NOT_EFFECTIVE)
                 flags |= 2;
         }
         i += 3;
@@ -5113,6 +5147,7 @@ static void Cmd_getswitchedmondata(void)
         gBattleStruct->usedHeldItems[gActiveBattler] = ITEM_NONE;
 
     gBattlerPartyIndexes[gActiveBattler] = *(gBattleStruct->monToSwitchIntoId + gActiveBattler);
+    gSlowStartTimers(gActiveBattler) = 0;
 
     BtlController_EmitGetMonData(BUFFER_A, REQUEST_ALL_BATTLE, gBitTable[gBattlerPartyIndexes[gActiveBattler]]);
     MarkBattlerForControllerExec(gActiveBattler);
@@ -8692,6 +8727,7 @@ static void Cmd_weatherdamage(void)
         {
             if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ICE)
                 && gBattleMons[gBattlerAttacker].ability != ABILITY_SNOW_CLOAK
+                && gBattleMons[gBattlerAttacker].ability != ABILITY_ICE_BODY
                 && gBattleMons[gBattlerAttacker].ability != ABILITY_MAGIC_GUARD
                 && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERGROUND)
                 && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER))

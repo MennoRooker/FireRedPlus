@@ -5363,6 +5363,24 @@ BattleScript_TraceActivates::
 	waitmessage B_WAIT_TIME_LONG
 	end3
 
+BattleScript_AnticipationActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSHUDDEREDWITHANTICIPATION
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
+BattleScript_ForewarnActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_FOREWARNALERT
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
+BattleScript_FriskActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNWASFRISKED
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
 BattleScript_RainDishActivates::
 	printstring STRINGID_PKMNSXRESTOREDHPALITTLE2
 	waitmessage B_WAIT_TIME_LONG
