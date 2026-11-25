@@ -5633,6 +5633,12 @@ BattleScript_SoundproofProtected::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
+BattleScript_WanderingSpiritActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSWAPPEDABILITIES
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_AbilityNoSpecificStatLoss::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNSXPREVENTSYLOSS

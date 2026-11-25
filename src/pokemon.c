@@ -3235,6 +3235,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         type = typeOverride & DYNAMIC_TYPE_MASK;
     if (attacker->ability == ABILITY_NORMALIZE)
         type = TYPE_NORMAL;
+    else if (attacker->ability == ABILITY_PIXILATE
+          && move != MOVE_STRUGGLE
+          && type == TYPE_NORMAL)
+        type = TYPE_FAIRY;
 
     switch (gBattleMoves[move].effect)
     {
@@ -3596,6 +3600,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         gBattleMovePower = (5324 * gBattleMovePower) / 4096;
     if (attacker->ability == ABILITY_STRONG_JAW && IsBitingMove(gCurrentMove))
         gBattleMovePower = (150 * gBattleMovePower) / 100;
+    if (attacker->ability == ABILITY_PIXILATE
+     && move != MOVE_STRUGGLE
+     && gBattleMoves[move].type == TYPE_NORMAL
+     && type == TYPE_FAIRY)
+        gBattleMovePower = (120 * gBattleMovePower) / 100;
     if (type == TYPE_BUG && attacker->ability == ABILITY_SWARM && attacker->hp <= (attacker->maxHP / 2))
         gBattleMovePower = (150 * gBattleMovePower) / 100;
     if (attacker->ability == ABILITY_TECHNICIAN && gBattleMovePower <= 60)

@@ -3086,6 +3086,29 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     effect++;
                 }
                 break;
+            case ABILITY_WANDERING_SPIRIT:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                 && TARGET_TURN_DAMAGED
+                 && gBattleMons[battler].hp != 0
+                 && gBattleMons[gBattlerAttacker].hp != 0
+                 && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                 && (gBattleMoves[move].flags & FLAG_MAKES_CONTACT)
+                 && gBattleMons[gBattlerAttacker].ability != ABILITY_WANDERING_SPIRIT
+                 && gBattleMons[gBattlerAttacker].ability != ABILITY_NONE
+                 && gBattleMons[gBattlerAttacker].ability != ABILITY_MULTITYPE
+                 && gBattleMons[gBattlerAttacker].ability != ABILITY_WONDER_GUARD
+                 && gBattleMons[gBattlerAttacker].ability != ABILITY_FORECAST)
+                {
+                    u8 attackerAbility = gBattleMons[gBattlerAttacker].ability;
+                    gBattleMons[gBattlerAttacker].ability = ABILITY_WANDERING_SPIRIT;
+                    gBattleMons[battler].ability = attackerAbility;
+                    gLastUsedAbility = ABILITY_WANDERING_SPIRIT;
+                    RecordAbilityBattle(battler, ABILITY_WANDERING_SPIRIT);
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_WanderingSpiritActivates;
+                    effect++;
+                }
+                break;
             case ABILITY_PICKPOCKET:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                  && TARGET_TURN_DAMAGED

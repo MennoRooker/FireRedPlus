@@ -61,6 +61,9 @@ static void DrawLevelUpWindow2(void);
 static void PutMonIconOnLvlUpBanner(void);
 static void DrawLevelUpBannerText(void);
 static void SpriteCB_MonIconOnLvlUpBanner(struct Sprite* sprite);
+static u8 GetAbilityModifiedMoveType(u8 battler, u16 move);
+static s8 GetMovePriorityWithPrankster(u8 battler, u16 move);
+static bool8 IsArmorTailBlockingMove(u8 attacker, u16 move);
 
 static bool8 sDrainPoisonPending;
 static u8 sDrainPoisonSourceBattler;
@@ -91,6 +94,58 @@ static const struct TypeResistBerry
     { ITEM_BABIRI_BERRY, TYPE_STEEL },
     // Roseli Berry is intentionally omitted until TYPE_FAIRY exists in this project.
 };
+
+static u8 GetAbilityModifiedMoveType(u8 battler, u16 move)
+{
+    u8 type;
+
+    GET_MOVE_TYPE(move, type);
+    if (gBattleMons[battler].ability == ABILITY_NORMALIZE)
+        type = TYPE_NORMAL;
+    else if (gBattleMons[battler].ability == ABILITY_PIXILATE
+          && move != MOVE_STRUGGLE
+          && type == TYPE_NORMAL)
+        type = TYPE_FAIRY;
+
+    return type;
+}
+
+static s8 GetMovePriorityWithPrankster(u8 battler, u16 move)
+{
+    s8 priority = gBattleMoves[move].priority;
+
+    if (gBattleMons[battler].ability == ABILITY_PRANKSTER
+     && gBattleMoves[move].power == 0)
+        priority++;
+
+    return priority;
+}
+
+static bool8 IsArmorTailBlockingMove(u8 attacker, u16 move)
+{
+    u8 battler;
+
+    if (GetMovePriorityWithPrankster(attacker, move) <= 0
+     || gBattleMoves[move].target == MOVE_TARGET_OPPONENTS_FIELD
+     || GetBattlerSide(gBattlerTarget) == GetBattlerSide(attacker))
+        return FALSE;
+
+    for (battler = 0; battler < gBattlersCount; battler++)
+    {
+        if (GetBattlerSide(battler) != GetBattlerSide(attacker)
+         && gBattleMons[battler].hp != 0
+         && gBattleMons[battler].ability == ABILITY_ARMOR_TAIL)
+        {
+            gBattlerTarget = battler;
+            gLastUsedAbility = ABILITY_ARMOR_TAIL;
+            RecordAbilityBattle(battler, ABILITY_ARMOR_TAIL);
+            gBattlescriptCurrInstr = BattleScript_SoundproofProtected;
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
 
 static void Cmd_attackcanceler(void);
 static void Cmd_accuracycheck(void);
@@ -867,6 +922,8 @@ static void Cmd_attackcanceler(void)
     }
     if (AtkCanceller_UnableToUseMove())
         return;
+    if (IsArmorTailBlockingMove(gBattlerAttacker, gCurrentMove))
+        return;
     if (AbilityBattleEffects(ABILITYEFFECT_MOVES_BLOCK, gBattlerTarget, 0, 0, 0))
         return;
     if (!gBattleMons[gBattlerAttacker].pp[gCurrMovePos] && gCurrentMove != MOVE_STRUGGLE && !(gHitMarker & (HITMARKER_ALLOW_NO_PP | HITMARKER_NO_ATTACKSTRING))
@@ -1116,9 +1173,7 @@ static void Cmd_accuracycheck(void)
         if (move == ACC_CURR_MOVE)
             move = gCurrentMove;
 
-        GET_MOVE_TYPE(move, type);
-        if (gBattleMons[gBattlerAttacker].ability == ABILITY_NORMALIZE)
-            type = TYPE_NORMAL;
+        type = GetAbilityModifiedMoveType(gBattlerAttacker, move);
 
         if (JumpIfMoveAffectedByProtect(move))
             return;
@@ -1485,9 +1540,7 @@ static void Cmd_typecalc(void)
     // Reset type effectiveness multiplier to 1.0 (10 in fixed point)
     gTypeEffectivenessMultiplier = 10;
 
-    GET_MOVE_TYPE(gCurrentMove, moveType);
-    if (gBattleMons[gBattlerAttacker].ability == ABILITY_NORMALIZE)
-        moveType = TYPE_NORMAL;
+    moveType = GetAbilityModifiedMoveType(gBattlerAttacker, gCurrentMove);
 
     // Ion Deluge: convert Normal-type moves to Electric for the rest of the turn
     if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE) && moveType == TYPE_NORMAL)
