@@ -2433,6 +2433,17 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
             {
                 switch (gLastUsedAbility)
                 {
+                case ABILITY_MOTOR_DRIVE:
+                    if (moveType == TYPE_ELECTRIC && gBattleMoves[move].power != 0)
+                    {
+                        if (gProtectStructs[gBattlerAttacker].notFirstStrike)
+                            gBattlescriptCurrInstr = BattleScript_MotorDriveActivates;
+                        else
+                            gBattlescriptCurrInstr = BattleScript_MotorDriveActivates_PPLoss;
+
+                        effect = 1;
+                    }
+                    break;
                 case ABILITY_VOLT_ABSORB:
                     if (moveType == TYPE_ELECTRIC && gBattleMoves[move].power != 0)
                     {
@@ -2530,6 +2541,19 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
         case ABILITYEFFECT_ON_DAMAGE: // Think contact abilities.
             switch (gLastUsedAbility)
             {
+            case ABILITY_ANGER_POINT:
+                if (gIsCriticalHit
+                 && TARGET_TURN_DAMAGED
+                 && gBattleMons[battler].hp != 0
+                 && gBattleMons[battler].statStages[STAT_ATK] < MAX_STAT_STAGE)
+                {
+                    gBattleMons[battler].statStages[STAT_ATK] = MAX_STAT_STAGE;
+                    gBattleScripting.battler = battler;
+                    gLastUsedAbility = ABILITY_ANGER_POINT;
+                    RecordAbilityBattle(battler, ABILITY_ANGER_POINT);
+                    effect++;
+                }
+                break;
             case ABILITY_COLOR_CHANGE:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                  && move != MOVE_STRUGGLE
@@ -3044,7 +3068,7 @@ enum
     }
 
 #define TRY_EAT_STAT_UP_BERRY(stat)                                                         \
-    if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam  \
+    if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / (gBattleMons[battlerId].ability == ABILITY_GLUTTONY ? 2 : battlerHoldEffectParam)  \
     && !moveTurn && gBattleMons[battlerId].statStages[stat] < MAX_STAT_STAGE)               \
     {                                                                                       \
         PREPARE_STAT_BUFFER(gBattleTextBuff1, stat);                                        \
@@ -3254,7 +3278,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 TRY_EAT_CONFUSE_BERRY(FLAVOR_SOUR);
                 break;
             case HOLD_EFFECT_ATTACK_UP:
-                if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam
+                if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / (gBattleMons[battlerId].ability == ABILITY_GLUTTONY ? 2 : battlerHoldEffectParam)
                 && !moveTurn && gBattleMons[battlerId].statStages[STAT_ATK] < MAX_STAT_STAGE)
                 {
                     PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_ATK);
@@ -3280,7 +3304,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 TRY_EAT_STAT_UP_BERRY(STAT_SPDEF);
                 break;
             case HOLD_EFFECT_CRITICAL_UP:
-                if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam && !moveTurn
+                if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / (gBattleMons[battlerId].ability == ABILITY_GLUTTONY ? 2 : battlerHoldEffectParam) && !moveTurn
                     && !(gBattleMons[battlerId].status2 & STATUS2_FOCUS_ENERGY))
                 {
                     gBattleMons[battlerId].status2 |= STATUS2_FOCUS_ENERGY;
@@ -3289,7 +3313,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 }
                 break;
             case HOLD_EFFECT_RANDOM_STAT_UP:
-                if (!moveTurn && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam)
+                if (!moveTurn && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / (gBattleMons[battlerId].ability == ABILITY_GLUTTONY ? 2 : battlerHoldEffectParam))
                 {
                     for (i = 0; i < NUM_STATS - 1; i++)
                     {
@@ -3530,7 +3554,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 break;
             case HOLD_EFFECT_ATTACK_UP:
                 if (gBattleMons[battlerId].hp != 0
-                    && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam
+                    && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / (gBattleMons[battlerId].ability == ABILITY_GLUTTONY ? 2 : battlerHoldEffectParam)
                     && gBattleMons[battlerId].statStages[STAT_ATK] < MAX_STAT_STAGE)
                 {
                     PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_ATK);
@@ -3551,7 +3575,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
             case HOLD_EFFECT_SP_ATTACK_UP:
             case HOLD_EFFECT_SP_DEFENSE_UP:
                 if (gBattleMons[battlerId].hp != 0
-                    && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam)
+                    && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / (gBattleMons[battlerId].ability == ABILITY_GLUTTONY ? 2 : battlerHoldEffectParam))
                 {
                     u8 statId;
 
@@ -3581,7 +3605,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 break;
             case HOLD_EFFECT_CRITICAL_UP:
                 if (gBattleMons[battlerId].hp != 0
-                    && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam
+                    && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / (gBattleMons[battlerId].ability == ABILITY_GLUTTONY ? 2 : battlerHoldEffectParam)
                     && !(gBattleMons[battlerId].status2 & STATUS2_FOCUS_ENERGY))
                 {
                     gBattleMons[battlerId].status2 |= STATUS2_FOCUS_ENERGY;
@@ -3594,7 +3618,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 break;
             case HOLD_EFFECT_RANDOM_STAT_UP:
                 if (gBattleMons[battlerId].hp != 0
-                    && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam)
+                    && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / (gBattleMons[battlerId].ability == ABILITY_GLUTTONY ? 2 : battlerHoldEffectParam))
                 {
                     for (i = 0; i < NUM_STATS - 1; i++)
                     {

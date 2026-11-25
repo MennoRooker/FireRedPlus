@@ -579,6 +579,7 @@ extern struct BattleStruct *gBattleStruct;
 #define gTerrainTimer              (gBattleStruct->padding_1E4[18])
 #define gFairyLockTimer            (gBattleStruct->padding_1E4[19])
 #define gTelekinesisTimers(battler)(gBattleStruct->padding_1E4[20 + (battler)])
+#define gUnburdenActive(battler)   (gBattleStruct->padding_1E4[24 + (battler)])
 
 #define F_DYNAMIC_TYPE_1 (1 << 6)
 #define F_DYNAMIC_TYPE_2 (1 << 7)

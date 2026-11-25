@@ -3478,6 +3478,15 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         gBattleMovePower *= 2;
     if (defenderHoldEffect == HOLD_EFFECT_METAL_POWDER && defender->species == SPECIES_DITTO)
         defense *= 2;
+    if (attacker->ability == ABILITY_RIVALRY)
+    {
+        u8 attackerGender = GetGenderFromSpeciesAndPersonality(attacker->species, attacker->personality);
+        u8 defenderGender = GetGenderFromSpeciesAndPersonality(defender->species, defender->personality);
+        if (attackerGender != MON_GENDERLESS
+         && defenderGender != MON_GENDERLESS
+         && attackerGender == defenderGender)
+            gBattleMovePower = (125 * gBattleMovePower) / 100;
+    }
     if (attackerHoldEffect == HOLD_EFFECT_THICK_CLUB && (attacker->species == SPECIES_CUBONE || attacker->species == SPECIES_MAROWAK))
         attack *= 2;
     if (defender->ability == ABILITY_THICK_FAT && (type == TYPE_FIRE || type == TYPE_ICE))
@@ -3555,7 +3564,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         // Burn cuts attack in half
         if ((attacker->status1 & STATUS1_BURN) && attacker->ability != ABILITY_GUTS)
+        {
             damage /= 2;
+            if (attacker->ability == ABILITY_HEATPROOF)
+                damage /= 2;
+        }
 
         // Apply Reflect
         if ((sideStatus & SIDE_STATUS_REFLECT) && !gIsCriticalHit)
@@ -3671,6 +3684,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if ((gBattleResources->flags->flags[battlerIdAtk] & RESOURCE_FLAG_FLASH_FIRE) && type == TYPE_FIRE)
             damage = (15 * damage) / 10;
     }
+
+    if (defender->ability == ABILITY_HEATPROOF && type == TYPE_FIRE)
+        damage = (50 * damage) / 100;
 
     return damage + 2;
 }

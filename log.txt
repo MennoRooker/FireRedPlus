@@ -1893,6 +1893,11 @@ the gen 3 + gen 4 overworld navigation HMs. Defog is also a
 pretty decent move in competitive. I just have to make Rock
 Climb a ROCK type move like I did with Strength.
 
+I'm now starting with the abilities from gens 4 and 5. The
+first batch will be 77-86. Among this batch is Rivalry. I
+have instructed the model to alter Rivalry to only boost
+same-sex damaging moves and to not lower opposite-sex moves
+at all.
 
 
 TO DO:

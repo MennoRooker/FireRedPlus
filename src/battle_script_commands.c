@@ -1139,8 +1139,12 @@ static void Cmd_accuracycheck(void)
 
         if (gBattleMons[gBattlerAttacker].ability == ABILITY_COMPOUND_EYES || gBattleMons[gBattlerAttacker].ability == ABILITY_ILLUMINATE)
             calc = (calc * 130) / 100; // 1.3 compound eyes/illuminate boost
+        if (gBattleMons[gBattlerTarget].ability == ABILITY_TANGLED_FEET && gBattleMons[gBattlerTarget].status2 & STATUS2_CONFUSION)
+            calc = (calc * 50) / 100; // 1.5 tangled feet evasion loss
         if (WEATHER_HAS_EFFECT && gBattleMons[gBattlerTarget].ability == ABILITY_SAND_VEIL && gBattleWeather & B_WEATHER_SANDSTORM)
             calc = (calc * 80) / 100; // 20% sand veil loss
+        if (WEATHER_HAS_EFFECT && gBattleMons[gBattlerTarget].ability == ABILITY_SNOW_CLOAK && gBattleWeather & B_WEATHER_HAIL)
+            calc = (calc * 80) / 100; // 20% snow cloak loss
         if (gBattleMons[gBattlerAttacker].ability == ABILITY_HUSTLE && IS_TYPE_PHYSICAL(type))
             calc = (calc * 85) / 100; // 15% hustle loss
 
@@ -2946,6 +2950,14 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 {
                     if (GetBattlerTurnOrderNum(gEffectBattler) > gCurrentTurnActionNumber)
                         gBattleMons[gEffectBattler].status2 |= sStatusFlagsForMoveEffects[gBattleCommunication[MOVE_EFFECT_BYTE]];
+                    if (gBattleCommunication[MOVE_EFFECT_BYTE] == MOVE_EFFECT_FLINCH
+                     && gBattleMons[gEffectBattler].ability == ABILITY_STEADFAST
+                     && gBattleMons[gEffectBattler].statStages[STAT_SPEED] < MAX_STAT_STAGE)
+                    {
+                        gBattleMons[gEffectBattler].statStages[STAT_SPEED]++;
+                        gLastUsedAbility = ABILITY_STEADFAST;
+                        RecordAbilityBattle(gEffectBattler, ABILITY_STEADFAST);
+                    }
                     gBattlescriptCurrInstr++;
                 }
                 break;
@@ -4756,6 +4768,7 @@ static void Cmd_moveend(void)
                 if (*changedItem != ITEM_NONE)
                 {
                     gBattleMons[i].item = *changedItem;
+                    gUnburdenActive(i) = FALSE;
                     *changedItem = ITEM_NONE;
                 }
             }
@@ -5098,6 +5111,8 @@ static void Cmd_switchindataupdate(void)
     i = GetBattlerSide(gActiveBattler);
     if (gWishFutureKnock.knockedOffMons[i] & gBitTable[gBattlerPartyIndexes[gActiveBattler]])
     {
+        if (gBattleMons[gActiveBattler].ability == ABILITY_UNBURDEN)
+            gUnburdenActive(gActiveBattler) = TRUE;
         gBattleMons[gActiveBattler].item = ITEM_NONE;
     }
 
@@ -6342,6 +6357,8 @@ static void Cmd_removeitem(void)
     usedHeldItem = &gBattleStruct->usedHeldItems[gActiveBattler];
     *usedHeldItem = gBattleMons[gActiveBattler].item;
     gBattleMons[gActiveBattler].item = ITEM_NONE;
+    if (*usedHeldItem != ITEM_NONE && gBattleMons[gActiveBattler].ability == ABILITY_UNBURDEN)
+        gUnburdenActive(gActiveBattler) = TRUE;
 
     if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
     {
@@ -8025,6 +8042,17 @@ static u8 ChangeStatBuffs(s8 statValue, u8 statId, u8 flags, const u8 *BS_ptr)
         notProtectAffected++;
     flags &= ~STAT_CHANGE_NOT_PROTECT_AFFECTED;
 
+    if (gBattleMons[gActiveBattler].ability == ABILITY_SIMPLE)
+    {
+        u8 statChange = GET_STAT_BUFF_VALUE(statValue);
+        if (statValue > 0 && statValue < 16)
+            statChange = statValue;
+        else if (statValue < 0 && statValue > -16)
+            statChange = -statValue;
+        if (statChange)
+            statValue = SET_STAT_BUFF_VALUE(statChange * 2) | ((statValue < 0 || (statValue & STAT_BUFF_NEGATIVE)) ? STAT_BUFF_NEGATIVE : 0);
+    }
+
     PREPARE_STAT_BUFFER(gBattleTextBuff1, statId)
 
     if (statValue <= -1) // Stat decrease.
@@ -8625,6 +8653,7 @@ static void Cmd_weatherdamage(void)
         if (gBattleWeather & B_WEATHER_HAIL)
         {
             if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ICE)
+                && gBattleMons[gBattlerAttacker].ability != ABILITY_SNOW_CLOAK
                 && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERGROUND)
                 && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER))
             {
@@ -10752,6 +10781,7 @@ static void Cmd_tryrecycleitem(void)
         gLastUsedItem = *usedHeldItem;
         *usedHeldItem = ITEM_NONE;
         gBattleMons[gActiveBattler].item = gLastUsedItem;
+        gUnburdenActive(gActiveBattler) = FALSE;
 
         BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gActiveBattler].item), &gBattleMons[gActiveBattler].item);
         MarkBattlerForControllerExec(gActiveBattler);
