@@ -5363,6 +5363,33 @@ BattleScript_TraceActivates::
 	waitmessage B_WAIT_TIME_LONG
 	end3
 
+BattleScript_ImposterActivates::
+	pause B_WAIT_TIME_SHORT
+	transformdataexecution
+	attackanimation
+	waitanimation
+	printfromtable gTransformUsedStringIds
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
+BattleScript_AnticipationActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSHUDDEREDWITHANTICIPATION
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
+BattleScript_ForewarnActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_FOREWARNALERT
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
+BattleScript_FriskActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNWASFRISKED
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
 BattleScript_RainDishActivates::
 	printstring STRINGID_PKMNSXRESTOREDHPALITTLE2
 	waitmessage B_WAIT_TIME_LONG
@@ -5504,6 +5531,19 @@ BattleScript_FlashFireBoost::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
+BattleScript_MotorDriveActivates_PPLoss::
+	ppreduce
+BattleScript_MotorDriveActivates::
+	attackstring
+	pause B_WAIT_TIME_LONG
+	setstatchanger STAT_SPEED, 1, FALSE
+	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_MoveEnd
+	setgraphicalstatchangevalues
+	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
+
 BattleScript_WindRiderActivates_PPLoss::
 	ppreduce
 BattleScript_WindRiderActivates::
@@ -5592,6 +5632,12 @@ BattleScript_SoundproofProtected::
 	printstring STRINGID_PKMNSXBLOCKSY
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
+
+BattleScript_WanderingSpiritActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSWAPPEDABILITIES
+	waitmessage B_WAIT_TIME_LONG
+	return
 
 BattleScript_AbilityNoSpecificStatLoss::
 	pause B_WAIT_TIME_SHORT

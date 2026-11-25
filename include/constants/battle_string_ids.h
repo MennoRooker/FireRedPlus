@@ -434,8 +434,11 @@
 #define STRINGID_MAGICROOMENDS                   430
 #define STRINGID_ELECTRIFIED                     431
 #define STRINGID_FAIRYLOCKED                     432
+#define STRINGID_PKMNSHUDDEREDWITHANTICIPATION   433
+#define STRINGID_FOREWARNALERT                   434
+#define STRINGID_PKMNWASFRISKED                  435
 
-#define BATTLESTRINGS_COUNT     433
+#define BATTLESTRINGS_COUNT     436
 
 // This is the string id that gBattleStringsTable starts with.
 // String ids before this (e.g. STRINGID_INTROMSG) are not in the table,
