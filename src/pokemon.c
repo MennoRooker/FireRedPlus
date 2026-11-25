@@ -3173,6 +3173,21 @@ static u8 GetNaturalGiftTypeAndPower(u16 item, u16 *power)
     return types[typeIndex];
 }
 
+static u32 GetBattlerWeightForMovePower(u8 battler)
+{
+    u32 weight = GetPokedexHeightWeight(SpeciesToNationalPokedexNum(gBattleMons[battler].species), 1);
+
+    if (gBattleMons[battler].ability == ABILITY_HEAVY_METAL)
+        weight *= 2;
+    else if (gBattleMons[battler].ability == ABILITY_LIGHT_METAL)
+        weight /= 2;
+
+    if (weight == 0)
+        weight = 1;
+
+    return weight;
+}
+
 s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u16 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
 {
     u32 i;
@@ -3248,8 +3263,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     {
         // Power based on ratio of attacker weight to defender weight
         static const u8 sHeatCrashPowerTable[] = { 40, 40, 60, 80, 100, 120 };
-        u32 attackerWeight = GetPokedexHeightWeight(SpeciesToNationalPokedexNum(gBattleMons[battlerIdAtk].species), 1);
-        u32 defenderWeight = GetPokedexHeightWeight(SpeciesToNationalPokedexNum(gBattleMons[battlerIdDef].species), 1);
+        u32 attackerWeight = GetBattlerWeightForMovePower(battlerIdAtk);
+        u32 defenderWeight = GetBattlerWeightForMovePower(battlerIdDef);
         u8 ratio;
         if (!defenderWeight)
             ratio = ARRAY_COUNT(sHeatCrashPowerTable) - 1;
@@ -3516,8 +3531,21 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         spAttack = (150 * spAttack) / 100;
     if (attacker->ability == ABILITY_SOLAR_POWER && WEATHER_HAS_EFFECT2 && (gBattleWeather & B_WEATHER_SUN))
         spAttack = (150 * spAttack) / 100;
+    if (attacker->ability == ABILITY_DEFEATIST && attacker->hp <= (attacker->maxHP / 2))
+    {
+        attack /= 2;
+        spAttack /= 2;
+    }
     if (attacker->ability == ABILITY_GUTS && attacker->status1)
         attack = (150 * attack) / 100;
+    if (attacker->ability == ABILITY_TOXIC_BOOST
+     && (attacker->status1 & (STATUS1_POISON | STATUS1_TOXIC_POISON))
+     && IS_TYPE_PHYSICAL(type))
+        gBattleMovePower = (150 * gBattleMovePower) / 100;
+    if (attacker->ability == ABILITY_FLARE_BOOST
+     && (attacker->status1 & STATUS1_BURN)
+     && IS_TYPE_SPECIAL(type))
+        gBattleMovePower = (150 * gBattleMovePower) / 100;
     if (defender->ability == ABILITY_MARVEL_SCALE && defender->status1)
         defense = (150 * defense) / 100;
     if (type == TYPE_ELECTRIC && AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, 0, ABILITYEFFECT_MUD_SPORT, 0))
@@ -3547,6 +3575,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (attacker->ability == ABILITY_RECKLESS
      && (gBattleMoves[gCurrentMove].effect == EFFECT_RECOIL || gBattleMoves[gCurrentMove].effect == EFFECT_RECOIL_IF_MISS))
         gBattleMovePower = (120 * gBattleMovePower) / 100;
+    if (attacker->ability == ABILITY_SHEER_FORCE
+     && gBattleMoves[gCurrentMove].power != 0
+     && gBattleMoves[gCurrentMove].secondaryEffectChance != 0
+     && gBattleMoves[gCurrentMove].target != MOVE_TARGET_USER)
+        gBattleMovePower = (130 * gBattleMovePower) / 100;
 
     if (defender->ability == ABILITY_FLOWER_GIFT
      && defender->species == SPECIES_CHERRIM_SUNSHINE
@@ -3741,6 +3774,16 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         damage = (50 * damage) / 100;
     if (defender->ability == ABILITY_DRY_SKIN && attacker->ability != ABILITY_MOLD_BREAKER && type == TYPE_FIRE)
         damage = (125 * damage) / 100;
+    if (defender->ability == ABILITY_MULTISCALE
+     && attacker->ability != ABILITY_MOLD_BREAKER
+     && defender->hp == defender->maxHP)
+        damage /= 2;
+    if ((battlerIdDef ^ BIT_FLANK) < gBattlersCount
+     && GetBattlerSide(battlerIdDef ^ BIT_FLANK) == GetBattlerSide(battlerIdDef)
+     && gBattleMons[battlerIdDef ^ BIT_FLANK].hp != 0
+     && gBattleMons[battlerIdDef ^ BIT_FLANK].ability == ABILITY_FRIEND_GUARD
+     && battlerIdAtk != battlerIdDef)
+        damage = (75 * damage) / 100;
     if (gIsCriticalHit && attacker->ability == ABILITY_SNIPER)
         damage = (150 * damage) / 100;
 

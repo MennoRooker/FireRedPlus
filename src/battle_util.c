@@ -6,6 +6,7 @@
 #include "berry.h"
 #include "random.h"
 #include "pokemon.h"
+#include "mail.h"
 #include "string_util.h"
 #include "field_weather.h"
 #include "event_data.h"
@@ -150,6 +151,41 @@ bool8 IsWindMove(u16 move)
     for (i = 0; sWindMovesTable[i] != WIND_MOVES_END; i++)
     {
         if (sWindMovesTable[i] == move)
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+static bool8 IsPowderMove(u16 move)
+{
+    return move == MOVE_POISON_POWDER
+        || move == MOVE_STUN_SPORE
+        || move == MOVE_SLEEP_POWDER
+        || move == MOVE_SPORE
+        || move == MOVE_COTTON_SPORE
+        || move == MOVE_RAGE_POWDER
+        || gBattleMoves[move].effect == EFFECT_POWDER;
+}
+
+static bool8 IsMoveAffectedBySheerForce(u16 move)
+{
+    if (gBattleMoves[move].power == 0 || gBattleMoves[move].secondaryEffectChance == 0)
+        return FALSE;
+    if (gBattleMoves[move].target == MOVE_TARGET_USER)
+        return FALSE;
+    return TRUE;
+}
+
+static bool8 IsUnnerveOnOpposingSide(u8 battler)
+{
+    u8 i;
+
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (i == battler || GetBattlerSide(i) == GetBattlerSide(battler) || gBattleMons[i].hp == 0)
+            continue;
+        if (gBattleMons[i].ability == ABILITY_UNNERVE)
             return TRUE;
     }
 
@@ -2652,6 +2688,62 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                         effect++;
                     }
                     break;
+                case ABILITY_MOODY:
+                {
+                    u8 validToRaise = 0;
+                    u8 validToLower = 0;
+                    u8 raisedStat = STAT_ATK;
+                    u8 statId;
+                    for (statId = STAT_ATK; statId < NUM_BATTLE_STATS; statId++)
+                    {
+                        if (gBattleMons[battler].statStages[statId] < MAX_STAT_STAGE)
+                            validToRaise |= gBitTable[statId];
+                        if (gBattleMons[battler].statStages[statId] > MIN_STAT_STAGE)
+                            validToLower |= gBitTable[statId];
+                    }
+                    if (validToRaise)
+                    {
+                        do
+                        {
+                            raisedStat = (Random() % NUM_BATTLE_STATS) + 1;
+                        } while (!(validToRaise & gBitTable[raisedStat]));
+                        gBattleMons[battler].statStages[raisedStat] += 2;
+                        if (gBattleMons[battler].statStages[raisedStat] > MAX_STAT_STAGE)
+                            gBattleMons[battler].statStages[raisedStat] = MAX_STAT_STAGE;
+                        validToLower &= ~gBitTable[raisedStat];
+                    }
+                    if (validToLower)
+                    {
+                        u8 loweredStat;
+                        do
+                        {
+                            loweredStat = (Random() % NUM_BATTLE_STATS) + 1;
+                        } while (!(validToLower & gBitTable[loweredStat]));
+                        gBattleMons[battler].statStages[loweredStat]--;
+                    }
+                    gLastUsedAbility = ABILITY_MOODY;
+                    RecordAbilityBattle(battler, ABILITY_MOODY);
+                    break;
+                }
+                case ABILITY_HEALER:
+                {
+                    u8 partner = battler ^ BIT_FLANK;
+                    if (partner < gBattlersCount
+                     && GetBattlerSide(partner) == GetBattlerSide(battler)
+                     && gBattleMons[partner].hp != 0
+                     && gBattleMons[partner].status1
+                     && (Random() % 10) < 3)
+                    {
+                        gBattleMons[partner].status1 = 0;
+                        gBattleScripting.battler = partner;
+                        BattleScriptPushCursorAndCallback(BattleScript_ShedSkinActivates);
+                        gActiveBattler = partner;
+                        BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[partner].status1);
+                        MarkBattlerForControllerExec(gActiveBattler);
+                        effect++;
+                    }
+                    break;
+                }
                 case ABILITY_HARVEST:
                     // Check if the berry was consumed and if battler doesn't have an item.
                     // Invariant: usedHeldItems[battler] must belong to the current battler
@@ -2741,6 +2833,15 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                   && IsWindMove(move))
             {
                 gBattlescriptCurrInstr = BattleScript_WindRiderActivates_PPLoss;
+                effect = 1;
+            }
+            else if (gLastUsedAbility == ABILITY_OVERCOAT
+                  && IsPowderMove(move))
+            {
+                if (gProtectStructs[gBattlerAttacker].notFirstStrike)
+                    gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless;
+                else
+                    gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless_PPLoss;
                 effect = 1;
             }
             break;
@@ -2877,6 +2978,71 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     gBattleScripting.battler = battler;
                     gLastUsedAbility = ABILITY_ANGER_POINT;
                     RecordAbilityBattle(battler, ABILITY_ANGER_POINT);
+                    effect++;
+                }
+                break;
+            case ABILITY_WEAK_ARMOR:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                 && TARGET_TURN_DAMAGED
+                 && gBattleMons[battler].hp != 0
+                 && IS_TYPE_PHYSICAL(gBattleMoves[move].type))
+                {
+                    if (gBattleMons[battler].statStages[STAT_DEF] > MIN_STAT_STAGE)
+                        gBattleMons[battler].statStages[STAT_DEF]--;
+                    if (gBattleMons[battler].statStages[STAT_SPEED] < MAX_STAT_STAGE)
+                        gBattleMons[battler].statStages[STAT_SPEED]++;
+                    gLastUsedAbility = ABILITY_WEAK_ARMOR;
+                    RecordAbilityBattle(battler, ABILITY_WEAK_ARMOR);
+                    effect++;
+                }
+                break;
+            case ABILITY_CURSED_BODY:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                 && TARGET_TURN_DAMAGED
+                 && gBattleMons[battler].hp != 0
+                 && gBattleMons[gBattlerAttacker].hp != 0
+                 && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                 && gCurrentMove != MOVE_STRUGGLE
+                 && gDisableStructs[gBattlerAttacker].disabledMove == MOVE_NONE
+                 && (Random() % 10) < 3)
+                {
+                    gDisableStructs[gBattlerAttacker].disabledMove = gCurrentMove;
+                    gDisableStructs[gBattlerAttacker].disableTimer = 4;
+                    gDisableStructs[gBattlerAttacker].disableTimerStartValue = 4;
+                    PREPARE_MOVE_BUFFER(gBattleTextBuff1, gCurrentMove);
+                    gLastUsedAbility = ABILITY_CURSED_BODY;
+                    RecordAbilityBattle(battler, ABILITY_CURSED_BODY);
+                    effect++;
+                }
+                break;
+            case ABILITY_PICKPOCKET:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                 && TARGET_TURN_DAMAGED
+                 && gBattleMons[battler].hp != 0
+                 && gBattleMons[battler].item == ITEM_NONE
+                 && gBattleMons[gBattlerAttacker].item != ITEM_NONE
+                 && gBattleMons[gBattlerAttacker].item != ITEM_ENIGMA_BERRY
+                 && !IS_ITEM_MAIL(gBattleMons[gBattlerAttacker].item)
+                 && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                 && (gBattleMoves[move].flags & FLAG_MAKES_CONTACT)
+                 && gBattleMons[gBattlerAttacker].ability != ABILITY_STICKY_HOLD)
+                {
+                    gLastUsedItem = gBattleMons[gBattlerAttacker].item;
+                    gBattleMons[battler].item = gLastUsedItem;
+                    gBattleMons[gBattlerAttacker].item = ITEM_NONE;
+                    gBattleStruct->changedItems[battler] = gLastUsedItem;
+                    gBattleStruct->changedItems[gBattlerAttacker] = ITEM_NONE;
+
+                    gActiveBattler = battler;
+                    BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battler].item), &gBattleMons[battler].item);
+                    MarkBattlerForControllerExec(gActiveBattler);
+
+                    gActiveBattler = gBattlerAttacker;
+                    BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerAttacker].item), &gBattleMons[gBattlerAttacker].item);
+                    MarkBattlerForControllerExec(gActiveBattler);
+
+                    gLastUsedAbility = ABILITY_PICKPOCKET;
+                    RecordAbilityBattle(battler, ABILITY_PICKPOCKET);
                     effect++;
                 }
                 break;
@@ -3017,6 +3183,21 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     effect++;
                 }
                 break;
+            }
+
+            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+             && gBattleMons[gBattlerAttacker].ability == ABILITY_POISON_TOUCH
+             && gBattleMons[gBattlerTarget].hp != 0
+             && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+             && TARGET_TURN_DAMAGED
+             && (gBattleMoves[move].flags & FLAG_MAKES_CONTACT)
+             && (Random() % 10) < 3)
+            {
+                gBattleCommunication[MOVE_EFFECT_BYTE] = MOVE_EFFECT_TOXIC;
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_ApplySecondaryEffect;
+                gHitMarker |= HITMARKER_STATUS_ABILITY_EFFECT;
+                effect++;
             }
             break;
         case ABILITYEFFECT_IMMUNITY: // 5
@@ -3505,6 +3686,12 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
     case ITEMEFFECT_NORMAL:
         if (gBattleMons[battlerId].hp)
         {
+            if (ItemId_GetPocket(gLastUsedItem) == POCKET_BERRY_POUCH
+             && IsUnnerveOnOpposingSide(battlerId))
+            {
+                break;
+            }
+
             switch (battlerHoldEffect)
             {
             case HOLD_EFFECT_RESTORE_HP:
@@ -4171,6 +4358,8 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                     && gSpecialStatuses[gBattlerTarget].dmg != 0
                     && gSpecialStatuses[gBattlerTarget].dmg != 0xFFFF
                     && gBattlerAttacker != gBattlerTarget
+                    && !(gBattleMons[gBattlerAttacker].ability == ABILITY_SHEER_FORCE
+                      && IsMoveAffectedBySheerForce(gCurrentMove))
                     && gBattleMons[gBattlerAttacker].hp != 0)
                 {
                     gLastUsedItem = atkItem;
