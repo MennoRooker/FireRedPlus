@@ -3188,6 +3188,29 @@ static u32 GetBattlerWeightForMovePower(u8 battler)
     return weight;
 }
 
+static bool8 IsMoldBreakerTypeAbility(u8 ability)
+{
+    return ability == ABILITY_MOLD_BREAKER
+        || ability == ABILITY_TURBOBLAZE
+        || ability == ABILITY_TERAVOLT;
+}
+
+static bool8 IsLastMonToMoveThisTurn(u8 battler)
+{
+    s32 i;
+    u8 lastBattler = battler;
+
+    for (i = gBattlersCount - 1; i >= 0; i--)
+    {
+        if (!(gAbsentBattlerFlags & gBitTable[gBattlerByTurnOrder[i]]))
+        {
+            lastBattler = gBattlerByTurnOrder[i];
+            break;
+        }
+    }
+    return battler == lastBattler;
+}
+
 s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u16 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
 {
     u32 i;
@@ -3508,7 +3531,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         attack *= 2;
     if (attacker->ability == ABILITY_IRON_FIST && IsPunchingMove(gCurrentMove))
         gBattleMovePower = (150 * gBattleMovePower) / 100;
-    if (defender->ability == ABILITY_THICK_FAT && attacker->ability != ABILITY_MOLD_BREAKER && (type == TYPE_FIRE || type == TYPE_ICE))
+    if (defender->ability == ABILITY_THICK_FAT && !IsMoldBreakerTypeAbility(attacker->ability) && (type == TYPE_FIRE || type == TYPE_ICE))
         spAttack /= 2;
     if (attacker->ability == ABILITY_HUSTLE)
         attack = (150 * attack) / 100;
@@ -3560,6 +3583,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         gBattleMovePower = (150 * gBattleMovePower) / 100;
     if (type == TYPE_DRAGON && attacker->ability == ABILITY_DRAGONS_MAW)
         gBattleMovePower = (150 * gBattleMovePower) / 100;
+    if (attacker->ability == ABILITY_SAND_FORCE
+     && WEATHER_HAS_EFFECT2
+     && (gBattleWeather & B_WEATHER_SANDSTORM)
+     && (type == TYPE_ROCK || type == TYPE_GROUND || type == TYPE_STEEL))
+        gBattleMovePower = (130 * gBattleMovePower) / 100;
     if (attackerHoldEffect == HOLD_EFFECT_MUSCLE_BAND && IS_TYPE_PHYSICAL(type))
         gBattleMovePower = (4505 * gBattleMovePower) / 4096;
     if (attackerHoldEffect == HOLD_EFFECT_WISE_GLASSES && IS_TYPE_SPECIAL(type))
@@ -3575,6 +3603,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (attacker->ability == ABILITY_RECKLESS
      && (gBattleMoves[gCurrentMove].effect == EFFECT_RECOIL || gBattleMoves[gCurrentMove].effect == EFFECT_RECOIL_IF_MISS))
         gBattleMovePower = (120 * gBattleMovePower) / 100;
+    if (attacker->ability == ABILITY_ANALYTIC
+     && gBattleMoves[gCurrentMove].effect != EFFECT_FUTURE_SIGHT
+     && IsLastMonToMoveThisTurn(battlerIdAtk))
+        gBattleMovePower = (130 * gBattleMovePower) / 100;
     if (attacker->ability == ABILITY_SHEER_FORCE
      && gBattleMoves[gCurrentMove].power != 0
      && gBattleMoves[gCurrentMove].secondaryEffectChance != 0
@@ -3655,7 +3687,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
 
         // Apply Reflect
-        if ((sideStatus & SIDE_STATUS_REFLECT) && !gIsCriticalHit)
+        if ((sideStatus & SIDE_STATUS_REFLECT)
+         && !gIsCriticalHit
+         && !(attacker->ability == ABILITY_INFILTRATOR && GetBattlerSide(battlerIdAtk) != GetBattlerSide(battlerIdDef)))
         {
             if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
                 damage = 2 * (damage / 3);
@@ -3706,7 +3740,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         damage /= 50;
 
         // Apply Lightscreen
-        if ((sideStatus & SIDE_STATUS_LIGHTSCREEN) && !gIsCriticalHit)
+        if ((sideStatus & SIDE_STATUS_LIGHTSCREEN)
+         && !gIsCriticalHit
+         && !(attacker->ability == ABILITY_INFILTRATOR && GetBattlerSide(battlerIdAtk) != GetBattlerSide(battlerIdDef)))
         {
             if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
                 damage = 2 * (damage / 3);
@@ -3770,12 +3806,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
     }
 
-    if (defender->ability == ABILITY_HEATPROOF && attacker->ability != ABILITY_MOLD_BREAKER && type == TYPE_FIRE)
+    if (defender->ability == ABILITY_HEATPROOF && !IsMoldBreakerTypeAbility(attacker->ability) && type == TYPE_FIRE)
         damage = (50 * damage) / 100;
-    if (defender->ability == ABILITY_DRY_SKIN && attacker->ability != ABILITY_MOLD_BREAKER && type == TYPE_FIRE)
+    if (defender->ability == ABILITY_DRY_SKIN && !IsMoldBreakerTypeAbility(attacker->ability) && type == TYPE_FIRE)
         damage = (125 * damage) / 100;
     if (defender->ability == ABILITY_MULTISCALE
-     && attacker->ability != ABILITY_MOLD_BREAKER
+     && !IsMoldBreakerTypeAbility(attacker->ability)
      && defender->hp == defender->maxHP)
         damage /= 2;
     if ((battlerIdDef ^ BIT_FLANK) < gBattlersCount

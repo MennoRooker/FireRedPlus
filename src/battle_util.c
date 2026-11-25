@@ -2546,6 +2546,21 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     gSpecialStatuses[battler].traced = 1;
                 }
                 break;
+            case ABILITY_IMPOSTER:
+            {
+                u8 target = GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_SIDE);
+                if (gBattleMons[target].hp
+                 && !(gBattleMons[target].status2 & STATUS2_SUBSTITUTE)
+                 && !(gBattleMons[target].status2 & STATUS2_TRANSFORMED)
+                 && !(gBattleMons[battler].status2 & STATUS2_TRANSFORMED))
+                {
+                    gBattlerAttacker = battler;
+                    gBattlerTarget = target;
+                    BattleScriptPushCursorAndCallback(BattleScript_ImposterActivates);
+                    effect++;
+                }
+                break;
+            }
             case ABILITY_CLOUD_NINE:
             case ABILITY_AIR_LOCK:
                 {
@@ -2996,6 +3011,44 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     effect++;
                 }
                 break;
+            case ABILITY_JUSTIFIED:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                 && TARGET_TURN_DAMAGED
+                 && gBattleMons[battler].hp != 0
+                 && moveType == TYPE_DARK
+                 && gBattleMons[battler].statStages[STAT_ATK] < MAX_STAT_STAGE)
+                {
+                    gBattleMons[battler].statStages[STAT_ATK]++;
+                    gBattleScripting.battler = battler;
+                    gBattleScripting.animArg1 = 14 + STAT_ATK;
+                    gBattleScripting.animArg2 = 0;
+                    gBattleScripting.statChanger = STAT_ATK + (1 << 4);
+                    gLastUsedAbility = ABILITY_JUSTIFIED;
+                    RecordAbilityBattle(battler, ABILITY_JUSTIFIED);
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_StatUp;
+                    effect++;
+                }
+                break;
+            case ABILITY_RATTLED:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                 && TARGET_TURN_DAMAGED
+                 && gBattleMons[battler].hp != 0
+                 && (moveType == TYPE_DARK || moveType == TYPE_BUG || moveType == TYPE_GHOST)
+                 && gBattleMons[battler].statStages[STAT_SPEED] < MAX_STAT_STAGE)
+                {
+                    gBattleMons[battler].statStages[STAT_SPEED]++;
+                    gBattleScripting.battler = battler;
+                    gBattleScripting.animArg1 = 14 + STAT_SPEED;
+                    gBattleScripting.animArg2 = 0;
+                    gBattleScripting.statChanger = STAT_SPEED + (1 << 4);
+                    gLastUsedAbility = ABILITY_RATTLED;
+                    RecordAbilityBattle(battler, ABILITY_RATTLED);
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_StatUp;
+                    effect++;
+                }
+                break;
             case ABILITY_CURSED_BODY:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                  && TARGET_TURN_DAMAGED
@@ -3012,6 +3065,24 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     PREPARE_MOVE_BUFFER(gBattleTextBuff1, gCurrentMove);
                     gLastUsedAbility = ABILITY_CURSED_BODY;
                     RecordAbilityBattle(battler, ABILITY_CURSED_BODY);
+                    effect++;
+                }
+                break;
+            case ABILITY_MUMMY:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                 && TARGET_TURN_DAMAGED
+                 && gBattleMons[battler].hp != 0
+                 && gBattleMons[gBattlerAttacker].hp != 0
+                 && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                 && (gBattleMoves[move].flags & FLAG_MAKES_CONTACT)
+                 && gBattleMons[gBattlerAttacker].ability != ABILITY_MUMMY
+                 && gBattleMons[gBattlerAttacker].ability != ABILITY_MULTITYPE
+                 && gBattleMons[gBattlerAttacker].ability != ABILITY_WONDER_GUARD
+                 && gBattleMons[gBattlerAttacker].ability != ABILITY_FORECAST)
+                {
+                    gLastUsedAbility = gBattleMons[gBattlerAttacker].ability;
+                    gBattleMons[gBattlerAttacker].ability = ABILITY_MUMMY;
+                    RecordAbilityBattle(battler, ABILITY_MUMMY);
                     effect++;
                 }
                 break;
@@ -3062,13 +3133,14 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 }
                 break;
             case ABILITY_ROUGH_SKIN:
+            case ABILITY_IRON_BARBS:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                  && gBattleMons[gBattlerAttacker].hp != 0
                  && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                  && TARGET_TURN_DAMAGED
                  && (gBattleMoves[move].flags & FLAG_MAKES_CONTACT))
                 {
-                    gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 16;
+                    gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / (gLastUsedAbility == ABILITY_IRON_BARBS ? 8 : 16);
                     if (gBattleMoveDamage == 0)
                         gBattleMoveDamage = 1;
                     BattleScriptPushCursor();

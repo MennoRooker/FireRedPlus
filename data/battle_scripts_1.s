@@ -5363,6 +5363,15 @@ BattleScript_TraceActivates::
 	waitmessage B_WAIT_TIME_LONG
 	end3
 
+BattleScript_ImposterActivates::
+	pause B_WAIT_TIME_SHORT
+	transformdataexecution
+	attackanimation
+	waitanimation
+	printfromtable gTransformUsedStringIds
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
 BattleScript_AnticipationActivates::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNSHUDDEREDWITHANTICIPATION
