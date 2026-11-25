@@ -1022,6 +1022,13 @@ static bool8 JumpIfMoveAffectedByProtect(u16 move)
 
 static bool8 AccuracyCalcHelper(u16 move)
 {
+    if (gBattleMons[gBattlerAttacker].ability == ABILITY_NO_GUARD
+     || gBattleMons[gBattlerTarget].ability == ABILITY_NO_GUARD)
+    {
+        JumpIfMoveFailed(7, move);
+        return TRUE;
+    }
+
     if (gStatuses3[gBattlerTarget] & STATUS3_ALWAYS_HITS && gDisableStructs[gBattlerTarget].battlerWithSureHit == gBattlerAttacker)
     {
         JumpIfMoveFailed(7, move);
@@ -1105,6 +1112,8 @@ static void Cmd_accuracycheck(void)
             move = gCurrentMove;
 
         GET_MOVE_TYPE(move, type);
+        if (gBattleMons[gBattlerAttacker].ability == ABILITY_NORMALIZE)
+            type = TYPE_NORMAL;
 
         if (JumpIfMoveAffectedByProtect(move))
             return;
@@ -1454,6 +1463,8 @@ static void Cmd_typecalc(void)
     gTypeEffectivenessMultiplier = 10;
 
     GET_MOVE_TYPE(gCurrentMove, moveType);
+    if (gBattleMons[gBattlerAttacker].ability == ABILITY_NORMALIZE)
+        moveType = TYPE_NORMAL;
 
     // Ion Deluge: convert Normal-type moves to Electric for the rest of the turn
     if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE) && moveType == TYPE_NORMAL)
@@ -1482,9 +1493,16 @@ static void Cmd_typecalc(void)
     if (IS_BATTLER_OF_TYPE(gBattlerAttacker, moveType)
      && !(moveType == TYPE_FLYING && (gStatuses3[gBattlerAttacker] & STATUS3_ROOST)))
     {
-        gBattleMoveDamage = gBattleMoveDamage * 15;
+        u8 stabMultiplier = gBattleMons[gBattlerAttacker].ability == ABILITY_ADAPTABILITY ? 20 : 15;
+        gBattleMoveDamage = gBattleMoveDamage * stabMultiplier;
         gBattleMoveDamage = gBattleMoveDamage / 10;
     }
+
+    if ((gBattleMons[gBattlerTarget].ability == ABILITY_FILTER
+      || gBattleMons[gBattlerTarget].ability == ABILITY_SOLID_ROCK)
+     && gBattleMons[gBattlerAttacker].ability != ABILITY_MOLD_BREAKER
+     && gTypeEffectivenessMultiplier >= 20)
+        gBattleMoveDamage = (75 * gBattleMoveDamage) / 100;
 
     // Gravity: grounds all battlers — Levitate ability and Flying-type Ground immunity are ignored.
     if (moveType == TYPE_GROUND && (gFieldStatuses & STATUS_FIELD_GRAVITY))
@@ -1525,7 +1543,9 @@ static void Cmd_typecalc(void)
         gBattleCommunication[MISS_TYPE] = B_MSG_GROUND_MISS;
     }
     // Levitate ability: immune to Ground.
-    else if (gBattleMons[gBattlerTarget].ability == ABILITY_LEVITATE && moveType == TYPE_GROUND)
+    else if (gBattleMons[gBattlerTarget].ability == ABILITY_LEVITATE
+          && gBattleMons[gBattlerAttacker].ability != ABILITY_MOLD_BREAKER
+          && moveType == TYPE_GROUND)
     {
         gLastUsedAbility = gBattleMons[gBattlerTarget].ability;
         gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
@@ -1795,7 +1815,8 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
     // check stab
     if (IS_BATTLER_OF_TYPE(attacker, moveType))
     {
-        gBattleMoveDamage = gBattleMoveDamage * 15;
+        u8 stabMultiplier = gBattleMons[attacker].ability == ABILITY_ADAPTABILITY ? 20 : 15;
+        gBattleMoveDamage = gBattleMoveDamage * stabMultiplier;
         gBattleMoveDamage = gBattleMoveDamage / 10;
     }
 
@@ -2641,6 +2662,18 @@ void SetMoveEffect(bool8 primary, u8 certain)
 
     if (gBattleMons[gEffectBattler].status2 & STATUS2_SUBSTITUTE && affectsUser != MOVE_EFFECT_AFFECTS_USER)
         INCREMENT_RETURN
+
+    if (gBattleMons[gEffectBattler].ability == ABILITY_LEAF_GUARD
+     && gBattleMons[gBattlerAttacker].ability != ABILITY_MOLD_BREAKER
+     && WEATHER_HAS_EFFECT
+     && gBattleWeather & B_WEATHER_SUN
+     && gBattleCommunication[MOVE_EFFECT_BYTE] <= PRIMARY_STATUS_MOVE_EFFECT)
+    {
+        gLastUsedAbility = ABILITY_LEAF_GUARD;
+        RecordAbilityBattle(gEffectBattler, ABILITY_LEAF_GUARD);
+        gBattlescriptCurrInstr++;
+        return;
+    }
 
     if (gBattleCommunication[MOVE_EFFECT_BYTE] <= PRIMARY_STATUS_MOVE_EFFECT)
     {
@@ -8246,7 +8279,11 @@ static void Cmd_setmultihitcounter(void)
     {
         holdEffect = ItemId_GetHoldEffect(gBattleMons[gBattlerAttacker].item);
 
-        if (holdEffect == HOLD_EFFECT_LOADED_DICE)
+        if (gBattleMons[gBattlerAttacker].ability == ABILITY_SKILL_LINK)
+        {
+            gMultiHitCounter = 5;
+        }
+        else if (holdEffect == HOLD_EFFECT_LOADED_DICE)
         {
             gMultiHitCounter = (Random() & 1) + 4;
         }
@@ -8638,6 +8675,7 @@ static void Cmd_weatherdamage(void)
                 && gBattleMons[gBattlerAttacker].type2 != TYPE_STEEL
                 && gBattleMons[gBattlerAttacker].type2 != TYPE_GROUND
                 && gBattleMons[gBattlerAttacker].ability != ABILITY_SAND_VEIL
+                && gBattleMons[gBattlerAttacker].ability != ABILITY_MAGIC_GUARD
                 && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERGROUND)
                 && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER))
             {
@@ -8654,6 +8692,7 @@ static void Cmd_weatherdamage(void)
         {
             if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ICE)
                 && gBattleMons[gBattlerAttacker].ability != ABILITY_SNOW_CLOAK
+                && gBattleMons[gBattlerAttacker].ability != ABILITY_MAGIC_GUARD
                 && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERGROUND)
                 && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER))
             {

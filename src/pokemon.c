@@ -3195,6 +3195,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         type = gBattleMoves[move].type;
     else
         type = typeOverride & DYNAMIC_TYPE_MASK;
+    if (attacker->ability == ABILITY_NORMALIZE)
+        type = TYPE_NORMAL;
 
     switch (gBattleMoves[move].effect)
     {
@@ -3489,7 +3491,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
     if (attackerHoldEffect == HOLD_EFFECT_THICK_CLUB && (attacker->species == SPECIES_CUBONE || attacker->species == SPECIES_MAROWAK))
         attack *= 2;
-    if (defender->ability == ABILITY_THICK_FAT && (type == TYPE_FIRE || type == TYPE_ICE))
+    if (attacker->ability == ABILITY_IRON_FIST && IsPunchingMove(gCurrentMove))
+        gBattleMovePower = (150 * gBattleMovePower) / 100;
+    if (defender->ability == ABILITY_THICK_FAT && attacker->ability != ABILITY_MOLD_BREAKER && (type == TYPE_FIRE || type == TYPE_ICE))
         spAttack /= 2;
     if (attacker->ability == ABILITY_HUSTLE)
         attack = (150 * attack) / 100;
@@ -3525,7 +3529,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         gBattleMovePower = (150 * gBattleMovePower) / 100;
     if (type == TYPE_BUG && attacker->ability == ABILITY_SWARM && attacker->hp <= (attacker->maxHP / 2))
         gBattleMovePower = (150 * gBattleMovePower) / 100;
-    if (attacker->ability == ABILITY_TECHNICIAN && gBattleMovePower > 1 && gBattleMovePower <= 60)
+    if (attacker->ability == ABILITY_TECHNICIAN && gBattleMovePower <= 60)
         gBattleMovePower = (150 * gBattleMovePower) / 100;
 
     // Self-destruct / Explosion cut defense in half
@@ -3685,8 +3689,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             damage = (15 * damage) / 10;
     }
 
-    if (defender->ability == ABILITY_HEATPROOF && type == TYPE_FIRE)
+    if (defender->ability == ABILITY_HEATPROOF && attacker->ability != ABILITY_MOLD_BREAKER && type == TYPE_FIRE)
         damage = (50 * damage) / 100;
+    if (defender->ability == ABILITY_DRY_SKIN && attacker->ability != ABILITY_MOLD_BREAKER && type == TYPE_FIRE)
+        damage = (125 * damage) / 100;
+    if (gIsCriticalHit && attacker->ability == ABILITY_SNIPER)
+        damage = (150 * damage) / 100;
 
     return damage + 2;
 }
