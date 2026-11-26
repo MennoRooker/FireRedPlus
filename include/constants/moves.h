@@ -631,8 +631,12 @@
 #define MOVE_THOUSAND_WAVES 615
 #define MOVE_LANDS_WRATH 616
 #define MOVE_LIGHT_OF_RUIN 617
+#define MOVE_ORIGIN_PULSE 618
+#define MOVE_PRECIPICE_BLADES 619
+#define MOVE_DRAGON_ASCENT 620
+#define MOVE_HYPERSPACE_FURY 621
 
-#define MOVES_COUNT 618
+#define MOVES_COUNT 622
 
 // Used for checks for moves affected by Disable, Mimic, etc.
 #define MOVE_UNAVAILABLE 0xFFFF

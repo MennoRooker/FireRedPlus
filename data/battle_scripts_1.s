@@ -346,6 +346,8 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectVCreate               @ EFFECT_V_CREATE
 	.4byte BattleScript_EffectSleepHit              @ EFFECT_SLEEP_HIT
 	.4byte BattleScript_EffectDefenseUp2Hit         @ EFFECT_DEFENSE_UP_2_HIT
+	.4byte BattleScript_EffectCloseCombat           @ EFFECT_CLOSE_COMBAT
+	.4byte BattleScript_EffectHyperspaceFury        @ EFFECT_HYPERSPACE_FURY
 
 BattleScript_EffectSpeedUpHit::
 	setmoveeffect MOVE_EFFECT_SPD_PLUS_1 | MOVE_EFFECT_AFFECTS_USER
@@ -364,6 +366,12 @@ BattleScript_EffectSleepHit::
 	goto BattleScript_EffectHit
 BattleScript_EffectDefenseUp2Hit::
 	setmoveeffect MOVE_EFFECT_DEF_PLUS_2 | MOVE_EFFECT_AFFECTS_USER
+	goto BattleScript_EffectHit
+BattleScript_EffectCloseCombat::
+	setmoveeffect MOVE_EFFECT_CLOSE_COMBAT | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+	goto BattleScript_EffectHit
+BattleScript_EffectHyperspaceFury::
+	setmoveeffect MOVE_EFFECT_DEF_MINUS_1 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 BattleScript_EffectAcrobatics::
 	goto BattleScript_EffectHit
@@ -6091,6 +6099,26 @@ BattleScript_DefSpDefSpdDownSpDefFail::
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_DefSpDefSpdDownEnd::
+	return
+
+@ Dragon Ascent: lower Def/SpDef for user
+BattleScript_CloseCombat::
+	setbyte sSTAT_ANIM_PLAYED, FALSE
+	playstatchangeanimation BS_ATTACKER, BIT_DEF | BIT_SPDEF, STAT_CHANGE_CANT_PREVENT | STAT_CHANGE_NEGATIVE | STAT_CHANGE_MULTIPLE_STATS
+	playstatchangeanimation BS_ATTACKER, BIT_DEF, STAT_CHANGE_CANT_PREVENT | STAT_CHANGE_NEGATIVE
+	setstatchanger STAT_DEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN | STAT_CHANGE_ALLOW_PTR, BattleScript_CloseCombatDefFail
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_CloseCombatDefFail
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_CloseCombatDefFail::
+	playstatchangeanimation BS_ATTACKER, BIT_SPDEF, STAT_CHANGE_NEGATIVE | STAT_CHANGE_CANT_PREVENT
+	setstatchanger STAT_SPDEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_CERTAIN, BattleScript_CloseCombatEnd
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_CloseCombatEnd
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_CloseCombatEnd::
 	return
 
 @ Sticky Web: lower Speed by 1 on switch-in (non-Flying, non-Levitate)

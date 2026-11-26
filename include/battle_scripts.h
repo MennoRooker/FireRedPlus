@@ -274,6 +274,7 @@ extern const u8 BattleScript_StealthRockOnTarget[];
 extern const u8 BattleScript_StealthRockOnFaintedBattler[];
 // Gen 5/6 effect scripts
 extern const u8 BattleScript_DefSpDefSpdDown[];
+extern const u8 BattleScript_CloseCombat[];
 extern const u8 BattleScript_StickyWebOnSwitchIn[];
 extern const u8 BattleScript_WonderRoomEnds[];
 extern const u8 BattleScript_MagicRoomEnds[];

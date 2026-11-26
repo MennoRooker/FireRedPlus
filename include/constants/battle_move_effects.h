@@ -328,5 +328,7 @@
 #define EFFECT_V_CREATE                  321 // Hit + lower user's Def/Sp. Def/Speed by 1 (V-create)
 #define EFFECT_SLEEP_HIT                 322 // Hit + 10% sleep chance (Relic Song)
 #define EFFECT_DEFENSE_UP_2_HIT          323 // Hit + 50% chance to raise user's Def by 2 (Diamond Storm)
+#define EFFECT_CLOSE_COMBAT              324 // Hit + lower user's Def/Sp. Def by 1
+#define EFFECT_HYPERSPACE_FURY           325 // Hit + lower user's Def by 1
 
 #endif  // GUARD_CONSTANTS_BATTLE_MOVE_EFFECTS_H
