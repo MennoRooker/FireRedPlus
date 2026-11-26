@@ -361,6 +361,10 @@ const u8 gMoveDescription_NightSlash[] = _("The user slashes\nwith dark claws.\n
 const u8 gMoveDescription_FireFang[] = _("The user bites\nwith scorching\nfangs. May burn\nthe foe.");
 const u8 gMoveDescription_ThunderFang[] = _("The user bites\nwith electric\nfangs. May also\nparalyze the foe.");
 const u8 gMoveDescription_IceFang[] = _("The user bites\nwith icy fangs.\nMay freeze the\nfoe.");
+const u8 gMoveDescription_OriginPulse[] = _("Beams of glowing\nblue light blast\nall adjacent foes.");
+const u8 gMoveDescription_PrecipiceBlades[] = _("Fearsome blades\nof stone attack\nall adjacent foes.");
+const u8 gMoveDescription_DragonAscent[] = _("Drops from the sky\nfor a strong hit,\nbut lowers the\nuser's defenses.");
+const u8 gMoveDescription_HyperspaceFury[] = _("Ignores protection,\nbut lowers the\nuser's DEFENSE.");
 
 
 const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] = {
@@ -724,4 +728,8 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] = {
     [MOVE_FIRE_FANG     - 1] = gMoveDescription_FireFang,
     [MOVE_THUNDER_FANG  - 1] = gMoveDescription_ThunderFang,
     [MOVE_ICE_FANG      - 1] = gMoveDescription_IceFang,
+    [MOVE_ORIGIN_PULSE   - 1] = gMoveDescription_OriginPulse,
+    [MOVE_PRECIPICE_BLADES - 1] = gMoveDescription_PrecipiceBlades,
+    [MOVE_DRAGON_ASCENT  - 1] = gMoveDescription_DragonAscent,
+    [MOVE_HYPERSPACE_FURY - 1] = gMoveDescription_HyperspaceFury,
 };
