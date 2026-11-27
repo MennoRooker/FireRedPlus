@@ -363,9 +363,8 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_HM06]             = {gItemIcon_TMHM, gItemIconPalette_FightingTMHM},
     [ITEM_HM07]             = {gItemIcon_TMHM, gItemIconPalette_WaterTMHM},
     [ITEM_HM08]             = {gItemIcon_TMHM, gItemIconPalette_WaterTMHM},
-    // ????????
-    [ITEM_15B]              = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_15C]              = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_HM09]             = {gItemIcon_TMHM, gItemIconPalette_FlyingTMHM},
+    [ITEM_HM10]             = {gItemIcon_TMHM, gItemIconPalette_RockTMHM},
     // FireRed/LeafGreen
     [ITEM_OAKS_PARCEL]      = {gItemIcon_OaksParcel, gItemIconPalette_OaksParcel},
     [ITEM_POKE_FLUTE]       = {gItemIcon_PokeFlute, gItemIconPalette_PokeFlute},
