@@ -79,7 +79,6 @@ static struct EggHatchData *sEggHatchData;
 EWRAM_DATA static u16 sHatchedEggLevelUpMoves[EGG_LVL_UP_MOVES_ARRAY_COUNT] = {0};
 EWRAM_DATA static u16 sHatchedEggFatherMoves[4] = {0};
 EWRAM_DATA static u16 sHatchedEggFinalMoves[4] = {0};
-EWRAM_DATA static u16 sHatchedEggEggMoves[EGG_MOVES_ARRAY_COUNT] = {0};
 EWRAM_DATA static u16 sHatchedEggMotherMoves[4] = {0};
 
 #include "data/pokemon/egg_moves.h"
@@ -870,47 +869,11 @@ static u8 GetMonDataIdFromStatIndexForIv(u8 statIndex)
     }
 }
 
-// Counts the number of egg moves a pokemon learns and stores the moves in
-// the given array.
-static u8 GetEggMoves(struct Pokemon *pokemon, u16 *eggMoves)
-{
-    u16 eggMoveIdx;
-    u16 numEggMoves;
-    u16 species;
-    u16 i;
-
-    numEggMoves = 0;
-    eggMoveIdx = 0;
-    species = GetMonData(pokemon, MON_DATA_SPECIES);
-    for (i = 0; i < NELEMS(gEggMoves) - 1; i++)
-    {
-        if (gEggMoves[i] == species + EGG_MOVES_SPECIES_OFFSET)
-        {
-            eggMoveIdx = i + 1;
-            break;
-        }
-    }
-
-    for (i = 0; i < EGG_MOVES_ARRAY_COUNT; i++)
-    {
-        if (gEggMoves[eggMoveIdx + i] > EGG_MOVES_SPECIES_OFFSET)
-        {
-            // TODO: the curly braces around this if statement are required for a matching build.
-            break;
-        }
-
-        eggMoves[i] = gEggMoves[eggMoveIdx + i];
-        numEggMoves++;
-    }
-
-    return numEggMoves;
-}
-
 static void BuildEggMoveset(struct Pokemon *egg, struct BoxPokemon *father, struct BoxPokemon *mother)
 {
     u16 numSharedParentMoves;
     u32 numLevelUpMoves;
-    u16 numEggMoves;
+    const u16 *eggMoves;
     u16 i, j;
 
     numSharedParentMoves = 0;
@@ -920,8 +883,6 @@ static void BuildEggMoveset(struct Pokemon *egg, struct BoxPokemon *father, stru
         sHatchedEggFatherMoves[i] = MOVE_NONE;
         sHatchedEggFinalMoves[i] = MOVE_NONE;
     }
-    for (i = 0; i < EGG_MOVES_ARRAY_COUNT; i++)
-        sHatchedEggEggMoves[i] = MOVE_NONE;
     for (i = 0; i < EGG_LVL_UP_MOVES_ARRAY_COUNT; i++)
         sHatchedEggLevelUpMoves[i] = MOVE_NONE;
 
@@ -932,15 +893,15 @@ static void BuildEggMoveset(struct Pokemon *egg, struct BoxPokemon *father, stru
         sHatchedEggMotherMoves[i] = GetBoxMonData(mother, MON_DATA_MOVE1 + i);
     }
 
-    numEggMoves = GetEggMoves(egg, sHatchedEggEggMoves);
+    eggMoves = GetSpeciesEggMoves(GetMonData(egg, MON_DATA_SPECIES));
 
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
         if (sHatchedEggFatherMoves[i] != MOVE_NONE)
         {
-            for (j = 0; j < numEggMoves; j++)
+            for (j = 0; eggMoves[j] != MOVE_UNAVAILABLE; j++)
             {
-                if (sHatchedEggFatherMoves[i] == sHatchedEggEggMoves[j])
+                if (sHatchedEggFatherMoves[i] == eggMoves[j])
                 {
                     if (GiveMoveToMon(egg, sHatchedEggFatherMoves[i]) == MON_HAS_MAX_MOVES)
                         DeleteFirstMoveAndGiveMoveToMon(egg, sHatchedEggFatherMoves[i]);
