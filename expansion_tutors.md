@@ -8,6 +8,14 @@
 - Project tutor move universe: **15**
 - Missing tutor moves: **95**
 
+## Shared with TM list
+- `MOVE_DARK_PULSE`
+- `MOVE_DRAGON_PULSE`
+- `MOVE_DRAIN_PUNCH`
+- `MOVE_RECYCLE`
+- `MOVE_ROOST`
+- `MOVE_STEALTH_ROCK`
+
 ## Missing tutor moves
 - `MOVE_AFTER_YOU` (Gen 5)
 - `MOVE_AIR_CUTTER` (Gen 3)
@@ -19,13 +27,13 @@
 - `MOVE_BOUNCE` (Gen 3)
 - `MOVE_BUG_BITE` (Gen 4)
 - `MOVE_COVET` (Gen 3)
-- `MOVE_DARK_PULSE` (Gen 4)
+- `MOVE_DARK_PULSE` (Gen 4) **[also in TM list]**
 - `MOVE_DEFENSE_CURL` (Gen 1)
 - `MOVE_DIVE` (Gen 3)
 - `MOVE_DRACO_METEOR` (Gen 4)
 - `MOVE_DRAGON_ASCENT` (Gen 6)
-- `MOVE_DRAGON_PULSE` (Gen 4)
-- `MOVE_DRAIN_PUNCH` (Gen 4)
+- `MOVE_DRAGON_PULSE` (Gen 4) **[also in TM list]**
+- `MOVE_DRAIN_PUNCH` (Gen 4) **[also in TM list]**
 - `MOVE_DRILL_RUN` (Gen 5)
 - `MOVE_DUAL_CHOP` (Gen 5)
 - `MOVE_DYNAMIC_PUNCH` (Gen 2)
@@ -69,11 +77,11 @@
 - `MOVE_OUTRAGE` (Gen 2)
 - `MOVE_PAIN_SPLIT` (Gen 2)
 - `MOVE_PSYCH_UP` (Gen 2)
-- `MOVE_RECYCLE` (Gen 3)
+- `MOVE_RECYCLE` (Gen 3) **[also in TM list]**
 - `MOVE_RELIC_SONG` (Gen 5)
 - `MOVE_ROLE_PLAY` (Gen 3)
 - `MOVE_ROLLOUT` (Gen 2)
-- `MOVE_ROOST` (Gen 4)
+- `MOVE_ROOST` (Gen 4) **[also in TM list]**
 - `MOVE_SECRET_SWORD` (Gen 5)
 - `MOVE_SEED_BOMB` (Gen 4)
 - `MOVE_SHOCK_WAVE` (Gen 3)
@@ -84,7 +92,7 @@
 - `MOVE_SNATCH` (Gen 3)
 - `MOVE_SNORE` (Gen 2)
 - `MOVE_SPITE` (Gen 2)
-- `MOVE_STEALTH_ROCK` (Gen 4)
+- `MOVE_STEALTH_ROCK` (Gen 4) **[also in TM list]**
 - `MOVE_STRING_SHOT` (Gen 1)
 - `MOVE_SUCKER_PUNCH` (Gen 4)
 - `MOVE_SUPERPOWER` (Gen 3)

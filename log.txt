@@ -1899,6 +1899,9 @@ have instructed the model to alter Rivalry to only boost
 same-sex damaging moves and to not lower opposite-sex moves
 at all.
 
+Gens 1-3 learnsets are implemented for level up, TMs and for
+tutors. All that is left for these mons is egg moves.
+
 
 TO DO:
 x Force SET mode

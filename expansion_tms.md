@@ -10,6 +10,14 @@
 - Project TM move universe: **50**
 - Missing TM moves: **60**
 
+## Shared with tutor list
+- `MOVE_DARK_PULSE`
+- `MOVE_DRAGON_PULSE`
+- `MOVE_DRAIN_PUNCH`
+- `MOVE_RECYCLE`
+- `MOVE_ROOST`
+- `MOVE_STEALTH_ROCK`
+
 ## Missing TM moves
 - `MOVE_ACROBATICS` (Gen 5)
 - `MOVE_ALLY_SWITCH` (Gen 5)
@@ -19,11 +27,11 @@
 - `MOVE_CAPTIVATE` (Gen 4)
 - `MOVE_CHARGE_BEAM` (Gen 4)
 - `MOVE_CONFIDE` (Gen 6)
-- `MOVE_DARK_PULSE` (Gen 4)
+- `MOVE_DARK_PULSE` (Gen 4) **[also in tutor list]**
 - `MOVE_DAZZLING_GLEAM` (Gen 6)
-- `MOVE_DRAGON_PULSE` (Gen 4)
+- `MOVE_DRAGON_PULSE` (Gen 4) **[also in tutor list]**
 - `MOVE_DRAGON_TAIL` (Gen 5)
-- `MOVE_DRAIN_PUNCH` (Gen 4)
+- `MOVE_DRAIN_PUNCH` (Gen 4) **[also in tutor list]**
 - `MOVE_ECHOED_VOICE` (Gen 5)
 - `MOVE_EMBARGO` (Gen 4)
 - `MOVE_ENERGY_BALL` (Gen 4)
@@ -47,10 +55,10 @@
 - `MOVE_POWER_UP_PUNCH` (Gen 6)
 - `MOVE_PSYSHOCK` (Gen 5)
 - `MOVE_QUASH` (Gen 5)
-- `MOVE_RECYCLE` (Gen 3)
+- `MOVE_RECYCLE` (Gen 3) **[also in tutor list]**
 - `MOVE_RETALIATE` (Gen 5)
 - `MOVE_ROCK_POLISH` (Gen 4)
-- `MOVE_ROOST` (Gen 4)
+- `MOVE_ROOST` (Gen 4) **[also in tutor list]**
 - `MOVE_ROUND` (Gen 5)
 - `MOVE_SCALD` (Gen 5)
 - `MOVE_SHADOW_CLAW` (Gen 4)
@@ -59,7 +67,7 @@
 - `MOVE_SLUDGE_WAVE` (Gen 5)
 - `MOVE_SMACK_DOWN` (Gen 5)
 - `MOVE_SNARL` (Gen 5)
-- `MOVE_STEALTH_ROCK` (Gen 4)
+- `MOVE_STEALTH_ROCK` (Gen 4) **[also in tutor list]**
 - `MOVE_STONE_EDGE` (Gen 4)
 - `MOVE_STRUGGLE_BUG` (Gen 5)
 - `MOVE_TELEKINESIS` (Gen 5)
